@@ -1,5 +1,14 @@
 function App() {
-  return <div>Hello World</div>;
+  return (
+    <form>
+      <input
+        id="dinosaur_name"
+        name="dinosaur_name"
+        className="dinosaur-input"
+        aria-describedby="dinosaur_name_info"
+      />
+    </form>
+  );
 }
 
 export default App;
