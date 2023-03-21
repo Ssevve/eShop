@@ -1,13 +1,29 @@
 import { render, screen } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
+import { describe, test, expect } from 'vitest';
+import { MemoryRouter } from 'react-router-dom';
 
-import App from './App';
+import { App } from './App';
 
 describe('App', () => {
-  it('Renders h1 with Hello text', () => {
-    render(<App />);
+  test('Renders home page if path is "/"', () => {
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <App />
+      </MemoryRouter>
+    );
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
-      /hello!/i
+      /home page/i
+    );
+  });
+
+  test('Renders not found page if invalid path', () => {
+    render(
+      <MemoryRouter initialEntries={['/bad-route']}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
+      /not found/i
     );
   });
 });

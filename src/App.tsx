@@ -1,9 +1,21 @@
-function App() {
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import Home from './pages/Home';
+import NotFound from './pages/NotFound';
+
+export function App() {
   return (
-    <form>
-      <h1>Hello!</h1>
-    </form>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 }
 
-export default App;
+export function AppWithRouter() {
+  return (
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  );
+}
