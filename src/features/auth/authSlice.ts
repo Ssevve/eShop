@@ -2,43 +2,24 @@
 import {
   createSlice,
   createAsyncThunk,
-  Action,
   AnyAction,
+  ActionReducerMapBuilder,
 } from '@reduxjs/toolkit';
-import { createUserWithEmailAndPassword, UserCredential } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from 'firebase/auth';
+import { RootState } from 'app/store';
 import auth from 'firebaseConfig';
-
-export interface UserLoginData {
-  email: string;
-  password: string;
-}
-
-enum RequestStatuses {
-  IDLE = 'IDLE',
-  PENDING = 'PENDING',
-  ERROR = 'ERROR',
-  SUCCESS = 'SUCCESS',
-}
-
-interface AuthState {
-  user: UserCredential | null;
-  status: RequestStatuses;
-  errorMessage: string;
-}
+import { AuthState } from 'types/AuthState';
+import { UserLoginData } from 'types/UserLoginData';
 
 const initialState: AuthState = {
   user: null,
-  status: RequestStatuses.IDLE,
+  status: 'IDLE',
   errorMessage: '',
 };
-
-// interface RejectedAction extends Action {
-//   error: Error;
-// }
-
-// function isRejectedAction(action: AnyAction): action is RejectedAction {
-//   return action.type.endsWith('rejected');
-// }
 
 function isRejectedAction(action: AnyAction) {
   return action.type.endsWith('rejected');
@@ -54,32 +35,41 @@ function isFulfilledAction(action: AnyAction) {
 
 export const registerUser = createAsyncThunk(
   'auth/registerUser',
-  async ({ email, password }: UserLoginData) => {
-    const res = await createUserWithEmailAndPassword(auth, email, password);
-    return res;
-  }
+  ({ email, password }: UserLoginData) =>
+    createUserWithEmailAndPassword(auth, email, password)
+);
+
+export const loginUser = createAsyncThunk(
+  'auth/loginUser',
+  ({ email, password }: UserLoginData) =>
+    signInWithEmailAndPassword(auth, email, password)
+);
+
+export const logoutUser = createAsyncThunk('auth/logoutUser', () =>
+  signOut(auth)
 );
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
-    builder.addMatcher(isPendingAction, (state) => {
-      state.status = RequestStatuses.PENDING;
+  extraReducers: (builder: ActionReducerMapBuilder<AuthState>) => {
+    builder.addMatcher(isPendingAction, (state: AuthState) => {
+      state.status = 'PENDING';
       state.errorMessage = '';
     });
-    builder.addMatcher(isFulfilledAction, (state, action) => {
-      state.status = RequestStatuses.SUCCESS;
+    builder.addMatcher(isFulfilledAction, (state: AuthState, action) => {
+      state.status = 'SUCCESS';
       state.errorMessage = '';
-      state.user = action.payload;
+      state.user = action.payload?.user || null;
     });
-    builder.addMatcher(isRejectedAction, (state, action) => {
-      console.log(action);
-      state.status = RequestStatuses.ERROR;
+    builder.addMatcher(isRejectedAction, (state: AuthState, action) => {
+      state.status = 'ERROR';
       state.errorMessage = action.error.code || '';
     });
   },
 });
+
+export const selectCurrentUser = (state: RootState) => state.auth.user;
 
 export default authSlice.reducer;
