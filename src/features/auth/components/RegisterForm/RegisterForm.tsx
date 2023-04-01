@@ -13,7 +13,7 @@ import {
   RegisterSchema,
 } from 'features/auth/schemas/registerSchema';
 
-import Logo from 'components/common/Logo';
+import Logo from 'components/common/Logo/Logo';
 import Input from 'components/common/Input';
 
 function RegisterForm() {
@@ -39,6 +39,7 @@ function RegisterForm() {
 
   return (
     <form
+      aria-label="Register"
       className="mx-auto flex shrink basis-96 flex-col gap-4 rounded-sm bg-white p-6 drop-shadow-md"
       onSubmit={handleSubmit(onSubmit)}
     >
