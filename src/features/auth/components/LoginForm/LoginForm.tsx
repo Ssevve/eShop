@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { RootState, useAppDispatch } from 'app/store';
+import { RootState } from 'app/store';
+import { useAppDispatch } from 'app/hooks';
 import { loginUser, resetAuthStatusAndErrors } from 'features/auth/authSlice';
 import { loginSchema, LoginSchema } from 'features/auth/schemas/loginSchema';
 

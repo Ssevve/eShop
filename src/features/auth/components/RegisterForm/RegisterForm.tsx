@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useAppDispatch } from 'app/store';
+import { useAppDispatch } from 'app/hooks';
 import {
   registerUser,
   resetAuthStatusAndErrors,

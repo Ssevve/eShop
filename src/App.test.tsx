@@ -1,12 +1,18 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { describe, test, expect } from 'vitest';
 import { MemoryRouter } from 'react-router-dom';
 
-import { App } from './App';
+import renderWithProviders from 'utils/renderWithProviders';
+import { App, AppWithRouter } from './App';
 
 describe('App', () => {
+  test('Renders page navigation', () => {
+    renderWithProviders(<AppWithRouter />);
+    expect(screen.getByRole('navigation')).toBeInTheDocument();
+  });
+
   test('Renders home page if path is "/"', () => {
-    render(
+    renderWithProviders(
       <MemoryRouter initialEntries={['/']}>
         <App />
       </MemoryRouter>
@@ -17,7 +23,7 @@ describe('App', () => {
   });
 
   test('Renders not found page if invalid path', () => {
-    render(
+    renderWithProviders(
       <MemoryRouter initialEntries={['/bad-route']}>
         <App />
       </MemoryRouter>

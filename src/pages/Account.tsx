@@ -1,4 +1,4 @@
-import { useAppDispatch } from 'app/store';
+import { useAppDispatch } from 'app/hooks';
 import { logoutUser } from 'features/auth/authSlice';
 
 function Account() {
