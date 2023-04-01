@@ -9,7 +9,7 @@ import { useAppDispatch } from 'app/hooks';
 import { loginUser, resetAuthStatusAndErrors } from 'features/auth/authSlice';
 import { loginSchema, LoginSchema } from 'features/auth/schemas/loginSchema';
 
-import Logo from 'components/common/Logo';
+import Logo from 'components/common/Logo/Logo';
 import Input from 'components/common/Input';
 
 function LoginForm() {
@@ -49,6 +49,7 @@ function LoginForm() {
 
   return (
     <form
+      aria-label="Log in"
       onSubmit={handleSubmit(onSubmit)}
       className="mx-auto flex shrink basis-96 flex-col gap-4 rounded-sm bg-white p-6 drop-shadow-md"
     >
