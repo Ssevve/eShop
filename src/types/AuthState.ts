@@ -1,7 +1,16 @@
-import { UserCredential } from 'firebase/auth';
+import { User } from 'firebase/auth';
 
-export interface AuthState {
-  user: UserCredential | null;
-  status: string;
-  errorMessage: string;
+type Status = 'IDLE' | 'PENDING' | 'ERROR' | 'SUCCESS';
+
+interface Error {
+  server: boolean;
+  invalidCredentials: boolean;
 }
+
+interface AuthState {
+  user: User | null;
+  status: Status;
+  error: Error;
+}
+
+export default AuthState;

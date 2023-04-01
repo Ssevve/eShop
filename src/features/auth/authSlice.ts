@@ -2,46 +2,54 @@
 import {
   createSlice,
   createAsyncThunk,
-  AnyAction,
+  Action,
   ActionReducerMapBuilder,
+  PayloadAction,
+  SerializedError,
 } from '@reduxjs/toolkit';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  UserCredential,
+  User,
 } from 'firebase/auth';
 import { RootState } from 'app/store';
 import auth from 'firebaseConfig';
-import { AuthState } from 'types/AuthState';
-import { UserLoginData } from 'types/UserLoginData';
+import AuthState from 'types/AuthState';
+import { LoginSchema } from 'features/auth/schemas/loginSchema';
+import FirebaseErrors from 'features/auth/firebaseErrors';
+import {
+  AnyAsyncThunk,
+  RejectedActionFromAsyncThunk,
+} from '@reduxjs/toolkit/dist/matchers';
 
 const initialState: AuthState = {
   user: null,
   status: 'IDLE',
-  errorMessage: '',
+  error: {
+    server: false,
+    invalidCredentials: false,
+  },
 };
 
-function isRejectedAction(action: AnyAction) {
+function isRejectedAction(action: PayloadAction<SerializedError, string>) {
   return action.type.endsWith('rejected');
 }
 
-function isPendingAction(action: AnyAction) {
+function isPendingAction(action: Action) {
   return action.type.endsWith('pending');
-}
-
-function isFulfilledAction(action: AnyAction) {
-  return action.type.endsWith('fulfilled');
 }
 
 export const registerUser = createAsyncThunk(
   'auth/registerUser',
-  ({ email, password }: UserLoginData) =>
+  ({ email, password }: LoginSchema) =>
     createUserWithEmailAndPassword(auth, email, password)
 );
 
 export const loginUser = createAsyncThunk(
   'auth/loginUser',
-  ({ email, password }: UserLoginData) =>
+  ({ email, password }: LoginSchema) =>
     signInWithEmailAndPassword(auth, email, password)
 );
 
@@ -52,23 +60,63 @@ export const logoutUser = createAsyncThunk('auth/logoutUser', () =>
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    setUser(state: AuthState, action: PayloadAction<User | null>) {
+      state.user = action.payload;
+    },
+    resetAuthStatusAndErrors(state: AuthState) {
+      state.status = 'IDLE';
+      state.error.invalidCredentials = false;
+      state.error.server = false;
+    },
+  },
   extraReducers: (builder: ActionReducerMapBuilder<AuthState>) => {
-    builder.addMatcher(isPendingAction, (state: AuthState) => {
-      state.status = 'PENDING';
-      state.errorMessage = '';
-    });
-    builder.addMatcher(isFulfilledAction, (state: AuthState, action) => {
-      state.status = 'SUCCESS';
-      state.errorMessage = '';
-      state.user = action.payload?.user || null;
-    });
-    builder.addMatcher(isRejectedAction, (state: AuthState, action) => {
-      state.status = 'ERROR';
-      state.errorMessage = action.error.code || '';
-    });
+    builder
+      .addCase(
+        loginUser.fulfilled,
+        (state: AuthState, action: PayloadAction<UserCredential>) => {
+          state.status = 'SUCCESS';
+          state.user = action.payload.user;
+        }
+      )
+      .addCase(
+        registerUser.fulfilled,
+        (state: AuthState, action: PayloadAction<UserCredential>) => {
+          state.status = 'SUCCESS';
+          state.user = action.payload.user;
+        }
+      )
+      .addCase(logoutUser.fulfilled, (state: AuthState) => {
+        state.status = 'SUCCESS';
+        state.user = null;
+      })
+      .addMatcher(isPendingAction, (state: AuthState) => {
+        state.status = 'PENDING';
+        state.error.server = false;
+        state.error.invalidCredentials = false;
+      })
+      .addMatcher(
+        isRejectedAction,
+        (
+          state: AuthState,
+          // TODO: look into more thunk actions
+          action: RejectedActionFromAsyncThunk<AnyAsyncThunk>
+        ) => {
+          state.status = 'ERROR';
+
+          if (action.error.code === FirebaseErrors.UserNotFound) {
+            state.error.invalidCredentials = true;
+            state.error.server = false;
+          } else {
+            state.error.invalidCredentials = false;
+            state.error.server = true;
+          }
+        }
+      );
   },
 });
+
+export const { resetAuthStatusAndErrors, setUser } = authSlice.actions;
 
 export const selectCurrentUser = (state: RootState) => state.auth.user;
 

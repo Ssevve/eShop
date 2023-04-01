@@ -9,8 +9,11 @@ import Login from 'pages/Login';
 import Register from 'pages/Register';
 import NotFound from 'pages/NotFound';
 import Footer from 'components/Footer';
+import useAuth from 'features/auth/useAuth';
 
 export function App() {
+  useAuth();
+
   return (
     <Routes>
       <Route path="/" element={<Home />} />

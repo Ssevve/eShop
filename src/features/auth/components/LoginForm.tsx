@@ -1,25 +1,50 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useAppDispatch } from 'app/store';
-import { loginUser } from 'features/auth/authSlice';
-import { UserLoginData } from 'types/UserLoginData';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { RootState, useAppDispatch } from 'app/store';
+import { loginUser, resetAuthStatusAndErrors } from 'features/auth/authSlice';
+import { loginSchema, LoginSchema } from 'features/auth/schemas/loginSchema';
 
 import Logo from 'components/common/Logo';
 import Input from 'components/common/Input';
 
 function LoginForm() {
   const dispatch = useAppDispatch();
+  const invalidCredentials = useSelector(
+    (state: RootState) => state.auth.error.invalidCredentials
+  );
   const {
     register,
     handleSubmit,
+    setError,
+    clearErrors,
     formState: { errors },
-  } = useForm<UserLoginData>();
+  } = useForm<LoginSchema>({
+    resolver: zodResolver(loginSchema),
+  });
 
-  const onSubmit: SubmitHandler<UserLoginData> = ({
+  const onSubmit: SubmitHandler<LoginSchema> = ({
     email,
     password,
-  }: UserLoginData) => dispatch(loginUser({ email, password }));
+  }: LoginSchema) => dispatch(loginUser({ email, password }));
+
+  useEffect(() => {
+    dispatch(resetAuthStatusAndErrors());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (invalidCredentials) {
+      setError('email', { message: 'Invalid email or password' });
+      setError('password', { message: 'Invalid email or password' });
+    } else {
+      clearErrors();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [invalidCredentials]);
 
   return (
     <form
@@ -29,8 +54,18 @@ function LoginForm() {
       <header className="flex items-center justify-center">
         <Logo />
       </header>
-      <Input label="Email" type="email" {...register('email')} />
-      <Input label="Password" type="password" {...register('password')} />
+      <Input
+        label="Email"
+        type="email"
+        error={errors.email}
+        {...register('email')}
+      />
+      <Input
+        label="Password"
+        type="password"
+        error={errors.password}
+        {...register('password')}
+      />
       <button
         className="rounded-sm border border-green-600 bg-green-600 p-2 font-bold text-white transition duration-75 ease-out hover:border-green-500 hover:bg-green-500 hover:ease-in"
         type="submit"

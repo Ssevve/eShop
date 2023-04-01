@@ -13,6 +13,7 @@ export const store = configureStore({
           'auth/registerUser/fulfilled',
           'auth/loginUser/fulfilled',
           'auth/logoutUser/pending',
+          'auth/setUser',
         ],
         ignoredPaths: ['auth.user'],
       },

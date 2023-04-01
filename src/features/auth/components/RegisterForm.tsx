@@ -1,13 +1,20 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useAppDispatch } from 'app/store';
-import { registerUser } from 'features/auth/authSlice';
-import { UserLoginData } from 'types/UserLoginData';
+import {
+  registerUser,
+  resetAuthStatusAndErrors,
+} from 'features/auth/authSlice';
+import {
+  registerSchema,
+  RegisterSchema,
+} from 'features/auth/schemas/registerSchema';
 
 import Logo from 'components/common/Logo';
 import Input from 'components/common/Input';
-import { UserRegisterData } from 'types/UserRegisterData';
 
 function RegisterForm() {
   const dispatch = useAppDispatch();
@@ -15,12 +22,20 @@ function RegisterForm() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<UserRegisterData>();
+  } = useForm<RegisterSchema>({
+    mode: 'onChange',
+    resolver: zodResolver(registerSchema),
+  });
 
-  const onSubmit: SubmitHandler<UserRegisterData> = ({
+  useEffect(() => {
+    dispatch(resetAuthStatusAndErrors());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const onSubmit: SubmitHandler<RegisterSchema> = ({
     email,
     password,
-  }: UserLoginData) => dispatch(registerUser({ email, password }));
+  }: RegisterSchema) => dispatch(registerUser({ email, password }));
 
   return (
     <form
@@ -30,11 +45,22 @@ function RegisterForm() {
       <header className="flex items-center justify-center">
         <Logo />
       </header>
-      <Input label="Email" type="email" {...register('email')} />
-      <Input label="Password" type="password" {...register('password')} />
+      <Input
+        label="Email"
+        type="email"
+        error={errors.email}
+        {...register('email')}
+      />
+      <Input
+        label="Password"
+        type="password"
+        error={errors.password}
+        {...register('password')}
+      />
       <Input
         label="Repeat Password"
         type="password"
+        error={errors.repeatPassword}
         {...register('repeatPassword')}
       />
       <button
