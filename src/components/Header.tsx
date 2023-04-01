@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { User, ShoppingCart } from 'react-feather';
+import { FiUser, FiShoppingCart } from 'react-icons/fi';
 
-import Logo from 'components/common/Logo';
+import Logo from 'components/common/Logo/Logo';
 
 function Header() {
   return (
@@ -16,11 +16,11 @@ function Header() {
             title="Account"
             to="/login"
           >
-            <User className="h-6 w-6" aria-hidden="true" />
+            <FiUser className="h-6 w-6" aria-hidden="true" />
           </Link>
           <Link className="grid justify-items-center p-2" title="Cart" to="/">
             <div className="relative w-min">
-              <ShoppingCart
+              <FiShoppingCart
                 className="pointer-events-none h-6 w-6"
                 aria-hidden="true"
               />
