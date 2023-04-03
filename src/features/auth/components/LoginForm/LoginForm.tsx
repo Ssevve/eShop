@@ -13,7 +13,7 @@ import {
 import { loginSchema, LoginSchema } from 'features/auth/schemas/loginSchema';
 
 import Logo from 'components/common/Logo/Logo';
-import Input from 'components/Input/Input';
+import Input from 'components/common/Input/Input';
 import ErrorBox from 'components/ErrorBox';
 import SubmitButton from 'components/common/SubmitButton/SubmitButton';
 
