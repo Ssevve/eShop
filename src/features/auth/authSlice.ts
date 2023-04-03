@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable no-param-reassign */
 import {
   createSlice,
@@ -12,7 +13,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   UserCredential,
-  User,
+  User as FirebaseUser,
 } from 'firebase/auth';
 import { RootState } from 'app/store';
 import auth from 'firebaseConfig';
@@ -61,8 +62,16 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setUser(state: AuthState, action: PayloadAction<User | null>) {
-      state.user = action.payload;
+    setUser(state: AuthState, action: PayloadAction<FirebaseUser | null>) {
+      if (action.payload) {
+        state.user = {
+          uid: action.payload.uid,
+          email: action.payload.email!,
+          phoneNumber: action.payload.phoneNumber,
+        };
+      } else {
+        state.user = null;
+      }
     },
     resetAuthStatusAndErrors(state: AuthState) {
       state.status = 'IDLE';
@@ -76,14 +85,22 @@ export const authSlice = createSlice({
         loginUser.fulfilled,
         (state: AuthState, action: PayloadAction<UserCredential>) => {
           state.status = 'SUCCESS';
-          state.user = action.payload.user;
+          state.user = {
+            uid: action.payload.user.uid,
+            email: action.payload.user.email!,
+            phoneNumber: action.payload.user.phoneNumber,
+          };
         }
       )
       .addCase(
         registerUser.fulfilled,
         (state: AuthState, action: PayloadAction<UserCredential>) => {
           state.status = 'SUCCESS';
-          state.user = action.payload.user;
+          state.user = {
+            uid: action.payload.user.uid,
+            email: action.payload.user.email!,
+            phoneNumber: action.payload.user.phoneNumber,
+          };
         }
       )
       .addCase(logoutUser.fulfilled, (state: AuthState) => {

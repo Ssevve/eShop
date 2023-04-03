@@ -1,6 +1,10 @@
-import { User } from 'firebase/auth';
-
 type Status = 'IDLE' | 'PENDING' | 'ERROR' | 'SUCCESS';
+
+interface User {
+  email: string;
+  uid: string;
+  phoneNumber: string | null;
+}
 
 interface Error {
   server: boolean;
