@@ -15,7 +15,7 @@ describe('Login form', () => {
     expect(screen.getByRole('form')).toBeInTheDocument();
   });
 
-  test('Renders a logo', () => {
+  test('Renders logo', () => {
     renderWithProviders(
       <BrowserRouter>
         <LoginForm />

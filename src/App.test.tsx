@@ -6,9 +6,14 @@ import renderWithProviders from 'utils/renderWithProviders';
 import { App, AppWithRouter } from './App';
 
 describe('App', () => {
-  test('Renders page navigation', () => {
+  test('Renders page header', () => {
     renderWithProviders(<AppWithRouter />);
-    expect(screen.getByRole('navigation')).toBeInTheDocument();
+    expect(screen.getByRole('banner')).toBeInTheDocument();
+  });
+
+  test('Renders page footer', () => {
+    renderWithProviders(<AppWithRouter />);
+    expect(screen.getByRole('contentinfo')).toBeInTheDocument();
   });
 
   test('Renders home page if path is "/"', () => {

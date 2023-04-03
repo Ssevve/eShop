@@ -13,12 +13,18 @@ function Header() {
         <div className="flex justify-end gap-2">
           <Link
             className="grid justify-items-center p-2"
+            aria-label="Account"
             title="Account"
             to="/login"
           >
             <FiUser className="h-6 w-6" aria-hidden="true" />
           </Link>
-          <Link className="grid justify-items-center p-2" title="Cart" to="/">
+          <Link
+            className="grid justify-items-center p-2"
+            aria-label="Cart"
+            title="Cart"
+            to="/"
+          >
             <div className="relative w-min">
               <FiShoppingCart
                 className="pointer-events-none h-6 w-6"

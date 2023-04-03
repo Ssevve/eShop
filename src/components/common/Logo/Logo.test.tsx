@@ -1,8 +1,7 @@
 import { screen } from '@testing-library/react';
 import { describe, test, expect } from 'vitest';
-
 import renderWithProviders from 'utils/renderWithProviders';
-// import { BrowserRouter } from 'react-router-dom';
+
 import Logo from './Logo';
 
 describe('Logo', () => {

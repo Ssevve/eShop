@@ -14,7 +14,7 @@ import {
 } from 'features/auth/schemas/registerSchema';
 
 import Logo from 'components/common/Logo/Logo';
-import Input from 'components/common/Input';
+import Input from 'components/Input/Input';
 
 function RegisterForm() {
   const dispatch = useAppDispatch();

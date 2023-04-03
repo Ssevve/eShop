@@ -10,7 +10,7 @@ import { loginUser, resetAuthStatusAndErrors } from 'features/auth/authSlice';
 import { loginSchema, LoginSchema } from 'features/auth/schemas/loginSchema';
 
 import Logo from 'components/common/Logo/Logo';
-import Input from 'components/common/Input';
+import Input from 'components/Input/Input';
 
 function LoginForm() {
   const dispatch = useAppDispatch();
