@@ -1,22 +1,31 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { RootState } from 'app/store';
-import { useAppDispatch } from 'app/hooks';
-import { loginUser, resetAuthStatusAndErrors } from 'features/auth/authSlice';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import {
+  loginUser,
+  resetAuthStatusAndErrors,
+  selectIsPendingAuth,
+} from 'features/auth/authSlice';
 import { loginSchema, LoginSchema } from 'features/auth/schemas/loginSchema';
 
 import Logo from 'components/common/Logo/Logo';
 import Input from 'components/Input/Input';
+import ErrorBox from 'components/ErrorBox';
+import SubmitButton from 'components/common/SubmitButton/SubmitButton';
 
 function LoginForm() {
   const dispatch = useAppDispatch();
-  const invalidCredentials = useSelector(
+  const invalidCredentials = useAppSelector(
     (state: RootState) => state.auth.error.invalidCredentials
   );
+  const serverError = useAppSelector(
+    (state: RootState) => state.auth.error.server
+  );
+  const isPendingAuth = useAppSelector(selectIsPendingAuth);
   const {
     register,
     handleSubmit,
@@ -34,7 +43,6 @@ function LoginForm() {
 
   useEffect(() => {
     dispatch(resetAuthStatusAndErrors());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -44,7 +52,6 @@ function LoginForm() {
     } else {
       clearErrors();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [invalidCredentials]);
 
   return (
@@ -53,8 +60,13 @@ function LoginForm() {
       onSubmit={handleSubmit(onSubmit)}
       className="mx-auto flex shrink basis-96 flex-col gap-4 rounded-sm bg-white p-6 drop-shadow-md"
     >
-      <header className="flex items-center justify-center">
+      <header className="flex flex-col items-center justify-center gap-4">
         <Logo />
+        <ErrorBox
+          error={serverError}
+          title="Could not log in"
+          errorMessage="Something went wrong. Please try again."
+        />
       </header>
       <Input
         label="Email"
@@ -68,12 +80,7 @@ function LoginForm() {
         error={errors.password}
         {...register('password')}
       />
-      <button
-        className="rounded-sm border border-green-600 bg-green-600 p-2 font-bold text-white transition duration-75 ease-out hover:border-green-500 hover:bg-green-500 hover:ease-in"
-        type="submit"
-      >
-        Log in
-      </button>
+      <SubmitButton text="Log in" isLoading={isPendingAuth} />
       <footer>
         <p className="text-md mt-4 flex justify-center gap-2 text-sm">
           Need an account?

@@ -3,10 +3,11 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useAppDispatch } from 'app/hooks';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 import {
   registerUser,
   resetAuthStatusAndErrors,
+  selectIsPendingAuth,
 } from 'features/auth/authSlice';
 import {
   registerSchema,
@@ -15,9 +16,11 @@ import {
 
 import Logo from 'components/common/Logo/Logo';
 import Input from 'components/Input/Input';
+import SubmitButton from 'components/common/SubmitButton/SubmitButton';
 
 function RegisterForm() {
   const dispatch = useAppDispatch();
+  const isPendingAuth = useAppSelector(selectIsPendingAuth);
   const {
     register,
     handleSubmit,
@@ -29,7 +32,6 @@ function RegisterForm() {
 
   useEffect(() => {
     dispatch(resetAuthStatusAndErrors());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSubmit: SubmitHandler<RegisterSchema> = ({
@@ -64,12 +66,7 @@ function RegisterForm() {
         error={errors.repeatPassword}
         {...register('repeatPassword')}
       />
-      <button
-        className="rounded-sm border border-green-600 bg-green-600 p-2 font-bold text-white transition duration-75 ease-out hover:border-green-500 hover:bg-green-500 hover:ease-in"
-        type="submit"
-      >
-        Register
-      </button>
+      <SubmitButton text="Register" isLoading={isPendingAuth} />
       <footer>
         <p className="text-md mt-4 flex justify-center gap-2 text-sm">
           Have an account?

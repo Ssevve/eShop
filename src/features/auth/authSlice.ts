@@ -136,5 +136,7 @@ export const authSlice = createSlice({
 export const { resetAuthStatusAndErrors, setUser } = authSlice.actions;
 
 export const selectCurrentUser = (state: RootState) => state.auth.user;
+export const selectIsPendingAuth = (state: RootState) =>
+  state.auth.status === 'PENDING';
 
 export default authSlice.reducer;
