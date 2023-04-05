@@ -1,8 +1,8 @@
 type Status = 'IDLE' | 'PENDING' | 'ERROR' | 'SUCCESS';
 
 interface User {
-  email: string;
   uid: string;
+  email: string;
   phoneNumber: string | null;
 }
 

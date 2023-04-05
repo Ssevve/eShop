@@ -47,7 +47,6 @@ export const registerUser = createAsyncThunk(
   ({ email, password }: LoginSchema) =>
     createUserWithEmailAndPassword(auth, email, password)
 );
-
 export const loginUser = createAsyncThunk(
   'auth/loginUser',
   ({ email, password }: LoginSchema) =>

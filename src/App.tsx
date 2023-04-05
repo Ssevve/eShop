@@ -33,7 +33,7 @@ export function AppWithRouter() {
   return (
     <BrowserRouter>
       <Header />
-      <main className="flex grow bg-slate-50">
+      <main className="flex grow flex-col bg-slate-50">
         <App />
       </main>
       <Footer />
