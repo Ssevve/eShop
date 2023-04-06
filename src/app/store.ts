@@ -4,9 +4,11 @@ import {
   configureStore,
 } from '@reduxjs/toolkit';
 import authReducer from 'features/auth/authSlice';
+import productsReducer from 'features/products/productsSlice';
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  products: productsReducer,
 });
 
 export function setupStore(preloadedState?: PreloadedState<RootState>) {
@@ -20,6 +22,7 @@ export function setupStore(preloadedState?: PreloadedState<RootState>) {
             'auth/loginUser/fulfilled',
             'auth/logoutUser/pending',
             'auth/setUser',
+            'products/getProducts/fulfilled',
           ],
           ignoredPaths: ['auth.user'],
         },

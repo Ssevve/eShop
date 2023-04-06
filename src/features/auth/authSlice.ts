@@ -4,7 +4,6 @@ import {
   createSlice,
   createAsyncThunk,
   Action,
-  ActionReducerMapBuilder,
   PayloadAction,
   SerializedError,
 } from '@reduxjs/toolkit';
@@ -12,18 +11,13 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  UserCredential,
   User as FirebaseUser,
 } from 'firebase/auth';
 import { RootState } from 'app/store';
-import auth from 'firebaseConfig';
+import { auth } from 'firebaseConfig';
 import AuthState from 'types/AuthState';
 import { LoginSchema } from 'features/auth/schemas/loginSchema';
 import FirebaseErrors from 'features/auth/firebaseErrors';
-import {
-  AnyAsyncThunk,
-  RejectedActionFromAsyncThunk,
-} from '@reduxjs/toolkit/dist/matchers';
 
 const initialState: AuthState = {
   user: null,
@@ -47,6 +41,7 @@ export const registerUser = createAsyncThunk(
   ({ email, password }: LoginSchema) =>
     createUserWithEmailAndPassword(auth, email, password)
 );
+
 export const loginUser = createAsyncThunk(
   'auth/loginUser',
   ({ email, password }: LoginSchema) =>
@@ -61,7 +56,7 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setUser(state: AuthState, action: PayloadAction<FirebaseUser | null>) {
+    setUser(state, action: PayloadAction<FirebaseUser | null>) {
       if (action.payload) {
         state.user = {
           uid: action.payload.uid,
@@ -72,63 +67,50 @@ export const authSlice = createSlice({
         state.user = null;
       }
     },
-    resetAuthStatusAndErrors(state: AuthState) {
+    resetAuthStatusAndErrors(state) {
       state.status = 'IDLE';
       state.error.invalidCredentials = false;
       state.error.server = false;
     },
   },
-  extraReducers: (builder: ActionReducerMapBuilder<AuthState>) => {
+  extraReducers: (builder) => {
     builder
-      .addCase(
-        loginUser.fulfilled,
-        (state: AuthState, action: PayloadAction<UserCredential>) => {
-          state.status = 'SUCCESS';
-          state.user = {
-            uid: action.payload.user.uid,
-            email: action.payload.user.email!,
-            phoneNumber: action.payload.user.phoneNumber,
-          };
-        }
-      )
-      .addCase(
-        registerUser.fulfilled,
-        (state: AuthState, action: PayloadAction<UserCredential>) => {
-          state.status = 'SUCCESS';
-          state.user = {
-            uid: action.payload.user.uid,
-            email: action.payload.user.email!,
-            phoneNumber: action.payload.user.phoneNumber,
-          };
-        }
-      )
-      .addCase(logoutUser.fulfilled, (state: AuthState) => {
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.status = 'SUCCESS';
+        state.user = {
+          uid: action.payload.user.uid,
+          email: action.payload.user.email!,
+          phoneNumber: action.payload.user.phoneNumber,
+        };
+      })
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.status = 'SUCCESS';
+        state.user = {
+          uid: action.payload.user.uid,
+          email: action.payload.user.email!,
+          phoneNumber: action.payload.user.phoneNumber,
+        };
+      })
+      .addCase(logoutUser.fulfilled, (state) => {
         state.status = 'SUCCESS';
         state.user = null;
       })
-      .addMatcher(isPendingAction, (state: AuthState) => {
+      .addMatcher(isPendingAction, (state) => {
         state.status = 'PENDING';
         state.error.server = false;
         state.error.invalidCredentials = false;
       })
-      .addMatcher(
-        isRejectedAction,
-        (
-          state: AuthState,
-          // TODO: look into more thunk actions
-          action: RejectedActionFromAsyncThunk<AnyAsyncThunk>
-        ) => {
-          state.status = 'ERROR';
+      .addMatcher(isRejectedAction, (state, action) => {
+        state.status = 'ERROR';
 
-          if (action.error.code === FirebaseErrors.UserNotFound) {
-            state.error.invalidCredentials = true;
-            state.error.server = false;
-          } else {
-            state.error.invalidCredentials = false;
-            state.error.server = true;
-          }
+        if (action.error.code === FirebaseErrors.UserNotFound) {
+          state.error.invalidCredentials = true;
+          state.error.server = false;
+        } else {
+          state.error.invalidCredentials = false;
+          state.error.server = true;
         }
-      );
+      });
   },
 });
 

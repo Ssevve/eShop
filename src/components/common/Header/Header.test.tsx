@@ -58,6 +58,10 @@ describe('Header', () => {
           invalidCredentials: false,
         },
       },
+      products: {
+        products: [],
+        status: 'IDLE',
+      },
     };
     test('Renders logo', () => {
       renderWithProviders(

@@ -1,4 +1,4 @@
-type Status = 'IDLE' | 'PENDING' | 'ERROR' | 'SUCCESS';
+import Status from './Status';
 
 interface User {
   uid: string;

@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Header from 'components/common/Header/Header';
 import Home from 'pages/Home';
+import Products from 'pages/Products';
 import AuthRoutes from 'components/AuthRoutes';
 import Account from 'pages/Account';
 import GuestRoutes from 'components/GuestRoutes';
@@ -9,6 +10,7 @@ import Login from 'pages/Login';
 import Register from 'pages/Register';
 import NotFound from 'pages/NotFound';
 import Footer from 'components/Footer';
+
 import useAuth from 'features/auth/useAuth';
 
 export function App() {
@@ -17,6 +19,7 @@ export function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/products" element={<Products />} />
       <Route element={<AuthRoutes />}>
         <Route path="/account" element={<Account />} />
       </Route>
