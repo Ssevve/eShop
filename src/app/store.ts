@@ -22,7 +22,6 @@ export function setupStore(preloadedState?: PreloadedState<RootState>) {
             'auth/loginUser/fulfilled',
             'auth/logoutUser/pending',
             'auth/setUser',
-            'products/getProducts/fulfilled',
           ],
           ignoredPaths: ['auth.user'],
         },

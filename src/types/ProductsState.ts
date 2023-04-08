@@ -14,6 +14,10 @@ export interface Product {
 
 interface ProductsState {
   products: Product[];
+  totalProductCount: number | null;
+  productsPerPage: number;
+  currentPage: number;
+  totalPageCount: number | null;
   status: Status;
 }
 

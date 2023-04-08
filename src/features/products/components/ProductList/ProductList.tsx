@@ -8,7 +8,7 @@ function ProductList() {
     (state: RootState) => state.products.products
   );
   return (
-    <ul>
+    <ul className="flex flex-wrap">
       {products.map((product) => (
         <li key={product.id}>
           <ProductCard product={product} />

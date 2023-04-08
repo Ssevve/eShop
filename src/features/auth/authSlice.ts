@@ -14,7 +14,7 @@ import {
   User as FirebaseUser,
 } from 'firebase/auth';
 import { RootState } from 'app/store';
-import { auth } from 'firebaseConfig';
+import auth from 'firebaseConfig';
 import AuthState from 'types/AuthState';
 import { LoginSchema } from 'features/auth/schemas/loginSchema';
 import FirebaseErrors from 'features/auth/firebaseErrors';
