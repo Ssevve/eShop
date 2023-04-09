@@ -1,12 +1,33 @@
 /* eslint-disable no-param-reassign */
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import ProductsState from 'types/ProductsState';
+import {
+  createSlice,
+  createAsyncThunk,
+  createEntityAdapter,
+} from '@reduxjs/toolkit';
+import { RootState } from 'app/store';
+import Status from 'types/Status';
 
-const initialState: ProductsState = {
-  products: [],
-  totalProductCount: null,
+interface Product {
+  id: string;
+  productName: string;
+  brand: string;
+  price: number;
+  discountPrice: number;
+  imageUrl: string;
+  quantity: string;
+  category: string;
+  subCategory: string;
+}
+
+const productsAdapter = createEntityAdapter<Product>();
+
+const initialState = productsAdapter.getInitialState<{
+  totalProductCount: number;
+  status: Status;
+}>({
+  totalProductCount: 0,
   status: 'IDLE',
-};
+});
 
 export const getProducts = createAsyncThunk(
   'products/getProducts',
@@ -29,7 +50,7 @@ const productsSlice = createSlice({
       })
       .addCase(getProducts.fulfilled, (state, action) => {
         state.status = 'SUCCESS';
-        state.products = action.payload.products;
+        productsAdapter.setAll(state, action.payload.products);
         state.totalProductCount = action.payload.productCount;
       })
       .addCase(getProducts.rejected, (state) => {
@@ -37,5 +58,9 @@ const productsSlice = createSlice({
       });
   },
 });
+
+export const { selectEntities } = productsAdapter.getSelectors(
+  (state: RootState) => state.products
+);
 
 export default productsSlice.reducer;
