@@ -20,11 +20,9 @@ import SubmitButton from 'components/common/SubmitButton/SubmitButton';
 function LoginForm() {
   const dispatch = useAppDispatch();
   const invalidCredentials = useAppSelector(
-    (state: RootState) => state.auth.error.invalidCredentials
+    (state) => state.auth.error.invalidCredentials
   );
-  const serverError = useAppSelector(
-    (state: RootState) => state.auth.error.server
-  );
+  const serverError = useAppSelector((state) => state.auth.error.server);
   const isPendingAuth = useAppSelector(selectIsPendingAuth);
   const {
     register,

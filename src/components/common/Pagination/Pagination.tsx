@@ -1,14 +1,11 @@
 import { useSearchParams } from 'react-router-dom';
-import { useAppDispatch } from 'app/hooks';
-import { AnyAction } from '@reduxjs/toolkit';
 
 interface PaginationProps {
   pageCount: number | null;
-  onClickAction: (page: number) => AnyAction;
+  setCurrentPage: (page: number) => void;
 }
 
-function Pagination({ pageCount, onClickAction }: PaginationProps) {
-  const dispatch = useAppDispatch();
+function Pagination({ pageCount, setCurrentPage }: PaginationProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const pages = Array.from<number>({ length: pageCount || 0 });
 
@@ -20,7 +17,7 @@ function Pagination({ pageCount, onClickAction }: PaginationProps) {
     updatedSearchParams.set('page', nextPage.toString());
     setSearchParams(updatedSearchParams.toString());
 
-    dispatch(onClickAction(nextPage));
+    setCurrentPage(nextPage);
   };
 
   return (
