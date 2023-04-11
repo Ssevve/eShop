@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import cx from 'classnames';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
@@ -17,12 +17,33 @@ function Pagination() {
   );
   const currentPage = useAppSelector(selectCurrentPage);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [pageNumbers, setPageNumbers] = useState<number[]>([]);
 
   const setPageURLSearchParam = (page: number) => {
     const updatedSearchParams = new URLSearchParams(searchParams.toString());
     updatedSearchParams.set('page', page.toString());
     setSearchParams(updatedSearchParams);
+  };
+
+  const visiblePageCount = 5;
+  const totalPageCount = Math.ceil(totalProductCount / productsPerPage);
+
+  const getPageNumbers = () => {
+    if (totalPageCount <= visiblePageCount) {
+      return Array.from({ length: totalPageCount }, (_, i) => i + 1);
+    }
+    if (currentPage < 3) {
+      return Array.from({ length: visiblePageCount }, (_, i) => 1 + i);
+    }
+    if (currentPage >= totalPageCount - visiblePageCount) {
+      return Array.from(
+        { length: visiblePageCount },
+        (_, i) => totalPageCount - visiblePageCount + i
+      );
+    }
+    return Array.from(
+      { length: visiblePageCount },
+      (_, i) => currentPage - Math.floor(visiblePageCount / 2) + i
+    );
   };
 
   useEffect(() => {
@@ -41,37 +62,6 @@ function Pagination() {
     dispatch(setCurrentPage(page));
   };
 
-  const totalPageCount = Math.ceil(totalProductCount / productsPerPage);
-
-  const visiblePageCount = 5;
-
-  useEffect(() => {
-    console.log({ totalProductCount, totalPageCount });
-    if (totalPageCount <= visiblePageCount) {
-      setPageNumbers([
-        ...Array.from({ length: totalPageCount }, (_, i) => i + 1),
-      ]);
-    } else if (currentPage < 3) {
-      setPageNumbers([
-        ...Array.from({ length: visiblePageCount }, (_, i) => 1 + i),
-      ]);
-    } else if (currentPage >= totalPageCount - visiblePageCount) {
-      setPageNumbers([
-        ...Array.from(
-          { length: visiblePageCount },
-          (_, i) => totalPageCount - visiblePageCount + i
-        ),
-      ]);
-    } else {
-      setPageNumbers([
-        ...Array.from(
-          { length: visiblePageCount },
-          (_, i) => currentPage - Math.floor(visiblePageCount / 2) + i
-        ),
-      ]);
-    }
-  }, [currentPage]);
-
   return totalPageCount > 1 ? (
     <ul className="mx-auto flex flex-wrap items-center justify-center rounded-sm">
       <li>
@@ -85,7 +75,7 @@ function Pagination() {
           <FiChevronLeft />
         </button>
       </li>
-      {pageNumbers.map((page) => (
+      {getPageNumbers().map((page) => (
         <li key={page}>
           <button
             className={cx(
