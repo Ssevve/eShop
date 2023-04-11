@@ -1,17 +1,19 @@
 import cx from 'classnames';
-import { Product } from 'types/ProductsState';
+import Product from 'types/Product';
 
 interface ProductCardProps {
-  product: Product;
+  product: Product | undefined;
 }
 
 function ProductCard({ product }: ProductCardProps) {
-  const isDiscount = product.discountPrice < product.price;
+  const isDiscount = product ? product.discountPrice < product.price : false;
 
   const formatPriceString = (price: number) => `$${price.toFixed(2)}`;
 
+  if (!product) return null;
+
   return (
-    <div className="flex w-64 flex-col gap-2 p-3">
+    <a href="/" className="flex w-64 flex-col gap-2 p-3">
       <img src={product.imageUrl} alt={product.productName} />
       <h3 className="font-semibold">{product.productName}</h3>
       <div className="flex justify-between">
@@ -38,7 +40,7 @@ function ProductCard({ product }: ProductCardProps) {
       >
         Add to cart
       </button>
-    </div>
+    </a>
   );
 }
 

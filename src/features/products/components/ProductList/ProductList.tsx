@@ -1,18 +1,22 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { getProducts, selectEntities } from 'features/products/productsSlice';
+import { getProducts, selectProducts } from 'features/products/productsSlice';
 
-import { selectCurrentPage } from 'features/pagination/paginationSlice';
+import {
+  selectCurrentPage,
+  selectProductsPerPage,
+} from 'features/pagination/paginationSlice';
 import ProductCard from '../ProductCard/ProductCard';
 
 function ProductList() {
-  const products = Object.values(useAppSelector(selectEntities));
+  const productsPerPage = useAppSelector(selectProductsPerPage);
+  const products = Object.values(useAppSelector(selectProducts));
   const dispatch = useAppDispatch();
   const currentPage = useAppSelector(selectCurrentPage);
 
   useEffect(() => {
     if (currentPage) {
-      dispatch(getProducts(currentPage));
+      dispatch(getProducts({ page: currentPage, limit: productsPerPage }));
     }
   }, [currentPage]);
 

@@ -6,18 +6,7 @@ import {
 } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
 import Status from 'types/Status';
-
-interface Product {
-  id: string;
-  productName: string;
-  brand: string;
-  price: number;
-  discountPrice: number;
-  imageUrl: string;
-  quantity: string;
-  category: string;
-  subCategory: string;
-}
+import Product from 'types/Product';
 
 const productsAdapter = createEntityAdapter<Product>();
 
@@ -31,8 +20,10 @@ const initialState = productsAdapter.getInitialState<{
 
 export const getProducts = createAsyncThunk(
   'products/getProducts',
-  async (page: number) => {
-    const res = await fetch(`http://localhost:3000/products?_page=${page}`);
+  async ({ page, limit }: { page: number; limit: number }) => {
+    const res = await fetch(
+      `http://localhost:3000/products?_page=${page}&_limit=${limit}`
+    );
     const products = await res.json();
     const productCount = Number(res.headers.get('x-total-count'));
     return { products, productCount };
@@ -59,7 +50,7 @@ const productsSlice = createSlice({
   },
 });
 
-export const { selectEntities } = productsAdapter.getSelectors(
+export const { selectEntities: selectProducts } = productsAdapter.getSelectors(
   (state: RootState) => state.products
 );
 
