@@ -1,22 +1,22 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import cx from 'classnames';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import {
-  selectCurrentPage,
-  selectProductsPerPage,
-  setCurrentPage,
-} from '../paginationSlice';
+import { getProducts } from 'features/products/productsSlice';
 
-function Pagination() {
+interface PaginationProps {
+  pageLimit: number;
+  productsPerPage: number;
+}
+
+function Pagination({ pageLimit, productsPerPage }: PaginationProps) {
   const dispatch = useAppDispatch();
-  const productsPerPage = useAppSelector(selectProductsPerPage);
   const totalProductCount = useAppSelector(
     (state) => state.products.totalProductCount
   );
-  const currentPage = useAppSelector(selectCurrentPage);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [currentPage, setCurrentPage] = useState(1);
 
   const setPageURLSearchParam = (page: number) => {
     const updatedSearchParams = new URLSearchParams(searchParams.toString());
@@ -24,42 +24,46 @@ function Pagination() {
     setSearchParams(updatedSearchParams);
   };
 
-  const visiblePageCount = 5;
   const totalPageCount = Math.ceil(totalProductCount / productsPerPage);
 
   const getPageNumbers = () => {
-    if (totalPageCount <= visiblePageCount) {
+    if (totalPageCount <= pageLimit) {
       return Array.from({ length: totalPageCount }, (_, i) => i + 1);
     }
     if (currentPage < 3) {
-      return Array.from({ length: visiblePageCount }, (_, i) => 1 + i);
+      return Array.from({ length: pageLimit }, (_, i) => 1 + i);
     }
-    if (currentPage >= totalPageCount - visiblePageCount) {
+    if (currentPage > totalPageCount - pageLimit + 1) {
       return Array.from(
-        { length: visiblePageCount },
-        (_, i) => totalPageCount - visiblePageCount + i
+        { length: pageLimit },
+        (_, i) => totalPageCount - pageLimit + i + 1
       );
     }
     return Array.from(
-      { length: visiblePageCount },
-      (_, i) => currentPage - Math.floor(visiblePageCount / 2) + i
+      { length: pageLimit },
+      (_, i) => currentPage - Math.floor(pageLimit / 2) + i
     );
   };
 
   useEffect(() => {
+    dispatch(getProducts({ page: currentPage, limit: productsPerPage }));
+  }, [currentPage]);
+
+  useEffect(() => {
     const requestedPage = Number(searchParams.get('page'));
-    if (!requestedPage) {
+
+    if (requestedPage) {
+      setCurrentPage(requestedPage);
+    } else {
       const initialPage = 1;
       setPageURLSearchParam(initialPage);
-      dispatch(setCurrentPage(initialPage));
-    } else {
-      dispatch(setCurrentPage(requestedPage));
+      setCurrentPage(initialPage);
     }
   }, []);
 
   const handlePageChange = (page: number) => {
     setPageURLSearchParam(page);
-    dispatch(setCurrentPage(page));
+    setCurrentPage(page);
   };
 
   return totalPageCount > 1 ? (
@@ -68,7 +72,7 @@ function Pagination() {
         <button
           aria-label="Previous page"
           disabled={currentPage === 1}
-          className="flex h-8 w-8 items-center justify-center border-t border-b border-l border-green-500 bg-white  text-green-500 shadow-md"
+          className="flex h-8 w-8 items-center justify-center border-t border-b border-l border-green-500 bg-white text-green-500 shadow-md"
           type="button"
           key="prev"
         >
