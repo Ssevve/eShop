@@ -18,31 +18,38 @@ function Pagination({ pageLimit, productsPerPage }: PaginationProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1);
 
-  const setPageURLSearchParam = (page: number) => {
+  const changePage = (page: number) => {
     const updatedSearchParams = new URLSearchParams(searchParams.toString());
     updatedSearchParams.set('page', page.toString());
     setSearchParams(updatedSearchParams);
+    setCurrentPage(page);
   };
 
   const totalPageCount = Math.ceil(totalProductCount / productsPerPage);
 
   const getPageNumbers = () => {
     if (totalPageCount <= pageLimit) {
-      return Array.from({ length: totalPageCount }, (_, i) => i + 1);
+      // Show all available pages
+      return new Array(totalPageCount).fill(0).map((_, i) => i + 1);
     }
     if (currentPage < 3) {
-      return Array.from({ length: pageLimit }, (_, i) => 1 + i);
+      // Show page numbers starting from 2
+      return new Array(pageLimit)
+        .fill(0)
+        .map((_, i) => i + 1)
+        .slice(1);
     }
     if (currentPage > totalPageCount - pageLimit + 1) {
-      return Array.from(
-        { length: pageLimit },
-        (_, i) => totalPageCount - pageLimit + i + 1
-      );
+      // Show page numbers ending at totalPageCount - 1
+      return new Array(pageLimit)
+        .fill(0)
+        .map((_, i) => totalPageCount - pageLimit + i + 1)
+        .slice(0, -1);
     }
-    return Array.from(
-      { length: pageLimit },
-      (_, i) => currentPage - Math.floor(pageLimit / 2) + i
-    );
+    // Show page numbers limiting the count to pageLimit
+    return new Array(pageLimit)
+      .fill(0)
+      .map((_, i) => currentPage - Math.floor(pageLimit / 2) + i);
   };
 
   useEffect(() => {
@@ -51,23 +58,12 @@ function Pagination({ pageLimit, productsPerPage }: PaginationProps) {
 
   useEffect(() => {
     const requestedPage = Number(searchParams.get('page'));
-
-    if (requestedPage) {
-      setCurrentPage(requestedPage);
-    } else {
-      const initialPage = 1;
-      setPageURLSearchParam(initialPage);
-      setCurrentPage(initialPage);
-    }
+    if (requestedPage) setCurrentPage(requestedPage);
+    else changePage(1);
   }, []);
 
-  const handlePageChange = (page: number) => {
-    setPageURLSearchParam(page);
-    setCurrentPage(page);
-  };
-
   return totalPageCount > 1 ? (
-    <ul className="mx-auto flex flex-wrap items-center justify-center rounded-sm">
+    <ul className="mx-auto flex items-center justify-center rounded-sm">
       <li>
         <button
           aria-label="Previous page"
@@ -75,10 +71,37 @@ function Pagination({ pageLimit, productsPerPage }: PaginationProps) {
           className="flex h-8 w-8 items-center justify-center border-t border-b border-l border-green-500 bg-white text-green-500 shadow-md"
           type="button"
           key="prev"
+          onClick={() => changePage(currentPage - 1)}
         >
           <FiChevronLeft />
         </button>
       </li>
+      <li>
+        <button
+          className={cx(
+            'flex h-8 w-8 items-center justify-center border-l border-t border-b border-green-500',
+            currentPage === 1 ? 'bg-green-500 text-white' : 'bg-white'
+          )}
+          type="button"
+          key="1"
+          onClick={() => changePage(1)}
+        >
+          1
+        </button>
+      </li>
+      {currentPage > 3 && (
+        <li>
+          <button
+            aria-label={`${currentPage - 2}`}
+            className="flex h-8 w-8 items-center justify-center border-t border-b border-l border-green-500 shadow-md"
+            type="button"
+            key="twoDown"
+            onClick={() => changePage(currentPage - 2)}
+          >
+            ...
+          </button>
+        </li>
+      )}
       {getPageNumbers().map((page) => (
         <li key={page}>
           <button
@@ -87,12 +110,40 @@ function Pagination({ pageLimit, productsPerPage }: PaginationProps) {
               page === currentPage ? 'bg-green-500 text-white' : 'bg-white'
             )}
             type="button"
-            onClick={() => handlePageChange(page)}
+            onClick={() => changePage(page)}
           >
             {page}
           </button>
         </li>
       ))}
+      {currentPage < totalPageCount - 2 && (
+        <li>
+          <button
+            aria-label={`${currentPage + 2}`}
+            className="flex h-8 w-8 items-center justify-center border-t border-b border-l border-green-500 shadow-md"
+            type="button"
+            key="twoUp"
+            onClick={() => changePage(currentPage + 2)}
+          >
+            ...
+          </button>
+        </li>
+      )}
+      <li>
+        <button
+          className={cx(
+            'flex h-8 w-8 items-center justify-center border-l border-t border-b border-green-500',
+            currentPage === totalPageCount
+              ? 'bg-green-500 text-white'
+              : 'bg-white'
+          )}
+          type="button"
+          key={totalPageCount}
+          onClick={() => changePage(totalPageCount)}
+        >
+          {totalPageCount}
+        </button>
+      </li>
       <li>
         <button
           aria-label="Next page"
@@ -100,6 +151,7 @@ function Pagination({ pageLimit, productsPerPage }: PaginationProps) {
           className="flex h-8 w-8 items-center justify-center border border-green-500 bg-white text-green-500 shadow-md"
           type="button"
           key="next"
+          onClick={() => changePage(currentPage + 1)}
         >
           <FiChevronRight />
         </button>

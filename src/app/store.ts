@@ -5,12 +5,10 @@ import {
 } from '@reduxjs/toolkit';
 import authReducer from 'features/auth/authSlice';
 import productsReducer from 'features/products/productsSlice';
-import paginationReducer from 'features/pagination/paginationSlice';
 
 const rootReducer = combineReducers({
   auth: authReducer,
   products: productsReducer,
-  pagination: paginationReducer,
 });
 
 export function setupStore(preloadedState?: PreloadedState<RootState>) {
