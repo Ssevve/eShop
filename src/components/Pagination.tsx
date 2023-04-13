@@ -68,7 +68,7 @@ function Pagination({ pageLimit, productsPerPage }: PaginationProps) {
         <button
           aria-label="Previous page"
           disabled={currentPage === 1}
-          className="flex h-8 w-8 items-center justify-center border-t border-b border-l border-green-500 bg-white text-green-500 shadow-md"
+          className="flex h-8 w-8 items-center justify-center border-t border-b border-l border-green-500 bg-white text-green-500"
           type="button"
           key="prev"
           onClick={() => changePage(currentPage - 1)}
@@ -78,6 +78,7 @@ function Pagination({ pageLimit, productsPerPage }: PaginationProps) {
       </li>
       <li>
         <button
+          disabled={currentPage === 1}
           className={cx(
             'flex h-8 w-8 items-center justify-center border-l border-t border-b border-green-500',
             currentPage === 1 ? 'bg-green-500 text-white' : 'bg-white'
@@ -93,7 +94,7 @@ function Pagination({ pageLimit, productsPerPage }: PaginationProps) {
         <li>
           <button
             aria-label={`${currentPage - 2}`}
-            className="flex h-8 w-8 items-center justify-center border-t border-b border-l border-green-500 shadow-md"
+            className="flex h-8 w-8 items-center justify-center border-t border-b border-l border-green-500"
             type="button"
             key="twoDown"
             onClick={() => changePage(currentPage - 2)}
@@ -105,6 +106,7 @@ function Pagination({ pageLimit, productsPerPage }: PaginationProps) {
       {getPageNumbers().map((page) => (
         <li key={page}>
           <button
+            disabled={currentPage === page}
             className={cx(
               'flex h-8 w-8 items-center justify-center border-l border-t border-b border-green-500',
               page === currentPage ? 'bg-green-500 text-white' : 'bg-white'
@@ -120,7 +122,7 @@ function Pagination({ pageLimit, productsPerPage }: PaginationProps) {
         <li>
           <button
             aria-label={`${currentPage + 2}`}
-            className="flex h-8 w-8 items-center justify-center border-t border-b border-l border-green-500 shadow-md"
+            className="flex h-8 w-8 items-center justify-center border-t border-b border-l border-green-500"
             type="button"
             key="twoUp"
             onClick={() => changePage(currentPage + 2)}
@@ -131,6 +133,7 @@ function Pagination({ pageLimit, productsPerPage }: PaginationProps) {
       )}
       <li>
         <button
+          disabled={currentPage === totalPageCount}
           className={cx(
             'flex h-8 w-8 items-center justify-center border-l border-t border-b border-green-500',
             currentPage === totalPageCount
@@ -148,7 +151,7 @@ function Pagination({ pageLimit, productsPerPage }: PaginationProps) {
         <button
           aria-label="Next page"
           disabled={currentPage === totalPageCount}
-          className="flex h-8 w-8 items-center justify-center border border-green-500 bg-white text-green-500 shadow-md"
+          className="flex h-8 w-8 items-center justify-center border border-green-500 bg-white text-green-500"
           type="button"
           key="next"
           onClick={() => changePage(currentPage + 1)}
