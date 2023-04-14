@@ -1,31 +1,22 @@
-import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import cx from 'classnames';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { getProducts } from 'features/products/productsSlice';
 
 interface PaginationProps {
+  onPageClick: (page: number) => void;
+  totalItemCount: number;
+  currentPage: number;
   pageLimit: number;
-  productsPerPage: number;
+  itemsPerPage: number;
 }
 
-function Pagination({ pageLimit, productsPerPage }: PaginationProps) {
-  const dispatch = useAppDispatch();
-  const totalProductCount = useAppSelector(
-    (state) => state.products.totalProductCount
-  );
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const changePage = (page: number) => {
-    const updatedSearchParams = new URLSearchParams(searchParams.toString());
-    updatedSearchParams.set('page', page.toString());
-    setSearchParams(updatedSearchParams);
-    setCurrentPage(page);
-  };
-
-  const totalPageCount = Math.ceil(totalProductCount / productsPerPage);
+function Pagination({
+  onPageClick,
+  totalItemCount,
+  currentPage,
+  pageLimit,
+  itemsPerPage,
+}: PaginationProps) {
+  const totalPageCount = Math.ceil(totalItemCount / itemsPerPage);
 
   const getPageNumbers = () => {
     if (totalPageCount <= pageLimit) {
@@ -52,16 +43,6 @@ function Pagination({ pageLimit, productsPerPage }: PaginationProps) {
       .map((_, i) => currentPage - Math.floor(pageLimit / 2) + i);
   };
 
-  useEffect(() => {
-    dispatch(getProducts({ page: currentPage, limit: productsPerPage }));
-  }, [currentPage]);
-
-  useEffect(() => {
-    const requestedPage = Number(searchParams.get('page'));
-    if (requestedPage) setCurrentPage(requestedPage);
-    else changePage(1);
-  }, []);
-
   return totalPageCount > 1 ? (
     <ul className="mx-auto flex items-center justify-center rounded-sm">
       <li>
@@ -71,7 +52,7 @@ function Pagination({ pageLimit, productsPerPage }: PaginationProps) {
           className="flex h-8 w-8 items-center justify-center border-t border-b border-l border-green-500 bg-white text-green-500"
           type="button"
           key="prev"
-          onClick={() => changePage(currentPage - 1)}
+          onClick={() => onPageClick(currentPage - 1)}
         >
           <FiChevronLeft />
         </button>
@@ -85,7 +66,7 @@ function Pagination({ pageLimit, productsPerPage }: PaginationProps) {
           )}
           type="button"
           key="1"
-          onClick={() => changePage(1)}
+          onClick={() => onPageClick(1)}
         >
           1
         </button>
@@ -97,7 +78,7 @@ function Pagination({ pageLimit, productsPerPage }: PaginationProps) {
             className="flex h-8 w-8 items-center justify-center border-t border-b border-l border-green-500"
             type="button"
             key="twoDown"
-            onClick={() => changePage(currentPage - 2)}
+            onClick={() => onPageClick(currentPage - 2)}
           >
             ...
           </button>
@@ -112,7 +93,7 @@ function Pagination({ pageLimit, productsPerPage }: PaginationProps) {
               page === currentPage ? 'bg-green-500 text-white' : 'bg-white'
             )}
             type="button"
-            onClick={() => changePage(page)}
+            onClick={() => onPageClick(page)}
           >
             {page}
           </button>
@@ -125,7 +106,7 @@ function Pagination({ pageLimit, productsPerPage }: PaginationProps) {
             className="flex h-8 w-8 items-center justify-center border-t border-b border-l border-green-500"
             type="button"
             key="twoUp"
-            onClick={() => changePage(currentPage + 2)}
+            onClick={() => onPageClick(currentPage + 2)}
           >
             ...
           </button>
@@ -142,7 +123,7 @@ function Pagination({ pageLimit, productsPerPage }: PaginationProps) {
           )}
           type="button"
           key={totalPageCount}
-          onClick={() => changePage(totalPageCount)}
+          onClick={() => onPageClick(totalPageCount)}
         >
           {totalPageCount}
         </button>
@@ -154,7 +135,7 @@ function Pagination({ pageLimit, productsPerPage }: PaginationProps) {
           className="flex h-8 w-8 items-center justify-center border border-green-500 bg-white text-green-500"
           type="button"
           key="next"
-          onClick={() => changePage(currentPage + 1)}
+          onClick={() => onPageClick(currentPage + 1)}
         >
           <FiChevronRight />
         </button>
