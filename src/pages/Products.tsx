@@ -37,7 +37,7 @@ function Products() {
       <ProductList />
       <Pagination
         totalItemCount={totalProductCount}
-        onPageClick={changePage}
+        onPageChange={changePage}
         currentPage={currentPage}
         pageLimit={3}
         itemsPerPage={productsPerPage}

@@ -12,8 +12,6 @@
   "dependencies": {
     "@hookform/resolvers": "^3.0.0",
     "@reduxjs/toolkit": "^1.9.3",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^14.0.0",
     "classnames": "^2.3.2",
     "firebase": "^9.18.0",
     "react": "^18.2.0",
@@ -27,6 +25,9 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@testing-library/dom": "^9.2.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.0.0",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@typescript-eslint/eslint-plugin": "^5.55.0",

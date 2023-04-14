@@ -2,7 +2,7 @@ import cx from 'classnames';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 interface PaginationProps {
-  onPageClick: (page: number) => void;
+  onPageChange: (page: number) => void;
   totalItemCount: number;
   currentPage: number;
   pageLimit: number;
@@ -10,7 +10,7 @@ interface PaginationProps {
 }
 
 function Pagination({
-  onPageClick,
+  onPageChange,
   totalItemCount,
   currentPage,
   pageLimit,
@@ -52,7 +52,7 @@ function Pagination({
           className="flex h-8 w-8 items-center justify-center border-t border-b border-l border-green-500 bg-white text-green-500"
           type="button"
           key="prev"
-          onClick={() => onPageClick(currentPage - 1)}
+          onClick={() => onPageChange(currentPage - 1)}
         >
           <FiChevronLeft />
         </button>
@@ -66,7 +66,7 @@ function Pagination({
           )}
           type="button"
           key="1"
-          onClick={() => onPageClick(1)}
+          onClick={() => onPageChange(1)}
         >
           1
         </button>
@@ -74,11 +74,17 @@ function Pagination({
       {currentPage > 3 && (
         <li>
           <button
-            aria-label={`${currentPage - 2}`}
+            aria-label={`Page ${
+              currentPage === totalPageCount ? currentPage - 3 : currentPage - 2
+            }`}
             className="flex h-8 w-8 items-center justify-center border-t border-b border-l border-green-500"
             type="button"
-            key="twoDown"
-            onClick={() => onPageClick(currentPage - 2)}
+            key="backMore"
+            onClick={() =>
+              currentPage === totalPageCount
+                ? onPageChange(currentPage - 3)
+                : onPageChange(currentPage - 2)
+            }
           >
             ...
           </button>
@@ -87,13 +93,14 @@ function Pagination({
       {getPageNumbers().map((page) => (
         <li key={page}>
           <button
+            aria-label={`Page ${page}`}
             disabled={currentPage === page}
             className={cx(
               'flex h-8 w-8 items-center justify-center border-l border-t border-b border-green-500',
               page === currentPage ? 'bg-green-500 text-white' : 'bg-white'
             )}
             type="button"
-            onClick={() => onPageClick(page)}
+            onClick={() => onPageChange(page)}
           >
             {page}
           </button>
@@ -102,11 +109,17 @@ function Pagination({
       {currentPage < totalPageCount - 2 && (
         <li>
           <button
-            aria-label={`${currentPage + 2}`}
+            aria-label={`Page ${
+              currentPage === 1 ? currentPage + 3 : currentPage + 2
+            }`}
             className="flex h-8 w-8 items-center justify-center border-t border-b border-l border-green-500"
             type="button"
-            key="twoUp"
-            onClick={() => onPageClick(currentPage + 2)}
+            key="nextMore"
+            onClick={() =>
+              currentPage === 1
+                ? onPageChange(currentPage + 3)
+                : onPageChange(currentPage + 2)
+            }
           >
             ...
           </button>
@@ -114,6 +127,7 @@ function Pagination({
       )}
       <li>
         <button
+          aria-label={`Page ${totalPageCount}`}
           disabled={currentPage === totalPageCount}
           className={cx(
             'flex h-8 w-8 items-center justify-center border-l border-t border-b border-green-500',
@@ -123,7 +137,7 @@ function Pagination({
           )}
           type="button"
           key={totalPageCount}
-          onClick={() => onPageClick(totalPageCount)}
+          onClick={() => onPageChange(totalPageCount)}
         >
           {totalPageCount}
         </button>
@@ -135,7 +149,7 @@ function Pagination({
           className="flex h-8 w-8 items-center justify-center border border-green-500 bg-white text-green-500"
           type="button"
           key="next"
-          onClick={() => onPageClick(currentPage + 1)}
+          onClick={() => onPageChange(currentPage + 1)}
         >
           <FiChevronRight />
         </button>
