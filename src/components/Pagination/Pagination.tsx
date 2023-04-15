@@ -2,21 +2,32 @@ import cx from 'classnames';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 interface PaginationProps {
-  onPageChange: (page: number) => void;
   totalItemCount: number;
-  currentPage: number;
   pageLimit: number;
   itemsPerPage: number;
+  currentPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
 function Pagination({
-  onPageChange,
   totalItemCount,
-  currentPage,
   pageLimit,
   itemsPerPage,
+  currentPage,
+  setCurrentPage,
 }: PaginationProps) {
   const totalPageCount = Math.ceil(totalItemCount / itemsPerPage);
+
+  const handleNextPageClick = () => setCurrentPage((current) => current + 1);
+  const handlePreviousPageClick = () =>
+    setCurrentPage((current) => current - 1);
+  const handleMoreNextPagesClick = () =>
+    setCurrentPage((current) => (current === 1 ? current + 3 : current + 2));
+  const handleMorePreviousPagesClick = () =>
+    setCurrentPage((current) =>
+      current === totalPageCount ? current - 3 : current - 2
+    );
+  const handlePageChange = (page: number) => setCurrentPage(page);
 
   const getPageNumbers = () => {
     if (totalPageCount <= pageLimit) {
@@ -51,8 +62,8 @@ function Pagination({
           disabled={currentPage === 1}
           className="flex h-8 w-8 items-center justify-center border-t border-b border-l border-green-500 bg-white text-green-500"
           type="button"
-          key="prev"
-          onClick={() => onPageChange(currentPage - 1)}
+          key="previousPage"
+          onClick={handlePreviousPageClick}
         >
           <FiChevronLeft />
         </button>
@@ -66,7 +77,7 @@ function Pagination({
           )}
           type="button"
           key="1"
-          onClick={() => onPageChange(1)}
+          onClick={() => handlePageChange(1)}
         >
           1
         </button>
@@ -79,12 +90,8 @@ function Pagination({
             }`}
             className="flex h-8 w-8 items-center justify-center border-t border-b border-l border-green-500"
             type="button"
-            key="backMore"
-            onClick={() =>
-              currentPage === totalPageCount
-                ? onPageChange(currentPage - 3)
-                : onPageChange(currentPage - 2)
-            }
+            key="morePreviousPages"
+            onClick={handleMorePreviousPagesClick}
           >
             ...
           </button>
@@ -100,7 +107,7 @@ function Pagination({
               page === currentPage ? 'bg-green-500 text-white' : 'bg-white'
             )}
             type="button"
-            onClick={() => onPageChange(page)}
+            onClick={() => handlePageChange(page)}
           >
             {page}
           </button>
@@ -114,12 +121,8 @@ function Pagination({
             }`}
             className="flex h-8 w-8 items-center justify-center border-t border-b border-l border-green-500"
             type="button"
-            key="nextMore"
-            onClick={() =>
-              currentPage === 1
-                ? onPageChange(currentPage + 3)
-                : onPageChange(currentPage + 2)
-            }
+            key="moreNextPages"
+            onClick={handleMoreNextPagesClick}
           >
             ...
           </button>
@@ -137,7 +140,7 @@ function Pagination({
           )}
           type="button"
           key={totalPageCount}
-          onClick={() => onPageChange(totalPageCount)}
+          onClick={() => handlePageChange(totalPageCount)}
         >
           {totalPageCount}
         </button>
@@ -148,8 +151,8 @@ function Pagination({
           disabled={currentPage === totalPageCount}
           className="flex h-8 w-8 items-center justify-center border border-green-500 bg-white text-green-500"
           type="button"
-          key="next"
-          onClick={() => onPageChange(currentPage + 1)}
+          key="nextPage"
+          onClick={handleNextPageClick}
         >
           <FiChevronRight />
         </button>
