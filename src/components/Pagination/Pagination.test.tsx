@@ -6,11 +6,11 @@ import Pagination from './Pagination';
 
 describe('Pagination', () => {
   describe('When specific page buttons are clicked', () => {
-    test('Calls onPageChange on page button click', async () => {
-      const onPageChange = vi.fn();
+    test('Calls setCurrentPage on page button click', async () => {
+      const setCurrentPage = vi.fn();
       renderWithProviders(
         <Pagination
-          onPageChange={onPageChange}
+          setCurrentPage={setCurrentPage}
           totalItemCount={200}
           currentPage={1}
           pageLimit={3}
@@ -19,14 +19,14 @@ describe('Pagination', () => {
       );
 
       fireEvent.click(screen.getByRole('button', { name: /page 3/i }));
-      expect(onPageChange).toHaveBeenCalledTimes(1);
+      expect(setCurrentPage).toHaveBeenCalledTimes(1);
     });
 
-    test('Calls onPageChange with correct value on specific page click', async () => {
-      const onPageChange = vi.fn();
+    test('Calls setCurrentPage with correct value on specific page click', async () => {
+      const setCurrentPage = vi.fn();
       renderWithProviders(
         <Pagination
-          onPageChange={onPageChange}
+          setCurrentPage={setCurrentPage}
           totalItemCount={200}
           currentPage={1}
           pageLimit={3}
@@ -35,39 +35,7 @@ describe('Pagination', () => {
       );
 
       fireEvent.click(screen.getByRole('button', { name: /page 3/i }));
-      expect(onPageChange).toHaveBeenCalledWith(3);
-    });
-
-    test('Calls onPageChange with correct value on previous page button click', async () => {
-      const onPageChange = vi.fn();
-      renderWithProviders(
-        <Pagination
-          onPageChange={onPageChange}
-          totalItemCount={200}
-          currentPage={2}
-          pageLimit={3}
-          itemsPerPage={20}
-        />
-      );
-
-      fireEvent.click(screen.getByRole('button', { name: /previous page/i }));
-      expect(onPageChange).toHaveBeenCalledWith(1);
-    });
-
-    test('Calls onPageChange with correct value on next page button click', async () => {
-      const onPageChange = vi.fn();
-      renderWithProviders(
-        <Pagination
-          onPageChange={onPageChange}
-          totalItemCount={200}
-          currentPage={2}
-          pageLimit={3}
-          itemsPerPage={20}
-        />
-      );
-
-      fireEvent.click(screen.getByRole('button', { name: /next page/i }));
-      expect(onPageChange).toHaveBeenCalledWith(3);
+      expect(setCurrentPage).toHaveBeenCalledWith(3);
     });
   });
 
@@ -75,7 +43,7 @@ describe('Pagination', () => {
     test('Renders nothing', () => {
       renderWithProviders(
         <Pagination
-          onPageChange={() => {}}
+          setCurrentPage={() => {}}
           totalItemCount={19}
           currentPage={1}
           pageLimit={3}
@@ -90,7 +58,7 @@ describe('Pagination', () => {
     test('Renders a previous page button', () => {
       renderWithProviders(
         <Pagination
-          onPageChange={() => {}}
+          setCurrentPage={() => {}}
           totalItemCount={200}
           currentPage={1}
           pageLimit={3}
@@ -105,7 +73,7 @@ describe('Pagination', () => {
     test('Renders a next page button', () => {
       renderWithProviders(
         <Pagination
-          onPageChange={() => {}}
+          setCurrentPage={() => {}}
           totalItemCount={200}
           currentPage={1}
           pageLimit={3}
@@ -120,7 +88,7 @@ describe('Pagination', () => {
     test('Renders a disabled previous page button if current page is 1', () => {
       renderWithProviders(
         <Pagination
-          onPageChange={() => {}}
+          setCurrentPage={() => {}}
           totalItemCount={200}
           currentPage={1}
           pageLimit={3}
@@ -135,7 +103,7 @@ describe('Pagination', () => {
     test('Renders a not disabled previous page button if current page is more than 1', () => {
       renderWithProviders(
         <Pagination
-          onPageChange={() => {}}
+          setCurrentPage={() => {}}
           totalItemCount={200}
           currentPage={2}
           pageLimit={3}
@@ -150,7 +118,7 @@ describe('Pagination', () => {
     test('Renders a disabled next page button if current page is 10', () => {
       renderWithProviders(
         <Pagination
-          onPageChange={() => {}}
+          setCurrentPage={() => {}}
           totalItemCount={200}
           currentPage={10}
           pageLimit={3}
@@ -163,7 +131,7 @@ describe('Pagination', () => {
     test('Renders a not disabled next page button if current page is less than 10', () => {
       renderWithProviders(
         <Pagination
-          onPageChange={() => {}}
+          setCurrentPage={() => {}}
           totalItemCount={200}
           currentPage={9}
           pageLimit={3}
@@ -178,7 +146,7 @@ describe('Pagination', () => {
     test('Renders a second page button as "..." if current page is 4', () => {
       renderWithProviders(
         <Pagination
-          onPageChange={() => {}}
+          setCurrentPage={() => {}}
           totalItemCount={200}
           currentPage={4}
           pageLimit={3}
@@ -193,7 +161,7 @@ describe('Pagination', () => {
     test('Renders a sixth page button as "..." if current page is 4', () => {
       renderWithProviders(
         <Pagination
-          onPageChange={() => {}}
+          setCurrentPage={() => {}}
           totalItemCount={200}
           currentPage={4}
           pageLimit={3}
@@ -208,7 +176,7 @@ describe('Pagination', () => {
     test('Renders two "..." button if current page is 4', () => {
       renderWithProviders(
         <Pagination
-          onPageChange={() => {}}
+          setCurrentPage={() => {}}
           totalItemCount={200}
           currentPage={4}
           pageLimit={3}
@@ -221,7 +189,7 @@ describe('Pagination', () => {
     test('Renders only one "..." button if current page is less than 4', () => {
       renderWithProviders(
         <Pagination
-          onPageChange={() => {}}
+          setCurrentPage={() => {}}
           totalItemCount={200}
           currentPage={3}
           pageLimit={3}
@@ -234,7 +202,7 @@ describe('Pagination', () => {
     test('Renders a fourth page button as "..." if current page is 1', () => {
       renderWithProviders(
         <Pagination
-          onPageChange={() => {}}
+          setCurrentPage={() => {}}
           totalItemCount={200}
           currentPage={1}
           pageLimit={3}
@@ -249,7 +217,7 @@ describe('Pagination', () => {
     test('Renders only one "..." button if current page is more than 8', () => {
       renderWithProviders(
         <Pagination
-          onPageChange={() => {}}
+          setCurrentPage={() => {}}
           totalItemCount={200}
           currentPage={8}
           pageLimit={3}
@@ -262,7 +230,7 @@ describe('Pagination', () => {
     test('Renders a seventh page button as "..." if current page is 10', () => {
       renderWithProviders(
         <Pagination
-          onPageChange={() => {}}
+          setCurrentPage={() => {}}
           totalItemCount={200}
           currentPage={10}
           pageLimit={3}
