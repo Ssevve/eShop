@@ -36,17 +36,13 @@ function Pagination({
     }
     if (currentPage < 3) {
       // Show page numbers starting from 2
-      return new Array(pageLimit)
-        .fill(0)
-        .map((_, i) => i + 1)
-        .slice(1);
+      return new Array(pageLimit - 1).fill(0).map((_, i) => i + 2);
     }
     if (currentPage > totalPageCount - pageLimit + 1) {
       // Show page numbers ending at totalPageCount - 1
-      return new Array(pageLimit)
+      return new Array(pageLimit - 1)
         .fill(0)
-        .map((_, i) => totalPageCount - pageLimit + i + 1)
-        .slice(0, -1);
+        .map((_, i) => totalPageCount - pageLimit + i + 1);
     }
     // Show page numbers limiting the count to pageLimit
     return new Array(pageLimit)
