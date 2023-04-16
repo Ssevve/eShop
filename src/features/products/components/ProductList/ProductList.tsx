@@ -20,7 +20,7 @@ function ProductList({ currentPage, setCurrentPage }: ProductListProps) {
   };
 
   return (
-    <>
+    <div>
       <ul className="flex flex-wrap">
         {getCurrentPageProducts().map((product) => (
           <li key={product?.id}>
@@ -35,7 +35,7 @@ function ProductList({ currentPage, setCurrentPage }: ProductListProps) {
         pageLimit={3}
         itemsPerPage={productsPerPage}
       />
-    </>
+    </div>
   );
 }
 

@@ -49,4 +49,8 @@ export const { selectEntities: selectProducts } = productsAdapter.getSelectors(
   (state: RootState) => state.products
 );
 
+// Select discounted products
+
+// Select products by category
+
 export default productsSlice.reducer;
