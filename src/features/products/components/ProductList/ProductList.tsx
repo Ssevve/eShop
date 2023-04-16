@@ -1,7 +1,8 @@
-import Pagination from 'components/Pagination/Pagination';
-import { selectProducts } from 'features/products/productsSlice';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppSelector } from 'app/hooks';
+import { selectFilteredProducts } from 'features/products/productsSlice';
+
+import Pagination from 'components/Pagination/Pagination';
 import ProductCard from '../ProductCard/ProductCard';
 
 interface ProductListProps {
@@ -11,7 +12,15 @@ interface ProductListProps {
 
 function ProductList({ currentPage, setCurrentPage }: ProductListProps) {
   const [productsPerPage] = useState(10);
-  const products = Object.values(useAppSelector(selectProducts));
+  const products = useAppSelector(selectFilteredProducts);
+  // const discountedProducts = useAppSelector(selectDiscountedProducts);
+  // const showBestDeals = useAppSelector(selectShowBestDeals);
+
+  // const productsToRender = showBestDeals ? discountedProducts : products;
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [products]);
 
   const getCurrentPageProducts = () => {
     const startIndex = currentPage * productsPerPage - productsPerPage;

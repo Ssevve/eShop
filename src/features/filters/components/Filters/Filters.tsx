@@ -4,7 +4,6 @@ import { useAppDispatch, useAppSelector } from 'app/hooks';
 import {
   selectCurrentCategory,
   setCurrentCategory,
-  selectBestDeals,
   showBestDeals,
 } from 'features/filters/filtersSlice';
 
@@ -12,16 +11,15 @@ function Filters() {
   const dispatch = useAppDispatch();
   const categories = useAppSelector((state) => state.filters.categories);
   const currentCategory = useAppSelector(selectCurrentCategory);
-  const showingBestDeals = useAppSelector(selectBestDeals);
 
   return (
     <div className="flex w-1/3 min-w-fit flex-col gap-4 border leading-none">
       <button
         className={cx(
           'flex w-full items-center gap-2 p-4 text-left',
-          showingBestDeals && 'bg-green-500 text-white'
+          !currentCategory && 'bg-green-500 text-white'
         )}
-        disabled={showingBestDeals}
+        disabled={!currentCategory}
         type="button"
         onClick={() => dispatch(showBestDeals())}
       >

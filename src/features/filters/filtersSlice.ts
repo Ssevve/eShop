@@ -16,7 +16,7 @@ const categories = [
 ] as const;
 
 type Categories = typeof categories;
-type Category = Categories[number];
+export type Category = Categories[number];
 
 interface FiltersState {
   categories: Categories;
@@ -50,6 +50,7 @@ export const { setCurrentCategory, showBestDeals } = filtersSlice.actions;
 export const selectCurrentCategory = (state: RootState) =>
   state.filters.currentCategory;
 
-export const selectBestDeals = (state: RootState) => state.filters.bestDeals;
+export const selectShowBestDeals = (state: RootState) =>
+  state.filters.bestDeals;
 
 export default filtersSlice.reducer;

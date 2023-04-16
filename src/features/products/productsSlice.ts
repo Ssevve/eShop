@@ -8,6 +8,7 @@ import {
 import { RootState } from 'app/store';
 import Status from 'types/Status';
 import Product from 'types/Product';
+import { selectCurrentCategory } from 'features/filters/filtersSlice';
 
 const productsAdapter = createEntityAdapter<Product>();
 
@@ -45,12 +46,28 @@ const productsSlice = createSlice({
   },
 });
 
-export const { selectEntities: selectProducts } = productsAdapter.getSelectors(
-  (state: RootState) => state.products
+export const selectProducts = (state: RootState) =>
+  Object.values(state.products.entities);
+
+export const selectDiscountedProducts = createSelector(
+  [selectProducts],
+  (products) => {
+    if (!products.length) return [];
+    return products.filter(
+      (product) => product && product.discountPrice < product.price
+    );
+  }
 );
 
-// Select discounted products
-
-// Select products by category
+export const selectFilteredProducts = createSelector(
+  [selectProducts, selectDiscountedProducts, selectCurrentCategory],
+  (products, discountedProducts, currentCategory) => {
+    if (!currentCategory) return discountedProducts;
+    if (!products.length) return [];
+    return products.filter(
+      (product) => product && product.category === currentCategory
+    );
+  }
+);
 
 export default productsSlice.reducer;
