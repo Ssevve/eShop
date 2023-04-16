@@ -51,12 +51,12 @@ function Pagination({
   };
 
   return totalPageCount > 1 ? (
-    <ul className="mx-auto flex items-center justify-center rounded-sm">
+    <ul className="mx-auto flex items-center justify-center gap-2 rounded-sm py-8">
       <li>
         <button
+          className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-slate-200"
           aria-label="Previous page"
           disabled={currentPage === 1}
-          className="flex h-8 w-8 items-center justify-center border-t border-b border-l border-green-500 bg-white text-green-500"
           type="button"
           key="previousPage"
           onClick={handlePreviousPageClick}
@@ -66,11 +66,13 @@ function Pagination({
       </li>
       <li>
         <button
-          disabled={currentPage === 1}
           className={cx(
-            'flex h-8 w-8 items-center justify-center border-l border-t border-b border-green-500',
-            currentPage === 1 ? 'bg-green-500 text-white' : 'bg-white'
+            'h-8 w-8 rounded-md',
+            currentPage === 1
+              ? 'bg-green-500 text-white hover:bg-green-500 hover:text-white'
+              : 'bg-white text-black hover:bg-slate-200'
           )}
+          disabled={currentPage === 1}
           type="button"
           key="1"
           onClick={() => handlePageChange(1)}
@@ -81,10 +83,10 @@ function Pagination({
       {currentPage > 3 && (
         <li>
           <button
+            className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-slate-200"
             aria-label={`Page ${
               currentPage === totalPageCount ? currentPage - 3 : currentPage - 2
             }`}
-            className="flex h-8 w-8 items-center justify-center border-t border-b border-l border-green-500"
             type="button"
             key="morePreviousPages"
             onClick={handleMorePreviousPagesClick}
@@ -96,12 +98,14 @@ function Pagination({
       {getPageNumbers().map((page) => (
         <li key={page}>
           <button
+            className={cx(
+              'flex h-8 w-8 items-center justify-center rounded-md',
+              currentPage === page
+                ? 'bg-green-500 text-white hover:bg-green-500 hover:text-white'
+                : 'bg-white text-black hover:bg-slate-200'
+            )}
             aria-label={`Page ${page}`}
             disabled={currentPage === page}
-            className={cx(
-              'flex h-8 w-8 items-center justify-center border-l border-t border-b border-green-500',
-              page === currentPage ? 'bg-green-500 text-white' : 'bg-white'
-            )}
             type="button"
             onClick={() => handlePageChange(page)}
           >
@@ -112,10 +116,10 @@ function Pagination({
       {currentPage < totalPageCount - 2 && (
         <li>
           <button
+            className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-slate-200"
             aria-label={`Page ${
               currentPage === 1 ? currentPage + 3 : currentPage + 2
             }`}
-            className="flex h-8 w-8 items-center justify-center border-t border-b border-l border-green-500"
             type="button"
             key="moreNextPages"
             onClick={handleMoreNextPagesClick}
@@ -126,14 +130,14 @@ function Pagination({
       )}
       <li>
         <button
+          className={cx(
+            'flex h-8 w-8 items-center justify-center rounded-md',
+            currentPage === totalPageCount
+              ? 'bg-green-500 text-white hover:bg-green-500 hover:text-white'
+              : 'bg-white text-black hover:bg-slate-200'
+          )}
           aria-label={`Page ${totalPageCount}`}
           disabled={currentPage === totalPageCount}
-          className={cx(
-            'flex h-8 w-8 items-center justify-center border-l border-t border-b border-green-500',
-            currentPage === totalPageCount
-              ? 'bg-green-500 text-white'
-              : 'bg-white'
-          )}
           type="button"
           key={totalPageCount}
           onClick={() => handlePageChange(totalPageCount)}
@@ -143,9 +147,9 @@ function Pagination({
       </li>
       <li>
         <button
+          className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-slate-200"
           aria-label="Next page"
           disabled={currentPage === totalPageCount}
-          className="flex h-8 w-8 items-center justify-center border border-green-500 bg-white text-green-500"
           type="button"
           key="nextPage"
           onClick={handleNextPageClick}
