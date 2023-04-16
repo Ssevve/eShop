@@ -16,7 +16,6 @@ function Header() {
         <div className="flex justify-end gap-2">
           <Link
             className="grid justify-items-center p-2 text-sm"
-            aria-label={currentUser ? 'Account' : 'Log in'}
             title={currentUser ? 'Account' : 'Log in'}
             to={currentUser ? '/account' : '/login'}
           >

@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Header from 'components/common/Header/Header';
+import Header from 'components/layout/Header/Header';
 import Home from 'pages/Home';
 import Products from 'pages/Products';
 import AuthRoutes from 'components/AuthRoutes';
@@ -9,7 +9,7 @@ import GuestRoutes from 'components/GuestRoutes';
 import Login from 'pages/Login';
 import Register from 'pages/Register';
 import NotFound from 'pages/NotFound';
-import Footer from 'components/Footer';
+import Footer from 'components/layout/Footer';
 
 import useAuth from 'features/auth/useAuth';
 
