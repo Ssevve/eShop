@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
-import { SortOption } from './sortOptions';
+import { SortValue } from './sortOptions';
 
 const categories = [
   'Fruits & Vegetables',
@@ -23,14 +23,14 @@ interface FiltersState {
   categories: Categories;
   currentCategory: Category | null;
   bestDeals: boolean;
-  sortBy: SortOption | null;
+  sortBy: SortValue | undefined;
 }
 
 const initialState: FiltersState = {
   categories,
   currentCategory: null,
   bestDeals: true,
-  sortBy: null,
+  sortBy: undefined,
 };
 
 const filtersSlice = createSlice({
@@ -41,7 +41,7 @@ const filtersSlice = createSlice({
       state.currentCategory = action.payload;
       state.bestDeals = false;
     },
-    setSortBy(state, action: PayloadAction<SortOption>) {
+    setSortBy(state, action: PayloadAction<SortValue>) {
       state.sortBy = action.payload;
     },
     showBestDeals(state) {

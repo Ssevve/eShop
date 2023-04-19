@@ -12,7 +12,7 @@ import {
   selectCurrentCategory,
   selectSortBy,
 } from 'features/filters/filtersSlice';
-import SortOptions from 'features/filters/sortOptions';
+import { SortValues } from 'features/filters/sortOptions';
 
 const productsAdapter = createEntityAdapter<Product>();
 
@@ -77,22 +77,22 @@ export const selectFilteredProducts = createSelector(
 export const selectSortedProducts = createSelector(
   [selectFilteredProducts, selectSortBy],
   (filteredProducts, sortBy) => {
-    if (sortBy === SortOptions.NAME_ASCENDING) {
+    if (sortBy === SortValues.NAME_ASCENDING) {
       return filteredProducts
         .filter((product): product is Product => !!product)
         .sort((a, b) => a.productName.localeCompare(b.productName));
     }
-    if (sortBy === SortOptions.NAME_DESCENDING) {
+    if (sortBy === SortValues.NAME_DESCENDING) {
       return filteredProducts
         .filter((product): product is Product => !!product)
         .sort((a, b) => b.productName.localeCompare(a.productName));
     }
-    if (sortBy === SortOptions.PRICE_ASCENDING) {
+    if (sortBy === SortValues.PRICE_ASCENDING) {
       return filteredProducts
         .filter((product): product is Product => !!product)
         .sort((a, b) => a.discountPrice - b.discountPrice);
     }
-    if (sortBy === SortOptions.PRICE_DESCENDING) {
+    if (sortBy === SortValues.PRICE_DESCENDING) {
       return filteredProducts
         .filter((product): product is Product => !!product)
         .sort((a, b) => b.discountPrice - a.discountPrice);
