@@ -54,7 +54,7 @@ function Pagination({
     <ul className="mx-auto flex items-center justify-center gap-2 rounded-sm py-8">
       <li>
         <button
-          className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-slate-200"
+          className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-slate-200 disabled:text-slate-400 disabled:hover:bg-white"
           aria-label="Previous page"
           disabled={currentPage === 1}
           type="button"
@@ -147,7 +147,7 @@ function Pagination({
       </li>
       <li>
         <button
-          className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-slate-200"
+          className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-slate-200 hover:bg-slate-200 disabled:text-slate-400 disabled:hover:bg-white"
           aria-label="Next page"
           disabled={currentPage === totalPageCount}
           type="button"

@@ -12,7 +12,7 @@ import {
   selectCurrentCategory,
   selectSortBy,
 } from 'features/filters/filtersSlice';
-import { SortValues } from 'features/filters/sortOptions';
+import SortValues from 'features/filters/sortValues';
 
 const productsAdapter = createEntityAdapter<Product>();
 
