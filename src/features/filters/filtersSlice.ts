@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
-import { SortValue } from './sortOptions';
+import SortValue from 'types/SortValue';
 
 const categories = [
   'Fruits & Vegetables',
@@ -23,7 +23,7 @@ interface FiltersState {
   categories: Categories;
   currentCategory: Category | null;
   bestDeals: boolean;
-  sortBy: SortValue | undefined;
+  sortBy: SortValue;
 }
 
 const initialState: FiltersState = {
