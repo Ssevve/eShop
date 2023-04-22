@@ -21,6 +21,7 @@ module.exports = {
   plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
     'react-hooks/exhaustive-deps': 0,
+    'react/jsx-no-bind': 0,
     'react/react-in-jsx-scope': 0,
     'jsx-a11y/label-has-associated-control': [
       2,
