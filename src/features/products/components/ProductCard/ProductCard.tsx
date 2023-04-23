@@ -13,7 +13,7 @@ function ProductCard({ product }: ProductCardProps) {
   if (!product) return null;
 
   return (
-    <a href="/" className="flex w-64 flex-col gap-2 p-3">
+    <a href="/" className="flex flex-col gap-2 p-3">
       <img src={product.imageUrl} alt={product.productName} />
       <h2 className="font-semibold">{product.productName}</h2>
       <div className="flex justify-between">

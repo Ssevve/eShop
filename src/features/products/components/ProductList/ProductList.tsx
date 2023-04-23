@@ -25,8 +25,8 @@ function ProductList({ currentPage, setCurrentPage }: ProductListProps) {
   };
 
   return (
-    <div>
-      <ul className="flex flex-wrap gap-8">
+    <div className="w-full">
+      <ul className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5">
         {getCurrentPageProducts().map((product) => (
           <li key={product?.id}>
             <ProductCard product={product} />
