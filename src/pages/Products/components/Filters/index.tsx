@@ -4,10 +4,9 @@ import SortValues from 'features/filters/sortValues';
 
 import Select from 'components/common/Select/Select';
 import { useAppDispatch } from 'app/hooks';
-import SortValue from 'types/SortValue';
 import Categories from './Categories';
 
-export const sortOptions: SelectOption<SortValue>[] = [
+export const sortOptions: SelectOption[] = [
   {
     label: 'Name (A-Z)',
     value: SortValues.NAME_ASCENDING,
@@ -28,16 +27,17 @@ export const sortOptions: SelectOption<SortValue>[] = [
 
 function Filters() {
   const dispatch = useAppDispatch();
-  function handleSortChange(option: SelectOption<SortValue>) {
+  function handleSortChange(option: SelectOption) {
     dispatch(setSortBy(option.value));
   }
 
   return (
     <div className="flex w-1/3 min-w-fit flex-col gap-4 border leading-none">
       <Categories />
-      <h3 className="px-4 text-xl font-bold">Sort by</h3>
-      {/* eslint-disable-next-line react/jsx-no-bind */}
-      <Select options={sortOptions} onChange={handleSortChange} />
+      <div className="mb-4 px-4">
+        <h3 className="text-l pb-2 font-bold">Sort by</h3>
+        <Select options={sortOptions} onChange={handleSortChange} />
+      </div>
     </div>
   );
 }

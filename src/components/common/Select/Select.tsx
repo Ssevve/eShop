@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import cx from 'classnames';
 import { FiChevronDown } from 'react-icons/fi';
 import SortValue from 'types/SortValue';
 
-export interface SelectOption<V = any> {
+export interface SelectOption {
   label: string;
-  value: V;
+  value: SortValue;
 }
 
 interface SelectProps {
@@ -16,36 +16,44 @@ interface SelectProps {
 function Select({ options, onChange }: SelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(options[1]);
+  const selectMenuRef = useRef<HTMLUListElement>(null);
 
-  const handleChange = (option: SelectOption<SortValue>) => {
-    setSelectedOption(option);
+  useEffect(() => {
+    if (selectMenuRef.current) {
+      selectMenuRef.current.scrollIntoView(false);
+    }
+  }, [isOpen]);
+
+  const handleOpen = () => setIsOpen(true);
+  const handleClose = () => setIsOpen(false);
+  const handleChange = (option: SelectOption) => {
     onChange(option);
-    setIsOpen(false);
+    setSelectedOption(option);
+    handleClose();
   };
 
-  const handleOpen = () => setIsOpen((prev) => !prev);
-
-  // TODO: Auto scroll to the most-bottom option on open
-
   return (
-    <div className="relative w-max" onMouseLeave={() => setIsOpen(false)}>
+    <div className="w-max" onMouseLeave={handleClose}>
       <button
         type="button"
-        className="relative flex cursor-pointer items-center justify-between gap-3 rounded-sm border p-3 text-left"
+        className="flex cursor-pointer items-center justify-between gap-3 rounded-sm border p-3 text-left"
         onClick={handleOpen}
       >
         {selectedOption.label}
         <FiChevronDown size={20} />
       </button>
-      <ul className="absolute top-full left-0 rounded-sm border bg-white">
-        {isOpen &&
-          options.map(
+      {isOpen && (
+        <ul
+          ref={selectMenuRef}
+          className="rounded-sm border border-t-0 bg-white"
+        >
+          {options.map(
             (option) =>
               isOpen && (
                 <li key={option.value}>
                   <button
                     className={cx(
-                      'w-full p-3 hover:bg-green-500 hover:text-white',
+                      'w-full p-3 text-left hover:bg-green-500 hover:text-white',
                       option === selectedOption && 'bg-green-500 text-white'
                     )}
                     type="button"
@@ -56,7 +64,8 @@ function Select({ options, onChange }: SelectProps) {
                 </li>
               )
           )}
-      </ul>
+        </ul>
+      )}
     </div>
   );
 }
