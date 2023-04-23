@@ -25,7 +25,7 @@ function Categories() {
         <FiPercent size={20} />
         Best Deals
       </button>
-      <h3 className="px-4 text-xl font-bold">Categories:</h3>
+      <h3 className="px-4 text-xl font-bold">Categories</h3>
       <ul>
         {categories.map((category) => (
           <li className="flex" key={category}>
