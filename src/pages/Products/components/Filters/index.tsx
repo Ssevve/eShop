@@ -32,7 +32,7 @@ function Filters() {
   }
 
   return (
-    <div className="flex w-1/3 min-w-fit flex-col gap-4 border leading-none">
+    <div className="flex min-w-fit max-w-fit flex-col gap-4 leading-none">
       <Categories />
       <div className="mb-4 px-4">
         <h3 className="text-l pb-2 font-bold">Sort by</h3>

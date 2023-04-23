@@ -15,7 +15,7 @@ function Categories() {
     <>
       <button
         className={cx(
-          'flex w-full items-center gap-2 p-4 text-left',
+          'flex w-full items-center gap-2 border-2 border-green-500 p-4 text-left',
           !currentCategory && 'bg-green-500 text-white'
         )}
         disabled={!currentCategory}
