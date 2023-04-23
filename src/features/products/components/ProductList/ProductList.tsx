@@ -13,10 +13,6 @@ interface ProductListProps {
 function ProductList({ currentPage, setCurrentPage }: ProductListProps) {
   const [productsPerPage] = useState(10);
   const products = useAppSelector(selectSortedProducts);
-  // const discountedProducts = useAppSelector(selectDiscountedProducts);
-  // const showBestDeals = useAppSelector(selectShowBestDeals);
-
-  // const productsToRender = showBestDeals ? discountedProducts : products;
 
   useEffect(() => {
     setCurrentPage(1);
@@ -30,7 +26,7 @@ function ProductList({ currentPage, setCurrentPage }: ProductListProps) {
 
   return (
     <div>
-      <ul className="flex flex-wrap">
+      <ul className="flex flex-wrap gap-8">
         {getCurrentPageProducts().map((product) => (
           <li key={product?.id}>
             <ProductCard product={product} />
