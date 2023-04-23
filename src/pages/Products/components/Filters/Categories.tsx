@@ -4,7 +4,6 @@ import { useAppDispatch, useAppSelector } from 'app/hooks';
 import {
   selectCurrentCategory,
   setCurrentCategory,
-  showBestDeals,
 } from 'features/filters/filtersSlice';
 
 function Categories() {
@@ -20,7 +19,7 @@ function Categories() {
         )}
         disabled={!currentCategory}
         type="button"
-        onClick={() => dispatch(showBestDeals())}
+        onClick={() => dispatch(setCurrentCategory(null))}
       >
         <FiPercent size={20} />
         Best Deals
