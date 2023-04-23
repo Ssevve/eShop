@@ -20,7 +20,9 @@ function Select({ options, onChange }: SelectProps) {
 
   useEffect(() => {
     if (selectMenuRef.current) {
-      selectMenuRef.current.scrollIntoView(false);
+      selectMenuRef.current.scrollIntoView({
+        block: 'nearest',
+      });
     }
   }, [isOpen]);
 
