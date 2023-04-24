@@ -11,7 +11,7 @@ import Register from 'pages/Register';
 import NotFound from 'pages/NotFound';
 import Footer from 'components/layout/Footer';
 
-import useAuth from 'features/auth/useAuth';
+import useAuth from 'features/auth/hooks/useAuth';
 
 export function App() {
   useAuth();

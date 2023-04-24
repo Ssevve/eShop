@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import Filters from 'pages/Products/components/Filters';
+import Filters from 'features/filters/components/Filters';
 import ProductList from 'features/products/components/ProductList/ProductList';
 
 function Products() {
