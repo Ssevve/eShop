@@ -79,7 +79,7 @@ function Pagination({
           1
         </button>
       </li>
-      {/* {currentPage > siblingDelta * 2 + 1 && (
+      {currentPage >= siblingDelta + 4 && (
         <li>
           <button
             className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-slate-200"
@@ -93,7 +93,7 @@ function Pagination({
             ...
           </button>
         </li>
-      )} */}
+      )}
       {pageNumbers.map((pageNumber) => (
         <li key={pageNumber}>
           <button
@@ -112,7 +112,7 @@ function Pagination({
           </button>
         </li>
       ))}
-      {/* {currentPage <= totalPageCount - siblingDelta * 2 - 1 && (
+      {currentPage <= totalPageCount - 3 - siblingDelta && (
         <li>
           <button
             className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-slate-200"
@@ -126,7 +126,7 @@ function Pagination({
             ...
           </button>
         </li>
-      )} */}
+      )}
       <li>
         <button
           className={cx(
