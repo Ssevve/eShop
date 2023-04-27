@@ -37,7 +37,7 @@ function ProductList({ currentPage, setCurrentPage }: ProductListProps) {
         totalItemCount={products.length}
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
-        pageLimit={3}
+        siblingDelta={1}
         itemsPerPage={productsPerPage}
       />
     </div>

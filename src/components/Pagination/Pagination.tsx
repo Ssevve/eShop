@@ -3,7 +3,7 @@ import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 interface PaginationProps {
   totalItemCount: number;
-  pageLimit: number;
+  siblingDelta: number;
   itemsPerPage: number;
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
@@ -11,7 +11,7 @@ interface PaginationProps {
 
 function Pagination({
   totalItemCount,
-  pageLimit,
+  siblingDelta,
   itemsPerPage,
   currentPage,
   setCurrentPage,
@@ -29,32 +29,30 @@ function Pagination({
     );
   const handlePageChange = (page: number) => setCurrentPage(page);
 
-  const getPageNumbers = () => {
-    if (totalPageCount <= pageLimit) {
-      // Show all available pages
-      return new Array(totalPageCount).fill(0).map((_, i) => i + 1);
+  const paginate = (current: number, last: number, delta = 1) => {
+    const leftSibling = current - delta;
+    const rightSibling = current + delta + 1;
+    const pageNumbers = [];
+
+    for (let i = 2; i < last; i += 1) {
+      if (i >= leftSibling && i < rightSibling) {
+        pageNumbers.push(i);
+      }
     }
-    if (currentPage < 3) {
-      // Show page numbers starting from 2
-      return new Array(pageLimit - 1).fill(0).map((_, i) => i + 2);
-    }
-    if (currentPage > totalPageCount - pageLimit + 1) {
-      // Show page numbers ending at totalPageCount - 1
-      return new Array(pageLimit - 1)
-        .fill(0)
-        .map((_, i) => totalPageCount - pageLimit + i + 1);
-    }
-    // Show page numbers limiting the count to pageLimit
-    return new Array(pageLimit)
-      .fill(0)
-      .map((_, i) => currentPage - Math.floor(pageLimit / 2) + i);
+
+    if (current === 3 + delta) pageNumbers.unshift(2);
+    if (current === last - 2 - delta) pageNumbers.push(last - 1);
+
+    return pageNumbers;
   };
 
+  const pageNumbers = paginate(currentPage, totalPageCount, siblingDelta);
+
   return totalPageCount > 1 ? (
-    <ul className="mx-auto flex items-center justify-center gap-2 rounded-sm py-8">
+    <ul className="mx-auto flex flex-wrap items-center justify-center gap-2 rounded-sm py-8">
       <li>
         <button
-          className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-slate-200 disabled:text-slate-400 disabled:hover:bg-white"
+          className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-slate-200 disabled:hidden"
           aria-label="Previous page"
           disabled={currentPage === 1}
           type="button"
@@ -66,6 +64,7 @@ function Pagination({
       </li>
       <li>
         <button
+          aria-label="Page 1"
           className={cx(
             'h-8 w-8 rounded-md',
             currentPage === 1
@@ -80,7 +79,7 @@ function Pagination({
           1
         </button>
       </li>
-      {currentPage > 3 && (
+      {/* {currentPage > siblingDelta * 2 + 1 && (
         <li>
           <button
             className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-slate-200"
@@ -94,26 +93,26 @@ function Pagination({
             ...
           </button>
         </li>
-      )}
-      {getPageNumbers().map((page) => (
-        <li key={page}>
+      )} */}
+      {pageNumbers.map((pageNumber) => (
+        <li key={pageNumber}>
           <button
             className={cx(
               'flex h-8 w-8 items-center justify-center rounded-md',
-              currentPage === page
+              currentPage === pageNumber
                 ? 'bg-green-500 text-white hover:bg-green-500 hover:text-white'
                 : 'bg-white text-black hover:bg-slate-200'
             )}
-            aria-label={`Page ${page}`}
-            disabled={currentPage === page}
+            aria-label={`Page ${pageNumber}`}
+            disabled={currentPage === pageNumber}
             type="button"
-            onClick={() => handlePageChange(page)}
+            onClick={() => handlePageChange(pageNumber)}
           >
-            {page}
+            {pageNumber}
           </button>
         </li>
       ))}
-      {currentPage < totalPageCount - 2 && (
+      {/* {currentPage <= totalPageCount - siblingDelta * 2 - 1 && (
         <li>
           <button
             className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-slate-200"
@@ -127,7 +126,7 @@ function Pagination({
             ...
           </button>
         </li>
-      )}
+      )} */}
       <li>
         <button
           className={cx(
@@ -147,7 +146,7 @@ function Pagination({
       </li>
       <li>
         <button
-          className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-slate-200 hover:bg-slate-200 disabled:text-slate-400 disabled:hover:bg-white"
+          className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-slate-200 disabled:hidden"
           aria-label="Next page"
           disabled={currentPage === totalPageCount}
           type="button"
