@@ -1,6 +1,6 @@
-import ArrowButton from './components/ArrowButton';
-import DotsButton from './components/DotsButton';
-import PageButton from './components/PageButton';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+
+import PaginationButton from './PaginationButton';
 
 interface PaginationProps {
   totalItemCount: number;
@@ -38,43 +38,67 @@ function Pagination({
 
   const pageNumbers = paginate(currentPage, totalPageCount, siblingDelta);
 
+  const handlePreviousPageClick = () =>
+    setCurrentPage((current) => current - 1);
+  const handleFirstPageClick = () => setCurrentPage(1);
+  const handleMorePreviousPagesClick = () =>
+    setCurrentPage((current) => current - siblingDelta - 1);
+  const handlePageChange = (page: number) => setCurrentPage(page);
+  const handleMoreNextPagesClick = () =>
+    setCurrentPage((current) => current + siblingDelta + 1);
+  const handleLastPageClick = () => setCurrentPage(totalPageCount);
+  const handleNextPageClick = () => setCurrentPage((current) => current + 1);
+
   return totalPageCount > 1 ? (
     <ul className="mx-auto flex flex-wrap items-center justify-center gap-2 rounded-sm py-8">
       {currentPage > 1 && (
-        <ArrowButton action="previous" setCurrentPage={setCurrentPage} />
+        <PaginationButton
+          onClick={handlePreviousPageClick}
+          ariaLabel="Previous page"
+          label={<FiChevronLeft />}
+        />
       )}
-      <PageButton
-        pageNumber={1}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
+      <PaginationButton
+        onClick={handleFirstPageClick}
+        ariaLabel="Page 1"
+        disabled={currentPage === 1}
+        label="1"
       />
       {currentPage >= siblingDelta + 4 && (
-        <DotsButton
-          setCurrentPage={setCurrentPage}
-          pageNumber={currentPage - siblingDelta - 1}
+        <PaginationButton
+          onClick={handleMorePreviousPagesClick}
+          ariaLabel={`Page ${currentPage - siblingDelta - 1}`}
+          label="..."
         />
       )}
       {pageNumbers.map((pageNumber) => (
-        <PageButton
+        <PaginationButton
           key={pageNumber}
-          pageNumber={pageNumber}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
+          onClick={() => handlePageChange(pageNumber)}
+          ariaLabel={`Page ${pageNumber}`}
+          disabled={currentPage === pageNumber}
+          label={pageNumber}
         />
       ))}
       {currentPage <= totalPageCount - 3 - siblingDelta && (
-        <DotsButton
-          setCurrentPage={setCurrentPage}
-          pageNumber={currentPage + siblingDelta + 1}
+        <PaginationButton
+          onClick={handleMoreNextPagesClick}
+          ariaLabel={`Page ${currentPage - siblingDelta - 1}`}
+          label="..."
         />
       )}
-      <PageButton
-        pageNumber={totalPageCount}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
+      <PaginationButton
+        ariaLabel={`Page ${totalPageCount}`}
+        onClick={handleLastPageClick}
+        disabled={currentPage === totalPageCount}
+        label={totalPageCount}
       />
       {currentPage < totalPageCount && (
-        <ArrowButton action="next" setCurrentPage={setCurrentPage} />
+        <PaginationButton
+          onClick={handleNextPageClick}
+          ariaLabel="Next page"
+          label={<FiChevronRight />}
+        />
       )}
     </ul>
   ) : null;

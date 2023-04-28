@@ -1,16 +1,16 @@
-interface PaginationButtonBaseProps {
+interface PaginationButtonProps {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   ariaLabel: string;
-  children: React.ReactNode;
   disabled?: boolean;
+  label: string | React.ReactNode;
 }
 
-function PaginationButtonBase({
+function PaginationButton({
   onClick,
   ariaLabel,
-  children,
   disabled,
-}: PaginationButtonBaseProps) {
+  label,
+}: PaginationButtonProps) {
   return (
     <button
       className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-md hover:bg-slate-200 disabled:bg-green-500 disabled:text-white"
@@ -19,13 +19,13 @@ function PaginationButtonBase({
       onClick={onClick}
       disabled={disabled}
     >
-      {children}
+      {label}
     </button>
   );
 }
 
-PaginationButtonBase.defaultProps = {
+PaginationButton.defaultProps = {
   disabled: false,
 };
 
-export default PaginationButtonBase;
+export default PaginationButton;
