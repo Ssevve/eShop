@@ -2,7 +2,7 @@ interface PaginationButtonProps {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   ariaLabel: string;
   disabled?: boolean;
-  label: string | React.ReactNode;
+  label: React.ReactNode;
 }
 
 function PaginationButton({
