@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAppSelector } from 'app/hooks';
 import { selectSortedProducts } from 'features/products/productsSlice';
 
-import Pagination from 'components/Pagination/Pagination';
+import Pagination from 'components/Pagination';
 import ProductCard from '../ProductCard/ProductCard';
 
 interface ProductListProps {

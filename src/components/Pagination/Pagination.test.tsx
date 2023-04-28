@@ -2,7 +2,7 @@ import { fireEvent, screen } from '@testing-library/react';
 import { describe, test, expect, vi } from 'vitest';
 
 import renderWithProviders from 'utils/renderWithProviders';
-import Pagination from './Pagination';
+import Pagination from '.';
 
 describe('Pagination', () => {
   describe('When specific page buttons are clicked', () => {
@@ -13,7 +13,7 @@ describe('Pagination', () => {
           setCurrentPage={setCurrentPage}
           totalItemCount={200}
           currentPage={1}
-          pageLimit={3}
+          siblingDelta={1}
           itemsPerPage={20}
         />
       );
@@ -29,7 +29,7 @@ describe('Pagination', () => {
           setCurrentPage={setCurrentPage}
           totalItemCount={200}
           currentPage={1}
-          pageLimit={3}
+          siblingDelta={1}
           itemsPerPage={20}
         />
       );
@@ -46,7 +46,7 @@ describe('Pagination', () => {
           setCurrentPage={() => {}}
           totalItemCount={19}
           currentPage={1}
-          pageLimit={3}
+          siblingDelta={1}
           itemsPerPage={20}
         />
       );
@@ -61,7 +61,7 @@ describe('Pagination', () => {
           setCurrentPage={() => {}}
           totalItemCount={200}
           currentPage={1}
-          pageLimit={3}
+          siblingDelta={1}
           itemsPerPage={20}
         />
       );
@@ -76,7 +76,7 @@ describe('Pagination', () => {
           setCurrentPage={() => {}}
           totalItemCount={200}
           currentPage={1}
-          pageLimit={3}
+          siblingDelta={1}
           itemsPerPage={20}
         />
       );
@@ -91,7 +91,7 @@ describe('Pagination', () => {
           setCurrentPage={() => {}}
           totalItemCount={200}
           currentPage={1}
-          pageLimit={3}
+          siblingDelta={1}
           itemsPerPage={20}
         />
       );
@@ -106,7 +106,7 @@ describe('Pagination', () => {
           setCurrentPage={() => {}}
           totalItemCount={200}
           currentPage={2}
-          pageLimit={3}
+          siblingDelta={1}
           itemsPerPage={20}
         />
       );
@@ -121,7 +121,7 @@ describe('Pagination', () => {
           setCurrentPage={() => {}}
           totalItemCount={200}
           currentPage={10}
-          pageLimit={3}
+          siblingDelta={1}
           itemsPerPage={20}
         />
       );
@@ -134,7 +134,7 @@ describe('Pagination', () => {
           setCurrentPage={() => {}}
           totalItemCount={200}
           currentPage={9}
-          pageLimit={3}
+          siblingDelta={1}
           itemsPerPage={20}
         />
       );
@@ -149,7 +149,7 @@ describe('Pagination', () => {
           setCurrentPage={() => {}}
           totalItemCount={200}
           currentPage={4}
-          pageLimit={3}
+          siblingDelta={1}
           itemsPerPage={20}
         />
       );
@@ -164,7 +164,7 @@ describe('Pagination', () => {
           setCurrentPage={() => {}}
           totalItemCount={200}
           currentPage={4}
-          pageLimit={3}
+          siblingDelta={1}
           itemsPerPage={20}
         />
       );
@@ -179,7 +179,7 @@ describe('Pagination', () => {
           setCurrentPage={() => {}}
           totalItemCount={200}
           currentPage={4}
-          pageLimit={3}
+          siblingDelta={1}
           itemsPerPage={20}
         />
       );
@@ -192,7 +192,7 @@ describe('Pagination', () => {
           setCurrentPage={() => {}}
           totalItemCount={200}
           currentPage={3}
-          pageLimit={3}
+          siblingDelta={1}
           itemsPerPage={20}
         />
       );
@@ -205,7 +205,7 @@ describe('Pagination', () => {
           setCurrentPage={() => {}}
           totalItemCount={200}
           currentPage={1}
-          pageLimit={3}
+          siblingDelta={1}
           itemsPerPage={20}
         />
       );
@@ -220,7 +220,7 @@ describe('Pagination', () => {
           setCurrentPage={() => {}}
           totalItemCount={200}
           currentPage={8}
-          pageLimit={3}
+          siblingDelta={1}
           itemsPerPage={20}
         />
       );
@@ -233,7 +233,7 @@ describe('Pagination', () => {
           setCurrentPage={() => {}}
           totalItemCount={200}
           currentPage={10}
-          pageLimit={3}
+          siblingDelta={1}
           itemsPerPage={20}
         />
       );
