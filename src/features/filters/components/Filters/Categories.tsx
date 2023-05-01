@@ -10,6 +10,7 @@ function Categories() {
   const dispatch = useAppDispatch();
   const categories = useAppSelector((state) => state.filters.categories);
   const currentCategory = useAppSelector(selectCurrentCategory);
+
   return (
     <>
       <button

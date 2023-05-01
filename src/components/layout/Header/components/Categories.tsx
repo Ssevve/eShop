@@ -1,40 +1,57 @@
 import cx from 'classnames';
 import { FiMenu } from 'react-icons/fi';
 import { useAppSelector } from 'app/hooks';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import resolveConfig from 'tailwindcss/resolveConfig';
+import tailwindConfig from '../../../../../tailwind.config.js';
+import useWindowWidth from '../hooks/useWindowWidth';
+
 
 import CategoryLink from './CategoryLink';
+import { getBreakpointValue } from '../helpers/getBreakpointValue.js';
 
 function Categories() {
   const categories = useAppSelector((state) => state.filters.categories);
-  const [open, setOpen] = useState(false);
+  const windowWidth = useWindowWidth();
+  const [isOpen, setIsOpen] = useState(false);
 
-  const toggleCategories = () => setOpen((prev) => !prev);
+  const toggleCategories = () => setIsOpen((prev) => !prev);
+  const fullConfig = resolveConfig(tailwindConfig);
+  //@ts-ignore
+  const mediumBreakpoint = getBreakpointValue(fullConfig?.theme?.screens?.md);
+  const isMobile = windowWidth < mediumBreakpoint;
+
+  useEffect(() => {
+    if (isMobile) setIsOpen(false);
+    else setIsOpen(true);
+  }, [isMobile]);
+
+  const shouldRenderMenu = isMobile || isOpen;
 
   return (
     <>
-      <button
-        className="w-max p-3 md:hidden"
+      {isMobile && <button
+        className="w-max p-3"
         type="button"
         onClick={toggleCategories}
       >
         <FiMenu size={24} />
-      </button>
-      <ul
+      </button>}
+      {shouldRenderMenu && <ul
         className={cx(
-          open ? 'flex' : 'hidden',
+          isOpen ? 'flex' : 'hidden',
           'align-center absolute top-full w-full flex-wrap justify-between bg-inherit shadow-md md:static md:flex md:flex-nowrap md:shadow-none'
         )}
       >
         {categories.map((category) => (
           <li
-            className="w-full md:w-max md:border-y md:border-l md:border-green-500 md:first:border-l-0"
+            className="w-full md:border-y md:border-l md:border-green-500 md:first:border-l-0"
             key={category}
           >
             <CategoryLink category={category} />
           </li>
         ))}
-      </ul>
+      </ul>}
     </>
   );
 }
