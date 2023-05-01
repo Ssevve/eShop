@@ -18,16 +18,19 @@ const productsAdapter = createEntityAdapter<Product>();
 
 const initialState = productsAdapter.getInitialState<{
   status: Status;
+  totalProductCount: number;
 }>({
   status: 'IDLE',
+  totalProductCount: 0,
 });
 
 export const getProducts = createAsyncThunk(
   'products/getProducts',
-  async () => {
-    const res = await fetch(`http://localhost:3000/products`);
+  async ({ page, limit }: { page: number, limit: number}) => {
+    const res = await fetch(`http://localhost:3000/products?_page=${page}&_limit=${limit}`);
     const products = await res.json();
-    return products;
+    const totalProductCount = res.headers.get('X-Total-Count');
+    return { products, totalProductCount };
   }
 );
 
@@ -42,7 +45,8 @@ const productsSlice = createSlice({
       })
       .addCase(getProducts.fulfilled, (state, action) => {
         state.status = 'SUCCESS';
-        productsAdapter.setAll(state, action.payload);
+        state.totalProductCount = Number(action.payload.totalProductCount);
+        productsAdapter.setAll(state, action.payload.products);
       })
       .addCase(getProducts.rejected, (state) => {
         state.status = 'ERROR';
