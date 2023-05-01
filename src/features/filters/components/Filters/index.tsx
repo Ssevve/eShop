@@ -4,7 +4,6 @@ import SortValues from 'features/filters/sortValues';
 
 import Select from 'components/common/Select/Select';
 import { useAppDispatch } from 'app/hooks';
-import Categories from './Categories';
 
 export const sortOptions: SelectOption[] = [
   {
@@ -33,7 +32,6 @@ function Filters() {
 
   return (
     <div className="flex min-w-fit max-w-fit flex-col gap-4 leading-none">
-      {/* <Categories /> */}
       <div className="mb-4 px-4">
         <h3 className="text-l pb-2 font-bold">Sort by</h3>
         <Select options={sortOptions} onChange={handleSortChange} />
