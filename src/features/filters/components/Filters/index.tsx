@@ -1,33 +1,32 @@
-import type { SelectOption } from 'components/common/Select/Select';
-import { setSortBy } from 'features/filters/filtersSlice';
-import SortValues from 'features/filters/sortValues';
-
-import Select from 'components/common/Select/Select';
-import { useAppDispatch } from 'app/hooks';
+import { useSearchParams } from 'react-router-dom';
+import Select, { type SelectOption } from 'components/common/Select/Select';
+import sortValues from 'features/filters/sortValues';
 
 export const sortOptions: SelectOption[] = [
   {
     label: 'Name (A-Z)',
-    value: SortValues.NAME_ASCENDING,
+    value: sortValues.nameAscending,
   },
   {
     label: 'Name (Z-A)',
-    value: SortValues.NAME_DESCENDING,
+    value: sortValues.nameDescending,
   },
   {
     label: 'Price asc.',
-    value: SortValues.PRICE_ASCENDING,
+    value: sortValues.priceAscending,
   },
   {
     label: 'Price desc.',
-    value: SortValues.PRICE_DESCENDING,
+    value: sortValues.priceDescending,
   },
 ];
 
 function Filters() {
-  const dispatch = useAppDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
   function handleSortChange(option: SelectOption) {
-    dispatch(setSortBy(option.value));
+    searchParams.set('sort', option.value.sort);
+    searchParams.set('order', option.value.order);
+    setSearchParams(searchParams);
   }
 
   return (

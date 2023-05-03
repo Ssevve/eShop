@@ -3,18 +3,17 @@ import {
   createSlice,
   createAsyncThunk,
   createEntityAdapter,
-  createSelector,
 } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
 import Status from 'types/Status';
 import Product from 'types/Product';
 import {
-  selectCurrentCategory,
-  selectSortBy,
+  Category,
 } from 'features/filters/filtersSlice';
-import SortValues from 'features/filters/sortValues';
 
-const productsAdapter = createEntityAdapter<Product>();
+const productsAdapter = createEntityAdapter<Product>({
+  selectId: (product) => product._id,
+});
 
 const initialState = productsAdapter.getInitialState<{
   status: Status;
@@ -24,13 +23,20 @@ const initialState = productsAdapter.getInitialState<{
   totalProductCount: 0,
 });
 
+export interface ProductsQueryParams {
+  page: number;
+  limit: number;
+  category?: Category;
+  sort: string;
+  order: string;
+}
+
 export const getProducts = createAsyncThunk(
   'products/getProducts',
-  async ({ page, limit }: { page: number, limit: number}) => {
-    const res = await fetch(`http://localhost:3000/products?_page=${page}&_limit=${limit}`);
-    const products = await res.json();
-    const totalProductCount = res.headers.get('X-Total-Count');
-    return { products, totalProductCount };
+  async (searchParams: URLSearchParams) => {
+    const query = searchParams.toString();
+    const res = await fetch(`http://localhost:5000/products?${query}`);
+    return await res.json();
   }
 );
 
@@ -45,7 +51,7 @@ const productsSlice = createSlice({
       })
       .addCase(getProducts.fulfilled, (state, action) => {
         state.status = 'SUCCESS';
-        state.totalProductCount = Number(action.payload.totalProductCount);
+        state.totalProductCount = action.payload.totalResults;
         productsAdapter.setAll(state, action.payload.products);
       })
       .addCase(getProducts.rejected, (state) => {
@@ -56,53 +62,5 @@ const productsSlice = createSlice({
 
 export const selectProducts = (state: RootState) =>
   Object.values(state.products.entities);
-
-export const selectDiscountedProducts = createSelector(
-  [selectProducts],
-  (products) => {
-    if (!products.length) return [];
-    return products.filter(
-      (product) => product && product.discountPrice < product.price
-    );
-  }
-);
-
-export const selectFilteredProducts = createSelector(
-  [selectProducts, selectDiscountedProducts, selectCurrentCategory],
-  (products, discountedProducts, currentCategory) => {
-    if (!currentCategory) return discountedProducts;
-    if (!products.length) return [];
-    return products.filter(
-      (product) => product && product.category === currentCategory
-    );
-  }
-);
-
-export const selectSortedProducts = createSelector(
-  [selectFilteredProducts, selectSortBy],
-  (filteredProducts, sortBy) => {
-    if (sortBy === SortValues.NAME_ASCENDING) {
-      return filteredProducts
-        .filter((product): product is Product => !!product)
-        .sort((a, b) => a.productName.localeCompare(b.productName));
-    }
-    if (sortBy === SortValues.NAME_DESCENDING) {
-      return filteredProducts
-        .filter((product): product is Product => !!product)
-        .sort((a, b) => b.productName.localeCompare(a.productName));
-    }
-    if (sortBy === SortValues.PRICE_ASCENDING) {
-      return filteredProducts
-        .filter((product): product is Product => !!product)
-        .sort((a, b) => a.discountPrice - b.discountPrice);
-    }
-    if (sortBy === SortValues.PRICE_DESCENDING) {
-      return filteredProducts
-        .filter((product): product is Product => !!product)
-        .sort((a, b) => b.discountPrice - a.discountPrice);
-    }
-    return filteredProducts;
-  }
-);
 
 export default productsSlice.reducer;

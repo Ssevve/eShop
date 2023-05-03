@@ -52,7 +52,7 @@ function Select({ options, onChange }: SelectProps) {
           {options.map(
             (option) =>
               isOpen && (
-                <li key={option.value}>
+                <li key={option.value.sort + option.value.order}>
                   <button
                     className={cx(
                       'w-full p-3 text-left hover:bg-green-500 hover:text-white',
