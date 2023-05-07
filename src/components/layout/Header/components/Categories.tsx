@@ -38,12 +38,12 @@ function Categories() {
         <ul
           className={cx(
             isOpen ? 'flex' : 'hidden',
-            'bg-gray-100 hover:bg-gray-200 align-center absolute top-full w-full flex-wrap justify-between bg-inherit shadow-md md:static md:flex md:flex-nowrap md:shadow-none'
+            'bg-gray-100 align-center absolute top-full w-full flex-wrap justify-between shadow-md md:static md:flex md:flex-nowrap md:shadow-none'
           )}
         >
           {categories.map((category) => (
             <li
-              className="w-full"
+              className="w-full hover:bg-gray-200"
               key={category}
             >
               <CategoryLink category={category} />
