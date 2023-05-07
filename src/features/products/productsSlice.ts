@@ -7,9 +7,6 @@ import {
 import { RootState } from 'app/store';
 import Status from 'types/Status';
 import Product from 'types/Product';
-import {
-  Category,
-} from 'features/filters/filtersSlice';
 
 const productsAdapter = createEntityAdapter<Product>({
   selectId: (product) => product._id,
@@ -23,20 +20,20 @@ const initialState = productsAdapter.getInitialState<{
   totalProductCount: 0,
 });
 
-export interface ProductsQueryParams {
-  page: number;
-  limit: number;
-  category?: Category;
-  sort: string;
-  order: string;
-}
-
 export const getProducts = createAsyncThunk(
   'products/getProducts',
-  async (searchParams: URLSearchParams) => {
+  async ({
+    searchParams,
+    limit,
+  }: {
+    searchParams: URLSearchParams;
+    limit: number;
+  }) => {
+    searchParams.set('limit', limit.toString());
     const query = searchParams.toString();
     const res = await fetch(`http://localhost:5000/products?${query}`);
-    return await res.json();
+    const { products, totalResults } = await res.json();
+    return { products, totalResults };
   }
 );
 
@@ -62,5 +59,8 @@ const productsSlice = createSlice({
 
 export const selectProducts = (state: RootState) =>
   Object.values(state.products.entities);
+
+export const selectTotalProductCount = (state: RootState) =>
+  state.products.totalProductCount;
 
 export default productsSlice.reducer;

@@ -2,7 +2,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
 
-const categories = [
+export const categories = [
   'Fruits & Vegetables',
   'Cleaning & Household',
   'Beverages',
@@ -16,27 +16,17 @@ export type Category = Categories[number] | null;
 
 interface FiltersState {
   categories: Categories;
-  currentCategory: Category | null;
 }
 
 const initialState: FiltersState = {
   categories,
-  currentCategory: null,
 };
 
 const filtersSlice = createSlice({
   name: 'filters',
   initialState,
   reducers: {
-    setCurrentCategory(state, action: PayloadAction<Category>) {
-      state.currentCategory = action.payload;
-    },
   },
 });
-
-export const { setCurrentCategory } = filtersSlice.actions;
-
-export const selectCurrentCategory = (state: RootState) =>
-  state.filters.currentCategory;
 
 export default filtersSlice.reducer;

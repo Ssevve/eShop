@@ -3,7 +3,7 @@ import { FiMenu } from 'react-icons/fi';
 import { useAppSelector } from 'app/hooks';
 import { useEffect, useState } from 'react';
 import resolveConfig from 'tailwindcss/resolveConfig';
-import tailwindConfig from '../../../../../tailwind.config.cjs';
+import tailwindConfig from '../../../../../tailwind.config.js';
 import useWindowWidth from '../hooks/useWindowWidth';
 
 import CategoryLink from './CategoryLink';
@@ -38,12 +38,12 @@ function Categories() {
         <ul
           className={cx(
             isOpen ? 'flex' : 'hidden',
-            'align-center absolute top-full w-full flex-wrap justify-between bg-inherit shadow-md md:static md:flex md:flex-nowrap md:shadow-none'
+            'bg-gray-100 hover:bg-gray-200 align-center absolute top-full w-full flex-wrap justify-between bg-inherit shadow-md md:static md:flex md:flex-nowrap md:shadow-none'
           )}
         >
           {categories.map((category) => (
             <li
-              className="w-full md:border-y md:border-l md:border-green-500 md:first:border-l-0"
+              className="w-full"
               key={category}
             >
               <CategoryLink category={category} />
