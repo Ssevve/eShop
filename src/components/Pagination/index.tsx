@@ -7,7 +7,7 @@ interface PaginationProps {
   siblingDelta: number;
   itemsPerPage: number;
   currentPage: number;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  setCurrentPage: (page: number) => void;
 }
 
 function Pagination({
@@ -38,16 +38,13 @@ function Pagination({
 
   const pageNumbers = paginate(currentPage, totalPageCount, siblingDelta);
 
-  const handlePreviousPageClick = () =>
-    setCurrentPage((current) => current - 1);
+  const handlePreviousPageClick = () => setCurrentPage(currentPage - 1);
   const handleFirstPageClick = () => setCurrentPage(1);
-  const handleMorePreviousPagesClick = () =>
-    setCurrentPage((current) => current - siblingDelta - 1);
+  const handleMorePreviousPagesClick = () => setCurrentPage(currentPage - siblingDelta - 1);
   const handlePageChange = (page: number) => setCurrentPage(page);
-  const handleMoreNextPagesClick = () =>
-    setCurrentPage((current) => current + siblingDelta + 1);
+  const handleMoreNextPagesClick = () => setCurrentPage(currentPage + siblingDelta + 1);
   const handleLastPageClick = () => setCurrentPage(totalPageCount);
-  const handleNextPageClick = () => setCurrentPage((current) => current + 1);
+  const handleNextPageClick = () => setCurrentPage(currentPage + 1);
 
   return totalPageCount > 1 ? (
     <ul className="mx-auto flex flex-wrap items-center justify-center gap-2 rounded-sm py-8">

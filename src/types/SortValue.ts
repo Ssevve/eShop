@@ -1,5 +1,6 @@
-import SortValues from 'features/filters/sortValues';
-
-type SortValue = `${SortValues}` | undefined;
+interface SortValue {
+  sort: string;
+  order: string;
+};
 
 export default SortValue;

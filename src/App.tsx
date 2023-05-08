@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Header from 'components/layout/Header/Header';
 import Home from 'pages/Home';
-import Products from 'pages/Products';
+import Products from 'pages/Products/Products';
 import AuthRoutes from 'components/AuthRoutes';
 import Account from 'pages/Account';
 import GuestRoutes from 'components/GuestRoutes';

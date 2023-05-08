@@ -1,6 +1,6 @@
 interface Product {
-  id: string;
-  productName: string;
+  _id: string;
+  name: string;
   brand: string;
   price: number;
   discountPrice: number;

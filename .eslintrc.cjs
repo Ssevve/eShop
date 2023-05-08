@@ -20,6 +20,7 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
+    'no-underscore-dangle': 0,
     'react-hooks/exhaustive-deps': 0,
     'react/jsx-no-bind': 0,
     'react/react-in-jsx-scope': 0,

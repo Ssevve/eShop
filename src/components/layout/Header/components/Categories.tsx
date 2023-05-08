@@ -2,10 +2,8 @@ import cx from 'classnames';
 import { FiMenu } from 'react-icons/fi';
 import { useAppSelector } from 'app/hooks';
 import { useEffect, useState } from 'react';
-import resolveConfig from 'tailwindcss/resolveConfig';
-import tailwindConfig from '../../../../../tailwind.config.js';
+import theme from 'theme';
 import useWindowWidth from '../hooks/useWindowWidth';
-
 
 import CategoryLink from './CategoryLink';
 import { getBreakpointValue } from '../helpers/getBreakpointValue.js';
@@ -16,9 +14,7 @@ function Categories() {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleCategories = () => setIsOpen((prev) => !prev);
-  const fullConfig = resolveConfig(tailwindConfig);
-  //@ts-ignore
-  const mediumBreakpoint = getBreakpointValue(fullConfig?.theme?.screens?.md);
+  const mediumBreakpoint = getBreakpointValue(theme.theme?.screens?.md);
   const isMobile = windowWidth < mediumBreakpoint;
 
   useEffect(() => {
@@ -30,28 +26,25 @@ function Categories() {
 
   return (
     <>
-      {isMobile && <button
-        className="w-max p-3"
-        type="button"
-        onClick={toggleCategories}
-      >
-        <FiMenu size={24} />
-      </button>}
-      {shouldRenderMenu && <ul
-        className={cx(
-          isOpen ? 'flex' : 'hidden',
-          'align-center absolute top-full w-full flex-wrap justify-between bg-inherit shadow-md md:static md:flex md:flex-nowrap md:shadow-none'
-        )}
-      >
-        {categories.map((category) => (
-          <li
-            className="w-full md:border-y md:border-l md:border-green-500 md:first:border-l-0"
-            key={category}
-          >
-            <CategoryLink category={category} />
-          </li>
-        ))}
-      </ul>}
+      {isMobile && (
+        <button className="w-max p-3" type="button" onClick={toggleCategories}>
+          <FiMenu size={24} />
+        </button>
+      )}
+      {shouldRenderMenu && (
+        <ul
+          className={cx(
+            isOpen ? 'flex' : 'hidden',
+            'align-center absolute top-full w-full flex-wrap justify-between bg-gray-100 shadow-md md:static md:flex md:flex-nowrap md:shadow-none'
+          )}
+        >
+          {categories.map((category) => (
+            <li className="w-full hover:bg-gray-200" key={category}>
+              <CategoryLink category={category} />
+            </li>
+          ))}
+        </ul>
+      )}
     </>
   );
 }

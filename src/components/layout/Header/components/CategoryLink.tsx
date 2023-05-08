@@ -10,19 +10,20 @@ interface CategoryLinkProps {
 function CategoryLink({ category }: CategoryLinkProps) {
   const location = useLocation();
   const searchParams = queryString.parse(location.search);
-  const selectedCategory = searchParams.category;
-  const newSearchParams = queryString.stringify({
-    page: '1',
-    category,
-  });
+  const currentLocationCategory = searchParams.category;
+  searchParams.category = category;
+  searchParams.page = '1';
 
   return (
     <Link
       className={cx(
-        category === selectedCategory && 'bg-green-500 text-white',
-        'flex h-full items-center justify-center p-4 text-center hover:bg-green-500 hover:text-white md:p-2 md:text-sm lg:p-3 lg:text-base'
+        currentLocationCategory === category && 'bg-green-500 text-white',
+        'flex h-full items-center justify-center p-3 text-center text-sm'
       )}
-      to={{ pathname: '/products', search: newSearchParams }}
+      to={{
+        pathname: '/products',
+        search: queryString.stringify(searchParams),
+      }}
     >
       <span>{category}</span>
     </Link>

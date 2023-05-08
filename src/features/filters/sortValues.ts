@@ -1,8 +1,20 @@
-enum SortValues {
-  NAME_ASCENDING = 'nameAscending',
-  NAME_DESCENDING = 'nameDescending',
-  PRICE_ASCENDING = 'priceAscending',
-  PRICE_DESCENDING = 'priceDescending',
-}
+const sortValues = {
+  nameAscending: {
+    sort: 'name',
+    order: 'asc',
+  },
+  nameDescending: {
+    sort: 'name',
+    order: 'desc',
+  },
+  priceAscending: {
+    sort: 'discountPrice',
+    order: 'asc',
+  },
+  priceDescending: {
+    sort: 'discountPrice',
+    order: 'desc',
+  },
+};
 
-export default SortValues;
+export default sortValues;
