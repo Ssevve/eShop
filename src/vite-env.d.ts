@@ -12,3 +12,8 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+declare module 'tailwind.config.cjs' {
+  const config: Config;
+  export default config;
+}

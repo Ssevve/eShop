@@ -18,14 +18,16 @@ function CategoryLink({ category }: CategoryLinkProps) {
     <Link
       className={cx(
         currentLocationCategory === category && 'bg-green-500 text-white',
-        'text-sm flex items-center justify-center p-3 h-full text-center')
-      }
-      to={{ pathname: '/products', search: queryString.stringify(searchParams)}}
+        'flex h-full items-center justify-center p-3 text-center text-sm'
+      )}
+      to={{
+        pathname: '/products',
+        search: queryString.stringify(searchParams),
+      }}
     >
       <span>{category}</span>
     </Link>
   );
-
 }
 
 export default CategoryLink;
