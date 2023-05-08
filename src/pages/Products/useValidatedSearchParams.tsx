@@ -21,18 +21,18 @@ function useValidatedSearchParams(productsPerPage: number) {
     if (!category || !categories.includes(category)) {
       searchParams.delete('category');
     }
-  
+
     const sorts = Object.values(sortValues);
     const sortByOptions = sorts.map((sort) => sort.sort);
     if (!sortBy || !sortByOptions.includes(sortBy)) {
       searchParams.set('sort', sortValues.nameAscending.sort);
     }
-  
+
     const sortOrders = sorts.map((sort) => sort.order);
     if (!sortOrder || !sortOrders.includes(sortOrder)) {
       searchParams.set('order', sortValues.nameAscending.order);
     }
-  
+
     setSearchParams(searchParams);
   }, []);
 

@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
-
-import Filters from 'features/filters/components/Filters';
-import ProductList from 'features/products/components/ProductList/ProductList';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { getProducts, selectProducts } from 'features/products/productsSlice';
 import Pagination from 'components/Pagination';
+import Filters from 'features/filters/components/Filters';
+import ProductList from 'features/products/components/ProductList/ProductList';
 import useValidatedSearchParams from './useValidatedSearchParams';
 
 const PRODUCTS_PER_PAGE = 10;
