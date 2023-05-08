@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Header from 'components/layout/Header/Header';
+import Header from 'components/layout/Header';
 import Home from 'pages/Home';
 import Products from 'pages/Products/Products';
 import AuthRoutes from 'components/AuthRoutes';
