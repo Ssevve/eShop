@@ -5,19 +5,23 @@ import { useAppSelector } from 'app/hooks';
 import useMediumBreakpointValue from '../hooks/useMediumBreakpointValue';
 import useWindowWidth from '../hooks/useWindowWidth';
 import CategoryLink from './CategoryLink';
+import useLockedBody from '../hooks/useLockedBody';
 
 function Categories() {
   const categories = useAppSelector((state) => state.filters.categories);
+  const setLockedBody = useLockedBody();
   const windowWidth = useWindowWidth();
   const mediumBreakpointValue = useMediumBreakpointValue();
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleMenu = () => setIsOpen((prev) => !prev);
+  const toggleMenu = () => {
+    setIsOpen((prev) => !prev);
+    setLockedBody(!isOpen);
+  };
   const isMobile = windowWidth < mediumBreakpointValue;
 
   useEffect(() => {
-    if (isMobile) setIsOpen(false);
-    else setIsOpen(true);
+    setIsOpen(!isMobile);
   }, [isMobile]);
 
   const shouldRenderMenu = isMobile || isOpen;
@@ -32,8 +36,8 @@ function Categories() {
       {shouldRenderMenu && (
         <ul
           className={cx(
-            isOpen ? 'flex' : 'hidden',
-            'align-center absolute top-full w-full flex-wrap justify-between bg-gray-100 shadow-md md:static md:flex md:flex-nowrap md:shadow-none'
+            isOpen ? 'translate-x-0' : '-translate-x-full',
+            'align-center absolute top-full h-screen w-full flex-wrap justify-between bg-gray-100 shadow-md transition-transform md:static md:flex md:h-max md:flex-nowrap md:shadow-none'
           )}
         >
           {categories.map((category) => (
