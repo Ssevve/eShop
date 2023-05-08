@@ -29,8 +29,7 @@ export const getProducts = createAsyncThunk(
     searchParams: URLSearchParams;
     limit: number;
   }) => {
-    searchParams.set('limit', limit.toString());
-    const query = searchParams.toString();
+    const query = `${searchParams.toString()}&limit=${limit}`;
     const res = await fetch(`http://localhost:5000/products?${query}`);
     const { products, totalResults } = await res.json();
     return { products, totalResults };
