@@ -1,21 +1,19 @@
+import { useEffect, useState } from 'react';
 import cx from 'classnames';
 import { FiMenu } from 'react-icons/fi';
 import { useAppSelector } from 'app/hooks';
-import { useEffect, useState } from 'react';
-import theme from 'theme';
+import useMediumBreakpointValue from '../hooks/useMediumBreakpointValue';
 import useWindowWidth from '../hooks/useWindowWidth';
-
 import CategoryLink from './CategoryLink';
-import { getBreakpointValue } from '../helpers/getBreakpointValue.js';
 
 function Categories() {
   const categories = useAppSelector((state) => state.filters.categories);
   const windowWidth = useWindowWidth();
+  const mediumBreakpointValue = useMediumBreakpointValue();
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleCategories = () => setIsOpen((prev) => !prev);
-  const mediumBreakpoint = getBreakpointValue(theme.theme?.screens?.md);
-  const isMobile = windowWidth < mediumBreakpoint;
+  const toggleMenu = () => setIsOpen((prev) => !prev);
+  const isMobile = windowWidth < mediumBreakpointValue;
 
   useEffect(() => {
     if (isMobile) setIsOpen(false);
@@ -27,7 +25,7 @@ function Categories() {
   return (
     <>
       {isMobile && (
-        <button className="w-max p-3" type="button" onClick={toggleCategories}>
+        <button className="w-max p-3" type="button" onClick={toggleMenu}>
           <FiMenu size={24} />
         </button>
       )}

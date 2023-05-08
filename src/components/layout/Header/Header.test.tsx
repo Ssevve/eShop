@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import renderWithProviders from 'utils/renderWithProviders';
 import { RootState } from 'app/store';
-import Header from './Header';
+import Header from '.';
 
 describe('Header', () => {
   describe('If user is not logged in', () => {
