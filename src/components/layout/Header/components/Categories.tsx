@@ -42,6 +42,13 @@ function Categories({
             'align-center flex-wrap justify-between bg-white md:flex md:flex-nowrap md:bg-slate-200'
           )}
         >
+          <li className="w-full text-left hover:bg-slate-300" key="Best Deals">
+            <CategoryLink
+              onClick={isMobile ? closeCategories : () => {}}
+              category={null}
+              label="Best Deals"
+            />
+          </li>
           {categories.map((category) => (
             <li className="w-full text-left hover:bg-slate-300" key={category}>
               <CategoryLink

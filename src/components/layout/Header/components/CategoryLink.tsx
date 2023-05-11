@@ -5,10 +5,11 @@ import { Category } from 'features/filters/filtersSlice';
 
 interface CategoryLinkProps {
   category: Category;
+  label?: string;
   onClick: () => void;
 }
 
-function CategoryLink({ category, onClick }: CategoryLinkProps) {
+function CategoryLink({ category, label, onClick }: CategoryLinkProps) {
   const location = useLocation();
   const searchParams = queryString.parse(location.search);
   const currentLocationCategory = searchParams.category;
@@ -20,6 +21,7 @@ function CategoryLink({ category, onClick }: CategoryLinkProps) {
       onClick={onClick}
       className={cx(
         currentLocationCategory === category && 'bg-green-500 text-white',
+        !category && !currentLocationCategory && 'bg-green-500 text-white',
         'flex h-full items-center p-3 text-lg md:justify-center md:text-center md:text-sm'
       )}
       to={{
@@ -27,9 +29,13 @@ function CategoryLink({ category, onClick }: CategoryLinkProps) {
         search: queryString.stringify(searchParams),
       }}
     >
-      <span>{category}</span>
+      <span>{category || label}</span>
     </Link>
   );
 }
+
+CategoryLink.defaultProps = {
+  label: '',
+};
 
 export default CategoryLink;
