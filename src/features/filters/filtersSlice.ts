@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { RootState } from 'app/store';
+import { createSlice } from '@reduxjs/toolkit';
 
 export const categories = [
   'Fruits & Vegetables',
@@ -25,8 +24,7 @@ const initialState: FiltersState = {
 const filtersSlice = createSlice({
   name: 'filters',
   initialState,
-  reducers: {
-  },
+  reducers: {},
 });
 
 export default filtersSlice.reducer;
