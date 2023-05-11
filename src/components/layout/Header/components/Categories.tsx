@@ -1,47 +1,59 @@
-import { useEffect, useState } from 'react';
 import cx from 'classnames';
-import { FiMenu } from 'react-icons/fi';
+import { TfiClose } from 'react-icons/tfi';
 import { useAppSelector } from 'app/hooks';
-import useMediumBreakpointValue from '../hooks/useMediumBreakpointValue';
-import useWindowWidth from '../hooks/useWindowWidth';
 import CategoryLink from './CategoryLink';
 
-function Categories() {
+interface CategoriesProps {
+  closeCategories: () => void;
+  shouldShowCategories: boolean;
+  isMobile: boolean;
+}
+
+function Categories({
+  closeCategories,
+  shouldShowCategories,
+  isMobile,
+}: CategoriesProps) {
   const categories = useAppSelector((state) => state.filters.categories);
-  const windowWidth = useWindowWidth();
-  const mediumBreakpointValue = useMediumBreakpointValue();
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleMenu = () => setIsOpen((prev) => !prev);
-  const isMobile = windowWidth < mediumBreakpointValue;
-
-  useEffect(() => {
-    if (isMobile) setIsOpen(false);
-    else setIsOpen(true);
-  }, [isMobile]);
-
-  const shouldRenderMenu = isMobile || isOpen;
+  const shouldRenderBackdrop = shouldShowCategories && isMobile;
 
   return (
     <>
-      {isMobile && (
-        <button className="w-max p-3" type="button" onClick={toggleMenu}>
-          <FiMenu size={24} />
-        </button>
-      )}
-      {shouldRenderMenu && (
+      <section
+        className={cx(
+          shouldShowCategories ? 'translate-x-0' : '-translate-x-full',
+          'absolute top-0 z-10 h-screen w-full max-w-lg bg-white shadow-md transition-transform md:static md:top-full md:h-max md:w-full md:max-w-full md:transition-none'
+        )}
+      >
+        {isMobile && (
+          <header className="flex items-center gap-4 bg-slate-200 p-3 text-2xl font-bold">
+            <button
+              type="button"
+              className="rounded-full p-3 hover:bg-slate-300"
+              onClick={closeCategories}
+            >
+              <TfiClose size={20} />
+            </button>
+            <h2>Categories</h2>
+          </header>
+        )}
         <ul
           className={cx(
-            isOpen ? 'flex' : 'hidden',
-            'align-center absolute top-full w-full flex-wrap justify-between bg-gray-100 shadow-md md:static md:flex md:flex-nowrap md:shadow-none'
+            'align-center flex-wrap justify-between bg-white md:flex md:flex-nowrap md:bg-slate-200'
           )}
         >
           {categories.map((category) => (
-            <li className="w-full hover:bg-gray-200" key={category}>
-              <CategoryLink category={category} />
+            <li className="w-full text-left hover:bg-slate-300" key={category}>
+              <CategoryLink
+                onClick={isMobile ? closeCategories : () => {}}
+                category={category}
+              />
             </li>
           ))}
         </ul>
+      </section>
+      {shouldRenderBackdrop && (
+        <div className="absolute left-0 top-0 h-screen w-screen bg-black/60" />
       )}
     </>
   );
