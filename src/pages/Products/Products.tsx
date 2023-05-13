@@ -1,25 +1,36 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { getProducts, selectProducts } from 'features/products/productsSlice';
+import {
+  getProducts,
+  selectProducts,
+  selectProductsPerPage,
+} from 'features/products/productsSlice';
 import Pagination from 'components/Pagination';
 import Filters from 'features/filters/components/Filters';
 import ProductList from 'features/products/components/ProductList/ProductList';
+import Category from 'types/Category';
 import useValidatedSearchParams from './useValidatedSearchParams';
-
-const PRODUCTS_PER_PAGE = 10;
 
 function Products() {
   const dispatch = useAppDispatch();
-  const { searchParams, setSearchParams } =
-    useValidatedSearchParams(PRODUCTS_PER_PAGE);
+  const [searchParams, setSearchParams] = useValidatedSearchParams();
   const products = useAppSelector(selectProducts);
+  const productsPerPage = useAppSelector(selectProductsPerPage);
   const totalProductCount = useAppSelector(
     (state) => state.products.totalProductCount
   );
-  const currentPage = Number(searchParams.get('page'));
+  const currentPage = Number(searchParams.get('page')) || 1;
 
   useEffect(() => {
-    dispatch(getProducts({ searchParams, limit: PRODUCTS_PER_PAGE }));
+    dispatch(
+      getProducts({
+        page: currentPage,
+        category: searchParams.get('category') as Category,
+        sort: searchParams.get('sort') || 'name',
+        order: searchParams.get('order') || 'asc',
+        limit: productsPerPage,
+      })
+    );
   }, [searchParams]);
 
   const setCurrentPage = (page: number) => {
@@ -36,7 +47,7 @@ function Products() {
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
         siblingDelta={1}
-        itemsPerPage={PRODUCTS_PER_PAGE}
+        itemsPerPage={productsPerPage}
       />
     </div>
   );

@@ -7,6 +7,7 @@ import {
 import { RootState } from 'app/store';
 import Status from 'types/Status';
 import Product from 'types/Product';
+import Category from 'types/Category';
 
 const productsAdapter = createEntityAdapter<Product>({
   selectId: (product) => product._id,
@@ -15,21 +16,29 @@ const productsAdapter = createEntityAdapter<Product>({
 const initialState = productsAdapter.getInitialState<{
   status: Status;
   totalProductCount: number;
+  productsPerPage: number;
 }>({
   status: 'IDLE',
   totalProductCount: 0,
+  productsPerPage: 10,
 });
 
 export const getProducts = createAsyncThunk(
   'products/getProducts',
   async ({
-    searchParams,
+    page,
+    category,
+    sort,
+    order,
     limit,
   }: {
-    searchParams: URLSearchParams;
+    page: number;
+    category: Category;
+    sort: string;
+    order: string;
     limit: number;
   }) => {
-    const query = `${searchParams.toString()}&limit=${limit}`;
+    const query = `page=${page}&category=${category}&sort=${sort}&order=${order}&limit=${limit}`;
     const res = await fetch(`http://localhost:5000/products?${query}`);
     const { products, totalResults } = await res.json();
     return { products, totalResults };
@@ -61,5 +70,8 @@ export const selectProducts = (state: RootState) =>
 
 export const selectTotalProductCount = (state: RootState) =>
   state.products.totalProductCount;
+
+export const selectProductsPerPage = (state: RootState) =>
+  state.products.productsPerPage;
 
 export default productsSlice.reducer;

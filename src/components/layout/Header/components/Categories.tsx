@@ -14,7 +14,7 @@ function Categories({
   shouldShowCategories,
   isMobile,
 }: CategoriesProps) {
-  const categories = useAppSelector((state) => state.filters.categories);
+  const categories = useAppSelector((state) => state.categories.categories);
   const shouldRenderBackdrop = shouldShowCategories && isMobile;
 
   return (
@@ -46,7 +46,7 @@ function Categories({
             <CategoryLink
               onClick={isMobile ? closeCategories : () => {}}
               category={null}
-              label="Best Deals"
+              label="All products"
             />
           </li>
           {categories.map((category) => (
@@ -54,6 +54,7 @@ function Categories({
               <CategoryLink
                 onClick={isMobile ? closeCategories : () => {}}
                 category={category}
+                label={category}
               />
             </li>
           ))}
