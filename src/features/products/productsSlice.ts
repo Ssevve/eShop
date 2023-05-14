@@ -62,7 +62,7 @@ export const getProducts = createAsyncThunk(
       query += `&sort=${sort}&order=${order}`;
     }
 
-    const res = await fetch(`http://localhost:5000/${query}`);
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/${query}`);
     const { products, totalResults } = await res.json();
     return { products, totalResults };
   }
