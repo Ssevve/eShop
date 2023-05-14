@@ -6,6 +6,7 @@ type Category =
   | 'Snacks and Branded Foods'
   | 'Beauty and Hygiene'
   | 'Gourmet and World Food'
+  | undefined
   | null;
 
 export default Category;

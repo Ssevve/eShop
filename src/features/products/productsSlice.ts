@@ -8,6 +8,7 @@ import { RootState } from 'app/store';
 import Status from 'types/Status';
 import Product from 'types/Product';
 import Category from 'types/Category';
+import SortOrder from 'types/SortOrder';
 
 const productsAdapter = createEntityAdapter<Product>({
   selectId: (product) => product._id,
@@ -23,23 +24,45 @@ const initialState = productsAdapter.getInitialState<{
   productsPerPage: 10,
 });
 
+const sortQueries = {
+  nameAscending: {
+    sort: 'name',
+    order: 1,
+  },
+  nameDescending: {
+    sort: 'name',
+    order: -1,
+  },
+  priceAscending: {
+    sort: 'discountPrice',
+    order: 1,
+  },
+  priceDescending: {
+    sort: 'discountPrice',
+    order: -1,
+  },
+};
+
 export const getProducts = createAsyncThunk(
   'products/getProducts',
   async ({
     page,
     category,
-    sort,
-    order,
     limit,
+    sortOrder,
   }: {
     page: number;
     category: Category;
-    sort: string;
-    order: string;
     limit: number;
+    sortOrder: SortOrder;
   }) => {
-    const query = `page=${page}&category=${category}&sort=${sort}&order=${order}&limit=${limit}`;
-    const res = await fetch(`http://localhost:5000/products?${query}`);
+    let query = `products?page=${page}&category=${category}&limit=${limit}`;
+    if (sortOrder && sortQueries[sortOrder]) {
+      const { sort, order } = sortQueries[sortOrder];
+      query += `&sort=${sort}&order=${order}`;
+    }
+
+    const res = await fetch(`http://localhost:5000/${query}`);
     const { products, totalResults } = await res.json();
     return { products, totalResults };
   }

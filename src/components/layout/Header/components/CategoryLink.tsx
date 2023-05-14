@@ -11,7 +11,6 @@ interface CategoryLinkProps {
 function CategoryLink({ category, label, onClick }: CategoryLinkProps) {
   const [searchParams] = useSearchParams();
   const isActive = searchParams.get('category') === category;
-
   return (
     <Link
       onClick={onClick}

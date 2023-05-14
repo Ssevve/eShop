@@ -1,19 +1,20 @@
 import { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import {
   getProducts,
   selectProducts,
   selectProductsPerPage,
 } from 'features/products/productsSlice';
-import Pagination from 'components/Pagination';
-import Filters from 'features/filters/components/Filters';
 import ProductList from 'features/products/components/ProductList/ProductList';
 import Category from 'types/Category';
-import useValidatedSearchParams from './useValidatedSearchParams';
+import SortOrder from 'types/SortOrder';
+import Pagination from 'components/Pagination';
+import Filters from './components/Filters';
 
 function Products() {
   const dispatch = useAppDispatch();
-  const [searchParams, setSearchParams] = useValidatedSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const products = useAppSelector(selectProducts);
   const productsPerPage = useAppSelector(selectProductsPerPage);
   const totalProductCount = useAppSelector(
@@ -26,15 +27,15 @@ function Products() {
       getProducts({
         page: currentPage,
         category: searchParams.get('category') as Category,
-        sort: searchParams.get('sort') || 'name',
-        order: searchParams.get('order') || 'asc',
         limit: productsPerPage,
+        sortOrder: searchParams.get('order') as SortOrder,
       })
     );
   }, [searchParams]);
 
   const setCurrentPage = (page: number) => {
-    searchParams.set('page', page.toString());
+    if (page === 1) searchParams.delete('page');
+    else searchParams.set('page', page.toString());
     setSearchParams(searchParams);
   };
 

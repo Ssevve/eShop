@@ -1,5 +1,4 @@
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
-
 import PaginationButton from './PaginationButton';
 
 interface PaginationProps {
@@ -40,9 +39,11 @@ function Pagination({
 
   const handlePreviousPageClick = () => setCurrentPage(currentPage - 1);
   const handleFirstPageClick = () => setCurrentPage(1);
-  const handleMorePreviousPagesClick = () => setCurrentPage(currentPage - siblingDelta - 1);
+  const handleMorePreviousPagesClick = () =>
+    setCurrentPage(currentPage - siblingDelta - 1);
   const handlePageChange = (page: number) => setCurrentPage(page);
-  const handleMoreNextPagesClick = () => setCurrentPage(currentPage + siblingDelta + 1);
+  const handleMoreNextPagesClick = () =>
+    setCurrentPage(currentPage + siblingDelta + 1);
   const handleLastPageClick = () => setCurrentPage(totalPageCount);
   const handleNextPageClick = () => setCurrentPage(currentPage + 1);
 
