@@ -1,7 +1,7 @@
-import { useAppDispatch } from 'app/hooks';
-import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
 import auth from 'firebaseConfig';
+import { useAppDispatch } from 'app/hooks';
 import { setUser } from '../authSlice';
 
 function useAuth() {
@@ -12,11 +12,10 @@ function useAuth() {
       if (user) {
         dispatch(setUser(user));
       } else {
-        dispatch(setUser(null));
+        dispatch(setUser(undefined));
       }
     });
     return unsubscribe;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 }
 

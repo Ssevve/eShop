@@ -1,32 +1,37 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import cx from 'classnames';
 import { FiChevronDown } from 'react-icons/fi';
-import SortValue from 'types/SortValue';
+import SelectOption from 'types/SelectOption';
 
-export interface SelectOption {
-  label: string;
-  value: SortValue;
+interface SelectDefaultProps {
+  initialValue?: SelectOption;
 }
 
-interface SelectProps {
+interface SelectProps extends SelectDefaultProps {
   options: SelectOption[];
+  label: string;
   onChange: (option: SelectOption) => void;
 }
 
-function Select({ options, onChange }: SelectProps) {
+const defaultProps: SelectDefaultProps = {
+  initialValue: undefined,
+};
+
+function Select({ options, initialValue, label, onChange }: SelectProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(options[1]);
+  const [selectedOption, setSelectedOption] = useState(initialValue);
   const selectMenuRef = useRef<HTMLUListElement>(null);
 
-  useEffect(() => {
+  if (initialValue !== selectedOption) setSelectedOption(initialValue);
+
+  const handleOpen = () => {
+    setIsOpen(true);
     if (selectMenuRef.current) {
       selectMenuRef.current.scrollIntoView({
         block: 'nearest',
       });
     }
-  }, [isOpen]);
-
-  const handleOpen = () => setIsOpen(true);
+  };
   const handleClose = () => setIsOpen(false);
   const handleChange = (option: SelectOption) => {
     onChange(option);
@@ -37,11 +42,12 @@ function Select({ options, onChange }: SelectProps) {
   return (
     <div className="w-max" onMouseLeave={handleClose}>
       <button
+        aria-label={label}
         type="button"
         className="flex cursor-pointer items-center justify-between gap-3 rounded-sm border p-3 text-left"
         onClick={handleOpen}
       >
-        {selectedOption.label}
+        {selectedOption ? selectedOption.label : label}
         <FiChevronDown size={20} />
       </button>
       {isOpen && (
@@ -52,7 +58,7 @@ function Select({ options, onChange }: SelectProps) {
           {options.map(
             (option) =>
               isOpen && (
-                <li key={option.value.sort + option.value.order}>
+                <li key={option.value}>
                   <button
                     className={cx(
                       'w-full p-3 text-left hover:bg-green-500 hover:text-white',
@@ -71,5 +77,7 @@ function Select({ options, onChange }: SelectProps) {
     </div>
   );
 }
+
+Select.defaultProps = defaultProps;
 
 export default Select;

@@ -14,7 +14,7 @@ function Categories({
   shouldShowCategories,
   isMobile,
 }: CategoriesProps) {
-  const categories = useAppSelector((state) => state.filters.categories);
+  const categories = useAppSelector((state) => state.categories.categories);
   const shouldRenderBackdrop = shouldShowCategories && isMobile;
 
   return (
@@ -42,11 +42,19 @@ function Categories({
             'align-center flex-wrap justify-between bg-white md:flex md:flex-nowrap md:bg-slate-200'
           )}
         >
+          <li className="w-full text-left hover:bg-slate-300" key="Best Deals">
+            <CategoryLink
+              onClick={isMobile ? closeCategories : () => {}}
+              category={null}
+              label="All products"
+            />
+          </li>
           {categories.map((category) => (
             <li className="w-full text-left hover:bg-slate-300" key={category}>
               <CategoryLink
                 onClick={isMobile ? closeCategories : () => {}}
                 category={category}
+                label={category}
               />
             </li>
           ))}

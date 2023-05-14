@@ -3,7 +3,7 @@ import Status from './Status';
 interface User {
   uid: string;
   email: string;
-  phoneNumber: string | null;
+  phoneNumber: string | undefined | null;
 }
 
 interface Error {
@@ -12,7 +12,7 @@ interface Error {
 }
 
 interface AuthState {
-  user: User | null;
+  user: User | undefined;
   status: Status;
   error: Error;
 }

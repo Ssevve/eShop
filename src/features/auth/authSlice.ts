@@ -1,3 +1,4 @@
+// TODO: fix no-null-assertion
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable no-param-reassign */
 import {
@@ -20,7 +21,7 @@ import { LoginSchema } from 'features/auth/schemas/loginSchema';
 import FirebaseErrors from 'features/auth/firebaseErrors';
 
 const initialState: AuthState = {
-  user: null,
+  user: undefined,
   status: 'IDLE',
   error: {
     server: false,
@@ -56,7 +57,7 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setUser(state, action: PayloadAction<FirebaseUser | null>) {
+    setUser(state, action: PayloadAction<FirebaseUser | undefined>) {
       if (action.payload) {
         state.user = {
           uid: action.payload.uid,
@@ -64,7 +65,7 @@ export const authSlice = createSlice({
           phoneNumber: action.payload.phoneNumber,
         };
       } else {
-        state.user = null;
+        state.user = undefined;
       }
     },
     resetAuthStatusAndErrors(state) {
@@ -93,7 +94,7 @@ export const authSlice = createSlice({
       })
       .addCase(logoutUser.fulfilled, (state) => {
         state.status = 'SUCCESS';
-        state.user = null;
+        state.user = undefined;
       })
       .addMatcher(isPendingAction, (state) => {
         state.status = 'PENDING';

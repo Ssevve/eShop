@@ -7,6 +7,8 @@ import {
 import { RootState } from 'app/store';
 import Status from 'types/Status';
 import Product from 'types/Product';
+import Category from 'types/Category';
+import SortOrder from 'types/SortOrder';
 
 const productsAdapter = createEntityAdapter<Product>({
   selectId: (product) => product._id,
@@ -15,22 +17,52 @@ const productsAdapter = createEntityAdapter<Product>({
 const initialState = productsAdapter.getInitialState<{
   status: Status;
   totalProductCount: number;
+  productsPerPage: number;
 }>({
   status: 'IDLE',
   totalProductCount: 0,
+  productsPerPage: 10,
 });
+
+const sortQueries = {
+  nameAscending: {
+    sort: 'name',
+    order: 1,
+  },
+  nameDescending: {
+    sort: 'name',
+    order: -1,
+  },
+  priceAscending: {
+    sort: 'discountPrice',
+    order: 1,
+  },
+  priceDescending: {
+    sort: 'discountPrice',
+    order: -1,
+  },
+};
 
 export const getProducts = createAsyncThunk(
   'products/getProducts',
   async ({
-    searchParams,
+    page,
+    category,
     limit,
+    sortOrder,
   }: {
-    searchParams: URLSearchParams;
+    page: number;
+    category: Category;
     limit: number;
+    sortOrder: SortOrder;
   }) => {
-    const query = `${searchParams.toString()}&limit=${limit}`;
-    const res = await fetch(`http://localhost:5000/products?${query}`);
+    let query = `products?page=${page}&category=${category}&limit=${limit}`;
+    if (sortOrder && sortQueries[sortOrder]) {
+      const { sort, order } = sortQueries[sortOrder];
+      query += `&sort=${sort}&order=${order}`;
+    }
+
+    const res = await fetch(`http://localhost:5000/${query}`);
     const { products, totalResults } = await res.json();
     return { products, totalResults };
   }
@@ -61,5 +93,8 @@ export const selectProducts = (state: RootState) =>
 
 export const selectTotalProductCount = (state: RootState) =>
   state.products.totalProductCount;
+
+export const selectProductsPerPage = (state: RootState) =>
+  state.products.productsPerPage;
 
 export default productsSlice.reducer;

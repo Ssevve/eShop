@@ -1,33 +1,26 @@
-import queryString from 'query-string';
 import cx from 'classnames';
-import { Link, useLocation } from 'react-router-dom';
-import { Category } from 'features/filters/filtersSlice';
+import { Link, useSearchParams } from 'react-router-dom';
+import Category from 'types/Category';
 
 interface CategoryLinkProps {
   category: Category;
+  label: React.ReactNode;
   onClick: () => void;
 }
 
-function CategoryLink({ category, onClick }: CategoryLinkProps) {
-  const location = useLocation();
-  const searchParams = queryString.parse(location.search);
-  const currentLocationCategory = searchParams.category;
-  searchParams.category = category;
-  searchParams.page = '1';
-
+function CategoryLink({ category, label, onClick }: CategoryLinkProps) {
+  const [searchParams] = useSearchParams();
+  const isActive = searchParams.get('category') === category;
   return (
     <Link
       onClick={onClick}
       className={cx(
-        currentLocationCategory === category && 'bg-green-500 text-white',
+        isActive && 'bg-green-500 text-white',
         'flex h-full items-center p-3 text-lg md:justify-center md:text-center md:text-sm'
       )}
-      to={{
-        pathname: '/products',
-        search: queryString.stringify(searchParams),
-      }}
+      to={category ? `/products?category=${category}` : '/products'}
     >
-      <span>{category}</span>
+      {label}
     </Link>
   );
 }

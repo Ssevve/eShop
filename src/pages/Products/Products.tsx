@@ -1,29 +1,41 @@
 import { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { getProducts, selectProducts } from 'features/products/productsSlice';
-import Pagination from 'components/Pagination';
-import Filters from 'features/filters/components/Filters';
+import {
+  getProducts,
+  selectProducts,
+  selectProductsPerPage,
+} from 'features/products/productsSlice';
 import ProductList from 'features/products/components/ProductList/ProductList';
-import useValidatedSearchParams from './useValidatedSearchParams';
-
-const PRODUCTS_PER_PAGE = 10;
+import Category from 'types/Category';
+import SortOrder from 'types/SortOrder';
+import Pagination from 'components/Pagination';
+import Filters from './components/Filters';
 
 function Products() {
   const dispatch = useAppDispatch();
-  const { searchParams, setSearchParams } =
-    useValidatedSearchParams(PRODUCTS_PER_PAGE);
+  const [searchParams, setSearchParams] = useSearchParams();
   const products = useAppSelector(selectProducts);
+  const productsPerPage = useAppSelector(selectProductsPerPage);
   const totalProductCount = useAppSelector(
     (state) => state.products.totalProductCount
   );
-  const currentPage = Number(searchParams.get('page'));
+  const currentPage = Number(searchParams.get('page')) || 1;
 
   useEffect(() => {
-    dispatch(getProducts({ searchParams, limit: PRODUCTS_PER_PAGE }));
+    dispatch(
+      getProducts({
+        page: currentPage,
+        category: searchParams.get('category') as Category,
+        limit: productsPerPage,
+        sortOrder: searchParams.get('order') as SortOrder,
+      })
+    );
   }, [searchParams]);
 
   const setCurrentPage = (page: number) => {
-    searchParams.set('page', page.toString());
+    if (page === 1) searchParams.delete('page');
+    else searchParams.set('page', page.toString());
     setSearchParams(searchParams);
   };
 
@@ -36,7 +48,7 @@ function Products() {
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
         siblingDelta={1}
-        itemsPerPage={PRODUCTS_PER_PAGE}
+        itemsPerPage={productsPerPage}
       />
     </div>
   );
