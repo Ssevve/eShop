@@ -1,6 +1,5 @@
 import Product from 'types/Product';
-
-import ProductCard from '../ProductCard/ProductCard';
+import ProductCard from './ProductCard';
 
 interface ProductListProps {
   products: (Product | undefined)[];

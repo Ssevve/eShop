@@ -1,17 +1,17 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Header from 'components/layout/Header';
+import Header from 'components/Header';
 import Home from 'pages/Home';
-import Products from 'pages/Products/Products';
-import AuthRoutes from 'components/AuthRoutes';
+import Products from 'pages/Products';
+import AuthRoutes from 'utils/AuthRoutes';
 import Account from 'pages/Account';
-import GuestRoutes from 'components/GuestRoutes';
+import GuestRoutes from 'utils/GuestRoutes';
 import Login from 'pages/Login';
 import Register from 'pages/Register';
 import NotFound from 'pages/NotFound';
-import Footer from 'components/layout/Footer';
+import Footer from 'components/Footer';
 
-import useAuth from 'features/auth/hooks/useAuth';
+import useAuth from 'features/auth/useAuth';
 
 export function App() {
   useAuth();

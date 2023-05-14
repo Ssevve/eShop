@@ -6,10 +6,10 @@ import {
   selectProducts,
   selectProductsPerPage,
 } from 'features/products/productsSlice';
-import ProductList from 'features/products/components/ProductList/ProductList';
+import ProductList from 'pages/Products/components/ProductList';
 import Category from 'types/Category';
 import SortOrder from 'types/SortOrder';
-import Pagination from 'components/Pagination';
+import Pagination from 'pages/Products/components/Pagination';
 import Filters from './components/Filters';
 
 function Products() {

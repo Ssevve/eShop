@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 import SelectOption from 'types/SelectOption';
-import Select from 'components/common/Select/Select';
+import Select from './Select';
 
 const sortOptions: SelectOption[] = [
   {

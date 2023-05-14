@@ -1,9 +1,8 @@
+import { BrowserRouter } from 'react-router-dom';
 import { screen } from '@testing-library/react';
 import { describe, test, expect } from 'vitest';
-
 import renderWithProviders from 'utils/renderWithProviders';
-import { BrowserRouter } from 'react-router-dom';
-import LoginForm from './LoginForm';
+import LoginForm from '.';
 
 describe('Login form', () => {
   test('Renders a form', () => {

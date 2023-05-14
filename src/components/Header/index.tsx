@@ -1,14 +1,13 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiUser, FiMenu, FiShoppingCart } from 'react-icons/fi';
-
-import Logo from 'components/common/Logo/Logo';
 import { useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
-import { useEffect, useState } from 'react';
-import Categories from './components/Categories';
+import Logo from 'components/common/Logo/Logo';
 import useWindowWidth from './hooks/useWindowWidth';
 import useMediumBreakpointValue from './hooks/useMediumBreakpointValue';
 import useScrollLock from './hooks/useScrollLock';
+import Categories from './components/Categories';
 
 function Header() {
   const currentUser = useAppSelector(selectCurrentUser);
