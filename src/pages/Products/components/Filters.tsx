@@ -38,6 +38,7 @@ function Filters() {
     <div className="mb-4 flex min-w-fit max-w-fit flex-col gap-4 px-4 leading-none">
       <Select
         initialValue={initialSortOption}
+        key={initialSortOption?.value}
         options={sortOptions}
         label="Sort by"
         onChange={handleSortChange}

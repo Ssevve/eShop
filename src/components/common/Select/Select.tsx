@@ -22,8 +22,6 @@ function Select({ options, initialValue, label, onChange }: SelectProps) {
   const [selectedOption, setSelectedOption] = useState(initialValue);
   const selectMenuRef = useRef<HTMLUListElement>(null);
 
-  if (initialValue !== selectedOption) setSelectedOption(initialValue);
-
   const handleOpen = () => {
     setIsOpen(true);
     if (selectMenuRef.current) {
