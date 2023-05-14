@@ -38,7 +38,7 @@ function Select({ options, initialValue, label, onChange }: SelectProps) {
   };
 
   return (
-    <div className="w-max" onMouseLeave={handleClose}>
+    <div className="relative w-max" onMouseLeave={handleClose}>
       <button
         aria-label={label}
         type="button"
@@ -51,7 +51,7 @@ function Select({ options, initialValue, label, onChange }: SelectProps) {
       {isOpen && (
         <ul
           ref={selectMenuRef}
-          className="rounded-sm border border-t-0 bg-white"
+          className="absolute w-full rounded-sm border border-t-0 bg-white"
         >
           {options.map(
             (option) =>
