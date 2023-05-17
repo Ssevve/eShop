@@ -13,25 +13,24 @@ function Header() {
   const currentUser = useAppSelector(selectCurrentUser);
   const windowWidth = useWindowWidth();
   const mediumBreakpointValue = useMediumBreakpointValue();
-  const [scrollLock, setScrollLock] = useScrollLock();
+  const [isScrollLocked, setIsScrollLocked] = useScrollLock();
   const [shouldShowCategories, setShouldShowCategories] = useState(false);
 
   const isMobile = windowWidth < mediumBreakpointValue;
 
   useEffect(() => {
     setShouldShowCategories(!isMobile);
-
-    if (!isMobile) setScrollLock(false);
+    if (!isMobile) setIsScrollLocked(false);
   }, [isMobile]);
 
   const openCategories = () => {
     setShouldShowCategories(true);
-    setScrollLock(true);
+    setIsScrollLocked(true);
   };
 
   const closeCategories = () => {
     setShouldShowCategories(false);
-    setScrollLock(false);
+    setIsScrollLocked(false);
   };
 
   return (
