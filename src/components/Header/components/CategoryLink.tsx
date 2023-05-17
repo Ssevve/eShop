@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import Category from 'types/Category';
 
 interface CategoryLinkProps {
@@ -9,8 +9,13 @@ interface CategoryLinkProps {
 }
 
 function CategoryLink({ category, label, onClick }: CategoryLinkProps) {
+  const location = useLocation();
   const [searchParams] = useSearchParams();
-  const isActive = searchParams.get('category') === category;
+  const activeCategory = searchParams.get('category');
+  const isActive = category
+    ? activeCategory === category
+    : location.pathname === '/products' && !activeCategory;
+
   return (
     <Link
       onClick={onClick}
