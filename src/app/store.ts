@@ -4,12 +4,14 @@ import {
   configureStore,
 } from '@reduxjs/toolkit';
 import authReducer from 'features/auth/authSlice';
-import productsReducer from 'features/products/productsSlice';
+// import productsReducer from 'features/products/productsSlice';
 import categoriesReducer from 'features/categories/categoriesSlice';
+import { api } from 'services/api';
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  products: productsReducer,
+  // products: productsReducer,
+  [api.reducerPath]: api.reducer,
   categories: categoriesReducer,
 });
 
@@ -27,7 +29,7 @@ export function setupStore(preloadedState?: PreloadedState<RootState>) {
           ],
           ignoredPaths: ['auth.user'],
         },
-      }),
+      }).concat(api.middleware),
     preloadedState,
   });
 }
