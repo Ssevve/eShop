@@ -19,10 +19,13 @@ function Categories({
 
   return (
     <>
+      {shouldRenderBackdrop && (
+        <div className="absolute left-0 top-0 h-screen w-screen bg-black/60" />
+      )}
       <section
         className={cx(
           shouldShowCategories ? 'translate-x-0' : '-translate-x-full',
-          'absolute top-0 z-10 h-screen w-full max-w-lg bg-white shadow-md transition-transform md:static md:top-full md:h-max md:w-full md:max-w-full md:transition-none'
+          'absolute top-0 h-screen w-full max-w-lg bg-white transition-transform first-line:shadow-md md:static md:top-full md:h-max md:w-full md:max-w-full md:transition-none'
         )}
       >
         {isMobile && (
@@ -60,9 +63,6 @@ function Categories({
           ))}
         </ul>
       </section>
-      {shouldRenderBackdrop && (
-        <div className="absolute left-0 top-0 h-screen w-screen bg-black/60" />
-      )}
     </>
   );
 }

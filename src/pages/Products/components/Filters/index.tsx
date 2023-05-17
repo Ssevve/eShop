@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 import SelectOption from 'types/SelectOption';
-import Select from './Select';
+import SortSelect from './SortSelect';
 
 const sortOptions: SelectOption[] = [
   {
@@ -36,7 +36,7 @@ function Filters() {
 
   return (
     <div className="mb-4 flex min-w-fit max-w-fit flex-col gap-4 px-4 leading-none">
-      <Select
+      <SortSelect
         initialValue={initialSortOption}
         key={initialSortOption?.value}
         options={sortOptions}

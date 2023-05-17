@@ -17,7 +17,7 @@ const defaultProps: SelectDefaultProps = {
   initialValue: undefined,
 };
 
-function Select({ options, initialValue, label, onChange }: SelectProps) {
+function SortSelect({ options, initialValue, label, onChange }: SelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(initialValue);
   const selectMenuRef = useRef<HTMLUListElement>(null);
@@ -76,6 +76,6 @@ function Select({ options, initialValue, label, onChange }: SelectProps) {
   );
 }
 
-Select.defaultProps = defaultProps;
+SortSelect.defaultProps = defaultProps;
 
-export default Select;
+export default SortSelect;

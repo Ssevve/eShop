@@ -35,7 +35,7 @@ function Header() {
   };
 
   return (
-    <header className="sticky top-0 flex bg-white shadow-md md:flex-col">
+    <header className="sticky top-0 z-10 flex bg-white shadow-md md:flex-col">
       <nav className="flex h-16 grow items-center justify-between gap-2 p-3">
         {isMobile && (
           <button
