@@ -1,22 +1,23 @@
 import { useSearchParams } from 'react-router-dom';
+import { ThreeDots } from 'react-loader-spinner';
 import ProductList from 'pages/Products/components/ProductList';
 import Category from 'types/Category';
 import SortOrder from 'types/SortOrder';
 import Pagination from 'pages/Products/components/Pagination';
 import { useGetProductsQuery } from 'services/api';
+import theme from 'theme';
 import Filters from './components/Filters';
 
 function Products() {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || 1;
-  const productsPerPage = 10;
-  const { data } = useGetProductsQuery({
+  const { data, error, isFetching } = useGetProductsQuery({
     page: currentPage,
     category: searchParams.get('category') as Category,
-    limit: productsPerPage,
     sortOrder: searchParams.get('order') as SortOrder,
   });
 
+  const productsPerPage = data?.productsPerPage || 0;
   const products = data?.products || [];
   const totalProductCount = data?.totalResults || 0;
 
@@ -25,6 +26,28 @@ function Products() {
     else searchParams.set('page', page.toString());
     setSearchParams(searchParams);
   };
+
+  if (error) {
+    return (
+      <>
+        <span className="text-xl font-bold">Error!</span>
+        <p className="mt-2">
+          Could not get data from the server. Please try again later.
+        </p>
+      </>
+    );
+  }
+
+  if (isFetching)
+    return (
+      <div className="mx-auto">
+        <ThreeDots
+          height={48}
+          width={60}
+          color={theme.theme.colors['primary-green']}
+        />
+      </div>
+    );
 
   return (
     <div className="flex flex-col gap-4">

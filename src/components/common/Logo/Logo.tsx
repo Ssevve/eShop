@@ -7,7 +7,7 @@ function Logo() {
         role="img"
         title="eShop"
         aria-hidden="true"
-        className="text-green-600"
+        className="text-primary-green"
         size={32}
       />
       <span role="note" aria-label="eShop">

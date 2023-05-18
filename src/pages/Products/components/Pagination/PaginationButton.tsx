@@ -13,7 +13,7 @@ function PaginationButton({
 }: PaginationButtonProps) {
   return (
     <button
-      className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-md hover:bg-slate-200 disabled:bg-green-500 disabled:text-white"
+      className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-md hover:bg-slate-200 disabled:bg-primary-green disabled:text-white"
       aria-label={ariaLabel}
       type="button"
       onClick={onClick}

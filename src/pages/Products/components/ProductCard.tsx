@@ -35,7 +35,7 @@ function ProductCard({ product }: ProductCardProps) {
         </div>
       </div>
       <button
-        className="rounded-sm bg-green-600 p-2 font-bold text-white hover:bg-green-500"
+        className="rounded-sm bg-primary-green p-2 font-bold text-white hover:bg-green-700"
         type="button"
       >
         Add to cart

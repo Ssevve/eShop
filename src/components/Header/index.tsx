@@ -69,7 +69,7 @@ function Header() {
                 className="pointer-events-none h-5 w-5"
                 aria-hidden="true"
               />
-              <span className="min-w-4 absolute bottom-3 left-3 flex h-4 items-center justify-center rounded-full bg-green-600 p-1 text-xs text-white">
+              <span className="min-w-4 absolute bottom-3 left-3 flex h-4 items-center justify-center rounded-full bg-primary-green p-1 text-xs text-white">
                 0
               </span>
             </div>

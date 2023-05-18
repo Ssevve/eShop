@@ -80,7 +80,7 @@ function LoginForm() {
       <footer>
         <p className="text-md mt-4 flex justify-center gap-2 text-sm">
           Need an account?
-          <Link className="text-green-600 hover:underline" to="/register">
+          <Link className="text-primary-green hover:underline" to="/register">
             Register
           </Link>
         </p>

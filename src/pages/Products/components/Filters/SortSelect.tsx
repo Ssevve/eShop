@@ -59,8 +59,8 @@ function SortSelect({ options, initialValue, label, onChange }: SelectProps) {
                 <li key={option.value}>
                   <button
                     className={cx(
-                      'w-full p-3 text-left hover:bg-green-500 hover:text-white',
-                      option === selectedOption && 'bg-green-500 text-white'
+                      'w-full p-3 text-left hover:bg-primary-green hover:text-white',
+                      option === selectedOption && 'bg-primary-green text-white'
                     )}
                     type="button"
                     onClick={() => handleChange(option)}

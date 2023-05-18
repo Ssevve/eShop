@@ -6,13 +6,13 @@ import SortOrder from 'types/SortOrder';
 interface GetProductsQueryArgs {
   page: number;
   category: Category;
-  limit: number;
   sortOrder: SortOrder;
 }
 
 interface GetProductsResponse {
   products: Product[];
   totalResults: number;
+  productsPerPage: number;
 }
 
 const sortQueries = {
@@ -39,8 +39,8 @@ export const api = createApi({
   reducerPath: 'productsApi',
   endpoints: (builder) => ({
     getProducts: builder.query<GetProductsResponse, GetProductsQueryArgs>({
-      query: ({ page, category, limit, sortOrder }) => {
-        let queryString = `products?page=${page}&category=${category}&limit=${limit}`;
+      query: ({ page, category, sortOrder }) => {
+        let queryString = `products?page=${page}&category=${category}`;
 
         if (sortOrder && sortQueries[sortOrder]) {
           const { sort, order } = sortQueries[sortOrder];
