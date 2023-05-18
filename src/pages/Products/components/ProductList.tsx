@@ -8,7 +8,7 @@ interface ProductListProps {
 function ProductList({ products }: ProductListProps) {
   return (
     <div className="w-full">
-      <ul className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-5">
+      <ul className="grid auto-rows-auto grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
         {products?.map((product) => (
           <li key={product?._id}>
             <ProductCard product={product} />
