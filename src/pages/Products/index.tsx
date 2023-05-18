@@ -21,7 +21,10 @@ function Products() {
   const products = data?.products || [];
   const totalProductCount = data?.totalResults || 0;
 
+  const scrollToTop = () => window.scrollTo(0, 0);
+
   const setCurrentPage = (page: number) => {
+    scrollToTop();
     if (page === 1) searchParams.delete('page');
     else searchParams.set('page', page.toString());
     setSearchParams(searchParams);
