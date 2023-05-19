@@ -36,7 +36,7 @@ export function AppWithRouter() {
   return (
     <BrowserRouter>
       <Header />
-      <main className="flex grow flex-col p-3">
+      <main className="flex grow flex-col p-6">
         <App />
       </main>
       <Footer />
