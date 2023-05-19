@@ -1,16 +1,12 @@
-import cx from 'classnames';
 import { FiShoppingCart } from 'react-icons/fi';
 import Product from 'types/Product';
+import PriceGroup from 'components/common/PriceGroup';
 
 interface ProductCardProps {
   product: Product | undefined;
 }
 
 function ProductCard({ product }: ProductCardProps) {
-  const isDiscounted = product ? product.discountPrice < product.price : false;
-
-  const formatPriceString = (price: number) => `$${price.toFixed(2)}`;
-
   if (!product) return null;
 
   return (
@@ -32,21 +28,10 @@ function ProductCard({ product }: ProductCardProps) {
         </div>
       </section>
       <footer className="mx-4 flex justify-between border-t border-gray-200 py-4">
-        <section>
-          <span
-            className={cx(
-              'text-xl font-bold',
-              isDiscounted && 'text-base line-through'
-            )}
-          >
-            {formatPriceString(product.price)}
-          </span>
-          {isDiscounted && (
-            <span className="ml-2 text-xl font-bold text-red-700">
-              {formatPriceString(product.discountPrice)}
-            </span>
-          )}
-        </section>
+        <PriceGroup
+          price={product.price}
+          discountPrice={product.discountPrice}
+        />
         <button
           type="button"
           className="flex items-center justify-center rounded-sm bg-primary-green px-6 py-2 text-xl text-off-white hover:bg-green-700"
