@@ -1,36 +1,42 @@
-import { useState } from 'react';
 import { FiPlus, FiMinus } from 'react-icons/fi';
 
-function Counter() {
-  const [count, setCount] = useState(1);
+interface QuantityInputProps {
+  count: number;
+  setCount: (val: number | ((prev: number) => number)) => void;
+}
 
+const MAX_QUANTITY = 99;
+
+function QuantityInput({ count, setCount }: QuantityInputProps) {
   const handleDecrement = () => {
-    setCount((prev) => {
+    setCount((prev: number) => {
       const newCount = prev - 1;
-      return newCount >= 0 ? newCount : 0;
+      return newCount < 1 ? 1 : newCount;
     });
   };
   const handleIncrement = () => setCount((prev) => prev + 1);
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const newCount = Number(e.currentTarget.value);
-    if (newCount < 99) {
+    if (newCount < MAX_QUANTITY) {
       setCount(newCount);
     } else {
-      setCount(99);
+      setCount(MAX_QUANTITY);
     }
   };
 
   return (
-    <div className="flex w-min border p-1">
+    <div className="flex w-min border py-2">
       <button
-        className="items-center border-r pr-1"
+        aria-label="Decrease quantity"
+        className="items-center border-r px-2"
         type="button"
         onClick={handleDecrement}
+        disabled={count === 1}
       >
         <FiMinus />
       </button>
       <input
-        className="min-w-0 text-center"
+        className="w-10 text-center"
         type="number"
         value={count}
         onChange={handleChange}
@@ -38,9 +44,11 @@ function Counter() {
         max="99"
       />
       <button
-        className="items-center border-l pl-1"
+        aria-label="Increase quantity"
+        className="items-center border-l px-2"
         type="button"
         onClick={handleIncrement}
+        disabled={count === MAX_QUANTITY}
       >
         <FiPlus />
       </button>
@@ -48,4 +56,4 @@ function Counter() {
   );
 }
 
-export default Counter;
+export default QuantityInput;

@@ -1,6 +1,8 @@
 import { FiShoppingCart } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import Product from 'types/Product';
 import PriceGroup from 'components/common/PriceGroup';
+import Button from 'components/common/Button';
 
 interface ProductCardProps {
   product: Product | undefined;
@@ -10,8 +12,8 @@ function ProductCard({ product }: ProductCardProps) {
   if (!product) return null;
 
   return (
-    <a
-      href={`/products/${product._id}`}
+    <Link
+      to={`/products/${product._id}`}
       className="relative flex flex-col bg-off-white shadow-md hover:shadow-lg"
     >
       <img src={product.imageUrl} alt={product.name} />
@@ -32,14 +34,11 @@ function ProductCard({ product }: ProductCardProps) {
           price={product.price}
           discountPrice={product.discountPrice}
         />
-        <button
-          type="button"
-          className="flex items-center justify-center rounded-sm bg-primary-green px-6 py-2 text-xl text-off-white hover:bg-green-700"
-        >
+        <Button textSize="lg" onClick={() => {}}>
           <FiShoppingCart />
-        </button>
+        </Button>
       </footer>
-    </a>
+    </Link>
   );
 }
 

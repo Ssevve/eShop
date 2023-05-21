@@ -5,7 +5,7 @@ import { FieldError } from 'react-hook-form/dist/types';
 interface InputProps
   extends React.PropsWithoutRef<JSX.IntrinsicElements['input']> {
   label: string;
-  type: 'text' | 'email' | 'password' | 'number';
+  type: 'text' | 'email' | 'password';
   error?: FieldError | undefined;
 }
 
@@ -31,6 +31,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   }
 );
 
+// TODO: CHANGE
 Input.defaultProps = {
   error: undefined,
 };

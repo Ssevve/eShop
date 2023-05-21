@@ -14,7 +14,7 @@ import {
   RegisterSchema,
 } from 'features/auth/schemas/registerSchema';
 import Logo from 'components/common/Logo/Logo';
-import Input from 'components/common/Input/Input';
+import Input from 'components/common/Input';
 import SubmitButton from 'components/common/SubmitButton/SubmitButton';
 
 function RegisterForm() {

@@ -8,19 +8,24 @@ interface StarRatingProps {
 const MAX_RATING = 5;
 
 function StarRating({ rating, ratingsCount }: StarRatingProps) {
+  const flatRating = Math.floor(rating);
   const stars = Array.from({ length: MAX_RATING }, (_, i) => (
     <FiStar
-      fill={i < rating - 1 ? 'gold' : 'transparent'}
+      fill={i < flatRating ? 'gold' : 'transparent'}
       strokeWidth={1}
       key={i}
     />
   ));
 
   return (
-    <section className="flex items-center gap-1">
+    <span
+      className="flex items-center gap-1"
+      role="img"
+      aria-label={`Rating: ${flatRating} out of ${MAX_RATING} stars`}
+    >
       {stars}
-      <span>{`(${ratingsCount})`}</span>
-    </section>
+      <span>{`(${ratingsCount} ratings)`}</span>
+    </span>
   );
 }
 
