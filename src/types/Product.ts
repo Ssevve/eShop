@@ -7,7 +7,9 @@ interface Product {
   imageUrl: string;
   quantity: string;
   category: string;
-  subCategory: string;
+  rating: number;
+  ratingsCount: number;
+  description: string;
 }
 
 export default Product;
