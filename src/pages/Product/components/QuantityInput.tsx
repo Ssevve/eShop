@@ -1,3 +1,4 @@
+import cx from 'classnames';
 import { FiPlus, FiMinus } from 'react-icons/fi';
 
 interface QuantityInputProps {
@@ -24,14 +25,20 @@ function QuantityInput({ count, setCount }: QuantityInputProps) {
     }
   };
 
+  const isMinimumQuantity = count === 1;
+  const isMaximumQuantity = count === MAX_QUANTITY;
+
   return (
     <div className="flex w-min border py-2">
       <button
         aria-label="Decrease quantity"
-        className="items-center border-r px-2"
+        className={cx(
+          'items-center border-r px-2',
+          isMinimumQuantity && 'text-gray-400'
+        )}
         type="button"
         onClick={handleDecrement}
-        disabled={count === 1}
+        disabled={isMinimumQuantity}
       >
         <FiMinus />
       </button>
@@ -45,10 +52,13 @@ function QuantityInput({ count, setCount }: QuantityInputProps) {
       />
       <button
         aria-label="Increase quantity"
-        className="items-center border-l px-2"
+        className={cx(
+          'items-center border-l px-2',
+          isMaximumQuantity && 'text-gray-400'
+        )}
         type="button"
         onClick={handleIncrement}
-        disabled={count === MAX_QUANTITY}
+        disabled={isMaximumQuantity}
       >
         <FiPlus />
       </button>

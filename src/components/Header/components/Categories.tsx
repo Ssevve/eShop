@@ -40,7 +40,7 @@ function Categories({
             <h2>Categories</h2>
           </header>
         )}
-        <div className="md:bg-gray-200">
+        <div className="md:bg-gray-200 md:px-6">
           <ul
             className={cx(
               'align-center container mx-auto flex-wrap justify-between bg-white md:flex md:flex-nowrap md:bg-gray-200'

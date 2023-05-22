@@ -30,7 +30,7 @@ function Button({ children, textSize, onClick }: ButtonProps) {
   return (
     <button
       className={cx(
-        `flex items-center justify-center gap-4 rounded-sm bg-primary-green px-6 py-2 text-white hover:bg-green-700 text-${textSize}`
+        `flex items-center justify-center gap-4 rounded-sm bg-primary-green px-6 py-2 uppercase text-white hover:bg-green-700 text-${textSize}`
       )}
       type="button"
       onClick={onClick}

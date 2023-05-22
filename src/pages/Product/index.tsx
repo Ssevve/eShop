@@ -14,8 +14,8 @@ function Product() {
     <section className="container m-auto flex flex-wrap items-center justify-center gap-8">
       {product && (
         <>
-          <img src={product.imageUrl} alt={product.name} />
-          <section className="flex w-full max-w-lg flex-col gap-6">
+          <img className="max-w-sm" src={product.imageUrl} alt={product.name} />
+          <section className="flex w-max max-w-lg flex-col gap-6">
             <h1 className="text-4xl font-bold leading-tight">{product.name}</h1>
             <StarRating
               rating={product.rating}

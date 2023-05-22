@@ -37,7 +37,7 @@ function Filters() {
   );
 
   return (
-    <div className="mb-4 flex min-w-fit max-w-fit flex-col gap-4 px-4 leading-none">
+    <div className="mb-4 flex min-w-fit max-w-fit flex-col gap-4 px-4 pl-0 leading-none">
       <SortSelect
         initialValue={initialSortOption}
         key={initialSortOption?.value}

@@ -14,7 +14,7 @@ function ProductCard({ product }: ProductCardProps) {
   return (
     <Link
       to={`/products/${product._id}`}
-      className="relative flex max-w-sm flex-col bg-off-white shadow-md hover:shadow-lg"
+      className="relative flex max-w-xs flex-col bg-off-white shadow-md hover:shadow-lg"
     >
       <img src={product.imageUrl} alt={product.name} />
       <section className="p-4">
