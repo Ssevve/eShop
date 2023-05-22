@@ -25,8 +25,10 @@ function Filters() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const handleSortChange = (option: SelectOption) => {
-    if (option.value) searchParams.set('order', option.value);
-    else searchParams.delete('order');
+    if (option.value) {
+      searchParams.set('order', option.value);
+      searchParams.set('page', '1');
+    } else searchParams.delete('order');
     setSearchParams(searchParams);
   };
 
