@@ -23,7 +23,7 @@ function Products() {
 
   const scrollToTop = () => window.scrollTo(0, 0);
 
-  const setCurrentPage = (page: number) => {
+  const handlePageChange = (page: number) => {
     scrollToTop();
     if (page === 1) searchParams.delete('page');
     else searchParams.set('page', page.toString());
@@ -58,7 +58,7 @@ function Products() {
       <ProductList products={products} />
       <Pagination
         totalItemCount={totalProductCount}
-        setCurrentPage={setCurrentPage}
+        setCurrentPage={handlePageChange}
         currentPage={currentPage}
         siblingDelta={1}
         itemsPerPage={productsPerPage}
