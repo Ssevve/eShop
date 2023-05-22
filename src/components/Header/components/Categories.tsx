@@ -29,10 +29,10 @@ function Categories({
         )}
       >
         {isMobile && (
-          <header className="flex items-center gap-4 bg-slate-200 p-3 text-2xl font-bold">
+          <header className="flex items-center gap-4 bg-gray-300 p-3 text-2xl font-bold">
             <button
               type="button"
-              className="rounded-full p-3 hover:bg-slate-300"
+              className="rounded-full p-3 hover:bg-gray-400"
               onClick={closeCategories}
             >
               <TfiClose size={20} />
@@ -40,28 +40,33 @@ function Categories({
             <h2>Categories</h2>
           </header>
         )}
-        <ul
-          className={cx(
-            'align-center flex-wrap justify-between bg-white md:flex md:flex-nowrap md:bg-slate-200'
-          )}
-        >
-          <li className="w-full text-left hover:bg-slate-300" key="Best Deals">
-            <CategoryLink
-              onClick={isMobile ? closeCategories : () => {}}
-              category={null}
-              label="All products"
-            />
-          </li>
-          {categories.map((category) => (
-            <li className="w-full text-left hover:bg-slate-300" key={category}>
+        <div className="md:bg-gray-200">
+          <ul
+            className={cx(
+              'align-center container mx-auto flex-wrap justify-between bg-white md:flex md:flex-nowrap md:bg-gray-200'
+            )}
+          >
+            <li className="w-full text-left hover:bg-gray-400" key="Best Deals">
               <CategoryLink
                 onClick={isMobile ? closeCategories : () => {}}
-                category={category}
-                label={category}
+                category={null}
+                label="All products"
               />
             </li>
-          ))}
-        </ul>
+            {categories.map((category) => (
+              <li
+                className="w-full text-left hover:bg-gray-400 hover:text-white"
+                key={category}
+              >
+                <CategoryLink
+                  onClick={isMobile ? closeCategories : () => {}}
+                  category={category}
+                  label={category}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
     </>
   );

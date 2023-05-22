@@ -38,7 +38,7 @@ function SortSelect({ options, initialValue, label, onChange }: SelectProps) {
   };
 
   return (
-    <div className="relative w-max" onMouseLeave={handleClose}>
+    <div className="relative z-10 w-max" onMouseLeave={handleClose}>
       <button
         aria-label={label}
         type="button"

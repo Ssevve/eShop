@@ -53,7 +53,7 @@ function Products() {
     );
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="container mx-auto flex flex-col gap-4">
       <Filters />
       <ProductList products={products} />
       <Pagination
