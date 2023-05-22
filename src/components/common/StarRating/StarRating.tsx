@@ -18,14 +18,14 @@ function StarRating({ rating, ratingsCount }: StarRatingProps) {
   ));
 
   return (
-    <span
+    <div
       className="flex items-center gap-1"
       role="img"
       aria-label={`Rating: ${flatRating} out of ${MAX_RATING} stars`}
     >
       {stars}
-      <span>{`(${ratingsCount} ratings)`}</span>
-    </span>
+      <span className="text-sm">{`(${ratingsCount} ratings)`}</span>
+    </div>
   );
 }
 
