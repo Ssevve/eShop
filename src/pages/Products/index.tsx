@@ -6,6 +6,7 @@ import SortOrder from 'types/SortOrder';
 import Pagination from 'pages/Products/components/Pagination';
 import { useGetProductsQuery } from 'services/api';
 import theme from 'theme';
+import PageLoader from 'components/common/PageLoader';
 import Filters from './components/Filters';
 
 function Products() {
@@ -40,18 +41,7 @@ function Products() {
       </>
     );
   }
-
-  if (isFetching)
-    return (
-      <div className="mx-auto">
-        <ThreeDots
-          height={48}
-          width={60}
-          color={theme.theme.colors['primary-green']}
-        />
-      </div>
-    );
-
+  if (isFetching) return <PageLoader />;
   return (
     <div className="container mx-auto flex flex-col gap-4">
       <Filters />

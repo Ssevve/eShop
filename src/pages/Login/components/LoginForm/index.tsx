@@ -13,7 +13,7 @@ import { loginSchema, LoginSchema } from 'features/auth/schemas/loginSchema';
 import Logo from 'components/common/Logo/Logo';
 import Input from 'components/common/Input';
 import ErrorBox from 'components/common/ErrorBox';
-import SubmitButton from 'components/common/SubmitButton/SubmitButton';
+import SubmitButton from 'components/common/SubmitButton';
 
 function LoginForm() {
   const dispatch = useAppDispatch();

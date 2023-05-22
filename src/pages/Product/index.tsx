@@ -4,12 +4,17 @@ import { useGetProductByIdQuery } from 'services/api';
 import PriceGroup from 'components/common/PriceGroup';
 import StarRating from 'components/common/StarRating/StarRating';
 import Button from 'components/common/Button';
+import NotFound from 'pages/NotFound';
+import PageLoader from 'components/common/PageLoader';
 import QuantityInput from './components/QuantityInput';
 
 function Product() {
   const [quantity, setQuantity] = useState(1);
   const { id } = useParams();
   const { data: product, isFetching, error } = useGetProductByIdQuery(id);
+
+  if (error) return <NotFound />;
+  if (isFetching) return <PageLoader />;
   return (
     <section className="container m-auto flex flex-wrap items-center justify-center gap-8">
       {product && (

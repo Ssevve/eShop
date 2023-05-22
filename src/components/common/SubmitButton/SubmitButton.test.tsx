@@ -2,7 +2,7 @@ import { screen } from '@testing-library/react';
 import { describe, test, expect } from 'vitest';
 
 import renderWithProviders from 'utils/renderWithProviders';
-import SubmitButton from './SubmitButton';
+import SubmitButton from '.';
 
 describe('Submit button', () => {
   describe('With isLoading equal to false', () => {
