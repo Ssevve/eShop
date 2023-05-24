@@ -35,9 +35,7 @@ function Products() {
     return (
       <>
         <span className="text-xl font-bold">Error!</span>
-        <p className="mt-2">
-          Could not get data from the server. Please try again later.
-        </p>
+        <p className="mt-2">Could not get data from the server. Please try again later.</p>
       </>
     );
   }

@@ -6,6 +6,7 @@ import StarRating from 'components/common/StarRating/StarRating';
 import Button from 'components/common/Button';
 import NotFound from 'pages/NotFound';
 import PageLoader from 'components/common/PageLoader';
+import Error from 'pages/Error';
 import QuantityInput from './components/QuantityInput';
 
 function Product() {
@@ -13,7 +14,12 @@ function Product() {
   const { id } = useParams();
   const { data: product, isFetching, error } = useGetProductByIdQuery(id);
 
-  if (error) return <NotFound />;
+  // Make sure the error is of type FetchBaseQueryError and check for response status
+  if (error && 'data' in error) {
+    if (error.status === 404) return <NotFound />;
+    return <Error />;
+  }
+
   if (isFetching) return <PageLoader />;
   return (
     <section className="container m-auto flex flex-wrap items-center justify-center gap-8">
@@ -22,10 +28,7 @@ function Product() {
           <img className="max-w-sm" src={product.imageUrl} alt={product.name} />
           <section className="flex w-max max-w-lg flex-col gap-6">
             <h1 className="text-4xl font-bold leading-tight">{product.name}</h1>
-            <StarRating
-              rating={product.rating}
-              ratingsCount={product.ratingsCount}
-            />
+            <StarRating rating={product.rating} ratingsCount={product.ratingsCount} />
             <section>
               <p>
                 <span className="mr-1 font-semibold">Brand:</span>
@@ -37,10 +40,7 @@ function Product() {
               </p>
             </section>
             <p className="break-words">{product.description}</p>
-            <PriceGroup
-              price={product.price}
-              discountPrice={product.discountPrice}
-            />
+            <PriceGroup price={product.price} discountPrice={product.discountPrice} />
             <div className="flex gap-6">
               <QuantityInput count={quantity} setCount={setQuantity} />
               <Button onClick={() => {}}>Add to cart</Button>

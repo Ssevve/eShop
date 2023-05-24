@@ -2,7 +2,7 @@
 import matchers from '@testing-library/jest-dom/matchers';
 import { expect } from 'vitest';
 import '@testing-library/jest-dom';
-import server from 'test/server';
+import server from 'test/mocks/api/server';
 
 expect.extend(matchers);
 
