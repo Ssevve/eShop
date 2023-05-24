@@ -1,11 +1,9 @@
 import { useSearchParams } from 'react-router-dom';
-import { ThreeDots } from 'react-loader-spinner';
 import ProductList from 'pages/Products/components/ProductList';
 import Category from 'types/Category';
 import SortOrder from 'types/SortOrder';
 import Pagination from 'pages/Products/components/Pagination';
 import { useGetProductsQuery } from 'services/api';
-import theme from 'theme';
 import PageLoader from 'components/common/PageLoader';
 import Filters from './components/Filters';
 

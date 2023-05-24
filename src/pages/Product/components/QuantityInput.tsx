@@ -32,10 +32,7 @@ function QuantityInput({ count, setCount }: QuantityInputProps) {
     <div className="flex w-min border py-2">
       <button
         aria-label="Decrease quantity"
-        className={cx(
-          'items-center border-r px-2',
-          isMinimumQuantity && 'text-gray-400'
-        )}
+        className={cx('items-center border-r px-2', isMinimumQuantity && 'text-gray-400')}
         type="button"
         onClick={handleDecrement}
         disabled={isMinimumQuantity}
@@ -52,10 +49,7 @@ function QuantityInput({ count, setCount }: QuantityInputProps) {
       />
       <button
         aria-label="Increase quantity"
-        className={cx(
-          'items-center border-l px-2',
-          isMaximumQuantity && 'text-gray-400'
-        )}
+        className={cx('items-center border-l px-2', isMaximumQuantity && 'text-gray-400')}
         type="button"
         onClick={handleIncrement}
         disabled={isMaximumQuantity}

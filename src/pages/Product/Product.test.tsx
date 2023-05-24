@@ -34,6 +34,23 @@ describe('Product page tests', () => {
     });
   });
 
+  test('renders quantity input', async () => {
+    renderWithProviders(componentToRender('646a2fb945f3ccc31e8e75d2'));
+
+    await waitFor(() => {
+      expect(screen.queryByLabelText('Decrease quantity')).toBeInTheDocument();
+      expect(screen.queryByLabelText('Increase quantity')).toBeInTheDocument();
+    });
+  });
+
+  test('renders add to cart button', async () => {
+    renderWithProviders(componentToRender('646a2fb945f3ccc31e8e75d2'));
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: 'Add to cart' })).toBeInTheDocument();
+    });
+  });
+
   test('renders not found when product not found', async () => {
     renderWithProviders(componentToRender('bad-id'));
 
