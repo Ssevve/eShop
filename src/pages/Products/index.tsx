@@ -1,11 +1,10 @@
 import { useSearchParams } from 'react-router-dom';
-import { ThreeDots } from 'react-loader-spinner';
 import ProductList from 'pages/Products/components/ProductList';
 import Category from 'types/Category';
 import SortOrder from 'types/SortOrder';
 import Pagination from 'pages/Products/components/Pagination';
 import { useGetProductsQuery } from 'services/api';
-import theme from 'theme';
+import PageLoader from 'components/common/PageLoader';
 import Filters from './components/Filters';
 
 function Products() {
@@ -23,7 +22,7 @@ function Products() {
 
   const scrollToTop = () => window.scrollTo(0, 0);
 
-  const setCurrentPage = (page: number) => {
+  const handlePageChange = (page: number) => {
     scrollToTop();
     if (page === 1) searchParams.delete('page');
     else searchParams.set('page', page.toString());
@@ -34,31 +33,18 @@ function Products() {
     return (
       <>
         <span className="text-xl font-bold">Error!</span>
-        <p className="mt-2">
-          Could not get data from the server. Please try again later.
-        </p>
+        <p className="mt-2">Could not get data from the server. Please try again later.</p>
       </>
     );
   }
-
-  if (isFetching)
-    return (
-      <div className="mx-auto">
-        <ThreeDots
-          height={48}
-          width={60}
-          color={theme.theme.colors['primary-green']}
-        />
-      </div>
-    );
-
+  if (isFetching) return <PageLoader />;
   return (
-    <div className="flex flex-col gap-4">
+    <div className="container mx-auto flex flex-col gap-4">
       <Filters />
       <ProductList products={products} />
       <Pagination
         totalItemCount={totalProductCount}
-        setCurrentPage={setCurrentPage}
+        setCurrentPage={handlePageChange}
         currentPage={currentPage}
         siblingDelta={1}
         itemsPerPage={productsPerPage}

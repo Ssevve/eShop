@@ -25,8 +25,10 @@ function Filters() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const handleSortChange = (option: SelectOption) => {
-    if (option.value) searchParams.set('order', option.value);
-    else searchParams.delete('order');
+    if (option.value) {
+      searchParams.set('order', option.value);
+      searchParams.set('page', '1');
+    } else searchParams.delete('order');
     setSearchParams(searchParams);
   };
 
@@ -35,7 +37,7 @@ function Filters() {
   );
 
   return (
-    <div className="mb-4 flex min-w-fit max-w-fit flex-col gap-4 px-4 leading-none">
+    <div className="mb-4 flex min-w-fit max-w-fit flex-col gap-4 px-4 pl-0 leading-none">
       <SortSelect
         initialValue={initialSortOption}
         key={initialSortOption?.value}

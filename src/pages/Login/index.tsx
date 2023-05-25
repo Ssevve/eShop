@@ -2,7 +2,7 @@ import LoginForm from './components/LoginForm';
 
 function Login() {
   return (
-    <div className="flex grow items-center p-6">
+    <div className="flex grow items-center">
       <LoginForm />
     </div>
   );

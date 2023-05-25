@@ -1,8 +1,8 @@
 import { screen } from '@testing-library/react';
 import { describe, test, expect } from 'vitest';
 
-import renderWithProviders from 'utils/renderWithProviders';
-import Input from './Input';
+import renderWithProviders from 'test/renderWithProviders';
+import Input from '.';
 
 describe('Input', () => {
   test('Renders an input with correct label text', () => {

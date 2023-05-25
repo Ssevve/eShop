@@ -38,6 +38,9 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_URL }),
   reducerPath: 'productsApi',
   endpoints: (builder) => ({
+    getProductById: builder.query<Product, string | undefined>({
+      query: (id) => `products/${id}`,
+    }),
     getProducts: builder.query<GetProductsResponse, GetProductsQueryArgs>({
       query: ({ page, category, sortOrder }) => {
         let queryString = `products?page=${page}&category=${category}`;
@@ -53,4 +56,4 @@ export const api = createApi({
   }),
 });
 
-export const { useGetProductsQuery } = api;
+export const { useGetProductsQuery, useGetProductByIdQuery } = api;

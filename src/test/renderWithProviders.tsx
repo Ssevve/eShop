@@ -1,11 +1,11 @@
 // Custom render function from: https://redux.js.org/usage/writing-tests
 import React, { PropsWithChildren } from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { render } from '@testing-library/react';
 import type { RenderOptions } from '@testing-library/react';
 import type { PreloadedState } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 
-// import { authReducer } from 'features/auth/authSlice';
 import { AppStore, RootState, setupStore } from '../app/store';
 // As a basic setup, import your same slice reducers
 
