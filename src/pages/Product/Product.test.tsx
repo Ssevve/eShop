@@ -4,7 +4,7 @@ import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { rest } from 'msw';
 import renderWithProviders from 'test/renderWithProviders';
 import server from 'test/mocks/api/server';
-import Product from './index';
+import Product from '.';
 
 const componentToRender = (paramId: string) => (
   <MemoryRouter initialEntries={[`/products/${paramId}`]}>
@@ -15,18 +15,19 @@ const componentToRender = (paramId: string) => (
 );
 
 describe('Product page tests', () => {
-  beforeEach(() => {});
   test('fetches product data and displays it on the page', async () => {
     renderWithProviders(componentToRender('646a2fb945f3ccc31e8e75d2'));
 
     expect(screen.getByLabelText('Loading')).toBeInTheDocument();
 
     await waitFor(() => {
-      expect(screen.getByRole('heading', { name: 'Skin Awakening Rinse' })).toBeInTheDocument();
+      expect(screen.getByAltText('Test product')).toBeInTheDocument();
+      expect(screen.getByRole('heading', { name: 'Test product' })).toBeInTheDocument();
+      expect(screen.getByText('Test category')).toBeInTheDocument();
       expect(screen.getByLabelText('Rating: 5 out of 5 stars')).toBeInTheDocument();
       expect(screen.getByText('(23 ratings)')).toBeInTheDocument();
-      expect(screen.getByText('Kaya Clinic')).toBeInTheDocument(); // Brand
-      expect(screen.getByText('100 ml')).toBeInTheDocument(); // Quantity
+      expect(screen.getByText('Test brand')).toBeInTheDocument();
+      expect(screen.getByText('Test quantity')).toBeInTheDocument();
       expect(screen.getByText('Test description')).toBeInTheDocument();
       expect(screen.getByText('$5.86')).toBeInTheDocument();
       expect(screen.getByText('$5.28')).toBeInTheDocument();
@@ -38,8 +39,7 @@ describe('Product page tests', () => {
     renderWithProviders(componentToRender('646a2fb945f3ccc31e8e75d2'));
 
     await waitFor(() => {
-      expect(screen.queryByLabelText('Decrease quantity')).toBeInTheDocument();
-      expect(screen.queryByLabelText('Increase quantity')).toBeInTheDocument();
+      expect(screen.getByTestId('quantity-input')).toBeInTheDocument();
     });
   });
 

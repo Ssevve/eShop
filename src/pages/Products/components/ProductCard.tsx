@@ -18,9 +18,7 @@ function ProductCard({ product }: ProductCardProps) {
     >
       <img src={product.imageUrl} alt={product.name} />
       <section className="p-4">
-        <span className="text-xs font-bold uppercase text-gray-400">
-          {product.category}
-        </span>
+        <span className="text-xs font-bold uppercase text-gray-400">{product.category}</span>
         <h2 className="my-4 uppercase">{product.name}</h2>
         <div className="flex justify-between">
           <section className="flex flex-col gap-1">
@@ -30,10 +28,7 @@ function ProductCard({ product }: ProductCardProps) {
         </div>
       </section>
       <footer className="mx-4 flex justify-between border-t border-gray-200 py-4">
-        <PriceGroup
-          price={product.price}
-          discountPrice={product.discountPrice}
-        />
+        <PriceGroup price={product.price} discountPrice={product.discountPrice} />
         <Button textSize="lg" onClick={() => {}}>
           <FiShoppingCart />
         </Button>

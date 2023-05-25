@@ -2,15 +2,14 @@ import { rest } from 'msw';
 
 const products = [
   {
-    brand: 'Kaya Clinic',
-    category: 'Beauty and Hygiene',
+    brand: 'Test brand',
+    category: 'Test category',
     description: 'Test description',
     discountPrice: 5.28,
-    imageUrl:
-      'https://www.bigbasket.com/media/uploads/p/l/40078422_3-kaya-clinic-skin-awakening-rinse.jpg',
-    name: 'Skin Awakening Rinse',
+    imageUrl: 'Test image url',
+    name: 'Test product',
     price: 5.86,
-    quantity: '100 ml',
+    quantity: 'Test quantity',
     rating: 5,
     ratingsCount: 23,
     _id: '646a2fb945f3ccc31e8e75d2',
