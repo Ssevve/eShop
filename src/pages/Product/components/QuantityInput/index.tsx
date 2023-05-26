@@ -29,7 +29,7 @@ function QuantityInput({ count, setCount }: QuantityInputProps) {
   const isMaximumQuantity = count === MAX_QUANTITY;
 
   return (
-    <div data-testid="quantity-input" className="flex w-min border py-2">
+    <div className="flex w-min border py-2">
       <button
         aria-label="Decrease quantity"
         className={cx('items-center border-r px-2', isMinimumQuantity && 'text-gray-400')}
