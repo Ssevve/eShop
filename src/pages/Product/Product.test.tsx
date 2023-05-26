@@ -6,7 +6,7 @@ import renderWithProviders from 'utils/renderWithProviders';
 import server from 'mocks/server';
 import Product from '.';
 
-const componentToRender = (paramId = '646a2fb945f3ccc31e8e75d2') => (
+const componentToRender = (paramId = 'test-id') => (
   <MemoryRouter initialEntries={[`/products/${paramId}`]}>
     <Routes>
       <Route path="/products/:id" element={<Product />} />
@@ -51,12 +51,12 @@ describe('Product page', () => {
     });
   });
 
-  it('should render not found page when product was not found', async () => {
+  it('should render <NotFound /> when product was not found', async () => {
     renderWithProviders(componentToRender('bad-id'));
     expect(await screen.findByRole('heading', { name: 'Not Found' })).toBeInTheDocument();
   });
 
-  it('should render error page on error api response', async () => {
+  it('should render <Error /> on error api response', async () => {
     // force msw to return error response
     server.use(
       rest.get(`${import.meta.env.VITE_API_URL}/products/:id`, (req, res, ctx) => {

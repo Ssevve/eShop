@@ -1,16 +1,10 @@
-import {
-  PreloadedState,
-  combineReducers,
-  configureStore,
-} from '@reduxjs/toolkit';
+import { PreloadedState, combineReducers, configureStore } from '@reduxjs/toolkit';
 import authReducer from 'features/auth/authSlice';
-// import productsReducer from 'features/products/productsSlice';
 import categoriesReducer from 'features/categories/categoriesSlice';
-import { api } from 'services/api';
+import { api } from 'app/services/products';
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  // products: productsReducer,
   [api.reducerPath]: api.reducer,
   categories: categoriesReducer,
 });
