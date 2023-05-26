@@ -1,5 +1,4 @@
 import { screen, waitFor } from '@testing-library/react';
-import { describe, it } from 'vitest';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { rest } from 'msw';
 import renderWithProviders from 'utils/renderWithProviders';
