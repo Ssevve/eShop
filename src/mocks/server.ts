@@ -7,4 +7,6 @@ global.Headers = Headers;
 global.Request = Request;
 global.Response = Response;
 
-export default setupServer(...handlers);
+const server = setupServer(...handlers);
+
+export default server;

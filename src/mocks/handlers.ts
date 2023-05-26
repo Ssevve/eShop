@@ -12,7 +12,7 @@ const products = [
     quantity: 'Test quantity',
     rating: 5,
     ratingsCount: 23,
-    _id: '646a2fb945f3ccc31e8e75d2',
+    _id: 'test-id',
   },
 ];
 

@@ -3,7 +3,7 @@ import ProductList from 'pages/Products/components/ProductList';
 import Category from 'types/Category';
 import SortOrder from 'types/SortOrder';
 import Pagination from 'pages/Products/components/Pagination';
-import { useGetProductsQuery } from 'services/api';
+import { useGetProductsQuery } from 'app/services/products';
 import PageLoader from 'components/common/PageLoader';
 import Filters from './components/Filters';
 

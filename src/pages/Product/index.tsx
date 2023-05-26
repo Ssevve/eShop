@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useGetProductByIdQuery } from 'services/api';
+import { useGetProductByIdQuery } from 'app/services/products';
 import PriceGroup from 'components/common/PriceGroup';
 import StarRating from 'components/common/StarRating/StarRating';
 import Button from 'components/common/Button';
