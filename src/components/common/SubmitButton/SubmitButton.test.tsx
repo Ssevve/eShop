@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 import { describe, test, expect } from 'vitest';
 
-import renderWithProviders from 'test/renderWithProviders';
+import renderWithProviders from 'utils/renderWithProviders';
 import SubmitButton from '.';
 
 describe('Submit button', () => {
@@ -10,9 +10,7 @@ describe('Submit button', () => {
 
     test('Renders a correct text', () => {
       renderWithProviders(submitButton);
-      expect(
-        screen.getByRole('button', { name: /log in/i })
-      ).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /log in/i })).toBeInTheDocument();
     });
 
     test('Is not disabled', () => {
