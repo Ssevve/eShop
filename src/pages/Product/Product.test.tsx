@@ -29,9 +29,9 @@ describe('Product page', () => {
     const expectedProduct = products[0];
     renderWithProviders(componentToRender());
     await waitFor(() => {
-      const image = screen.getByAltText('Test product');
+      const image = screen.getByAltText(expectedProduct.name);
       expect(image).toBeInTheDocument();
-      expect(image).toHaveAttribute('src', 'Test image url');
+      expect(image).toHaveAttribute('src', expectedProduct.imageUrl);
 
       expect(screen.getByRole('heading', { name: expectedProduct.name })).toBeInTheDocument();
       expect(screen.getByText('Test category')).toBeInTheDocument();
