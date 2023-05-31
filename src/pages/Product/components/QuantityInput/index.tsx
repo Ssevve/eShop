@@ -1,32 +1,27 @@
 import cx from 'classnames';
 import { FiPlus, FiMinus } from 'react-icons/fi';
 
-interface QuantityInputProps {
-  count: number;
-  setCount: (val: number | ((prev: number) => number)) => void;
+interface DefaultQuantityInputProps {
+  minCount?: number;
+  maxCount?: number;
 }
 
-const MAX_QUANTITY = 99;
+interface QuantityInputProps extends DefaultQuantityInputProps {
+  count: number;
+  setCount: React.Dispatch<React.SetStateAction<number>>;
+}
 
-function QuantityInput({ count, setCount }: QuantityInputProps) {
-  const handleDecrement = () => {
-    setCount((prev: number) => {
-      const newCount = prev - 1;
-      return newCount < 1 ? 1 : newCount;
-    });
-  };
-  const handleIncrement = () => setCount((prev) => prev + 1);
+function QuantityInput({ count, setCount, minCount = 1, maxCount = 99 }: QuantityInputProps) {
+  const isMinimumQuantity = count <= minCount;
+  const isMaximumQuantity = count >= maxCount;
+  const handleDecrement = () => setCount(isMinimumQuantity ? minCount : count - 1);
+  const handleIncrement = () => setCount(isMaximumQuantity ? maxCount : count + 1);
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const newCount = Number(e.currentTarget.value);
-    if (newCount < MAX_QUANTITY) {
-      setCount(newCount);
-    } else {
-      setCount(MAX_QUANTITY);
-    }
+    if (newCount > maxCount) setCount(maxCount);
+    else if (newCount < minCount) setCount(minCount);
+    else setCount(newCount);
   };
-
-  const isMinimumQuantity = count === 1;
-  const isMaximumQuantity = count === MAX_QUANTITY;
 
   return (
     <div className="flex w-min border py-2">
@@ -44,8 +39,8 @@ function QuantityInput({ count, setCount }: QuantityInputProps) {
         type="number"
         value={count}
         onChange={handleChange}
-        min="1"
-        max="99"
+        min={minCount}
+        max={maxCount}
       />
       <button
         aria-label="Increase quantity"
