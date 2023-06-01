@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 
 import { vi } from 'vitest';
-import { screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithProviders from 'utils/renderWithProviders';
 import QuantityInput from '.';
@@ -53,6 +53,36 @@ describe('QuantityInput component', () => {
       renderWithProviders(<QuantityInput count={2} maxCount={2} setCount={setCountMock} />);
       await user.click(screen.getByLabelText('Increase quantity'));
       expect(setCountMock).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("when input's value change", () => {
+    it('should set count to a given value if it is between minCount and maxCount', async () => {
+      const setCountMock = vi.fn();
+      const user = userEvent.setup();
+      renderWithProviders(<QuantityInput count={1} setCount={setCountMock} />);
+      const inputElement = screen.getByRole('spinbutton');
+      fireEvent.change(inputElement, { target: { value: 45 } });
+      console.log(inputElement);
+      expect(setCountMock).toBeCalledWith(45);
+    });
+    it('should set count to minCount if value is less than minCount', async () => {
+      const setCountMock = vi.fn();
+      const user = userEvent.setup();
+      renderWithProviders(<QuantityInput count={1} setCount={setCountMock} />);
+      const inputElement = screen.getByRole('spinbutton');
+      fireEvent.change(inputElement, { target: { value: 0 } });
+      console.log(inputElement);
+      expect(setCountMock).toBeCalledWith(1);
+    });
+    it('should set count to maxCount if value is greater than maxCount', async () => {
+      const setCountMock = vi.fn();
+      const user = userEvent.setup();
+      renderWithProviders(<QuantityInput count={1} setCount={setCountMock} />);
+      const inputElement = screen.getByRole('spinbutton');
+      fireEvent.change(inputElement, { target: { value: 100 } });
+      console.log(inputElement);
+      expect(setCountMock).toBeCalledWith(99);
     });
   });
 });

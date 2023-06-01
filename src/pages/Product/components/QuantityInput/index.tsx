@@ -14,10 +14,16 @@ interface QuantityInputProps extends DefaultQuantityInputProps {
 function QuantityInput({ count, setCount, minCount = 1, maxCount = 99 }: QuantityInputProps) {
   const isMinimumQuantity = count <= minCount;
   const isMaximumQuantity = count >= maxCount;
-  const handleDecrement = () => setCount(isMinimumQuantity ? minCount : count - 1);
-  const handleIncrement = () => setCount(isMaximumQuantity ? maxCount : count + 1);
+  const handleDecrement = () => {
+    const newCount = count - 1;
+    if (newCount >= minCount) setCount(newCount);
+  };
+  const handleIncrement = () => {
+    const newCount = count + 1;
+    if (newCount <= maxCount) setCount(newCount);
+  };
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    const newCount = Number(e.currentTarget.value);
+    const newCount = e.currentTarget.valueAsNumber;
     if (newCount > maxCount) setCount(maxCount);
     else if (newCount < minCount) setCount(minCount);
     else setCount(newCount);
