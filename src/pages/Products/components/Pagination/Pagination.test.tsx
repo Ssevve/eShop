@@ -1,6 +1,6 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { describe, test, expect, vi } from 'vitest';
-import renderWithProviders from 'test/renderWithProviders';
+import renderWithProviders from 'utils/renderWithProviders';
 import Pagination from '.';
 
 describe('Pagination', () => {
@@ -64,9 +64,7 @@ describe('Pagination', () => {
           itemsPerPage={20}
         />
       );
-      expect(
-        screen.getByRole('button', { name: /previous page/i })
-      ).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /previous page/i })).toBeInTheDocument();
     });
 
     test('Renders a next page button', () => {
@@ -79,9 +77,7 @@ describe('Pagination', () => {
           itemsPerPage={20}
         />
       );
-      expect(
-        screen.getByRole('button', { name: /next page/i })
-      ).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /next page/i })).toBeInTheDocument();
     });
 
     test('Renders a disabled previous page button if current page is 1', () => {
@@ -94,9 +90,7 @@ describe('Pagination', () => {
           itemsPerPage={20}
         />
       );
-      expect(
-        screen.getByRole('button', { name: /previous page/i })
-      ).toBeDisabled();
+      expect(screen.getByRole('button', { name: /previous page/i })).toBeDisabled();
     });
 
     test('Renders a not disabled previous page button if current page is more than 1', () => {
@@ -109,9 +103,7 @@ describe('Pagination', () => {
           itemsPerPage={20}
         />
       );
-      expect(
-        screen.getByRole('button', { name: /previous page/i })
-      ).not.toBeDisabled();
+      expect(screen.getByRole('button', { name: /previous page/i })).not.toBeDisabled();
     });
 
     test('Renders a disabled next page button if current page is 10', () => {
@@ -137,9 +129,7 @@ describe('Pagination', () => {
           itemsPerPage={20}
         />
       );
-      expect(
-        screen.getByRole('button', { name: /next page/i })
-      ).not.toBeDisabled();
+      expect(screen.getByRole('button', { name: /next page/i })).not.toBeDisabled();
     });
 
     test('Renders a second page button as "..." if current page is 4', () => {
@@ -152,9 +142,7 @@ describe('Pagination', () => {
           itemsPerPage={20}
         />
       );
-      expect(screen.getByRole('button', { name: /page 2/i })).toHaveTextContent(
-        '...'
-      );
+      expect(screen.getByRole('button', { name: /page 2/i })).toHaveTextContent('...');
     });
 
     test('Renders a sixth page button as "..." if current page is 4', () => {
@@ -167,9 +155,7 @@ describe('Pagination', () => {
           itemsPerPage={20}
         />
       );
-      expect(screen.getByRole('button', { name: /page 6/i })).toHaveTextContent(
-        '...'
-      );
+      expect(screen.getByRole('button', { name: /page 6/i })).toHaveTextContent('...');
     });
 
     test('Renders two "..." button if current page is 4', () => {
@@ -208,9 +194,7 @@ describe('Pagination', () => {
           itemsPerPage={20}
         />
       );
-      expect(screen.getByRole('button', { name: /page 4/i })).toHaveTextContent(
-        '...'
-      );
+      expect(screen.getByRole('button', { name: /page 4/i })).toHaveTextContent('...');
     });
 
     test('Renders only one "..." button if current page is more than 8', () => {
@@ -236,9 +220,7 @@ describe('Pagination', () => {
           itemsPerPage={20}
         />
       );
-      expect(screen.getByRole('button', { name: /page 7/i })).toHaveTextContent(
-        '...'
-      );
+      expect(screen.getByRole('button', { name: /page 7/i })).toHaveTextContent('...');
     });
   });
 });

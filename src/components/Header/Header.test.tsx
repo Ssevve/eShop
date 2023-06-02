@@ -2,7 +2,7 @@ import { screen } from '@testing-library/react';
 import { describe, test, expect } from 'vitest';
 import { BrowserRouter } from 'react-router-dom';
 
-import renderWithProviders from 'test/renderWithProviders';
+import renderWithProviders from 'utils/renderWithProviders';
 import { RootState } from 'app/store';
 import Header from '.';
 
@@ -90,9 +90,7 @@ describe('Header', () => {
         </BrowserRouter>,
         { preloadedState }
       );
-      expect(
-        screen.getByRole('link', { name: /account/i })
-      ).toBeInTheDocument();
+      expect(screen.getByRole('link', { name: /account/i })).toBeInTheDocument();
     });
 
     test('Renders cart page link', () => {

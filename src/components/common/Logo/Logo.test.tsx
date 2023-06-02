@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
 import { describe, test, expect } from 'vitest';
-import renderWithProviders from 'test/renderWithProviders';
+import renderWithProviders from 'utils/renderWithProviders';
 
 import Logo from './Logo';
 

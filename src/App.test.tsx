@@ -2,7 +2,7 @@ import { screen } from '@testing-library/react';
 import { describe, test, expect } from 'vitest';
 import { MemoryRouter } from 'react-router-dom';
 
-import renderWithProviders from 'test/renderWithProviders';
+import renderWithProviders from 'utils/renderWithProviders';
 import { App, AppWithRouter } from './App';
 
 describe('App', () => {
@@ -22,9 +22,7 @@ describe('App', () => {
         <App />
       </MemoryRouter>
     );
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
-      /home page/i
-    );
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/home page/i);
   });
 
   test('Renders not found page if invalid path', () => {
@@ -33,8 +31,6 @@ describe('App', () => {
         <App />
       </MemoryRouter>
     );
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
-      /not found/i
-    );
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/not found/i);
   });
 });
