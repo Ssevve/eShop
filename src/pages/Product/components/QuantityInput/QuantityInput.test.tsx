@@ -60,22 +60,19 @@ describe('QuantityInput component', () => {
     it('should set count to a given value if it is between minCount and maxCount', async () => {
       const setCountMock = vi.fn();
       renderWithProviders(<QuantityInput count={1} setCount={setCountMock} />);
-      const inputElement = screen.getByRole('spinbutton');
-      fireEvent.change(inputElement, { target: { value: 45 } });
+      fireEvent.change(screen.getByRole('spinbutton'), { target: { value: 45 } });
       expect(setCountMock).toHaveBeenCalledWith(45);
     });
     it('should set count to minCount if value is less than minCount', async () => {
       const setCountMock = vi.fn();
       renderWithProviders(<QuantityInput count={1} setCount={setCountMock} />);
-      const inputElement = screen.getByRole('spinbutton');
-      fireEvent.change(inputElement, { target: { value: 0 } });
+      fireEvent.change(screen.getByRole('spinbutton'), { target: { value: 0 } });
       expect(setCountMock).toHaveBeenCalledWith(1);
     });
     it('should set count to maxCount if value is greater than maxCount', async () => {
       const setCountMock = vi.fn();
       renderWithProviders(<QuantityInput count={1} setCount={setCountMock} />);
-      const inputElement = screen.getByRole('spinbutton');
-      fireEvent.change(inputElement, { target: { value: 100 } });
+      fireEvent.change(screen.getByRole('spinbutton'), { target: { value: 100 } });
       expect(setCountMock).toHaveBeenCalledWith(99);
     });
   });
