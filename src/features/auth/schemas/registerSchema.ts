@@ -8,7 +8,7 @@ export const registerSchema = z
   })
   .refine((data) => data.password === data.repeatPassword, {
     path: ['repeatPassword'],
-    message: "Password don't match",
+    message: "Passwords don't match",
   });
 
 export type RegisterSchema = z.infer<typeof registerSchema>;
