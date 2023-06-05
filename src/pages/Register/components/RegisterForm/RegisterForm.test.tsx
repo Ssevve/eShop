@@ -1,79 +1,58 @@
+// @vitest-environment jsdom
+
+import 'mocks/firebase';
 import { BrowserRouter } from 'react-router-dom';
 import { screen } from '@testing-library/react';
-import { describe, test, expect } from 'vitest';
+import userEvent from '@testing-library/user-event';
 import renderWithProviders from 'utils/renderWithProviders';
 import RegisterForm from '.';
+import mockUser from 'mocks/user';
 
-describe('Register form', () => {
-  test('Renders a form', () => {
+describe('RegisterForm component', () => {
+  beforeEach(() => {
     renderWithProviders(
       <BrowserRouter>
         <RegisterForm />
       </BrowserRouter>
     );
-    expect(screen.getByRole('form')).toBeInTheDocument();
   });
 
-  test('Renders logo', () => {
-    renderWithProviders(
-      <BrowserRouter>
-        <RegisterForm />
-      </BrowserRouter>
-    );
-    expect(screen.getByRole('note', { name: /eshop/i })).toBeInTheDocument();
+  it('should show error message if email format is not valid', async () => {
+    const user = userEvent.setup();
+    await user.type(screen.getByRole('textbox', { name: 'Email' }), 'badformat');
+
+    expect(screen.getByText('Invalid email')).toBeInTheDocument();
   });
 
-  test('Renders an email input', () => {
-    renderWithProviders(
-      <BrowserRouter>
-        <RegisterForm />
-      </BrowserRouter>
-    );
-    expect(screen.getByRole('textbox', { name: /email/i })).toBeInTheDocument();
+  it('should not show error message if email format is valid', async () => {
+    const user = userEvent.setup();
+    await user.type(screen.getByRole('textbox', { name: 'Email' }), 'correct@format.com');
+
+    expect(screen.queryByText('Invalid email')).not.toBeInTheDocument();
   });
 
-  test('Renders a password input', () => {
-    renderWithProviders(
-      <BrowserRouter>
-        <RegisterForm />
-      </BrowserRouter>
-    );
-    expect(screen.getByLabelText(/^password$/i)).toBeInTheDocument();
+  it('should show error message if password is too short', async () => {
+    const user = userEvent.setup();
+    await user.type(screen.getByLabelText('Password'), 'short');
+
+    expect(screen.getByText('Minimum password length is 6')).toBeInTheDocument();
   });
 
-  test('Renders a repeat password input', () => {
-    renderWithProviders(
-      <BrowserRouter>
-        <RegisterForm />
-      </BrowserRouter>
-    );
-    expect(screen.getByLabelText(/repeat password/i)).toBeInTheDocument();
+  it('should show error message if passwords do not match', async () => {
+    const user = userEvent.setup();
+    await user.type(screen.getByLabelText('Password'), 'password');
+    await user.type(screen.getByLabelText('Repeat Password'), 'password2');
+
+    expect(screen.getByText("Passwords don't match")).toBeInTheDocument();
   });
 
-  test('Renders a register button', () => {
-    renderWithProviders(
-      <BrowserRouter>
-        <RegisterForm />
-      </BrowserRouter>
-    );
-    expect(screen.getByRole('button', { name: /register/i })).toBeInTheDocument();
-  });
+  it('should show error messages if email is already taken', async () => {
+    const user = userEvent.setup();
+    await user.type(screen.getByRole('textbox', { name: 'Email' }), mockUser.email);
+    await user.type(screen.getByLabelText('Password'), mockUser.password);
+    await user.type(screen.getByLabelText('Repeat Password'), mockUser.password);
+    await user.click(screen.getByRole('button', { name: 'Register' }));
 
-  test('Renders a footer text', () => {
-    renderWithProviders(
-      <BrowserRouter>
-        <RegisterForm />
-      </BrowserRouter>
-    );
-    expect(screen.getByText(/have an account?/i)).toBeInTheDocument();
-  });
-
-  test('Renders a log in page link', () => {
-    renderWithProviders(
-      <BrowserRouter>
-        <RegisterForm />
-      </BrowserRouter>
-    );
-    expect(screen.getByRole('link', { name: /log in/i })).toBeInTheDocument();
+    expect(await screen.findByText('Email already taken')).toBeInTheDocument();
   });
 });

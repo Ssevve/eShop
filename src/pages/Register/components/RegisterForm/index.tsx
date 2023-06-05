@@ -9,20 +9,20 @@ import {
   resetAuthStatusAndErrors,
   selectIsPendingAuth,
 } from 'features/auth/authSlice';
-import {
-  registerSchema,
-  RegisterSchema,
-} from 'features/auth/schemas/registerSchema';
+import { registerSchema, RegisterSchema } from 'features/auth/schemas/registerSchema';
 import Logo from 'components/common/Logo/Logo';
 import Input from 'components/common/Input';
 import SubmitButton from 'components/common/SubmitButton';
 
 function RegisterForm() {
   const dispatch = useAppDispatch();
+  const emailTaken = useAppSelector((state) => state.auth.error.emailTaken);
   const isPendingAuth = useAppSelector(selectIsPendingAuth);
   const {
     register,
     handleSubmit,
+    setError,
+    clearErrors,
     formState: { errors },
   } = useForm<RegisterSchema>({
     mode: 'onChange',
@@ -30,13 +30,19 @@ function RegisterForm() {
   });
 
   useEffect(() => {
+    if (emailTaken) {
+      setError('email', { message: 'Email already taken' });
+    } else {
+      clearErrors();
+    }
+  }, [emailTaken]);
+
+  useEffect(() => {
     dispatch(resetAuthStatusAndErrors());
   }, []);
 
-  const onSubmit: SubmitHandler<RegisterSchema> = ({
-    email,
-    password,
-  }: RegisterSchema) => dispatch(registerUser({ email, password }));
+  const onSubmit: SubmitHandler<RegisterSchema> = ({ email, password }: RegisterSchema) =>
+    dispatch(registerUser({ email, password }));
 
   return (
     <form
@@ -47,18 +53,8 @@ function RegisterForm() {
       <header className="flex items-center justify-center">
         <Logo />
       </header>
-      <Input
-        label="Email"
-        type="email"
-        error={errors.email}
-        {...register('email')}
-      />
-      <Input
-        label="Password"
-        type="password"
-        error={errors.password}
-        {...register('password')}
-      />
+      <Input label="Email" type="email" error={errors.email} {...register('email')} />
+      <Input label="Password" type="password" error={errors.password} {...register('password')} />
       <Input
         label="Repeat Password"
         type="password"

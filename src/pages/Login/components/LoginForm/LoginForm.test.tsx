@@ -26,7 +26,7 @@ describe('LoginForm component', () => {
     expect(screen.getByText('Invalid email')).toBeInTheDocument();
   });
 
-  it('should show error message when password is too short', async () => {
+  it('should show error message if password is too short', async () => {
     const user = userEvent.setup();
     await user.type(screen.getByRole('textbox', { name: 'Email' }), mockUser.email);
     await user.type(screen.getByLabelText('Password'), 'short');
@@ -35,7 +35,7 @@ describe('LoginForm component', () => {
     expect(screen.getByText('Minimum password length is 6')).toBeInTheDocument();
   });
 
-  it('should show error messages when user is not found', async () => {
+  it('should show error messages if user is not found', async () => {
     const user = userEvent.setup();
     await user.type(screen.getByRole('textbox', { name: 'Email' }), 'notfound@email.com');
     await user.type(screen.getByLabelText('Password'), mockUser.password);
@@ -45,7 +45,7 @@ describe('LoginForm component', () => {
     expect(errors).toHaveLength(2);
   });
 
-  it('should show error messages when password is wrong', async () => {
+  it('should show error messages if password is wrong', async () => {
     const user = userEvent.setup();
     await user.type(screen.getByRole('textbox', { name: 'Email' }), mockUser.email);
     await user.type(screen.getByLabelText('Password'), 'wrongPassword');
