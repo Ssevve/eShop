@@ -77,6 +77,7 @@ export const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.fulfilled, (state, action) => {
+        console.log(action);
         state.status = 'SUCCESS';
         state.user = {
           uid: action.payload.user.uid,
@@ -103,8 +104,8 @@ export const authSlice = createSlice({
       })
       .addMatcher(isRejectedAction, (state, action) => {
         state.status = 'ERROR';
-
-        if (action.error.code === FirebaseErrors.UserNotFound) {
+        if (action.error.code === FirebaseErrors.UserNotFound
+          || action.error.code === FirebaseErrors.WrongPassword) {
           state.error.invalidCredentials = true;
           state.error.server = false;
         } else {

@@ -15,7 +15,6 @@ function Account() {
           className="flex h-max gap-2 rounded-sm bg-red-700 p-3 font-bold text-white hover:bg-red-600"
           onClick={handleLogout}
         >
-          <FiLogOut size={24} />
           Log out
         </button>
       </header>

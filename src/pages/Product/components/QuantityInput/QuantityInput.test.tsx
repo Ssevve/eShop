@@ -21,6 +21,7 @@ describe('QuantityInput component', () => {
       renderWithProviders(<QuantityInput count={2} minCount={2} setCount={setCountMock} />);
       expect(screen.getByLabelText('Decrease quantity')).toBeDisabled();
     });
+
     it('should decrement if count is greater than minCount', async () => {
       const setCountMock = vi.fn();
       const user = userEvent.setup();
@@ -29,6 +30,7 @@ describe('QuantityInput component', () => {
       expect(setCountMock).toHaveBeenCalledTimes(1);
       expect(setCountMock).toHaveBeenCalledWith(2);
     });
+
     it('should not decrement if count equals minCount', async () => {
       const setCountMock = vi.fn();
       const user = userEvent.setup();
@@ -47,6 +49,7 @@ describe('QuantityInput component', () => {
       expect(setCountMock).toHaveBeenCalledTimes(1);
       expect(setCountMock).toHaveBeenCalledWith(4);
     });
+
     it('should not increment if count equals maxCount', async () => {
       const setCountMock = vi.fn();
       const user = userEvent.setup();
@@ -63,12 +66,14 @@ describe('QuantityInput component', () => {
       fireEvent.change(screen.getByRole('spinbutton'), { target: { value: 45 } });
       expect(setCountMock).toHaveBeenCalledWith(45);
     });
+
     it('should set count to minCount if value is less than minCount', async () => {
       const setCountMock = vi.fn();
       renderWithProviders(<QuantityInput count={1} setCount={setCountMock} />);
       fireEvent.change(screen.getByRole('spinbutton'), { target: { value: 0 } });
       expect(setCountMock).toHaveBeenCalledWith(1);
     });
+
     it('should set count to maxCount if value is greater than maxCount', async () => {
       const setCountMock = vi.fn();
       renderWithProviders(<QuantityInput count={1} setCount={setCountMock} />);

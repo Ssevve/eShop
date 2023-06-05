@@ -4,11 +4,7 @@ import { Link } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import {
-  loginUser,
-  resetAuthStatusAndErrors,
-  selectIsPendingAuth,
-} from 'features/auth/authSlice';
+import { loginUser, resetAuthStatusAndErrors, selectIsPendingAuth } from 'features/auth/authSlice';
 import { loginSchema, LoginSchema } from 'features/auth/schemas/loginSchema';
 import Logo from 'components/common/Logo/Logo';
 import Input from 'components/common/Input';
@@ -17,9 +13,7 @@ import SubmitButton from 'components/common/SubmitButton';
 
 function LoginForm() {
   const dispatch = useAppDispatch();
-  const invalidCredentials = useAppSelector(
-    (state) => state.auth.error.invalidCredentials
-  );
+  const invalidCredentials = useAppSelector((state) => state.auth.error.invalidCredentials);
   const serverError = useAppSelector((state) => state.auth.error.server);
   const isPendingAuth = useAppSelector(selectIsPendingAuth);
   const {
@@ -32,10 +26,8 @@ function LoginForm() {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit: SubmitHandler<LoginSchema> = ({
-    email,
-    password,
-  }: LoginSchema) => dispatch(loginUser({ email, password }));
+  const onSubmit: SubmitHandler<LoginSchema> = ({ email, password }: LoginSchema) =>
+    dispatch(loginUser({ email, password }));
 
   useEffect(() => {
     dispatch(resetAuthStatusAndErrors());
@@ -53,6 +45,7 @@ function LoginForm() {
   return (
     <form
       aria-label="Log in"
+      noValidate
       onSubmit={handleSubmit(onSubmit)}
       className="mx-auto flex shrink basis-96 flex-col gap-4 rounded-sm bg-white p-6 drop-shadow-md"
     >
@@ -64,18 +57,8 @@ function LoginForm() {
           errorMessage="Something went wrong. Please try again."
         />
       </header>
-      <Input
-        label="Email"
-        type="email"
-        error={errors.email}
-        {...register('email')}
-      />
-      <Input
-        label="Password"
-        type="password"
-        error={errors.password}
-        {...register('password')}
-      />
+      <Input label="Email" type="email" error={errors.email} {...register('email')} />
+      <Input label="Password" type="password" error={errors.password} {...register('password')} />
       <SubmitButton text="Log in" isLoading={isPendingAuth} />
       <footer>
         <p className="text-md mt-4 flex justify-center gap-2 text-sm">
