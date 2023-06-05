@@ -8,8 +8,6 @@ import renderWithProviders from 'utils/renderWithProviders';
 import LoginForm from '.';
 import mockUser from 'mocks/user';
 
-const notFoundEmail = 'notfound@email.com';
-
 describe('LoginForm component', () => {
   beforeEach(() => {
     renderWithProviders(
