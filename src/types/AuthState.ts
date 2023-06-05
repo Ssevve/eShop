@@ -9,6 +9,7 @@ interface User {
 interface Error {
   server: boolean;
   invalidCredentials: boolean;
+  emailTaken: boolean;
 }
 
 interface AuthState {

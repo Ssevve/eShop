@@ -1,12 +1,9 @@
-// TODO: fix no-null-assertion
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable no-param-reassign */
 import {
   createSlice,
   createAsyncThunk,
   Action,
   PayloadAction,
-  SerializedError,
 } from '@reduxjs/toolkit';
 import {
   createUserWithEmailAndPassword,
@@ -26,12 +23,9 @@ const initialState: AuthState = {
   error: {
     server: false,
     invalidCredentials: false,
+    emailTaken: false,
   },
 };
-
-function isRejectedAction(action: PayloadAction<SerializedError, string>) {
-  return action.type.endsWith('rejected');
-}
 
 function isPendingAction(action: Action) {
   return action.type.endsWith('pending');
@@ -97,12 +91,7 @@ export const authSlice = createSlice({
         state.status = 'SUCCESS';
         state.user = undefined;
       })
-      .addMatcher(isPendingAction, (state) => {
-        state.status = 'PENDING';
-        state.error.server = false;
-        state.error.invalidCredentials = false;
-      })
-      .addMatcher(isRejectedAction, (state, action) => {
+      .addCase(loginUser.rejected, (state, action) => {
         state.status = 'ERROR';
         if (action.error.code === FirebaseErrors.UserNotFound
           || action.error.code === FirebaseErrors.WrongPassword) {
@@ -112,7 +101,25 @@ export const authSlice = createSlice({
           state.error.invalidCredentials = false;
           state.error.server = true;
         }
-      });
+      })
+      .addCase(registerUser.rejected, (state, action) => {
+        state.status = 'ERROR';
+        if (action.error.code === FirebaseErrors.EmailTaken) {
+          state.error.emailTaken = true;
+          state.error.server = false;
+        } else {
+          state.error.emailTaken = false;
+          state.error.server = true;
+        }
+      })
+      .addCase(logoutUser.rejected, (state) => {
+        state.status = 'ERROR';
+      })
+      .addMatcher(isPendingAction, (state) => {
+        state.status = 'PENDING';
+        state.error.server = false;
+        state.error.invalidCredentials = false;
+      })
   },
 });
 
