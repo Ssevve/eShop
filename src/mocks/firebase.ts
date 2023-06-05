@@ -7,12 +7,11 @@ vi.mock('firebase/auth', () => {
   return {
     getAuth: vi.fn(),
     signInWithEmailAndPassword(auth: Auth, email: string, password: string) {
-      if (email === 'notfound@email.com') {
+      if (email !== mockUser.email) {
         return Promise.reject({ code: FirebaseErrors.UserNotFound });
-      } else if (password === 'wrongPassword') {
+      } else if (password !== mockUser.password) {
         return Promise.reject({ code: FirebaseErrors.WrongPassword });
       }
-      return Promise.resolve(mockUser);
     },
   };
 });
