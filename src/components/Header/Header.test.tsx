@@ -1,106 +1,85 @@
 import { screen } from '@testing-library/react';
-import { describe, test, expect } from 'vitest';
 import { BrowserRouter } from 'react-router-dom';
-
+import mockUser from 'mocks/user';
+import Status from 'types/Status';
 import renderWithProviders from 'utils/renderWithProviders';
-import { RootState } from 'app/store';
 import Header from '.';
 
-describe('Header', () => {
-  describe('If user is not logged in', () => {
-    test('Renders logo', () => {
+describe('Header component', () => {
+  describe('when user is not logged in', () => {
+    beforeEach(() => {
       renderWithProviders(
         <BrowserRouter>
           <Header />
         </BrowserRouter>
       );
+    });
+
+    it('should render logo', () => {
       expect(screen.getByRole('note', { name: /eshop/i })).toBeInTheDocument();
     });
 
-    test('Renders page navigation', () => {
-      renderWithProviders(
-        <BrowserRouter>
-          <Header />
-        </BrowserRouter>
-      );
+    it('should render page navigation', () => {
       expect(screen.getByRole('navigation')).toBeInTheDocument();
     });
 
-    test('Renders log in page link', () => {
-      renderWithProviders(
-        <BrowserRouter>
-          <Header />
-        </BrowserRouter>
-      );
+    it('should render log in page link', () => {
       expect(screen.getByRole('link', { name: /log in/i })).toBeInTheDocument();
+    });
 
-      test('Renders cart page link', () => {
-        renderWithProviders(
-          <BrowserRouter>
-            <Header />
-          </BrowserRouter>
-        );
-        expect(screen.getByRole('link', { name: /cart/i })).toBeInTheDocument();
-      });
+    it('should render cart page link', () => {
+      expect(screen.getByRole('link', { name: /cart/i })).toBeInTheDocument();
+    });
+
+    it('should render categories component', () => {
+      expect(screen.getByRole('link', { name: /all products/i })).toBeInTheDocument();
     });
   });
-  describe('If user is logged in', () => {
-    const preloadedState: RootState = {
+
+  describe('when user is logged in', () => {
+    const preloadedState = {
       auth: {
         user: {
-          uid: '2',
-          email: 'test@test.test',
-          phoneNumber: null,
+          uid: mockUser.uid,
+          email: mockUser.email,
+          phoneNumber: mockUser.phoneNumber,
         },
-        status: 'IDLE',
+        status: 'IDLE' as Status,
         error: {
           server: false,
           invalidCredentials: false,
+          emailTaken: false,
         },
       },
-      products: {
-        products: [],
-        status: 'IDLE',
-      },
     };
-    test('Renders logo', () => {
+
+    beforeEach(() => {
       renderWithProviders(
         <BrowserRouter>
           <Header />
         </BrowserRouter>,
         { preloadedState }
       );
+    });
+
+    it('should render logo', () => {
       expect(screen.getByRole('note', { name: /eshop/i })).toBeInTheDocument();
     });
 
-    test('Renders page navigation', () => {
-      renderWithProviders(
-        <BrowserRouter>
-          <Header />
-        </BrowserRouter>,
-        { preloadedState }
-      );
+    it('should render page navigation', () => {
       expect(screen.getByRole('navigation')).toBeInTheDocument();
     });
 
-    test('Renders account page link', () => {
-      renderWithProviders(
-        <BrowserRouter>
-          <Header />
-        </BrowserRouter>,
-        { preloadedState }
-      );
+    it('should render account page link', () => {
       expect(screen.getByRole('link', { name: /account/i })).toBeInTheDocument();
     });
 
-    test('Renders cart page link', () => {
-      renderWithProviders(
-        <BrowserRouter>
-          <Header />
-        </BrowserRouter>,
-        { preloadedState }
-      );
+    it('should enders cart page link', () => {
       expect(screen.getByRole('link', { name: /cart/i })).toBeInTheDocument();
+    });
+
+    it('should render categories component', () => {
+      expect(screen.getByRole('link', { name: /all products/i })).toBeInTheDocument();
     });
   });
 });

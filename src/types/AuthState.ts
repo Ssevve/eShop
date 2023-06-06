@@ -1,10 +1,5 @@
 import Status from './Status';
-
-interface User {
-  uid: string;
-  email: string;
-  phoneNumber: string | undefined | null;
-}
+import User from './User';
 
 interface Error {
   server: boolean;
