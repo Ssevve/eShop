@@ -1,7 +1,17 @@
 import cx from 'classnames';
 import { TfiClose } from 'react-icons/tfi';
-import { useAppSelector } from 'app/hooks';
 import CategoryLink from './CategoryLink';
+import Category from 'types/Category';
+
+const categories: Category[] = [
+  'Discounts',
+  'Fruits and Vegetables',
+  'Cleaning and Household',
+  'Beverages',
+  'Snacks and Branded Foods',
+  'Beauty and Hygiene',
+  'Gourmet and World Food',
+];
 
 interface CategoriesProps {
   closeCategories: () => void;
@@ -9,12 +19,7 @@ interface CategoriesProps {
   isMobile: boolean;
 }
 
-function Categories({
-  closeCategories,
-  shouldShowCategories,
-  isMobile,
-}: CategoriesProps) {
-  const categories = useAppSelector((state) => state.categories.categories);
+function Categories({ closeCategories, shouldShowCategories, isMobile }: CategoriesProps) {
   const shouldRenderBackdrop = shouldShowCategories && isMobile;
 
   return (
@@ -40,13 +45,13 @@ function Categories({
             <h2>Categories</h2>
           </header>
         )}
-        <div className="md:bg-gray-200 md:px-6">
+        <div className="md:px-6">
           <ul
             className={cx(
-              'align-center container mx-auto flex-wrap justify-between bg-white md:flex md:flex-nowrap md:bg-gray-200'
+              'align-center container mx-auto flex-wrap justify-between bg-white md:flex md:flex-nowrap'
             )}
           >
-            <li className="w-full text-left hover:bg-gray-400" key="Best Deals">
+            <li className="w-full text-left">
               <CategoryLink
                 onClick={isMobile ? closeCategories : () => {}}
                 category={null}
@@ -54,10 +59,7 @@ function Categories({
               />
             </li>
             {categories.map((category) => (
-              <li
-                className="w-full text-left hover:bg-gray-400 hover:text-white"
-                key={category}
-              >
+              <li className="w-full text-left" key={category}>
                 <CategoryLink
                   onClick={isMobile ? closeCategories : () => {}}
                   category={category}
