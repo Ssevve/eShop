@@ -20,8 +20,9 @@ function CategoryLink({ category, label, onClick }: CategoryLinkProps) {
     <Link
       onClick={onClick}
       className={cx(
-        isActive && 'bg-primary-green text-white',
-        'flex h-full items-center p-3 text-lg md:justify-center md:text-center md:text-sm'
+        isActive &&
+          'bg-primary-green text-white md:border-b-primary-green md:bg-white md:text-black',
+        'flex h-full items-center border-white p-3 text-lg uppercase hover:border-b-primary-green hover:bg-gray-400 hover:text-white md:justify-center md:border-b-4 md:text-center md:text-xs md:font-bold md:hover:bg-white md:hover:text-black'
       )}
       to={category ? `/products?category=${category}` : '/products'}
     >
