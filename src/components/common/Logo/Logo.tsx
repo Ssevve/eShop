@@ -10,9 +10,7 @@ function Logo() {
         className="text-primary-green"
         size={32}
       />
-      <span role="note" aria-label="eShop">
-        eShop
-      </span>
+      <span role="note">eShop</span>
     </div>
   );
 }
