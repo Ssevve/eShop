@@ -1,4 +1,4 @@
-import Price from './Price';
+import Price from './components/Price';
 
 interface PriceGroupProps {
   price: number;
