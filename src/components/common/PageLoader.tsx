@@ -1,5 +1,5 @@
 import { ThreeDots } from 'react-loader-spinner';
-import theme from 'theme';
+import theme from 'lib/theme';
 
 function PageLoader() {
   return (

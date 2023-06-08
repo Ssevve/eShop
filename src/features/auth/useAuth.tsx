@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import auth from 'firebaseConfig';
+import auth from 'lib/firebaseConfig';
 import { useAppDispatch } from 'app/hooks';
 import { setUser } from './authSlice';
 
