@@ -1,33 +1,31 @@
 import { screen } from '@testing-library/react';
-import { describe, test, expect } from 'vitest';
-
 import renderWithProviders from 'utils/renderWithProviders';
 import SubmitButton from '.';
 
-describe('Submit button', () => {
-  describe('With isLoading equal to false', () => {
+describe('SubmitButton component', () => {
+  describe('when isLoading is false', () => {
     const submitButton = <SubmitButton text="Log in" isLoading={false} />;
 
-    test('Renders a correct text', () => {
+    it('should render correct text', () => {
       renderWithProviders(submitButton);
       expect(screen.getByRole('button', { name: /log in/i })).toBeInTheDocument();
     });
 
-    test('Is not disabled', () => {
+    it('should not be disabled', () => {
       renderWithProviders(submitButton);
       expect(screen.getByRole('button')).not.toBeDisabled();
     });
   });
 
-  describe('With isLoading equal to true', () => {
+  describe('when isLoading is true', () => {
     const submitButton = <SubmitButton text="Log in" isLoading />;
 
-    test('Renders loader', () => {
+    it('should render loader', () => {
       renderWithProviders(submitButton);
       expect(screen.getByRole('status')).toBeInTheDocument();
     });
 
-    test('Is disabled', () => {
+    it('should be disabled', () => {
       renderWithProviders(submitButton);
       expect(screen.getByRole('button')).toBeDisabled();
     });
