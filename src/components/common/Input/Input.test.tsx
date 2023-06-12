@@ -1,16 +1,15 @@
 import { screen } from '@testing-library/react';
-import { describe, test, expect } from 'vitest';
 
 import renderWithProviders from 'utils/renderWithProviders';
 import Input from '.';
 
-describe('Input', () => {
-  test('Renders an input with correct label text', () => {
+describe('Input component', () => {
+  it('should render an input with correct label text', () => {
     renderWithProviders(<Input label="Username" type="text" />);
     expect(screen.getByLabelText(/username/i)).toBeInTheDocument();
   });
 
-  test('Renders an error message if present', () => {
+  it('should render an error message if it is defined', () => {
     const error = {
       type: 'required',
       message: 'Error message',

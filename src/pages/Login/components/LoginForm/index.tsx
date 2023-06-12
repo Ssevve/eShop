@@ -8,7 +8,7 @@ import { loginUser, resetAuthStatusAndErrors, selectIsPendingAuth } from 'featur
 import { loginSchema, LoginSchema } from 'features/auth/schemas/loginSchema';
 import Logo from 'components/common/Logo/Logo';
 import Input from 'components/common/Input';
-import ErrorBox from 'components/common/ErrorBox';
+import ErrorBox from 'components/ErrorBox';
 import SubmitButton from 'components/common/SubmitButton';
 
 function LoginForm() {
@@ -52,7 +52,7 @@ function LoginForm() {
       <header className="flex flex-col items-center justify-center gap-4">
         <Logo />
         <ErrorBox
-          error={serverError}
+          isError={serverError}
           title="Could not log in"
           errorMessage="Something went wrong. Please try again."
         />

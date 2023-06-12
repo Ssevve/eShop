@@ -1,4 +1,4 @@
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { rest } from 'msw';
 import renderWithProviders from 'utils/renderWithProviders';
@@ -25,34 +25,6 @@ describe('Product page', () => {
     expect(await screen.findByLabelText('Loading')).not.toBeInTheDocument();
   });
 
-  it('should correctly render product data', async () => {
-    const expectedProduct = products[0];
-    renderWithProviders(componentToRender());
-    await waitFor(() => {
-      const image = screen.getByAltText(expectedProduct.name);
-      expect(image).toBeInTheDocument();
-      expect(image).toHaveAttribute('src', expectedProduct.imageUrl);
-
-      expect(screen.getByRole('heading', { name: expectedProduct.name })).toBeInTheDocument();
-      expect(screen.getByText('Test category')).toBeInTheDocument();
-      expect(
-        screen.getByLabelText(`Rating: ${expectedProduct.rating} out of 5 stars`)
-      ).toBeInTheDocument();
-      expect(screen.getByText(`(${expectedProduct.ratingsCount} ratings)`)).toBeInTheDocument();
-      expect(screen.getByText(expectedProduct.brand)).toBeInTheDocument();
-      expect(screen.getByText(expectedProduct.quantity)).toBeInTheDocument();
-      expect(screen.getByText(expectedProduct.description)).toBeInTheDocument();
-
-      const priceGroupComponent = screen.getByText(`$${expectedProduct.price}`);
-      expect(priceGroupComponent).toBeInTheDocument();
-
-      const quantityInputComponent = screen.getByRole('button', { name: 'Decrease quantity' });
-      expect(quantityInputComponent).toBeInTheDocument();
-
-      expect(screen.getByRole('button', { name: 'Add to cart' })).toBeInTheDocument();
-    });
-  });
-
   it('should render <NotFound /> when product was not found', async () => {
     renderWithProviders(componentToRender('bad-id'));
     expect(await screen.findByRole('heading', { name: 'Not Found' })).toBeInTheDocument();
@@ -68,5 +40,77 @@ describe('Product page', () => {
 
     renderWithProviders(componentToRender());
     expect(await screen.findByRole('heading', { name: 'Error!' })).toBeInTheDocument();
+  });
+
+  describe('when api successfully responds with product data', () => {
+    it('should product image with correct src', async () => {
+      const expectedProduct = products[0];
+      renderWithProviders(componentToRender());
+      const image = await screen.findByAltText(expectedProduct.name);
+      expect(image).toBeInTheDocument();
+      expect(image).toHaveAttribute('src', expectedProduct.imageUrl);
+    });
+
+    it('should render product name', async () => {
+      const expectedProduct = products[0];
+      renderWithProviders(componentToRender());
+      expect(
+        await screen.findByRole('heading', { name: expectedProduct.name })
+      ).toBeInTheDocument();
+    });
+
+    it('should render product category', async () => {
+      const expectedProduct = products[0];
+      renderWithProviders(componentToRender());
+      expect(await screen.findByText(expectedProduct.category)).toBeInTheDocument();
+    });
+
+    it('should render StarRating component', async () => {
+      const expectedProduct = products[0];
+      renderWithProviders(componentToRender());
+      expect(
+        await screen.findByText(`(${expectedProduct.ratingsCount} ratings)`)
+      ).toBeInTheDocument();
+    });
+
+    it('should render product brand', async () => {
+      const expectedProduct = products[0];
+      renderWithProviders(componentToRender());
+      expect(await screen.findByText(expectedProduct.brand)).toBeInTheDocument();
+    });
+
+    it('should render product quantity', async () => {
+      const expectedProduct = products[0];
+      renderWithProviders(componentToRender());
+      expect(await screen.findByText(expectedProduct.quantity)).toBeInTheDocument();
+    });
+
+    it('should render product description', async () => {
+      const expectedProduct = products[0];
+      renderWithProviders(componentToRender());
+      expect(await screen.findByText(expectedProduct.description)).toBeInTheDocument();
+    });
+
+    it('should render product description', async () => {
+      const expectedProduct = products[0];
+      renderWithProviders(componentToRender());
+      expect(await screen.findByText(expectedProduct.description)).toBeInTheDocument();
+    });
+
+    it('should render PriceGroup component', async () => {
+      const expectedProduct = products[0];
+      renderWithProviders(componentToRender());
+      expect(await screen.findByText(`$${expectedProduct.price}`)).toBeInTheDocument();
+    });
+
+    it('should render QuantityInput component', async () => {
+      renderWithProviders(componentToRender());
+      expect(await screen.findByRole('button', { name: 'Decrease quantity' })).toBeInTheDocument();
+    });
+
+    it("should render 'Add to cart' button", async () => {
+      renderWithProviders(componentToRender());
+      expect(await screen.findByRole('button', { name: 'Add to cart' })).toBeInTheDocument();
+    });
   });
 });

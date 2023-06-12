@@ -22,11 +22,7 @@ interface ButtonProps extends ButtonDefaultProps {
   onClick: () => void;
 }
 
-const defaultProps: ButtonDefaultProps = {
-  textSize: 'base',
-};
-
-function Button({ children, textSize, onClick }: ButtonProps) {
+function Button({ children, textSize = 'base', onClick }: ButtonProps) {
   return (
     <button
       className={cx(
@@ -39,7 +35,5 @@ function Button({ children, textSize, onClick }: ButtonProps) {
     </button>
   );
 }
-
-Button.defaultProps = defaultProps;
 
 export default Button;
