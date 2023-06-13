@@ -7,7 +7,7 @@ import Logo from 'components/common/Logo/Logo';
 import useWindowWidth from './hooks/useWindowWidth';
 import useMediumBreakpointValue from './hooks/useMediumBreakpointValue';
 import useScrollLock from './hooks/useScrollLock';
-import Categories from './components/Categories';
+import CategoryList from './components/CategoryList';
 
 function Header() {
   const currentUser = useAppSelector(selectCurrentUser);
@@ -65,10 +65,7 @@ function Header() {
             to="/cart"
           >
             <div className="relative w-min">
-              <FiShoppingCart
-                className="pointer-events-none h-5 w-5"
-                aria-hidden="true"
-              />
+              <FiShoppingCart className="pointer-events-none h-5 w-5" aria-hidden="true" />
               <span className="min-w-4 absolute bottom-3 left-3 flex h-4 items-center justify-center rounded-full bg-primary-green p-1 text-xs text-white">
                 0
               </span>
@@ -77,7 +74,7 @@ function Header() {
           </Link>
         </div>
       </nav>
-      <Categories
+      <CategoryList
         closeCategories={closeCategories}
         shouldShowCategories={shouldShowCategories}
         isMobile={isMobile}

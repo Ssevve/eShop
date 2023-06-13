@@ -1,11 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import Category from 'types/Category';
 import Product from 'types/Product';
 import SortOrder from 'types/SortOrder';
 
 interface GetProductsQueryArgs {
   page: number;
-  category: Category;
+  category: string | null;
   sortOrder: SortOrder;
 }
 
