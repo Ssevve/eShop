@@ -1,7 +1,7 @@
 import cx from 'classnames';
 import CategoryLink from '../CategoryLink';
 import categories from 'lib/categories';
-import CategoryListHeader from './CategoryListHeader';
+import CategoryListHeader from './components/CategoryListHeader';
 
 interface CategoryListProps {
   closeCategories: () => void;
