@@ -1,9 +1,8 @@
 import cx from 'classnames';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
-import Category from 'types/Category';
 
 interface CategoryLinkProps {
-  category: Category;
+  category: string | null;
   label: React.ReactNode;
   onClick: () => void;
 }

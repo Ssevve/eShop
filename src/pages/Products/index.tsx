@@ -1,6 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
 import ProductList from 'pages/Products/components/ProductList';
-import Category from 'types/Category';
 import SortOrder from 'types/SortOrder';
 import Pagination from 'pages/Products/components/Pagination';
 import { useGetProductsQuery } from 'app/services/products';
@@ -12,7 +11,7 @@ function Products() {
   const currentPage = Number(searchParams.get('page')) || 1;
   const { data, error, isFetching } = useGetProductsQuery({
     page: currentPage,
-    category: searchParams.get('category') as Category,
+    category: searchParams.get('category'),
     sortOrder: searchParams.get('order') as SortOrder,
   });
 
