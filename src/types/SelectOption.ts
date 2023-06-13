@@ -1,8 +1,6 @@
-import SortOption from './SortOrder';
-
 interface SelectOption {
   label: string;
-  value: SortOption | undefined;
+  value: string;
 }
 
 export default SelectOption;
