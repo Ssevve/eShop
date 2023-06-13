@@ -13,11 +13,7 @@ interface SelectProps extends SelectDefaultProps {
   onChange: (option: SelectOption) => void;
 }
 
-const defaultProps: SelectDefaultProps = {
-  initialValue: undefined,
-};
-
-function SortSelect({ options, initialValue, label, onChange }: SelectProps) {
+function SortSelect({ options, initialValue = undefined, label, onChange }: SelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(initialValue);
   const selectMenuRef = useRef<HTMLUListElement>(null);
@@ -49,10 +45,7 @@ function SortSelect({ options, initialValue, label, onChange }: SelectProps) {
         <FiChevronDown size={20} />
       </button>
       {isOpen && (
-        <ul
-          ref={selectMenuRef}
-          className="absolute w-full rounded-sm border border-t-0 bg-white"
-        >
+        <ul ref={selectMenuRef} className="absolute w-full rounded-sm border border-t-0 bg-white">
           {options.map(
             (option) =>
               isOpen && (
@@ -75,7 +68,5 @@ function SortSelect({ options, initialValue, label, onChange }: SelectProps) {
     </div>
   );
 }
-
-SortSelect.defaultProps = defaultProps;
 
 export default SortSelect;
