@@ -39,9 +39,15 @@ function Pagination({
 
   const handlePreviousPageClick = () => setCurrentPage(currentPage - 1);
   const handleFirstPageClick = () => setCurrentPage(1);
-  const handleMorePreviousPagesClick = () => setCurrentPage(currentPage - siblingDelta - 1);
+  const handleMorePreviousPagesClick = () => {
+    if (currentPage > totalPageCount) setCurrentPage(totalPageCount - siblingDelta - 1);
+    else setCurrentPage(currentPage - siblingDelta - 1);
+  };
   const handlePageChange = (page: number) => setCurrentPage(page);
-  const handleMoreNextPagesClick = () => setCurrentPage(currentPage + siblingDelta + 1);
+  const handleMoreNextPagesClick = () => {
+    if (currentPage < 1) setCurrentPage(siblingDelta + 2);
+    else setCurrentPage(currentPage + siblingDelta + 1);
+  };
   const handleLastPageClick = () => setCurrentPage(totalPageCount);
   const handleNextPageClick = () => setCurrentPage(currentPage + 1);
 
@@ -79,7 +85,7 @@ function Pagination({
       {currentPage <= totalPageCount - 3 - siblingDelta && (
         <PaginationButton
           onClick={handleMoreNextPagesClick}
-          ariaLabel={`Page ${currentPage - siblingDelta - 1}`}
+          ariaLabel={`Page ${currentPage + siblingDelta + 1}`}
           label="..."
         />
       )}
