@@ -23,7 +23,7 @@ interface ButtonProps extends ButtonDefaultProps {
   onClick: () => void;
 }
 
-function Button({ children, ariaLabel, textSize = 'base', onClick }: ButtonProps) {
+function Button({ children, ariaLabel = undefined, textSize = 'base', onClick }: ButtonProps) {
   return (
     <button
       aria-label={ariaLabel}
