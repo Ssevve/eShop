@@ -1,12 +1,16 @@
 import { FiStar } from 'react-icons/fi';
 import { MAX_PRODUCT_RATING } from 'lib/constants';
 
-interface StarRatingProps {
-  rating: number;
-  ratingsCount: number;
+interface StarRatingDefaultProps {
+  ratingsCount?: number;
+  size?: number;
 }
 
-function StarRating({ rating, ratingsCount }: StarRatingProps) {
+interface StarRatingProps extends StarRatingDefaultProps {
+  rating: number;
+}
+
+function StarRating({ rating, ratingsCount = undefined, size = 16 }: StarRatingProps) {
   const flatRating = Math.floor(rating);
   const stars = Array.from({ length: MAX_PRODUCT_RATING }, (_, i) => (
     <FiStar
@@ -14,7 +18,8 @@ function StarRating({ rating, ratingsCount }: StarRatingProps) {
       strokeWidth={1}
       key={i}
       role="img"
-      title="star"
+      title={`${rating}/${MAX_PRODUCT_RATING}`}
+      size={size}
     />
   ));
 
@@ -25,7 +30,7 @@ function StarRating({ rating, ratingsCount }: StarRatingProps) {
       role="img"
     >
       {stars}
-      <span className="text-sm">{`(${ratingsCount} ratings)`}</span>
+      {ratingsCount && <span className="text-sm">{`(${ratingsCount} ratings)`}</span>}
     </div>
   );
 }
