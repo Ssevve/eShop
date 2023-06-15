@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Product from 'types/Product';
 import PriceGroup from 'components/common/PriceGroup';
 import Button from 'components/common/Button';
+import StarRating from 'components/common/StarRating';
 
 interface ProductCardProps {
   product: Product | undefined;
@@ -19,7 +20,10 @@ function ProductCard({ product }: ProductCardProps) {
       <img src={product.imageUrl} alt={product.name} />
       <section className="p-4">
         <span className="text-xs font-bold uppercase text-gray-400">{product.category}</span>
-        <h2 className="my-4 uppercase">{product.name}</h2>
+        <div className="my-4">
+          <h2 className="mb-1 uppercase">{product.name}</h2>
+          <StarRating rating={product.rating} size={12} />
+        </div>
         <div className="flex justify-between">
           <section className="flex flex-col gap-1">
             <span className="text-sm">Qty: {product.quantity}</span>
@@ -29,7 +33,7 @@ function ProductCard({ product }: ProductCardProps) {
       </section>
       <footer className="mx-4 flex justify-between border-t border-gray-200 py-4">
         <PriceGroup price={product.price} discountPrice={product.discountPrice} />
-        <Button textSize="lg" onClick={() => {}}>
+        <Button ariaLabel="Add to cart" textSize="lg" onClick={() => {}}>
           <FiShoppingCart />
         </Button>
       </footer>

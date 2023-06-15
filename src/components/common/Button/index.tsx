@@ -1,6 +1,7 @@
 import cx from 'classnames';
 
 interface ButtonDefaultProps {
+  ariaLabel?: string;
   textSize?:
     | 'xs'
     | 'sm'
@@ -22,9 +23,10 @@ interface ButtonProps extends ButtonDefaultProps {
   onClick: () => void;
 }
 
-function Button({ children, textSize = 'base', onClick }: ButtonProps) {
+function Button({ children, ariaLabel, textSize = 'base', onClick }: ButtonProps) {
   return (
     <button
+      aria-label={ariaLabel}
       className={cx(
         `flex items-center justify-center gap-4 rounded-sm bg-primary-green px-6 py-2 uppercase text-white hover:bg-green-700 text-${textSize}`
       )}
