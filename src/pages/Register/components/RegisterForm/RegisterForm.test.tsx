@@ -5,8 +5,9 @@ import { BrowserRouter } from 'react-router-dom';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithProviders from 'utils/renderWithProviders';
-import RegisterForm from '.';
+import { MIN_PASSWORD_LENGTH } from 'lib/constants';
 import mockUser from 'mocks/user';
+import RegisterForm from '.';
 
 describe('RegisterForm component', () => {
   beforeEach(() => {
@@ -35,7 +36,9 @@ describe('RegisterForm component', () => {
     const user = userEvent.setup();
     await user.type(screen.getByLabelText('Password'), 'short');
 
-    expect(screen.getByText('Minimum password length is 6')).toBeInTheDocument();
+    expect(
+      screen.getByText(`Minimum password length is ${MIN_PASSWORD_LENGTH}`)
+    ).toBeInTheDocument();
   });
 
   it('should show error message if passwords do not match', async () => {
