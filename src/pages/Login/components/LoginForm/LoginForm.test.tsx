@@ -5,8 +5,9 @@ import { BrowserRouter } from 'react-router-dom';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithProviders from 'utils/renderWithProviders';
-import LoginForm from '.';
+import { MIN_PASSWORD_LENGTH } from 'lib/constants';
 import mockUser from 'mocks/user';
+import LoginForm from '.';
 
 describe('LoginForm component', () => {
   beforeEach(() => {
@@ -32,7 +33,9 @@ describe('LoginForm component', () => {
     await user.type(screen.getByLabelText('Password'), 'short');
     await user.click(screen.getByRole('button', { name: 'Log in' }));
 
-    expect(screen.getByText('Minimum password length is 6')).toBeInTheDocument();
+    expect(
+      screen.getByText(`Minimum password length is ${MIN_PASSWORD_LENGTH}`)
+    ).toBeInTheDocument();
   });
 
   it('should show error messages if user is not found', async () => {
