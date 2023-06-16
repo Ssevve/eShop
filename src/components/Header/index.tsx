@@ -8,9 +8,11 @@ import useWindowWidth from './hooks/useWindowWidth';
 import useMediumBreakpointValue from './hooks/useMediumBreakpointValue';
 import useScrollLock from './hooks/useScrollLock';
 import CategoryList from './components/CategoryList';
+import { selectCartProductCount } from 'features/cart/cartSlice';
 
 function Header() {
   const currentUser = useAppSelector(selectCurrentUser);
+  const cartProductCount = useAppSelector(selectCartProductCount);
   const windowWidth = useWindowWidth();
   const mediumBreakpointValue = useMediumBreakpointValue();
   const [isScrollLocked, setIsScrollLocked] = useScrollLock();
@@ -67,7 +69,7 @@ function Header() {
             <div className="relative w-min">
               <FiShoppingCart className="pointer-events-none h-5 w-5" aria-hidden="true" />
               <span className="min-w-4 absolute bottom-3 left-3 flex h-4 items-center justify-center rounded-full bg-primary-green p-1 text-xs text-white">
-                0
+                {cartProductCount}
               </span>
             </div>
             Cart
