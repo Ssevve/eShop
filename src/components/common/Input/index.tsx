@@ -13,12 +13,8 @@ interface InputProps
   type: 'text' | 'email' | 'password';
 }
 
-const defaultProps: InputDefaultProps = {
-  error: undefined,
-};
-
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, type, error, ...rest }, ref) => {
+  ({ label, type, error = undefined, ...rest }, ref) => {
     return (
       <label className="grid gap-1">
         {label}
@@ -38,8 +34,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     );
   }
 );
-
-Input.defaultProps = defaultProps;
 
 Input.displayName = 'Input';
 
