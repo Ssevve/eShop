@@ -16,7 +16,7 @@ describe('Header component', () => {
     });
 
     it('should render logo', () => {
-      expect(screen.getByRole('note', { name: /eshop/i })).toBeInTheDocument();
+      expect(screen.getByTitle(/eshop/i)).toBeInTheDocument();
     });
 
     it('should render page navigation', () => {
@@ -63,7 +63,7 @@ describe('Header component', () => {
     });
 
     it('should render logo', () => {
-      expect(screen.getByRole('note', { name: /eshop/i })).toBeInTheDocument();
+      expect(screen.getByTitle(/eshop/i)).toBeInTheDocument();
     });
 
     it('should render page navigation', () => {
