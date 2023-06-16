@@ -6,16 +6,17 @@ import ProductCard from '.';
 import { MAX_PRODUCT_RATING } from 'lib/constants';
 
 describe('ProductCard component', () => {
-  it('should product image with correct src', async () => {
+  it('should render product image with correct src attribute', async () => {
     const expectedProduct = products[0];
     renderWithProviders(
       <BrowserRouter>
         <ProductCard product={expectedProduct} />
       </BrowserRouter>
     );
-    const image = await screen.findByAltText(expectedProduct.name);
-    expect(image).toBeInTheDocument();
-    expect(image).toHaveAttribute('src', expectedProduct.imageUrl);
+    expect(await screen.findByAltText(expectedProduct.name)).toHaveAttribute(
+      'src',
+      expectedProduct.imageUrl
+    );
   });
 
   it('should render product category', () => {
