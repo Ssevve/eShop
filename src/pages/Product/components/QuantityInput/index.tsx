@@ -8,7 +8,7 @@ interface DefaultQuantityInputProps {
 
 interface QuantityInputProps extends DefaultQuantityInputProps {
   count: number;
-  setCount: React.Dispatch<React.SetStateAction<number>>;
+  setCount: (quantity: number) => void;
 }
 
 function QuantityInput({ count, setCount, minCount = 1, maxCount = 99 }: QuantityInputProps) {

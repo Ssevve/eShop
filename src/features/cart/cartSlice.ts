@@ -34,13 +34,17 @@ export const cartSlice = createSlice({
     removeCartProduct(state, action: PayloadAction<string>) {
       state.products = state.products.filter((entry) => entry.product._id !== action.payload);
     },
-    updateCartProduct(state, action: PayloadAction<CartProduct>) {
-      state.products = state.products.map((entry) => entry.product._id === action.payload.product._id ? action.payload : entry);
+    setCartProductQuantity(state, action: PayloadAction<{ productId: string; quantity: number; }>) {
+      const index = state.products.findIndex((entry) => entry.product._id === action.payload.productId);
+      state.products[index].quantity = action.payload.quantity;
+    },
+    clearCart(state) {
+      state.products = [];
     }
   },
 });
 
-export const { addCartProduct, removeCartProduct, updateCartProduct } = cartSlice.actions;
+export const { addCartProduct, removeCartProduct, setCartProductQuantity, clearCart } = cartSlice.actions;
 
 export const selectCartProductCount = (state: RootState) => {
   return state.cart.products.reduce((count, entry) => count + entry.quantity, 0);
