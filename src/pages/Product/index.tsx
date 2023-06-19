@@ -7,7 +7,7 @@ import Button from 'components/common/Button';
 import NotFound from 'pages/NotFound';
 import PageLoader from 'components/common/PageLoader';
 import Error from 'pages/Error';
-import QuantityInput from './components/QuantityInput';
+import QuantityInput from 'components/common/QuantityInput';
 
 function Product() {
   const [quantity, setQuantity] = useState(1);

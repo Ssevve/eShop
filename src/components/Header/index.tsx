@@ -4,8 +4,8 @@ import { FiUser, FiMenu, FiShoppingCart } from 'react-icons/fi';
 import { useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import Logo from 'components/common/Logo/Logo';
-import useWindowWidth from './hooks/useWindowWidth';
-import useMediumBreakpointValue from './hooks/useMediumBreakpointValue';
+import useWindowWidth from 'hooks/useWindowWidth';
+import useBreakpointValue from 'hooks/useBreakpointValue';
 import useScrollLock from './hooks/useScrollLock';
 import CategoryList from './components/CategoryList';
 import { selectCartProductCount } from 'features/cart/cartSlice';
@@ -14,11 +14,11 @@ function Header() {
   const currentUser = useAppSelector(selectCurrentUser);
   const cartProductCount = useAppSelector(selectCartProductCount);
   const windowWidth = useWindowWidth();
-  const mediumBreakpointValue = useMediumBreakpointValue();
+  const mediumBreakpoint = useBreakpointValue('md');
   const [isScrollLocked, setIsScrollLocked] = useScrollLock();
   const [shouldShowCategories, setShouldShowCategories] = useState(false);
 
-  const isMobile = windowWidth < mediumBreakpointValue;
+  const isMobile = windowWidth < mediumBreakpoint;
 
   useEffect(() => {
     setShouldShowCategories(!isMobile);
