@@ -7,7 +7,7 @@ import Button from '.';
 import userEvent from '@testing-library/user-event';
 
 describe('Button component', () => {
-  it('should render a button with correct text size class if textSize prop is provided', () => {
+  it('should render with correct text size if textSize prop is provided', () => {
     const onClickHandler = vi.fn();
     renderWithProviders(
       <Button textSize="xl" onClick={onClickHandler}>
@@ -17,10 +17,53 @@ describe('Button component', () => {
     expect(screen.getByRole('button')).toHaveClass('text-xl');
   });
 
-  it('should render a button with base text size if textSize prop is not provided', () => {
+  it('should render with base text size if textSize prop is not provided', () => {
     const onClickHandler = vi.fn();
     renderWithProviders(<Button onClick={onClickHandler}>text</Button>);
     expect(screen.getByRole('button')).toHaveClass('text-base');
+  });
+
+  it('should render with even padding if evenPadding prop is provided', () => {
+    const onClickHandler = vi.fn();
+    renderWithProviders(
+      <Button evenPadding onClick={onClickHandler}>
+        text
+      </Button>
+    );
+    expect(screen.getByRole('button')).toHaveClass('p-3');
+  });
+
+  it('should render with default padding if evenPadding prop is not provided', () => {
+    const onClickHandler = vi.fn();
+    renderWithProviders(<Button onClick={onClickHandler}>text</Button>);
+    expect(screen.getByRole('button')).toHaveClass('px-6');
+    expect(screen.getByRole('button')).toHaveClass('py-3');
+  });
+
+  it('should render with correct aria-label if provided', () => {
+    const onClickHandler = vi.fn();
+    renderWithProviders(
+      <Button ariaLabel="test" onClick={onClickHandler}>
+        text
+      </Button>
+    );
+    expect(screen.getByLabelText('test')).toBeInTheDocument();
+  });
+
+  it('should render a correct variant if specified', () => {
+    const onClickHandler = vi.fn();
+    renderWithProviders(
+      <Button variant="neutral" onClick={onClickHandler}>
+        text
+      </Button>
+    );
+    expect(screen.getByRole('button')).toHaveClass('bg-gray-200');
+  });
+
+  it('should render a primary variant by default', () => {
+    const onClickHandler = vi.fn();
+    renderWithProviders(<Button onClick={onClickHandler}>text</Button>);
+    expect(screen.getByRole('button')).toHaveClass('bg-primary-green');
   });
 
   it('should call onClick function when clicked', async () => {

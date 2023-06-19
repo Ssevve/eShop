@@ -2,6 +2,8 @@ import cx from 'classnames';
 
 interface ButtonDefaultProps {
   ariaLabel?: string;
+  variant?: 'primary' | 'neutral';
+  evenPadding?: boolean;
   textSize?:
     | 'xs'
     | 'sm'
@@ -23,13 +25,25 @@ interface ButtonProps extends ButtonDefaultProps {
   onClick: () => void;
 }
 
-function Button({ children, ariaLabel = undefined, textSize = 'base', onClick }: ButtonProps) {
+function Button({
+  children,
+  evenPadding = false,
+  onClick,
+  ariaLabel = undefined,
+  textSize = 'base',
+  variant = 'primary',
+}: ButtonProps) {
+  const textSizeClass = `text-${textSize}`;
+  const paddingClasses = evenPadding ? 'p-3' : 'px-6 py-3';
+  const colorVariants = {
+    primary: 'bg-primary-green text-white hover:bg-green-700',
+    neutral: 'bg-gray-200 text-gray-700 hover:bg-gray-300',
+  };
+
   return (
     <button
       aria-label={ariaLabel}
-      className={cx(
-        `flex items-center justify-center gap-4 rounded-sm bg-primary-green px-6 py-2 uppercase text-white hover:bg-green-700 text-${textSize}`
-      )}
+      className={`flex items-center justify-center gap-4 rounded-sm uppercase ${paddingClasses} ${colorVariants[variant]} ${textSizeClass}`}
       type="button"
       onClick={onClick}
     >
