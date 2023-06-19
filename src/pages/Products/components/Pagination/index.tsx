@@ -1,21 +1,14 @@
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
-import PaginationButton from './PaginationButton';
+import PaginationLink from './PaginationLink';
 
 interface PaginationProps {
   totalItemCount: number;
   siblingDelta: number;
   itemsPerPage: number;
   currentPage: number;
-  setCurrentPage: (page: number) => void;
 }
 
-function Pagination({
-  totalItemCount,
-  siblingDelta,
-  itemsPerPage,
-  currentPage,
-  setCurrentPage,
-}: PaginationProps) {
+function Pagination({ totalItemCount, siblingDelta, itemsPerPage, currentPage }: PaginationProps) {
   const totalPageCount = Math.ceil(totalItemCount / itemsPerPage);
 
   const paginate = (current: number, last: number, delta = 1) => {
@@ -37,68 +30,53 @@ function Pagination({
 
   const pageNumbers = paginate(currentPage, totalPageCount, siblingDelta);
 
-  const handlePreviousPageClick = () => setCurrentPage(currentPage - 1);
-  const handleFirstPageClick = () => setCurrentPage(1);
-  const handleMorePreviousPagesClick = () => {
-    if (currentPage > totalPageCount) setCurrentPage(totalPageCount - siblingDelta - 1);
-    else setCurrentPage(currentPage - siblingDelta - 1);
-  };
-  const handlePageChange = (page: number) => setCurrentPage(page);
-  const handleMoreNextPagesClick = () => {
-    if (currentPage < 1) setCurrentPage(siblingDelta + 2);
-    else setCurrentPage(currentPage + siblingDelta + 1);
-  };
-  const handleLastPageClick = () => setCurrentPage(totalPageCount);
-  const handleNextPageClick = () => setCurrentPage(currentPage + 1);
-
   return totalPageCount > 1 ? (
     <ul className="mx-auto flex flex-wrap items-center justify-center gap-2 rounded-sm py-8">
       {currentPage > 1 && (
-        <PaginationButton
-          onClick={handlePreviousPageClick}
+        <PaginationLink
+          currentPage={currentPage}
+          page={currentPage - 1}
           ariaLabel="Previous page"
           label={<FiChevronLeft />}
         />
       )}
-      <PaginationButton
-        onClick={handleFirstPageClick}
-        ariaLabel="Page 1"
-        disabled={currentPage === 1}
-        label="1"
-      />
+      <PaginationLink currentPage={currentPage} page={1} ariaLabel="Page 1" label="1" />
       {currentPage >= siblingDelta + 4 && (
-        <PaginationButton
-          onClick={handleMorePreviousPagesClick}
+        <PaginationLink
+          currentPage={currentPage}
+          page={currentPage - siblingDelta - 1}
           ariaLabel={`Page ${currentPage - siblingDelta - 1}`}
           label="..."
         />
       )}
-      {pageNumbers.map((pageNumber) => (
-        <PaginationButton
-          key={pageNumber}
-          onClick={() => handlePageChange(pageNumber)}
+      {pageNumbers.map((pageNumber, index) => (
+        <PaginationLink
+          currentPage={currentPage}
+          key={pageNumber.toString() + index}
+          page={pageNumber}
           ariaLabel={`Page ${pageNumber}`}
-          disabled={currentPage === pageNumber}
           label={pageNumber}
         />
       ))}
       {currentPage <= totalPageCount - 3 - siblingDelta && (
-        <PaginationButton
-          onClick={handleMoreNextPagesClick}
+        <PaginationLink
+          currentPage={currentPage}
           ariaLabel={`Page ${currentPage + siblingDelta + 1}`}
+          page={currentPage + siblingDelta + 1}
           label="..."
         />
       )}
-      <PaginationButton
+      <PaginationLink
+        currentPage={currentPage}
         ariaLabel={`Page ${totalPageCount}`}
-        onClick={handleLastPageClick}
-        disabled={currentPage === totalPageCount}
+        page={totalPageCount}
         label={totalPageCount}
       />
       {currentPage < totalPageCount && (
-        <PaginationButton
-          onClick={handleNextPageClick}
+        <PaginationLink
+          currentPage={currentPage}
           ariaLabel="Next page"
+          page={currentPage + 1}
           label={<FiChevronRight />}
         />
       )}

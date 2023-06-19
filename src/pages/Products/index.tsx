@@ -1,13 +1,19 @@
+import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import ProductList from 'pages/Products/components/ProductList';
 import SortOrder from 'types/SortOrder';
-import Pagination from 'pages/Products/components/Pagination';
 import { useGetProductsQuery } from 'app/services/products';
 import PageLoader from 'components/common/PageLoader';
+import Pagination from './components/Pagination';
+import ProductList from './components/ProductList';
 import Filters from './components/Filters';
 
 function Products() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [searchParams]);
+
   const currentPage = Number(searchParams.get('page')) || 1;
   const { data, error, isFetching } = useGetProductsQuery({
     page: currentPage,
@@ -18,15 +24,6 @@ function Products() {
   const productsPerPage = data?.productsPerPage || 0;
   const products = data?.products || [];
   const totalProductCount = data?.totalResults || 0;
-
-  const scrollToTop = () => window.scrollTo(0, 0);
-
-  const handlePageChange = (page: number) => {
-    scrollToTop();
-    if (page === 1) searchParams.delete('page');
-    else searchParams.set('page', page.toString());
-    setSearchParams(searchParams);
-  };
 
   if (error) {
     return (
@@ -43,7 +40,6 @@ function Products() {
       <ProductList products={products} />
       <Pagination
         totalItemCount={totalProductCount}
-        setCurrentPage={handlePageChange}
         currentPage={currentPage}
         siblingDelta={1}
         itemsPerPage={productsPerPage}

@@ -1,263 +1,106 @@
 import { screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { vi } from 'vitest';
 import renderWithProviders from 'utils/renderWithProviders';
 import Pagination from '.';
+import { BrowserRouter } from 'react-router-dom';
 
 describe('Pagination component', () => {
   it('should not render anything if total page count is 1', () => {
-    const setCurrentPageMock = vi.fn();
     renderWithProviders(
-      <Pagination
-        setCurrentPage={setCurrentPageMock}
-        totalItemCount={19}
-        currentPage={1}
-        siblingDelta={1}
-        itemsPerPage={20}
-      />
+      <BrowserRouter>
+        <Pagination totalItemCount={19} currentPage={1} siblingDelta={1} itemsPerPage={20} />
+      </BrowserRouter>
     );
     expect(screen.queryByRole('list')).not.toBeInTheDocument();
   });
 
-  it('should render first page button', async () => {
-    const setCurrentPageMock = vi.fn();
+  it('should render first page button', () => {
     renderWithProviders(
-      <Pagination
-        setCurrentPage={setCurrentPageMock}
-        totalItemCount={200}
-        currentPage={4}
-        siblingDelta={1}
-        itemsPerPage={30}
-      />
+      <BrowserRouter>
+        <Pagination totalItemCount={200} currentPage={4} siblingDelta={1} itemsPerPage={30} />
+      </BrowserRouter>
     );
-    expect(screen.getByRole('button', { name: /page 1/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /page 1/i })).toBeInTheDocument();
   });
 
-  it('should render last page button', async () => {
-    const setCurrentPageMock = vi.fn();
+  it('should render middle page links', () => {
+    renderWithProviders(
+      <BrowserRouter>
+        <Pagination totalItemCount={200} currentPage={4} siblingDelta={1} itemsPerPage={30} />
+      </BrowserRouter>
+    );
+    expect(screen.getByRole('link', { name: /page 2/i })).toBeInTheDocument();
+  });
+
+  it('should render last page button', () => {
     const totalItemCount = 200;
     const itemsPerPage = 20;
     const totalPageCount = totalItemCount / itemsPerPage;
     renderWithProviders(
-      <Pagination
-        setCurrentPage={setCurrentPageMock}
-        totalItemCount={totalItemCount}
-        currentPage={4}
-        siblingDelta={1}
-        itemsPerPage={itemsPerPage}
-      />
+      <BrowserRouter>
+        <Pagination
+          totalItemCount={totalItemCount}
+          currentPage={4}
+          siblingDelta={1}
+          itemsPerPage={itemsPerPage}
+        />
+      </BrowserRouter>
     );
-    const lastPageButtonName = new RegExp(`page ${totalPageCount}`, 'i');
-    expect(screen.getByRole('button', { name: lastPageButtonName })).toBeInTheDocument();
+
+    const lastPageLinkName = new RegExp(`page ${totalPageCount}`, 'i');
+    expect(screen.getByRole('link', { name: lastPageLinkName })).toBeInTheDocument();
   });
 
-  it('should call setCurrentPage on specific page button click', async () => {
-    const setCurrentPageMock = vi.fn();
-    const user = userEvent.setup();
+  it("should render a 'previous page' link if current page is greater than 1", () => {
     renderWithProviders(
-      <Pagination
-        setCurrentPage={setCurrentPageMock}
-        totalItemCount={200}
-        currentPage={1}
-        siblingDelta={1}
-        itemsPerPage={20}
-      />
+      <BrowserRouter>
+        <Pagination totalItemCount={200} currentPage={2} siblingDelta={1} itemsPerPage={20} />
+      </BrowserRouter>
     );
-
-    await user.click(screen.getByRole('button', { name: /page 2/i }));
-    expect(setCurrentPageMock).toHaveBeenCalledTimes(1);
-    expect(setCurrentPageMock).toHaveBeenCalledWith(2);
+    expect(screen.getByRole('link', { name: /previous page/i })).toBeInTheDocument();
   });
 
-  it("should call setCurrentPage on 'previous page' button click", async () => {
-    const setCurrentPageMock = vi.fn();
-    const user = userEvent.setup();
-    const currentPage = 2;
+  it("should not render a 'previous page' link if current page is 1", () => {
     renderWithProviders(
-      <Pagination
-        setCurrentPage={setCurrentPageMock}
-        totalItemCount={200}
-        currentPage={currentPage}
-        siblingDelta={1}
-        itemsPerPage={20}
-      />
+      <BrowserRouter>
+        <Pagination totalItemCount={200} currentPage={1} siblingDelta={1} itemsPerPage={20} />
+      </BrowserRouter>
     );
-
-    await user.click(screen.getByRole('button', { name: /previous page/i }));
-    expect(setCurrentPageMock).toHaveBeenCalledTimes(1);
-    expect(setCurrentPageMock).toHaveBeenCalledWith(currentPage - 1);
+    expect(screen.queryByRole('link', { name: /previous page/i })).not.toBeInTheDocument();
   });
 
-  it("should call setCurrentPage on 'next page' button click", async () => {
-    const setCurrentPageMock = vi.fn();
-    const user = userEvent.setup();
-    const currentPage = 2;
+  it("should render a 'next page' link if current page is less than total page count", () => {
     renderWithProviders(
-      <Pagination
-        setCurrentPage={setCurrentPageMock}
-        totalItemCount={200}
-        currentPage={currentPage}
-        siblingDelta={1}
-        itemsPerPage={20}
-      />
+      <BrowserRouter>
+        <Pagination totalItemCount={200} currentPage={1} siblingDelta={1} itemsPerPage={20} />
+      </BrowserRouter>
     );
-
-    await user.click(screen.getByRole('button', { name: /next page/i }));
-    expect(setCurrentPageMock).toHaveBeenCalledTimes(1);
-    expect(setCurrentPageMock).toHaveBeenCalledWith(currentPage + 1);
+    expect(screen.getByRole('link', { name: /next page/i })).toBeInTheDocument();
   });
 
-  it("should call setCurrentPage on 'more previous pages' button click", async () => {
-    const setCurrentPageMock = vi.fn();
-    const user = userEvent.setup();
+  it("should not render a 'next page' link if current page is equal to total page count", () => {
     renderWithProviders(
-      <Pagination
-        setCurrentPage={setCurrentPageMock}
-        totalItemCount={200}
-        currentPage={5}
-        siblingDelta={1}
-        itemsPerPage={20}
-      />
+      <BrowserRouter>
+        <Pagination totalItemCount={200} currentPage={10} siblingDelta={1} itemsPerPage={20} />
+      </BrowserRouter>
     );
-
-    await user.click(screen.getByRole('button', { name: /page 3/i }));
-    expect(setCurrentPageMock).toHaveBeenCalledTimes(1);
-    expect(setCurrentPageMock).toHaveBeenCalledWith(3);
+    expect(screen.queryByRole('link', { name: /next page/i })).not.toBeInTheDocument();
   });
 
-  it("should call setCurrentPage on 'more next pages' button click", async () => {
-    const setCurrentPageMock = vi.fn();
-    const user = userEvent.setup();
+  it("should render 'more previous pages' link if needed", () => {
     renderWithProviders(
-      <Pagination
-        setCurrentPage={setCurrentPageMock}
-        totalItemCount={200}
-        currentPage={5}
-        siblingDelta={1}
-        itemsPerPage={20}
-      />
+      <BrowserRouter>
+        <Pagination totalItemCount={200} currentPage={5} siblingDelta={1} itemsPerPage={20} />
+      </BrowserRouter>
     );
-
-    await user.click(screen.getByRole('button', { name: /page 7/i }));
-    expect(setCurrentPageMock).toHaveBeenCalledTimes(1);
-    expect(setCurrentPageMock).toHaveBeenCalledWith(7);
+    expect(screen.getByRole('link', { name: /page 3/i })).toHaveTextContent('...');
   });
 
-  it("should render a 'previous page' button if current page is greater than 1", () => {
-    const setCurrentPageMock = vi.fn();
+  it("should render 'more next pages' link if needed", () => {
     renderWithProviders(
-      <Pagination
-        setCurrentPage={setCurrentPageMock}
-        totalItemCount={200}
-        currentPage={2}
-        siblingDelta={1}
-        itemsPerPage={20}
-      />
+      <BrowserRouter>
+        <Pagination totalItemCount={200} currentPage={5} siblingDelta={1} itemsPerPage={20} />
+      </BrowserRouter>
     );
-    expect(screen.getByRole('button', { name: /previous page/i })).toBeInTheDocument();
-  });
-
-  it("should not render a 'previous page' button if current page is 1", () => {
-    const setCurrentPageMock = vi.fn();
-    renderWithProviders(
-      <Pagination
-        setCurrentPage={setCurrentPageMock}
-        totalItemCount={200}
-        currentPage={1}
-        siblingDelta={1}
-        itemsPerPage={20}
-      />
-    );
-    expect(screen.queryByRole('button', { name: /previous page/i })).not.toBeInTheDocument();
-  });
-
-  it("should render a 'next page' button if current page is less than total page count", () => {
-    const setCurrentPageMock = vi.fn();
-    renderWithProviders(
-      <Pagination
-        setCurrentPage={setCurrentPageMock}
-        totalItemCount={200}
-        currentPage={1}
-        siblingDelta={1}
-        itemsPerPage={20}
-      />
-    );
-    expect(screen.getByRole('button', { name: /next page/i })).toBeInTheDocument();
-  });
-
-  it("should not render a 'next page' button if current page is equal to total page count", () => {
-    const setCurrentPageMock = vi.fn();
-    renderWithProviders(
-      <Pagination
-        setCurrentPage={setCurrentPageMock}
-        totalItemCount={200}
-        currentPage={10}
-        siblingDelta={1}
-        itemsPerPage={20}
-      />
-    );
-    expect(screen.queryByRole('button', { name: /next page/i })).not.toBeInTheDocument();
-  });
-
-  it("should render 'more previous pages' button if needed", async () => {
-    const setCurrentPageMock = vi.fn();
-    renderWithProviders(
-      <Pagination
-        setCurrentPage={setCurrentPageMock}
-        totalItemCount={200}
-        currentPage={5}
-        siblingDelta={1}
-        itemsPerPage={20}
-      />
-    );
-    expect(screen.getByRole('button', { name: /page 3/i })).toHaveTextContent('...');
-  });
-
-  it("should call setCurrentPage with correct value on 'more previous pages' button click", async () => {
-    const setCurrentPageMock = vi.fn();
-    const user = userEvent.setup();
-    renderWithProviders(
-      <Pagination
-        setCurrentPage={setCurrentPageMock}
-        totalItemCount={200}
-        currentPage={5}
-        siblingDelta={1}
-        itemsPerPage={20}
-      />
-    );
-    await user.click(screen.getByRole('button', { name: /page 3/i }));
-    expect(setCurrentPageMock).toHaveBeenCalledTimes(1);
-    expect(setCurrentPageMock).toHaveBeenCalledWith(3);
-  });
-
-  it("should render 'more next pages' button if needed", async () => {
-    const setCurrentPageMock = vi.fn();
-    renderWithProviders(
-      <Pagination
-        setCurrentPage={setCurrentPageMock}
-        totalItemCount={200}
-        currentPage={5}
-        siblingDelta={1}
-        itemsPerPage={20}
-      />
-    );
-    expect(screen.getByRole('button', { name: /page 7/i })).toHaveTextContent('...');
-  });
-
-  it("should call setCurrentPage with correct value on 'more next pages' button click", async () => {
-    const setCurrentPageMock = vi.fn();
-    const user = userEvent.setup();
-    renderWithProviders(
-      <Pagination
-        setCurrentPage={setCurrentPageMock}
-        totalItemCount={200}
-        currentPage={5}
-        siblingDelta={1}
-        itemsPerPage={20}
-      />
-    );
-    await user.click(screen.getByRole('button', { name: /page 7/i }));
-    expect(setCurrentPageMock).toHaveBeenCalledTimes(1);
-    expect(setCurrentPageMock).toHaveBeenCalledWith(7);
+    expect(screen.getByRole('link', { name: /page 7/i })).toHaveTextContent('...');
   });
 });
