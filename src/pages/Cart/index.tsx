@@ -10,9 +10,9 @@ function Cart() {
 
   const handleClearCart = () => dispatch(clearCart());
   return (
-    <div className="align-center container mx-auto flex flex-col justify-center gap-4">
-      <section className="w-full md:w-3/4">
-        <header className="flex justify-between border-b py-3">
+    <div className="align-center container mx-auto flex flex-col justify-center gap-4 lg:flex-row">
+      <section className="w-full lg:w-3/4">
+        <header className="flex items-center justify-between border-b py-3">
           <h1 className="text-2xl font-bold">{`Cart (${productCount})`}</h1>
           <Button variant="neutral" onClick={handleClearCart}>
             Clear cart
