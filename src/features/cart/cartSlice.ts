@@ -5,6 +5,7 @@ import {
   PayloadAction,
 } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
+import { MAX_PRODUCT_QUANTITY } from 'lib/constants';
 import Product from 'types/Product';
 
 interface CartProduct {
@@ -27,7 +28,9 @@ export const cartSlice = createSlice({
     addCartProduct(state, action: PayloadAction<CartProduct>) {
       const duplicateIndex = state.products.findIndex((entry) => entry.product._id === action.payload.product._id);
       if (duplicateIndex !== -1) {
-        state.products[duplicateIndex].quantity += action.payload.quantity;
+        const duplicateProduct = state.products[duplicateIndex];
+        const newQuantity = duplicateProduct.quantity + action.payload.quantity;
+        duplicateProduct.quantity = newQuantity < MAX_PRODUCT_QUANTITY ? newQuantity : MAX_PRODUCT_QUANTITY;   
       } else {
         state.products.push(action.payload);
       }
