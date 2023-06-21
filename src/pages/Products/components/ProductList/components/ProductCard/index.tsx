@@ -1,11 +1,12 @@
+import { useAppDispatch } from 'app/hooks';
 import { FiShoppingCart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { addCartProduct } from 'features/cart/cartSlice';
+import { MIN_PRODUCT_QUANTITY } from 'lib/constants';
 import Product from 'types/Product';
 import PriceGroup from 'components/common/PriceGroup';
 import Button from 'components/common/Button';
 import StarRating from 'components/common/StarRating';
-import { useAppDispatch } from 'app/hooks';
 
 interface ProductCardProps {
   product: Product | undefined;
@@ -16,7 +17,8 @@ function ProductCard({ product }: ProductCardProps) {
 
   if (!product) return null;
 
-  const addProductToCart = () => dispatch(addCartProduct({ quantity: 1, product }));
+  const handleAddToCartClick = () =>
+    dispatch(addCartProduct({ quantity: MIN_PRODUCT_QUANTITY, product }));
 
   return (
     <div className="relative flex max-w-xs flex-col bg-off-white shadow-md hover:shadow-lg">
@@ -38,7 +40,7 @@ function ProductCard({ product }: ProductCardProps) {
       </Link>
       <footer className="mx-4 flex justify-between border-t border-gray-200 py-4">
         <PriceGroup price={product.price} discountPrice={product.discountPrice} />
-        <Button ariaLabel="Add to cart" textSize="lg" onClick={addProductToCart}>
+        <Button ariaLabel="Add to cart" textSize="lg" onClick={handleAddToCartClick}>
           <FiShoppingCart />
         </Button>
       </footer>
