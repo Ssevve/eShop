@@ -1,9 +1,9 @@
 import { screen } from '@testing-library/react';
+import { MAX_PRODUCT_RATING } from 'lib/constants';
 import { BrowserRouter } from 'react-router-dom';
 import renderWithProviders from 'utils/renderWithProviders';
 import products from 'mocks/products';
 import ProductCard from '.';
-import { MAX_PRODUCT_RATING } from 'lib/constants';
 
 describe('ProductCard component', () => {
   it('should render product image with correct src attribute', async () => {

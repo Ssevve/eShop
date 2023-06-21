@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useGetProductByIdQuery } from 'app/services/products';
 import { useAppDispatch } from 'app/hooks';
 import { addCartProduct } from 'features/cart/cartSlice';
+import { MIN_PRODUCT_QUANTITY } from 'lib/constants';
 import PriceGroup from 'components/common/PriceGroup';
 import StarRating from 'components/common/StarRating';
 import Button from 'components/common/Button';
@@ -13,7 +14,7 @@ import QuantityInput from 'components/common/QuantityInput';
 
 function Product() {
   const dispatch = useAppDispatch();
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(MIN_PRODUCT_QUANTITY);
   const { id } = useParams();
   const { data: product, isFetching, error } = useGetProductByIdQuery(id);
 

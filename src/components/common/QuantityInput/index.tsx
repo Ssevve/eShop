@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import { MAX_PRODUCT_QUANTITY } from 'lib/constants';
+import { MAX_PRODUCT_QUANTITY, MIN_PRODUCT_QUANTITY } from 'lib/constants';
 import { FiPlus, FiMinus } from 'react-icons/fi';
 
 interface DefaultQuantityInputProps {
@@ -16,7 +16,7 @@ interface QuantityInputProps extends DefaultQuantityInputProps {
 function QuantityInput({
   count,
   setCount,
-  minCount = 1,
+  minCount = MIN_PRODUCT_QUANTITY,
   maxCount = MAX_PRODUCT_QUANTITY,
   compact = false,
 }: QuantityInputProps) {
@@ -37,6 +37,10 @@ function QuantityInput({
     else setCount(newCount);
   };
 
+  const handleBlur = () => {
+    if (!count) setCount(MIN_PRODUCT_QUANTITY);
+  };
+
   return (
     <div className="flex w-min border py-2">
       {!compact && (
@@ -55,6 +59,7 @@ function QuantityInput({
         type="number"
         value={count}
         onChange={handleChange}
+        onBlur={handleBlur}
         min={minCount}
         max={maxCount}
       />

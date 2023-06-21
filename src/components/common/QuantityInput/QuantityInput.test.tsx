@@ -3,7 +3,7 @@
 import { vi } from 'vitest';
 import { fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { MAX_PRODUCT_QUANTITY } from 'lib/constants';
+import { MAX_PRODUCT_QUANTITY, MIN_PRODUCT_QUANTITY } from 'lib/constants';
 import renderWithProviders from 'utils/renderWithProviders';
 import QuantityInput from '.';
 
@@ -63,22 +63,28 @@ describe('QuantityInput component', () => {
   describe("when input's value change", () => {
     it('should set count to a given value if it is between minCount and maxCount', async () => {
       const setCountMock = vi.fn();
-      renderWithProviders(<QuantityInput count={1} setCount={setCountMock} />);
-      fireEvent.change(screen.getByRole('spinbutton'), { target: { value: 45 } });
-      expect(setCountMock).toHaveBeenCalledWith(45);
+      renderWithProviders(
+        <QuantityInput count={1} minCount={2} maxCount={5} setCount={setCountMock} />
+      );
+      fireEvent.change(screen.getByRole('spinbutton'), { target: { value: 4 } });
+      expect(setCountMock).toHaveBeenCalledWith(4);
     });
 
     it('should set count to minCount if value is less than minCount', async () => {
       const setCountMock = vi.fn();
       renderWithProviders(<QuantityInput count={1} setCount={setCountMock} />);
-      fireEvent.change(screen.getByRole('spinbutton'), { target: { value: 0 } });
-      expect(setCountMock).toHaveBeenCalledWith(1);
+      fireEvent.change(screen.getByRole('spinbutton'), {
+        target: { value: MIN_PRODUCT_QUANTITY - 1 },
+      });
+      expect(setCountMock).toHaveBeenCalledWith(MIN_PRODUCT_QUANTITY);
     });
 
     it('should set count to maxCount if value is greater than maxCount', async () => {
       const setCountMock = vi.fn();
       renderWithProviders(<QuantityInput count={1} setCount={setCountMock} />);
-      fireEvent.change(screen.getByRole('spinbutton'), { target: { value: 100 } });
+      fireEvent.change(screen.getByRole('spinbutton'), {
+        target: { value: MAX_PRODUCT_QUANTITY + 1 },
+      });
       expect(setCountMock).toHaveBeenCalledWith(MAX_PRODUCT_QUANTITY);
     });
   });

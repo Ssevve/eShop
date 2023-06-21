@@ -5,7 +5,7 @@ import {
   PayloadAction,
 } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
-import { MAX_PRODUCT_QUANTITY } from 'lib/constants';
+import { MAX_PRODUCT_QUANTITY, MIN_PRODUCT_QUANTITY } from 'lib/constants';
 import Product from 'types/Product';
 
 interface CartProduct {
@@ -40,7 +40,12 @@ export const cartSlice = createSlice({
     },
     setCartProductQuantity(state, action: PayloadAction<{ productId: string; quantity: number; }>) {
       const index = state.products.findIndex((entry) => entry.product._id === action.payload.productId);
-      state.products[index].quantity = action.payload.quantity;
+      const product = state.products[index];
+      if (action.payload.quantity < MIN_PRODUCT_QUANTITY || !action.payload.quantity) {
+        product.quantity = MIN_PRODUCT_QUANTITY;
+      } else {
+        product.quantity = action.payload.quantity;
+      }
     },
     clearCart(state) {
       state.products = [];
