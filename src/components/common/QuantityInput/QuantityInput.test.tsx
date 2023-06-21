@@ -3,6 +3,7 @@
 import { vi } from 'vitest';
 import { fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { MAX_PRODUCT_QUANTITY } from 'lib/constants';
 import renderWithProviders from 'utils/renderWithProviders';
 import QuantityInput from '.';
 
@@ -78,7 +79,7 @@ describe('QuantityInput component', () => {
       const setCountMock = vi.fn();
       renderWithProviders(<QuantityInput count={1} setCount={setCountMock} />);
       fireEvent.change(screen.getByRole('spinbutton'), { target: { value: 100 } });
-      expect(setCountMock).toHaveBeenCalledWith(99);
+      expect(setCountMock).toHaveBeenCalledWith(MAX_PRODUCT_QUANTITY);
     });
   });
 });
