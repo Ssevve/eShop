@@ -3,6 +3,7 @@ import cx from 'classnames';
 interface ButtonDefaultProps {
   ariaLabel?: string;
   variant?: 'primary' | 'neutral';
+  fullWidth?: boolean;
   evenPadding?: boolean;
   textSize?:
     | 'xs'
@@ -27,11 +28,12 @@ interface ButtonProps extends ButtonDefaultProps {
 
 function Button({
   children,
+  variant = 'primary',
+  fullWidth = false,
   evenPadding = false,
   onClick,
   ariaLabel = undefined,
   textSize = 'base',
-  variant = 'primary',
 }: ButtonProps) {
   const textSizeClass = `text-${textSize}`;
   const paddingClasses = evenPadding ? 'p-3' : 'px-6 py-3';
@@ -43,7 +45,10 @@ function Button({
   return (
     <button
       aria-label={ariaLabel}
-      className={`flex items-center justify-center gap-4 rounded-sm uppercase ${paddingClasses} ${colorVariants[variant]} ${textSizeClass}`}
+      className={cx(
+        `flex items-center justify-center gap-4 rounded-sm uppercase ${paddingClasses} ${colorVariants[variant]} ${textSizeClass}`,
+        fullWidth && 'w-full'
+      )}
       type="button"
       onClick={onClick}
     >

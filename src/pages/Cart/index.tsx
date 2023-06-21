@@ -1,11 +1,21 @@
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { clearCart, selectCartProductCount } from 'features/cart/cartSlice';
+import {
+  clearCart,
+  selectCartTotal,
+  selectCartOriginalPrice,
+  selectCartDiscount,
+  selectCartProductCount,
+} from 'features/cart/cartSlice';
+import formatPriceString from 'utils/formatPriceString';
 import Button from 'components/common/Button';
 import CartProduct from './components/CartProduct';
 
 function Cart() {
   const dispatch = useAppDispatch();
   const productCount = useAppSelector(selectCartProductCount);
+  const originalPrice = useAppSelector(selectCartOriginalPrice);
+  const orderTotal = useAppSelector(selectCartTotal);
+  const discount = useAppSelector(selectCartDiscount);
   const products = useAppSelector((state) => state.cart.products);
 
   const handleClearCart = () => dispatch(clearCart());
@@ -30,12 +40,24 @@ function Cart() {
           )}
         </ul>
       </section>
-      <section className="w-full border md:w-1/4">
-        <p>more info</p>
-        {/* Price before discounts - original price */}
-        {/* Total discounts - saved */}
-        {/* Total price - order total */}
-        {/* Checkout */}
+      <section className="flex h-max w-full flex-col gap-3 bg-gray-200 p-3 lg:mt-3 lg:w-1/4">
+        <div>
+          <div className="flex justify-between">
+            <span>Original price:</span>
+            <span>{formatPriceString(originalPrice)}</span>
+          </div>
+          <div className="flex justify-between text-red-700">
+            <span>Saved:</span>
+            <span>{formatPriceString(discount)}</span>
+          </div>
+        </div>
+        <div className="flex justify-between text-lg font-semibold">
+          <span>Order total:</span>
+          <span>{formatPriceString(orderTotal)}</span>
+        </div>
+        <Button onClick={() => {}} fullWidth>
+          Checkout
+        </Button>
       </section>
     </div>
   );

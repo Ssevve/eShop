@@ -1,4 +1,5 @@
 import cx from 'classnames';
+import formatPriceString from 'utils/formatPriceString';
 
 interface PriceDefaultProps {
   isOld?: boolean;
@@ -8,8 +9,6 @@ interface PriceDefaultProps {
 interface PriceProps extends PriceDefaultProps {
   price: number;
 }
-
-const formatPriceString = (price: number) => `$${price.toFixed(2)}`;
 
 function Price({ price, isOld = false, isNew = false }: PriceProps) {
   return (

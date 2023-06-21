@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import {
+  createSelector,
   createSlice,
   PayloadAction,
 } from '@reduxjs/toolkit';
@@ -46,17 +47,22 @@ export const cartSlice = createSlice({
 
 export const { addCartProduct, removeCartProduct, setCartProductQuantity, clearCart } = cartSlice.actions;
 
-export const selectCartProductCount = (state: RootState) => {
-  return state.cart.products.reduce((count, entry) => count + entry.quantity, 0);
-};
-export const selectTotalCartProductPrice = (state: RootState) => {
-  return state.cart.products.reduce((total, entry) => total + entry.quantity * entry.product.discountPrice, 0);
-};
-export const selectTotalDiscountValue = (state: RootState) => {
-  return state.cart.products.reduce((total, entry) => {
-    const productDiscountValue = entry.product.price - entry.product.discountPrice;
-    return total + productDiscountValue * entry.quantity;
-  }, 0);
-}
+const selectCartProducts = (state: RootState) => state.cart.products;
+
+export const selectCartProductCount = createSelector(selectCartProducts, products =>
+  products.reduce((count, entry) => count + entry.quantity, 0)
+);
+
+export const selectCartOriginalPrice = createSelector(selectCartProducts, products =>
+ products.reduce((total, entry) => total + entry.quantity * entry.product.price, 0)
+);
+
+export const selectCartTotal = createSelector(selectCartProducts, products =>
+  products.reduce((total, entry) => total + entry.quantity * entry.product.discountPrice, 0)
+);
+
+export const selectCartDiscount = createSelector([selectCartOriginalPrice, selectCartTotal], (originalPrice, finalPrice) =>
+  (originalPrice - finalPrice)
+);
 
 export default cartSlice.reducer;
