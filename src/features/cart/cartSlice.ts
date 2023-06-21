@@ -6,12 +6,7 @@ import {
 } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
 import { MAX_PRODUCT_QUANTITY, MIN_PRODUCT_QUANTITY } from 'lib/constants';
-import Product from 'types/Product';
-
-interface CartProduct {
-  quantity: number;
-  product: Product;
-}
+import CartProduct from 'types/CartProduct';
 
 interface CartState {
   products: CartProduct[];

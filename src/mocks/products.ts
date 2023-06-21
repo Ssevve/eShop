@@ -1,4 +1,6 @@
-const products = [
+import Product from "types/Product";
+
+const products: Product[] = [
   {
     brand: 'Test brand 1',
     category: 'Test category 1',

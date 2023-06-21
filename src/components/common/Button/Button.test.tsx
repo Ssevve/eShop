@@ -1,5 +1,3 @@
-// @vitest-environment jsdom
-
 import { screen } from '@testing-library/react';
 import { vi } from 'vitest';
 import renderWithProviders from 'utils/renderWithProviders';
@@ -64,6 +62,22 @@ describe('Button component', () => {
     const onClickHandler = vi.fn();
     renderWithProviders(<Button onClick={onClickHandler}>text</Button>);
     expect(screen.getByRole('button')).toHaveClass('bg-primary-green');
+  });
+
+  it('should take up full width if fullWidth prop is provided', () => {
+    const onClickHandler = vi.fn();
+    renderWithProviders(
+      <Button fullWidth onClick={onClickHandler}>
+        text
+      </Button>
+    );
+    expect(screen.getByRole('button')).toHaveClass('w-full');
+  });
+
+  it('should not take up full width if fullWidth prop is not provided', () => {
+    const onClickHandler = vi.fn();
+    renderWithProviders(<Button onClick={onClickHandler}>text</Button>);
+    expect(screen.getByRole('button')).not.toHaveClass('w-full');
   });
 
   it('should call onClick function when clicked', async () => {
