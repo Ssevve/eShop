@@ -1,4 +1,5 @@
 import cx from 'classnames';
+import { MAX_PRODUCT_QUANTITY } from 'lib/constants';
 import { FiPlus, FiMinus } from 'react-icons/fi';
 
 interface DefaultQuantityInputProps {
@@ -16,7 +17,7 @@ function QuantityInput({
   count,
   setCount,
   minCount = 1,
-  maxCount = 99,
+  maxCount = MAX_PRODUCT_QUANTITY,
   compact = false,
 }: QuantityInputProps) {
   const isMinimumQuantity = count <= minCount;
