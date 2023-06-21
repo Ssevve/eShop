@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import renderWithProviders from 'utils/renderWithProviders';
 import mockUser from 'mocks/user';
@@ -52,16 +52,19 @@ describe('App component', () => {
     expect(screen.getByRole('button', { name: /register/i })).toBeInTheDocument();
   });
 
-  it("should redirect to log in page if path is '/account' and user is not logged in", () => {
+  it("should redirect to log in page if path is '/account' and user is not logged in", async () => {
     renderWithProviders(
       <MemoryRouter initialEntries={['/account']}>
         <App />
       </MemoryRouter>
     );
-    expect(screen.getByRole('button', { name: /log in/i })).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /log in/i })).toBeInTheDocument();
+    });
   });
 
-  it("should render account page if path is '/account' and user is logged in", () => {
+  it("should render account page if path is '/account' and user is logged in", async () => {
     const preloadedState = {
       auth: {
         user: {
@@ -83,6 +86,9 @@ describe('App component', () => {
       </MemoryRouter>,
       { preloadedState }
     );
-    expect(screen.getByRole('button', { name: /log out/i })).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /log out/i })).toBeInTheDocument();
+    });
   });
 });
