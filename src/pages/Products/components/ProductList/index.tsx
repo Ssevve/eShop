@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import Product from 'types/Product';
-import ProductCard from './components/ProductCard';
+import ProductCard from '../ProductCard';
 
 interface ProductListProps {
   products: Product[] | undefined;

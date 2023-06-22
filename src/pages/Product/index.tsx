@@ -1,18 +1,28 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetProductByIdQuery } from 'app/services/products';
+import { useAppDispatch } from 'app/hooks';
+import { addCartProduct } from 'features/cart/cartSlice';
+import { MIN_PRODUCT_QUANTITY } from 'lib/constants';
 import PriceGroup from 'components/common/PriceGroup';
 import StarRating from 'components/common/StarRating';
 import Button from 'components/common/Button';
 import NotFound from 'pages/NotFound';
 import PageLoader from 'components/common/PageLoader';
 import Error from 'pages/Error';
-import QuantityInput from './components/QuantityInput';
+import QuantityInput from 'components/common/QuantityInput';
 
 function Product() {
-  const [quantity, setQuantity] = useState(1);
+  const dispatch = useAppDispatch();
+  const [quantity, setQuantity] = useState(MIN_PRODUCT_QUANTITY);
   const { id } = useParams();
   const { data: product, isFetching, error } = useGetProductByIdQuery(id);
+
+  const handleAddToCartClick = () => {
+    if (product) {
+      dispatch(addCartProduct({ quantity, product }));
+    }
+  };
 
   const isFetchBaseQueryError = error && 'data' in error;
   if (isFetchBaseQueryError) {
@@ -48,7 +58,7 @@ function Product() {
             <PriceGroup price={product.price} discountPrice={product.discountPrice} />
             <footer className="flex gap-6">
               <QuantityInput count={quantity} setCount={setQuantity} />
-              <Button onClick={() => {}}>Add to cart</Button>
+              <Button onClick={handleAddToCartClick}>Add to cart</Button>
             </footer>
           </section>
         </>

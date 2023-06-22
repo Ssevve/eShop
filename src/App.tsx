@@ -4,9 +4,10 @@ import Header from 'components/Header';
 import Home from 'pages/Home';
 import Products from 'pages/Products';
 import Product from 'pages/Product';
-import AuthRoutes from 'utils/AuthRoutes';
+import Cart from 'pages/Cart';
+import AuthRoutes from 'components/AuthRoutes';
 import Account from 'pages/Account';
-import GuestRoutes from 'utils/GuestRoutes';
+import GuestRoutes from 'components/GuestRoutes';
 import Login from 'pages/Login';
 import Register from 'pages/Register';
 import NotFound from 'pages/NotFound';
@@ -22,6 +23,7 @@ export function App() {
       <Route path="/" element={<Home />} />
       <Route path="/products" element={<Products />} />
       <Route path="/products/:id" element={<Product />} />
+      <Route path="/cart" element={<Cart />} />
       <Route element={<AuthRoutes />}>
         <Route path="/account" element={<Account />} />
       </Route>
