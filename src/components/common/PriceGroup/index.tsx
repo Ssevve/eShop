@@ -9,10 +9,10 @@ function PriceGroup({ price, discountPrice }: PriceGroupProps) {
   const isDiscounted = discountPrice < price;
 
   return (
-    <section>
+    <div className="flex items-center">
       <Price price={price} isOld={isDiscounted} />
       {isDiscounted && <Price price={discountPrice} isNew />}
-    </section>
+    </div>
   );
 }
 
