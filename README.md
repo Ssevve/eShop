@@ -1,4 +1,5 @@
 # eShop Frontend - under development
+
 Frontend code for grocery e-commerce react project
 
 ## Tech used
@@ -7,43 +8,50 @@ Frontend code for grocery e-commerce react project
 
 ## Project Specifications
 
-* Fully responsive
-* Mobile first approach
+- Fully responsive
+- Mobile first approach
 
 ### MVP Features
-* [x] User can create an account
-* [x] User can choose from several product categories
-* [x] User can see discounted products
-* [x] User can sort products by:
-  * [x] Name
-  * [x] Price
-* [x] User can add products to cart
-* [x] User can see original price (before discounts) on the cart page
-* [x] User can see total discount value on the cart page
-* [x] User can see the total order price (after discount) on the cart page
+
+- [x] User can create an account
+- [x] User can choose from several product categories
+- [x] User can see discounted products
+- [x] User can sort products by:
+  - [x] Name
+  - [x] Price
+- [x] User can add products to cart
+- [x] User can see original price (before discounts) on the cart page
+- [x] User can see total discount value on the cart page
+- [x] User can see the total order price (after discount) on the cart page
 
 ### Stretch Features
-* [ ] User can see past orders on the account page
-* [ ] More sort options
-  * [ ] Brand
-  * [ ] Rating
-  * [ ] Ratings count
+
+- [ ] User can see past orders on the account page
+- [ ] More sort options
+  - [ ] Brand
+  - [ ] Rating
+  - [ ] Ratings count
+- [ ] User can change phone number
+- [ ] Wishlist/Favorites
 
 ### Pages
 
-* [ ] Home
-* [ ] Account
-* [x] Cart
-* [x] Log in
-* [x] Register
-* [x] Product
-* [x] Products
-* [x] Not Found
-* [x] Error
- 
+- [ ] Home
+- [ ] Account
+- [x] Cart
+- [x] Log in
+- [x] Register
+- [x] Product
+- [x] Products
+- [x] Not Found
+- [x] Error
+
 ## Credits
+
 ### Datasets:
+
 [Bigbasket entire product list](https://www.kaggle.com/datasets/surajjha101/bigbasket-entire-product-list-28k-datapoints) with product images from [Bigbasket products](https://www.kaggle.com/datasets/chinmayshanbhag/big-basket-products)
 
 ## License
+
 This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.](https://creativecommons.org/licenses/by-nc-sa/4.0/)
