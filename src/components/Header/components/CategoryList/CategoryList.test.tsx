@@ -2,7 +2,7 @@ import { screen } from '@testing-library/react';
 import { vi } from 'vitest';
 import renderWithProviders from 'utils/renderWithProviders';
 import categories from 'lib/categories';
-import CategoryList from '..';
+import CategoryList from '.';
 import { BrowserRouter } from 'react-router-dom';
 
 describe('CategoryList component', () => {
