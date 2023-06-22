@@ -8,7 +8,7 @@ import {
 } from 'features/cart/cartSlice';
 import formatPriceString from 'utils/formatPriceString';
 import Button from 'components/common/Button';
-import CartProduct from './components/CartProduct';
+import CartProductList from './components/CartProductList';
 
 function Cart() {
   const dispatch = useAppDispatch();
@@ -19,6 +19,8 @@ function Cart() {
   const products = useAppSelector((state) => state.cart.products);
 
   const handleClearCart = () => dispatch(clearCart());
+  const handleCheckout = () => {};
+
   return (
     <div className="align-center container mx-auto flex flex-col justify-center gap-4 lg:flex-row">
       <section className="w-full lg:w-3/4">
@@ -28,17 +30,11 @@ function Cart() {
             Clear cart
           </Button>
         </header>
-        <ul>
-          {products.length ? (
-            products.map(({ quantity, product }) => (
-              <li key={product._id}>
-                <CartProduct initialQuantity={quantity} product={product} />
-              </li>
-            ))
-          ) : (
-            <p className="mt-3 text-lg">Your cart is empty!</p>
-          )}
-        </ul>
+        {products.length ? (
+          <CartProductList products={products} />
+        ) : (
+          <p className="mt-3 text-lg">Your cart is empty!</p>
+        )}
       </section>
       <section className="flex h-max w-full flex-col gap-3 bg-gray-200 p-3 lg:mt-3 lg:w-1/4">
         <div>
@@ -55,7 +51,7 @@ function Cart() {
           <span>Order total:</span>
           <span>{formatPriceString(orderTotal)}</span>
         </div>
-        <Button onClick={() => {}} fullWidth>
+        <Button onClick={handleCheckout} fullWidth>
           Checkout
         </Button>
       </section>

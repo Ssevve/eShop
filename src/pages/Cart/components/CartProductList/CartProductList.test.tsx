@@ -4,7 +4,7 @@ import renderWithProviders from 'utils/renderWithProviders';
 import products from 'mocks/cartProducts';
 import CartProductList from '.';
 
-describe('ProductList component', () => {
+describe('CartProductList component', () => {
   it('should render all products', async () => {
     renderWithProviders(
       <BrowserRouter>

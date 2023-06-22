@@ -6,6 +6,8 @@ import {
 } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
 import { MAX_PRODUCT_QUANTITY, MIN_PRODUCT_QUANTITY } from 'lib/constants';
+import calculateCartTotal from 'utils/calculateCartTotal';
+import calculateOriginalPrice from 'utils/calculateOriginalPrice';
 import CartProduct from 'types/CartProduct';
 
 interface CartState {
@@ -56,13 +58,9 @@ export const selectCartProductCount = createSelector(selectCartProducts, product
   products.reduce((count, entry) => count + entry.quantity, 0)
 );
 
-export const selectCartOriginalPrice = createSelector(selectCartProducts, products =>
- products.reduce((total, entry) => total + entry.quantity * entry.product.price, 0)
-);
+export const selectCartOriginalPrice = createSelector(selectCartProducts, products => calculateOriginalPrice(products));
 
-export const selectCartTotal = createSelector(selectCartProducts, products =>
-  products.reduce((total, entry) => total + entry.quantity * entry.product.discountPrice, 0)
-);
+export const selectCartTotal = createSelector(selectCartProducts, products => calculateCartTotal(products));
 
 export const selectCartDiscount = createSelector([selectCartOriginalPrice, selectCartTotal], (originalPrice, finalPrice) =>
   (originalPrice - finalPrice)
