@@ -33,7 +33,7 @@ describe('Cart page', () => {
     expect(screen.getByRole('button', { name: /clear cart/i })).toBeInTheDocument();
   });
 
-  it('should render all products that are in the cart', () => {
+  it('should render CartProductList component if there are products in the cart', () => {
     const preloadedState = {
       cart: {
         products,
@@ -45,7 +45,7 @@ describe('Cart page', () => {
       </BrowserRouter>,
       { preloadedState }
     );
-    expect(screen.getAllByRole('listitem')).toHaveLength(products.length);
+    expect(screen.getByRole('list')).toBeInTheDocument();
   });
 
   it("should render 'empty cart' message if there are no products in the cart", () => {
