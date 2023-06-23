@@ -42,7 +42,7 @@ function Cart() {
             <span>Original price:</span>
             <span>{formatPriceString(originalPrice)}</span>
           </div>
-          <div className="flex justify-between text-red-700">
+          <div className="flex justify-between text-danger">
             <span>Saved:</span>
             <span>{formatPriceString(discount)}</span>
           </div>

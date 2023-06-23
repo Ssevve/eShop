@@ -15,7 +15,7 @@ function Price({ price, isOld = false, isNew = false }: PriceProps) {
     <span
       className={cx(
         'font-bold',
-        isNew && 'ml-2 text-red-700',
+        isNew && 'ml-2 text-danger',
         isOld ? 'text-base line-through' : 'text-xl'
       )}
     >

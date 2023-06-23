@@ -27,7 +27,7 @@ describe('Price component', () => {
     it('should render render price with correct text color', () => {
       const price = 5;
       renderWithProviders(<Price price={price} isNew />);
-      expect(screen.getByText('$5.00')).toHaveClass('text-red-700');
+      expect(screen.getByText('$5.00')).toHaveClass('text-danger');
     });
 
     it('should render render price with correct text size', () => {

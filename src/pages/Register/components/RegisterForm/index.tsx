@@ -72,7 +72,7 @@ function RegisterForm() {
       <footer>
         <p className="text-md mt-4 flex justify-center gap-2 text-sm">
           Have an account?
-          <Link className="text-primary-green hover:underline" to="/login">
+          <Link className="text-primary hover:underline" to="/login">
             Log in
           </Link>
         </p>

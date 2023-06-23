@@ -7,7 +7,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'primary-green': colors.green['600'],
+        danger: colors.red['700'],
+        primary: colors.green['600'],
+        'primary-hover': colors.green['700'],
         'off-white': '#fafafa',
       },
     },

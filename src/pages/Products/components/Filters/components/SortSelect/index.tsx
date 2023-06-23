@@ -52,8 +52,8 @@ function SortSelect({ options, initialValue = undefined, label, onChange }: Sele
                 <li key={option.value}>
                   <button
                     className={cx(
-                      'w-full p-3 text-left hover:bg-primary-green hover:text-white',
-                      option === selectedOption && 'bg-primary-green text-white'
+                      'w-full p-3 text-left hover:bg-primary hover:text-white',
+                      option === selectedOption && 'bg-primary text-white'
                     )}
                     type="button"
                     onClick={() => handleChange(option)}

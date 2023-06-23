@@ -8,7 +8,7 @@ interface SubmitButtonProps {
 function SubmitButton({ text, isLoading }: SubmitButtonProps) {
   return (
     <button
-      className="flex justify-center rounded-sm border border-primary-green bg-primary-green p-2 font-bold text-white transition duration-75 ease-out hover:border-primary-green hover:bg-primary-green hover:ease-in"
+      className="flex justify-center rounded-sm border border-primary bg-primary p-2 font-bold text-white transition duration-75 ease-out hover:border-primary hover:bg-primary hover:ease-in"
       type="submit"
       aria-label={isLoading ? 'Loading' : ''}
       disabled={isLoading}

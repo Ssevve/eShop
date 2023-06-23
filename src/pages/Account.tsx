@@ -12,7 +12,7 @@ function Account() {
         <h1 className="text-6xl">{currentUser?.email}</h1>
         <button
           type="button"
-          className="flex h-max gap-2 rounded-sm bg-red-700 p-3 font-bold text-white hover:bg-red-600"
+          className="flex h-max gap-2 rounded-sm bg-danger p-3 font-bold text-white hover:bg-red-600"
           onClick={handleLogout}
         >
           Log out

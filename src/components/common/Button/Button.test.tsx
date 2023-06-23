@@ -61,7 +61,7 @@ describe('Button component', () => {
   it('should render a primary variant by default', () => {
     const onClickHandler = vi.fn();
     renderWithProviders(<Button onClick={onClickHandler}>text</Button>);
-    expect(screen.getByRole('button')).toHaveClass('bg-primary-green');
+    expect(screen.getByRole('button')).toHaveClass('bg-primary');
   });
 
   it('should take up full width if fullWidth prop is provided', () => {

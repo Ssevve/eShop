@@ -18,7 +18,7 @@ function PaginationLink({ label, ariaLabel, currentPage, page }: PaginationLinkP
       to={`${location.pathname}?${searchParams.toString()}`}
       className={cx(
         'flex h-8 w-8 cursor-pointer items-center justify-center rounded-md hover:bg-slate-200',
-        currentPage === page && 'bg-primary-green text-white'
+        currentPage === page && 'bg-primary text-white'
       )}
     >
       {label}
