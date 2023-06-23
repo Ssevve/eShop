@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import SortOrder from 'types/SortOrder';
 import { useGetProductsQuery } from 'app/services/products';
@@ -9,12 +8,14 @@ import Filters from './components/Filters';
 
 function Products() {
   const [searchParams] = useSearchParams();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [searchParams]);
-
   const currentPage = Number(searchParams.get('page')) || 1;
+
+  let previousPage = undefined;
+  if (currentPage !== previousPage) {
+    previousPage = currentPage;
+    window.scrollTo(0, 0);
+  }
+
   const { data, error, isFetching } = useGetProductsQuery({
     page: currentPage,
     category: searchParams.get('category'),
