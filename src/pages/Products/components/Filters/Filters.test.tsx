@@ -1,5 +1,3 @@
-// @vitest-environment jsdom
-
 import { BrowserRouter } from 'react-router-dom';
 import { screen } from '@testing-library/react';
 import renderWithProviders from 'utils/renderWithProviders';
