@@ -35,8 +35,8 @@ function Product() {
     <section className="container m-auto flex flex-wrap items-center justify-center gap-8">
       {product && (
         <>
-          <img className="max-w-sm" src={product.imageUrl} alt={product.name} />
-          <section className="flex w-max max-w-lg flex-col gap-6">
+          <img className="w-full max-w-sm" src={product.imageUrl} alt={product.name} />
+          <section className="flex w-full max-w-lg flex-col gap-6">
             <header className="grid gap-y-3">
               <h1 className="text-4xl font-bold leading-tight">{product.name}</h1>
               <span className="mb-3 text-sm font-bold uppercase text-gray-400">
