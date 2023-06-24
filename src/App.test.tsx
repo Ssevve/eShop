@@ -16,13 +16,15 @@ describe('App component', () => {
     expect(screen.getByRole('contentinfo')).toBeInTheDocument();
   });
 
-  it("should renders home page if path is '/'", () => {
+  it("should render home page if path is '/'", () => {
     renderWithProviders(
       <MemoryRouter initialEntries={['/']}>
         <App />
       </MemoryRouter>
     );
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/home page/i);
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
+      /fast and reliable grocery delivery/i
+    );
   });
 
   it('should render not found page if invalid path', () => {
