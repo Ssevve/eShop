@@ -50,7 +50,11 @@ Frontend code for grocery e-commerce react project
 
 ### Datasets:
 
-[Bigbasket entire product list](https://www.kaggle.com/datasets/surajjha101/bigbasket-entire-product-list-28k-datapoints) with product images from [Bigbasket products](https://www.kaggle.com/datasets/chinmayshanbhag/big-basket-products)
+- [Bigbasket entire product list](https://www.kaggle.com/datasets/surajjha101/bigbasket-entire-product-list-28k-datapoints) with product images from [Bigbasket products](https://www.kaggle.com/datasets/chinmayshanbhag/big-basket-products)
+
+### Homepage illustration:
+
+- [Image by storyset](https://www.freepik.com/free-vector/vegetables-concept-illustration_32784400.htm#page=3&query=bag&position=11&from_view=author) on Freepik
 
 ## License
 

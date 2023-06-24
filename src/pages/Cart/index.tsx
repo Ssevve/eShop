@@ -9,6 +9,7 @@ import {
 import formatPriceString from 'utils/formatPriceString';
 import Button from 'components/common/Button';
 import CartProductList from './components/CartProductList';
+import { useEffect } from 'react';
 
 function Cart() {
   const dispatch = useAppDispatch();
@@ -18,11 +19,15 @@ function Cart() {
   const discount = useAppSelector(selectCartDiscount);
   const products = useAppSelector((state) => state.cart.products);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const handleClearCart = () => dispatch(clearCart());
   const handleCheckout = () => {};
 
   return (
-    <div className="align-center container mx-auto flex flex-col justify-center gap-4 lg:flex-row">
+    <section className="container mx-auto mb-auto flex flex-col justify-center gap-4 self-start lg:flex-row">
       <section className="w-full lg:w-3/4">
         <header className="flex items-center justify-between border-b py-3">
           <h1 className="text-2xl font-bold">{`Cart (${productCount})`}</h1>
@@ -36,7 +41,7 @@ function Cart() {
           <p className="mt-3 text-lg">Your cart is empty!</p>
         )}
       </section>
-      <section className="flex h-max w-full flex-col gap-3 bg-gray-200 p-3 lg:mt-3 lg:w-1/4">
+      <section className="flex h-max w-full flex-col gap-3 justify-self-start bg-gray-200 p-3 lg:mt-3 lg:w-1/4">
         <div>
           <div className="flex justify-between">
             <span>Original price:</span>
@@ -55,7 +60,7 @@ function Cart() {
           Checkout
         </Button>
       </section>
-    </div>
+    </section>
   );
 }
 
