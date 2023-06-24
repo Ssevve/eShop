@@ -11,7 +11,7 @@ import {
 } from 'features/auth/authSlice';
 import { registerSchema, RegisterSchema } from 'features/auth/schemas/registerSchema';
 import Logo from 'components/common/Logo/Logo';
-import ErrorBox from 'components/ErrorBox';
+import ErrorBox from 'components/common/ErrorBox';
 import Input from 'components/common/Input';
 import SubmitButton from 'components/common/SubmitButton';
 

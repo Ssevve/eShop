@@ -11,7 +11,7 @@ import GuestRoutes from 'components/GuestRoutes';
 import Login from 'pages/Login';
 import Register from 'pages/Register';
 import NotFound from 'pages/NotFound';
-import Footer from 'components/common/Footer';
+import Footer from 'components/Footer';
 
 import useAuth from 'features/auth/useAuth';
 

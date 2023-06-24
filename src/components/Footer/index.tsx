@@ -1,6 +1,6 @@
 import { BiLogoFacebookCircle, BiLogoInstagram, BiLogoTwitter } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
-import Logo from '../Logo/Logo';
+import Logo from '../common/Logo/Logo';
 
 function Footer() {
   return (
