@@ -11,7 +11,7 @@ import GuestRoutes from 'components/GuestRoutes';
 import Login from 'pages/Login';
 import Register from 'pages/Register';
 import NotFound from 'pages/NotFound';
-import Footer from 'components/Footer';
+import Footer from 'components/common/Footer';
 
 import useAuth from 'features/auth/useAuth';
 
@@ -40,7 +40,7 @@ export function AppWithRouter() {
   return (
     <BrowserRouter>
       <Header />
-      <main className="flex flex-col justify-center p-6">
+      <main className="flex grow flex-col justify-center p-6">
         <App />
       </main>
       <Footer />
