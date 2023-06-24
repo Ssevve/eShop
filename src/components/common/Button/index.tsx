@@ -5,6 +5,9 @@ interface ButtonDefaultProps {
   variant?: 'primary' | 'neutral';
   fullWidth?: boolean;
   evenPadding?: boolean;
+  as?: React.ElementType;
+  to?: string | undefined;
+  onClick?: (() => void) | undefined;
   textSize?:
     | 'xs'
     | 'sm'
@@ -23,15 +26,16 @@ interface ButtonDefaultProps {
 
 interface ButtonProps extends ButtonDefaultProps {
   children: React.ReactNode;
-  onClick: () => void;
 }
 
 function Button({
   children,
+  as = 'button',
+  to = undefined,
   variant = 'primary',
   fullWidth = false,
   evenPadding = false,
-  onClick,
+  onClick = undefined,
   ariaLabel = undefined,
   textSize = 'base',
 }: ButtonProps) {
@@ -42,18 +46,20 @@ function Button({
     neutral: 'bg-gray-200 text-gray-700 hover:bg-gray-300',
   };
 
+  const As = as;
   return (
-    <button
+    <As
+      to={to}
       aria-label={ariaLabel}
       className={cx(
         `flex items-center justify-center gap-4 rounded-sm uppercase ${paddingClasses} ${colorVariants[variant]} ${textSizeClass}`,
-        fullWidth && 'w-full'
+        fullWidth ? 'w-full' : 'w-max'
       )}
       type="button"
       onClick={onClick}
     >
       {children}
-    </button>
+    </As>
   );
 }
 
