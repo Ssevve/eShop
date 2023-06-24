@@ -19,15 +19,17 @@ function Home() {
             </span>{' '}
             grocery delivery
           </h1>
-          <p className="text-lg">
+          <p className="text-md lg:text-lg">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Id ad, consequuntur vitae sed
             qui iusto quasi exercitationem nostrum. Neque, modi corporis officiis deleniti magni
             facere dignissimos debitis itaque cum tempora.
           </p>
         </section>
-        <Button as={Link} to="/products">
-          Shop now
-        </Button>
+        <section className="mx-auto md:mx-0">
+          <Button as={Link} to="/products">
+            Shop now
+          </Button>
+        </section>
       </section>
     </section>
   );
