@@ -1,6 +1,7 @@
 import { screen } from '@testing-library/react';
 import { vi } from 'vitest';
 import renderWithProviders from 'utils/renderWithProviders';
+import { BrowserRouter, Link } from 'react-router-dom';
 import Button from '.';
 import userEvent from '@testing-library/user-event';
 
@@ -77,7 +78,25 @@ describe('Button component', () => {
   it('should not take up full width if fullWidth prop is not provided', () => {
     const onClickHandler = vi.fn();
     renderWithProviders(<Button onClick={onClickHandler}>text</Button>);
-    expect(screen.getByRole('button')).not.toHaveClass('w-full');
+    const button = screen.getByRole('button');
+    expect(button).not.toHaveClass('w-full');
+    expect(button).toHaveClass('w-max');
+  });
+
+  it("should render as button if 'as' prop is not provided", () => {
+    renderWithProviders(<Button>text</Button>);
+    expect(screen.getByRole('button', { name: 'text' })).toBeInTheDocument();
+  });
+
+  it("should render as link if 'as' prop is provided with 'Link' value", () => {
+    renderWithProviders(
+      <BrowserRouter>
+        <Button as={Link} to="/test">
+          text
+        </Button>
+      </BrowserRouter>
+    );
+    expect(screen.getByRole('link', { name: 'text' })).toBeInTheDocument();
   });
 
   it('should call onClick function when clicked', async () => {
