@@ -13,7 +13,7 @@ function ProductList({ products }: ProductListProps) {
     <div className="w-full">
       <ul
         className={cx(
-          'grid auto-rows-auto justify-center gap-6 lg:grid-cols-4 xl:grid-cols-5',
+          'grid gap-6 lg:grid-cols-4 xl:grid-cols-5',
           products.length > 1 && 'sm:grid-cols-2'
         )}
       >
@@ -28,3 +28,8 @@ function ProductList({ products }: ProductListProps) {
 }
 
 export default ProductList;
+
+//         className={cx(
+//'grid auto-rows-fr gap-6 lg:grid-cols-4 xl:grid-cols-5',
+//products.length > 1 && 'sm:grid-cols-2'
+//)}
