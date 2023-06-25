@@ -28,7 +28,7 @@ function CategoryList({ closeCategories, shouldShowCategories, isMobile }: Categ
         <div className="md:px-6">
           <ul
             className={cx(
-              'align-center container mx-auto flex-wrap justify-between bg-white md:flex md:flex-nowrap'
+              'align-center mx-auto w-full max-w-screen-2xl flex-wrap justify-between bg-white md:flex md:flex-nowrap'
             )}
           >
             <li className="w-full text-left">

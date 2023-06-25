@@ -27,7 +27,7 @@ function Cart() {
   const handleCheckout = () => {};
 
   return (
-    <section className="container mx-auto mb-auto flex flex-col justify-center gap-4 self-start lg:flex-row">
+    <section className="mx-auto mb-auto flex w-full max-w-screen-2xl flex-col justify-center gap-4 self-start lg:flex-row">
       <section className="w-full lg:w-3/4">
         <header className="flex items-center justify-between border-b py-3">
           <h1 className="text-2xl font-bold">{`Cart (${productCount})`}</h1>

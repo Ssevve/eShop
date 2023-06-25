@@ -32,7 +32,7 @@ function Product() {
 
   if (isFetching) return <PageLoader />;
   return (
-    <section className="container m-auto flex flex-wrap items-center justify-center gap-8">
+    <section className="m-auto flex w-full max-w-screen-2xl flex-wrap items-center justify-center gap-8">
       {product && (
         <>
           <img className="w-full max-w-sm" src={product.imageUrl} alt={product.name} />
