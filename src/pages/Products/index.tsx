@@ -36,7 +36,7 @@ function Products() {
   }
   if (isFetching) return <PageLoader />;
   return (
-    <div className="mx-auto flex w-full max-w-screen-2xl flex-col gap-4">
+    <section className="mx-auto flex w-full flex-col gap-4">
       <Filters />
       <ProductList products={products} />
       <Pagination
@@ -45,7 +45,7 @@ function Products() {
         siblingDelta={1}
         itemsPerPage={productsPerPage}
       />
-    </div>
+    </section>
   );
 }
 

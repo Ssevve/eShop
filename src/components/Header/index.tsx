@@ -37,23 +37,18 @@ function Header() {
 
   return (
     <header className="sticky top-0 z-50 flex bg-white shadow md:flex-col">
-      <nav className="mx-auto flex h-16 w-full max-w-screen-2xl items-center justify-between gap-2 px-6">
+      <nav className="mx-auto flex h-16 w-full max-w-screen-2xl items-center justify-between gap-3 p-3">
         {isMobile && (
-          <button
-            className="w-max p-3"
-            aria-label="Show categories"
-            type="button"
-            onClick={openCategories}
-          >
+          <button aria-label="Show categories" type="button" onClick={openCategories}>
             <FiMenu size={24} />
           </button>
         )}
         <Link to="/">
           <Logo />
         </Link>
-        <div className="flex justify-end gap-2">
+        <div className="flex justify-end gap-6">
           <Link
-            className="grid justify-items-center p-2 text-sm"
+            className="grid justify-items-center text-sm"
             title={currentUser ? 'Account' : 'Log in'}
             to={currentUser ? '/account' : '/login'}
           >
@@ -61,7 +56,7 @@ function Header() {
             {currentUser ? 'Account' : 'Log in'}
           </Link>
           <Link
-            className="grid justify-items-center p-2 text-sm"
+            className="grid justify-items-center text-sm"
             aria-label="Cart"
             title="Cart"
             to="/cart"

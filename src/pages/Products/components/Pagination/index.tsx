@@ -31,7 +31,7 @@ function Pagination({ totalItemCount, siblingDelta, itemsPerPage, currentPage }:
   const pageNumbers = paginate(currentPage, totalPageCount, siblingDelta);
 
   return totalPageCount > 1 ? (
-    <ul className="mx-auto flex flex-wrap items-center justify-center gap-2 rounded-sm py-8">
+    <ul className="mx-auto flex flex-wrap items-center justify-center gap-2 rounded-sm py-6">
       {currentPage > 1 && (
         <PaginationLink
           currentPage={currentPage}

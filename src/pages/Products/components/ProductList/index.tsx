@@ -10,7 +10,7 @@ function ProductList({ products }: ProductListProps) {
   if (!products || products.length === 0) return <p>No products found.</p>;
 
   return (
-    <div className="w-full">
+    <section className="w-full">
       <ul
         className={cx(
           'grid auto-rows-auto justify-center gap-6 lg:grid-cols-4 xl:grid-cols-5',
@@ -23,7 +23,7 @@ function ProductList({ products }: ProductListProps) {
           </li>
         ))}
       </ul>
-    </div>
+    </section>
   );
 }
 

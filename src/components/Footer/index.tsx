@@ -5,7 +5,7 @@ import Logo from '../common/Logo/Logo';
 function Footer() {
   return (
     <footer className="rounded-lg border-t bg-white">
-      <div className="mx-auto w-full max-w-screen-2xl p-6">
+      <div className="mx-auto w-full max-w-screen-2xl p-3">
         <div className="sm:flex sm:items-center sm:justify-between">
           <Logo />
         </div>
