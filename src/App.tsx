@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import useAuth from 'features/auth/useAuth';
 
 import Header from 'components/Header';
 import Home from 'pages/Home';
@@ -12,8 +13,6 @@ import Login from 'pages/Login';
 import Register from 'pages/Register';
 import NotFound from 'pages/NotFound';
 import Footer from 'components/Footer';
-
-import useAuth from 'features/auth/useAuth';
 
 export function App() {
   useAuth();
@@ -40,7 +39,7 @@ export function AppWithRouter() {
   return (
     <BrowserRouter>
       <Header />
-      <main className="flex grow flex-col justify-center p-6">
+      <main className="mx-auto flex w-full max-w-screen-2xl grow flex-col justify-center p-3">
         <App />
       </main>
       <Footer />
