@@ -7,9 +7,7 @@ function NotFound() {
         <h1 className="mb-4 text-7xl font-extrabold tracking-tight text-primary lg:text-9xl">
           404
         </h1>
-        <p className="mb-4 text-3xl font-bold tracking-tight text-gray-900 md:text-4xl">
-          Page not found.
-        </p>
+        <p className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">Page not found.</p>
         <p className="mb-4 text-lg font-light text-gray-500">Sorry, we can't find that page.</p>
         <div className="flex flex-col items-center justify-center gap-4 md:flex-row">
           <Button as={Link} to="/products">
