@@ -33,7 +33,7 @@ describe('App component', () => {
         <App />
       </MemoryRouter>
     );
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/not found/i);
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('404');
   });
 
   it("should render log in page if path is '/login'", () => {

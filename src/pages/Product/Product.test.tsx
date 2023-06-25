@@ -27,7 +27,7 @@ describe('Product page', () => {
 
   it('should render <NotFound /> when product was not found', async () => {
     renderWithProviders(componentToRender('bad-id'));
-    expect(await screen.findByRole('heading', { name: 'Not Found' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: '404' })).toBeInTheDocument();
   });
 
   it('should render <Error /> on error api response', async () => {
