@@ -7,8 +7,8 @@ import Logo from 'components/common/Logo/Logo';
 import useWindowWidth from 'hooks/useWindowWidth';
 import useBreakpointValue from 'hooks/useBreakpointValue';
 import useScrollLock from './hooks/useScrollLock';
-import CategoryList from './components/CategoryList';
 import { selectCartProductCount } from 'features/cart/cartSlice';
+import MobileHeaderMenu from './MobileHeaderMenu';
 
 function Header() {
   const currentUser = useAppSelector(selectCurrentUser);
@@ -16,22 +16,22 @@ function Header() {
   const windowWidth = useWindowWidth();
   const mediumBreakpoint = useBreakpointValue('md');
   const [isScrollLocked, setIsScrollLocked] = useScrollLock();
-  const [shouldShowCategories, setShouldShowCategories] = useState(false);
+  const [shouldShowMobileMenu, setShouldShowMobileMenu] = useState(false);
 
   const isMobile = windowWidth < mediumBreakpoint;
 
   useEffect(() => {
-    setShouldShowCategories(!isMobile);
+    setShouldShowMobileMenu(!isMobile);
     if (!isMobile) setIsScrollLocked(false);
   }, [isMobile]);
 
-  const openCategories = () => {
-    setShouldShowCategories(true);
+  const handleMenuOpen = () => {
+    setShouldShowMobileMenu(true);
     setIsScrollLocked(true);
   };
 
-  const closeCategories = () => {
-    setShouldShowCategories(false);
+  const handleMenuClose = () => {
+    setShouldShowMobileMenu(false);
     setIsScrollLocked(false);
   };
 
@@ -39,7 +39,7 @@ function Header() {
     <header className="sticky top-0 z-50 flex bg-white shadow md:flex-col">
       <nav className="mx-auto flex h-16 w-full max-w-screen-2xl items-center justify-between gap-3 p-3">
         {isMobile && (
-          <button aria-label="Show categories" type="button" onClick={openCategories}>
+          <button aria-label="Show menu" type="button" onClick={handleMenuOpen}>
             <FiMenu size={24} />
           </button>
         )}
@@ -71,11 +71,7 @@ function Header() {
           </Link>
         </div>
       </nav>
-      <CategoryList
-        closeCategories={closeCategories}
-        shouldShowCategories={shouldShowCategories}
-        isMobile={isMobile}
-      />
+      <MobileHeaderMenu onClose={handleMenuClose} isOpen={shouldShowMobileMenu} />
     </header>
   );
 }

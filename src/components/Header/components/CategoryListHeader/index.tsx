@@ -6,16 +6,16 @@ interface CategoryListHeaderProps {
 
 function CategoryListHeader({ closeCategories }: CategoryListHeaderProps) {
   return (
-    <header className="flex items-center gap-4 bg-gray-300 p-3 text-2xl font-bold">
+    <header className="flex items-center justify-between gap-3 p-3">
+      <h2 className="font-semibold uppercase text-gray-400">Categories</h2>
       <button
         aria-label="Close categories"
         type="button"
-        className="rounded-full p-3 hover:bg-gray-400"
+        className="rounded-sm p-1.5 text-gray-400 hover:bg-gray-200 hover:text-gray-800"
         onClick={closeCategories}
       >
-        <TfiClose size={20} />
+        <TfiClose size={16} strokeWidth={2} />
       </button>
-      <h2>Categories</h2>
     </header>
   );
 }
