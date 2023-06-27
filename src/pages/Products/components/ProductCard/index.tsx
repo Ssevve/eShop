@@ -21,9 +21,9 @@ function ProductCard({ product }: ProductCardProps) {
     dispatch(addCartProduct({ quantity: MIN_PRODUCT_QUANTITY, product }));
 
   return (
-    <div className="grid h-full w-full max-w-xs rounded-sm border border-gray-200 bg-white shadow">
+    <div className="h-full w-full rounded-sm border border-gray-200 bg-white shadow lg:max-w-xs">
       <Link to={`/products/${product._id}`}>
-        <img className="rounded-sm pt-6" src={product.imageUrl} alt={product.name} />
+        <img className="w-full rounded-sm pt-6" src={product.imageUrl} alt={product.name} />
         <div className="px-6 pb-6">
           <a href="#">
             <h2 className="mt-3 text-xl font-semibold tracking-tight">{product.name}</h2>
@@ -37,7 +37,7 @@ function ProductCard({ product }: ProductCardProps) {
           </div>
         </div>
       </Link>
-      <footer className="mx-3 flex justify-between gap-2 self-end border-t border-gray-200 py-3">
+      <footer className="mx-3 flex justify-between gap-1 self-end border-t border-gray-200 py-3">
         <PriceGroup price={product.price} discountPrice={product.discountPrice} />
         <Button ariaLabel="Add to cart" textSize="lg" onClick={handleAddToCartClick}>
           <FiShoppingCart />
