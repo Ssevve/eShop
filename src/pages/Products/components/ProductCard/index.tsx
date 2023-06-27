@@ -21,24 +21,23 @@ function ProductCard({ product }: ProductCardProps) {
     dispatch(addCartProduct({ quantity: MIN_PRODUCT_QUANTITY, product }));
 
   return (
-    <div className="relative flex max-w-xs flex-col bg-off-white shadow-md hover:shadow-lg">
+    <div className="h-full w-full rounded-sm border border-gray-200 bg-white shadow lg:max-w-xs">
       <Link to={`/products/${product._id}`}>
-        <img src={product.imageUrl} alt={product.name} />
-        <section className="p-4">
-          <span className="text-xs font-bold uppercase text-gray-400">{product.category}</span>
-          <div className="my-4">
-            <h2 className="mb-1 uppercase">{product.name}</h2>
-            <StarRating rating={product.rating} size={12} />
+        <img className="w-full rounded-sm pt-6" src={product.imageUrl} alt={product.name} />
+        <div className="px-6 pb-6">
+          <a href="#">
+            <h2 className="mt-3 text-xl font-semibold tracking-tight">{product.name}</h2>
+          </a>
+          <div className="mb-6 mt-3 flex items-center">
+            <StarRating rating={product.rating} size={16} />
           </div>
-          <div className="flex justify-between">
-            <section className="flex flex-col gap-1">
-              <span className="text-sm">Qty: {product.quantity}</span>
-              <span className="text-xs text-gray-400">{product.brand}</span>
-            </section>
+          <div>
+            <p className="text-sm">Qty: {product.quantity}</p>
+            <p className="mt-1 text-xs text-gray-400">{product.brand}</p>
           </div>
-        </section>
+        </div>
       </Link>
-      <footer className="mx-4 flex justify-between border-t border-gray-200 py-4">
+      <footer className="mx-3 flex justify-between gap-1 self-end border-t border-gray-200 py-3">
         <PriceGroup price={product.price} discountPrice={product.discountPrice} />
         <Button ariaLabel="Add to cart" textSize="lg" onClick={handleAddToCartClick}>
           <FiShoppingCart />

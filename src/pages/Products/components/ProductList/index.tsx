@@ -13,8 +13,8 @@ function ProductList({ products }: ProductListProps) {
     <section className="w-full">
       <ul
         className={cx(
-          'grid auto-rows-auto justify-center gap-6 lg:grid-cols-4 xl:grid-cols-5',
-          products.length > 1 && 'sm:grid-cols-2'
+          'grid gap-3 lg:grid-cols-4 xl:grid-cols-5',
+          products.length > 1 && 'xs:grid-cols-2'
         )}
       >
         {products.map((product) => (
