@@ -39,7 +39,7 @@ export function AppWithRouter() {
   return (
     <BrowserRouter>
       <Header />
-      <main className="mx-auto flex w-full max-w-screen-2xl grow flex-col justify-center p-3">
+      <main className="mx-auto flex w-full max-w-screen-2xl grow flex-col justify-center px-3 py-6">
         <App />
       </main>
       <Footer />
