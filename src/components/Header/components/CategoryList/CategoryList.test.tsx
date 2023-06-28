@@ -50,8 +50,6 @@ describe('CategoryList component', () => {
 
   it('should render links to all categories', () => {
     const closeCategoriesMock = vi.fn();
-    // include 'all products' link in the final count
-    const categoryCount = categories.length + 1;
     renderWithProviders(
       <BrowserRouter>
         <CategoryList
@@ -61,6 +59,12 @@ describe('CategoryList component', () => {
         />
       </BrowserRouter>
     );
-    expect(screen.queryAllByRole('link')).toHaveLength(categoryCount);
+
+    expect(screen.getByRole('link', { name: /all products/i })).toBeInTheDocument();
+
+    const areAllCategoriesRendered = categories.every((category) =>
+      screen.getByRole('link', { name: category })
+    );
+    expect(areAllCategoriesRendered).toBeTruthy();
   });
 });

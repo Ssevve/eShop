@@ -67,6 +67,7 @@ describe('App component', () => {
   });
 
   it("should render account page if path is '/account' and user is logged in", async () => {
+    const status: Status = 'IDLE';
     const preloadedState = {
       auth: {
         user: {
@@ -74,7 +75,7 @@ describe('App component', () => {
           email: mockUser.email,
           phoneNumber: mockUser.phoneNumber,
         },
-        status: 'IDLE' as Status,
+        status,
         error: {
           server: false,
           invalidCredentials: false,

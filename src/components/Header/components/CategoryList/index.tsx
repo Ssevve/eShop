@@ -33,7 +33,7 @@ function CategoryList({ closeCategories, shouldShowCategories, isMobile }: Categ
           >
             <li className="w-full text-left">
               <CategoryLink
-                onClick={isMobile ? closeCategories : () => {}}
+                onClick={isMobile ? closeCategories : undefined}
                 category={null}
                 label="All products"
               />
@@ -41,7 +41,7 @@ function CategoryList({ closeCategories, shouldShowCategories, isMobile }: Categ
             {categories.map((category) => (
               <li className="w-full text-left" key={category}>
                 <CategoryLink
-                  onClick={isMobile ? closeCategories : () => {}}
+                  onClick={isMobile ? closeCategories : undefined}
                   category={category}
                   label={category}
                 />

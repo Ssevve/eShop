@@ -1,7 +1,7 @@
 import { vi } from 'vitest';
 import { fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { MAX_PRODUCT_QUANTITY, MIN_PRODUCT_QUANTITY } from 'lib/constants';
+import { productConstraints } from 'lib/constants';
 import renderWithProviders from 'utils/renderWithProviders';
 import QuantityInput from '.';
 
@@ -72,18 +72,18 @@ describe('QuantityInput component', () => {
       const setCountMock = vi.fn();
       renderWithProviders(<QuantityInput count={1} setCount={setCountMock} />);
       fireEvent.change(screen.getByRole('spinbutton'), {
-        target: { value: MIN_PRODUCT_QUANTITY - 1 },
+        target: { value: productConstraints.quantity.min - 1 },
       });
-      expect(setCountMock).toHaveBeenCalledWith(MIN_PRODUCT_QUANTITY);
+      expect(setCountMock).toHaveBeenCalledWith(productConstraints.quantity.min);
     });
 
     it('should set count to maxCount if value is greater than maxCount', async () => {
       const setCountMock = vi.fn();
       renderWithProviders(<QuantityInput count={1} setCount={setCountMock} />);
       fireEvent.change(screen.getByRole('spinbutton'), {
-        target: { value: MAX_PRODUCT_QUANTITY + 1 },
+        target: { value: productConstraints.quantity.max + 1 },
       });
-      expect(setCountMock).toHaveBeenCalledWith(MAX_PRODUCT_QUANTITY);
+      expect(setCountMock).toHaveBeenCalledWith(productConstraints.quantity.max);
     });
   });
 });

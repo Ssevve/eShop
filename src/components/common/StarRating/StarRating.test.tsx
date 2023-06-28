@@ -1,21 +1,23 @@
 import { screen } from '@testing-library/react';
 import renderWithProviders from 'utils/renderWithProviders';
-import { MAX_PRODUCT_RATING } from 'lib/constants';
+import { productConstraints } from 'lib/constants';
 import StarRating from '.';
 
 describe('StarRating component', () => {
   it('should render correct amount of stars', async () => {
     const rating = 2;
     renderWithProviders(<StarRating rating={rating} />);
-    expect(await screen.findAllByTitle(`${rating}/${MAX_PRODUCT_RATING}`)).toHaveLength(
-      MAX_PRODUCT_RATING
+    expect(await screen.findAllByTitle(`${rating}/${productConstraints.rating.max}`)).toHaveLength(
+      productConstraints.rating.max
     );
   });
 
   it('should render correct amount of gold stars', async () => {
     const rating = 2;
     renderWithProviders(<StarRating rating={rating} />);
-    const stars = await screen.findAllByRole('img', { name: `${rating}/${MAX_PRODUCT_RATING}` });
+    const stars = await screen.findAllByRole('img', {
+      name: `${rating}/${productConstraints.rating.max}`,
+    });
     const goldStars = stars.filter((star) => star.getAttribute('fill') === 'gold');
     expect(goldStars).toHaveLength(rating);
   });
@@ -23,9 +25,11 @@ describe('StarRating component', () => {
   it('should render correct amount of not filled stars', async () => {
     const rating = 2;
     renderWithProviders(<StarRating rating={rating} />);
-    const stars = await screen.findAllByRole('img', { name: `${rating}/${MAX_PRODUCT_RATING}` });
+    const stars = await screen.findAllByRole('img', {
+      name: `${rating}/${productConstraints.rating.max}`,
+    });
     const transparentStars = stars.filter((star) => star.getAttribute('fill') === 'transparent');
-    expect(transparentStars).toHaveLength(MAX_PRODUCT_RATING - rating);
+    expect(transparentStars).toHaveLength(productConstraints.rating.max - rating);
   });
 
   it('should render ratings count if it is provided', async () => {

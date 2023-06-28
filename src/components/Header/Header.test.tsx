@@ -37,6 +37,7 @@ describe('Header component', () => {
   });
 
   describe('when user is logged in', () => {
+    const status: Status = 'IDLE';
     const preloadedState = {
       auth: {
         user: {
@@ -44,7 +45,7 @@ describe('Header component', () => {
           email: mockUser.email,
           phoneNumber: mockUser.phoneNumber,
         },
-        status: 'IDLE' as Status,
+        status,
         error: {
           server: false,
           invalidCredentials: false,

@@ -1,23 +1,20 @@
 import cx from 'classnames';
-import { MAX_PRODUCT_QUANTITY, MIN_PRODUCT_QUANTITY } from 'lib/constants';
+import { productConstraints } from 'lib/constants';
 import { FiPlus, FiMinus } from 'react-icons/fi';
 
-interface DefaultQuantityInputProps {
+interface QuantityInputProps {
+  count: number;
+  setCount: (quantity: number) => void;
   minCount?: number;
   maxCount?: number;
   compact?: boolean;
 }
 
-interface QuantityInputProps extends DefaultQuantityInputProps {
-  count: number;
-  setCount: (quantity: number) => void;
-}
-
 function QuantityInput({
   count,
   setCount,
-  minCount = MIN_PRODUCT_QUANTITY,
-  maxCount = MAX_PRODUCT_QUANTITY,
+  minCount = productConstraints.quantity.min,
+  maxCount = productConstraints.quantity.max,
   compact = false,
 }: QuantityInputProps) {
   const isMinimumQuantity = count <= minCount;
@@ -38,7 +35,7 @@ function QuantityInput({
   };
 
   const handleBlur = () => {
-    if (!count) setCount(MIN_PRODUCT_QUANTITY);
+    if (!count) setCount(productConstraints.quantity.min);
   };
 
   return (

@@ -3,14 +3,11 @@ import cx from 'classnames';
 import { FiChevronDown } from 'react-icons/fi';
 import SelectOption from 'types/SelectOption';
 
-interface SelectDefaultProps {
-  initialValue?: SelectOption;
-}
-
-interface SelectProps extends SelectDefaultProps {
+interface SelectProps {
   options: SelectOption[];
   label: string;
   onChange: (option: SelectOption) => void;
+  initialValue?: SelectOption;
 }
 
 function SortSelect({ options, initialValue = undefined, label, onChange }: SelectProps) {

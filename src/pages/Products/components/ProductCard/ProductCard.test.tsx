@@ -1,5 +1,5 @@
 import { screen } from '@testing-library/react';
-import { MAX_PRODUCT_RATING } from 'lib/constants';
+import { productConstraints } from 'lib/constants';
 import { BrowserRouter } from 'react-router-dom';
 import renderWithProviders from 'utils/renderWithProviders';
 import products from 'mocks/products';
@@ -47,7 +47,9 @@ describe('ProductCard component', () => {
       </BrowserRouter>
     );
     expect(
-      screen.getByLabelText(`Rating: ${expectedProduct.rating} out of ${MAX_PRODUCT_RATING} stars`)
+      screen.getByLabelText(
+        `Rating: ${expectedProduct.rating} out of ${productConstraints.rating.max} stars`
+      )
     ).toBeInTheDocument();
   });
 

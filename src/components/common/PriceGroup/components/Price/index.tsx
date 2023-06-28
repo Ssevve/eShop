@@ -1,13 +1,10 @@
 import cx from 'classnames';
 import formatPriceString from 'utils/formatPriceString';
 
-interface PriceDefaultProps {
+interface PriceProps {
+  price: number;
   isOld?: boolean;
   isNew?: boolean;
-}
-
-interface PriceProps extends PriceDefaultProps {
-  price: number;
 }
 
 function Price({ price, isOld = false, isNew = false }: PriceProps) {
