@@ -4,7 +4,7 @@ import { Link, useLocation, useSearchParams } from 'react-router-dom';
 interface CategoryLinkProps {
   category: string | null;
   label: React.ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 function CategoryLink({ category, label, onClick }: CategoryLinkProps) {
