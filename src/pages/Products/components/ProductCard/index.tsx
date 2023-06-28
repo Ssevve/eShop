@@ -2,7 +2,7 @@ import { useAppDispatch } from 'app/hooks';
 import { FiShoppingCart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { addCartProduct } from 'features/cart/cartSlice';
-import { MIN_PRODUCT_QUANTITY } from 'lib/constants';
+import { productConstraints } from 'lib/constants';
 import Product from 'types/Product';
 import PriceGroup from 'components/common/PriceGroup';
 import Button from 'components/common/Button';
@@ -18,7 +18,7 @@ function ProductCard({ product }: ProductCardProps) {
   if (!product) return null;
 
   const handleAddToCartClick = () =>
-    dispatch(addCartProduct({ quantity: MIN_PRODUCT_QUANTITY, product }));
+    dispatch(addCartProduct({ quantity: productConstraints.quantity.min, product }));
 
   return (
     <div className="h-full w-full rounded-sm border border-gray-200 bg-white shadow lg:max-w-xs">

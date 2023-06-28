@@ -5,7 +5,7 @@ import {
   PayloadAction,
 } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
-import { MAX_PRODUCT_QUANTITY, MIN_PRODUCT_QUANTITY } from 'lib/constants';
+import { productConstraints } from 'lib/constants';
 import calculateCartTotal from 'utils/calculateCartTotal';
 import calculateOriginalPrice from 'utils/calculateOriginalPrice';
 import CartProduct from 'types/CartProduct';
@@ -27,7 +27,7 @@ export const cartSlice = createSlice({
       if (duplicateIndex !== -1) {
         const duplicateProduct = state.products[duplicateIndex];
         const newQuantity = duplicateProduct.quantity + action.payload.quantity;
-        duplicateProduct.quantity = newQuantity < MAX_PRODUCT_QUANTITY ? newQuantity : MAX_PRODUCT_QUANTITY;   
+        duplicateProduct.quantity = newQuantity < productConstraints.quantity.max ? newQuantity : productConstraints.quantity.max;   
       } else {
         state.products.push(action.payload);
       }
@@ -38,8 +38,8 @@ export const cartSlice = createSlice({
     setCartProductQuantity(state, action: PayloadAction<{ productId: string; quantity: number; }>) {
       const index = state.products.findIndex((entry) => entry.product._id === action.payload.productId);
       const product = state.products[index];
-      if (action.payload.quantity < MIN_PRODUCT_QUANTITY || !action.payload.quantity) {
-        product.quantity = MIN_PRODUCT_QUANTITY;
+      if (action.payload.quantity < productConstraints.quantity.min || !action.payload.quantity) {
+        product.quantity = productConstraints.quantity.min;
       } else {
         product.quantity = action.payload.quantity;
       }

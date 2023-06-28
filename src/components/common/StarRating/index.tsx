@@ -1,5 +1,5 @@
 import { FiStar } from 'react-icons/fi';
-import { MAX_PRODUCT_RATING } from 'lib/constants';
+import { productConstraints } from 'lib/constants';
 import theme from 'lib/theme';
 
 interface StarRatingDefaultProps {
@@ -13,13 +13,13 @@ interface StarRatingProps extends StarRatingDefaultProps {
 
 function StarRating({ rating, ratingsCount = undefined, size = 16 }: StarRatingProps) {
   const flatRating = Math.floor(rating);
-  const stars = Array.from({ length: MAX_PRODUCT_RATING }, (_, i) => (
+  const stars = Array.from({ length: productConstraints.rating.max }, (_, i) => (
     <FiStar
       fill={i < flatRating ? theme.colors.amber['300'] : theme.colors.gray['400']}
       key={i}
       strokeWidth={0}
       role="img"
-      title={`${rating}/${MAX_PRODUCT_RATING}`}
+      title={`${rating}/${productConstraints.rating.max}`}
       size={size}
     />
   ));
@@ -27,7 +27,7 @@ function StarRating({ rating, ratingsCount = undefined, size = 16 }: StarRatingP
   return (
     <div
       className="flex items-center gap-1"
-      aria-label={`Rating: ${flatRating} out of ${MAX_PRODUCT_RATING} stars`}
+      aria-label={`Rating: ${flatRating} out of ${productConstraints.rating.max} stars`}
       role="img"
     >
       {stars}
