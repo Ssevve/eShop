@@ -1,13 +1,11 @@
 import cx from 'classnames';
 
-interface ButtonDefaultProps {
-  ariaLabel?: string;
+interface ButtonProps {
+  children: React.ReactNode;
   variant?: 'primary' | 'neutral';
   fullWidth?: boolean;
   evenPadding?: boolean;
   as?: React.ElementType;
-  to?: string | undefined;
-  onClick?: (() => void) | undefined;
   textSize?:
     | 'xs'
     | 'sm'
@@ -22,22 +20,21 @@ interface ButtonDefaultProps {
     | '7xl'
     | '8xl'
     | '9xl';
-}
-
-interface ButtonProps extends ButtonDefaultProps {
-  children: React.ReactNode;
+  ariaLabel?: string;
+  to?: string;
+  onClick?: () => void;
 }
 
 function Button({
   children,
   as = 'button',
-  to = undefined,
   variant = 'primary',
   fullWidth = false,
   evenPadding = false,
-  onClick = undefined,
-  ariaLabel = undefined,
   textSize = 'base',
+  to,
+  onClick,
+  ariaLabel,
 }: ButtonProps) {
   const textSizeClass = `text-${textSize}`;
   const paddingClasses = evenPadding ? 'p-3' : 'px-6 py-3';

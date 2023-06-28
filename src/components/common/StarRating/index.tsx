@@ -2,13 +2,10 @@ import { FiStar } from 'react-icons/fi';
 import { productConstraints } from 'lib/constants';
 import theme from 'lib/theme';
 
-interface StarRatingDefaultProps {
+interface StarRatingProps {
+  rating: number;
   ratingsCount?: number;
   size?: number;
-}
-
-interface StarRatingProps extends StarRatingDefaultProps {
-  rating: number;
 }
 
 function StarRating({ rating, ratingsCount = undefined, size = 16 }: StarRatingProps) {

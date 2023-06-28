@@ -2,15 +2,12 @@ import cx from 'classnames';
 import { productConstraints } from 'lib/constants';
 import { FiPlus, FiMinus } from 'react-icons/fi';
 
-interface DefaultQuantityInputProps {
+interface QuantityInputProps {
+  count: number;
+  setCount: (quantity: number) => void;
   minCount?: number;
   maxCount?: number;
   compact?: boolean;
-}
-
-interface QuantityInputProps extends DefaultQuantityInputProps {
-  count: number;
-  setCount: (quantity: number) => void;
 }
 
 function QuantityInput({
