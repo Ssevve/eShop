@@ -11,7 +11,7 @@ function Home() {
         alt="Bag of fresh vegetables"
       />
       <section className="flex flex-col gap-6 text-center md:text-start">
-        <section className="mb-9 flex max-w-xl flex-col gap-6 md:mb-12 md:gap-9">
+        <section className="mb-3 flex max-w-xl flex-col gap-6 md:mb-9 md:gap-9">
           <h1 className="mb-4 text-4xl font-extrabold tracking-tight lg:text-6xl">
             Fast and{' '}
             <span className="underline-offset-3 underline decoration-primary decoration-4 lg:decoration-8">
