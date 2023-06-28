@@ -20,7 +20,7 @@ function CategoryList({ closeCategories, shouldShowCategories, isMobile }: Categ
       <section
         aria-hidden={!shouldShowCategories}
         className={cx(
-          shouldShowCategories ?  : '-translate-x-full',
+          shouldShowCategories ? 'translate-x-0' : '-translate-x-full',
           'absolute top-0 h-screen w-full max-w-lg bg-white transition-transform first-line:shadow-md md:static md:top-full md:h-max md:w-full md:max-w-full md:transition-none'
         )}
       >

@@ -5,7 +5,7 @@ import { HiOutlineMail } from 'react-icons/hi';
 import { FiChevronDown, FiPhone } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import categories from 'lib/categories';
-import CategoryLink from '../components/CategoryLink';
+import CategoryLink from '../CategoryLink';
 import SocialLinks from 'components/common/SocialLinks';
 
 interface MobileDrawerProps {
@@ -13,7 +13,7 @@ interface MobileDrawerProps {
   isOpen: boolean;
 }
 
-function MobileDrawerMenu({ onClose, isOpen }: MobileDrawerProps) {
+function MobileHeaderMenu({ onClose, isOpen }: MobileDrawerProps) {
   const [shouldShowCategories, setShouldShowCategories] = useState(false);
 
   const handleCategoriesToggle = () => setShouldShowCategories((prev) => !prev);
@@ -113,4 +113,4 @@ function MobileDrawerMenu({ onClose, isOpen }: MobileDrawerProps) {
   );
 }
 
-export default MobileDrawerMenu;
+export default MobileHeaderMenu;

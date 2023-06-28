@@ -8,7 +8,7 @@ import useWindowWidth from 'hooks/useWindowWidth';
 import useBreakpointValue from 'hooks/useBreakpointValue';
 import useScrollLock from './hooks/useScrollLock';
 import { selectCartProductCount } from 'features/cart/cartSlice';
-import MobileHeaderMenu from './MobileHeaderMenu';
+import MobileHeaderMenu from './components/MobileHeaderMenu';
 
 function Header() {
   const currentUser = useAppSelector(selectCurrentUser);
@@ -71,7 +71,7 @@ function Header() {
           </Link>
         </div>
       </nav>
-      <MobileHeaderMenu onClose={handleMenuClose} isOpen={shouldShowMobileMenu} />
+      {isMobile && <MobileHeaderMenu onClose={handleMenuClose} isOpen={shouldShowMobileMenu} />}
     </header>
   );
 }
