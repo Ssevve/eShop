@@ -10,13 +10,13 @@ describe('Price component', () => {
   });
 
   describe('when isOld is true', () => {
-    it('should render render price with line through', () => {
+    it('should render price with line through', () => {
       const price = 5;
       renderWithProviders(<Price price={price} isOld />);
       expect(screen.getByText('$5.00')).toHaveClass('line-through');
     });
 
-    it('should render render price with correct text size', () => {
+    it('should render price with correct text size', () => {
       const price = 5;
       renderWithProviders(<Price price={price} isOld />);
       expect(screen.getByText('$5.00')).toHaveClass('text-base');
@@ -24,13 +24,13 @@ describe('Price component', () => {
   });
 
   describe('when isNew is true', () => {
-    it('should render render price with correct text color', () => {
+    it('should render price with correct text color', () => {
       const price = 5;
       renderWithProviders(<Price price={price} isNew />);
       expect(screen.getByText('$5.00')).toHaveClass('text-danger');
     });
 
-    it('should render render price with correct text size', () => {
+    it('should render price with correct text size', () => {
       const price = 5;
       renderWithProviders(<Price price={price} isNew />);
       expect(screen.getByText('$5.00')).toHaveClass('text-xl');
