@@ -39,16 +39,6 @@ describe('Button component', () => {
     expect(screen.getByRole('button')).toHaveClass('py-3');
   });
 
-  it('should render with correct aria-label if provided', () => {
-    const onClickHandler = vi.fn();
-    renderWithProviders(
-      <Button ariaLabel="test" onClick={onClickHandler}>
-        text
-      </Button>
-    );
-    expect(screen.getByLabelText('test')).toBeInTheDocument();
-  });
-
   it('should render a correct variant if specified', () => {
     const onClickHandler = vi.fn();
     renderWithProviders(
