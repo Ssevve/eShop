@@ -12,7 +12,7 @@ function Footer() {
           <span className="text-sm text-gray-500 sm:text-center">
             © 2023 eShop. All Rights Reserved.
           </span>
-          <SocialLinks />
+          <SocialLinks className="mt-3 md:mt-0" />
         </div>
       </div>
     </footer>

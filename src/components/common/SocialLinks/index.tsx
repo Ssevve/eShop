@@ -1,10 +1,13 @@
-import React from 'react';
 import { BiLogoFacebookCircle, BiLogoInstagram, BiLogoTwitter } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 
-function SocialLinks() {
+interface SocialLinksProps {
+  className?: string;
+}
+
+function SocialLinks({ className }: SocialLinksProps) {
   return (
-    <ul className="mt-4 flex space-x-6 xs:mt-0 xs:justify-center">
+    <ul className={`flex space-x-6 xs:mt-0 xs:justify-center ${className}`}>
       <li>
         <Link aria-label="Facebook page" to="#" className="text-gray-500 hover:text-primary">
           <BiLogoFacebookCircle size={20} />
