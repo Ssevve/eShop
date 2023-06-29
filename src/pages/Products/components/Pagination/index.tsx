@@ -36,16 +36,16 @@ function Pagination({ totalItemCount, siblingDelta, itemsPerPage, currentPage }:
         <PaginationLink
           currentPage={currentPage}
           page={currentPage - 1}
-          ariaLabel="Previous page"
+          aria-label="Previous page"
           label={<FiChevronLeft />}
         />
       )}
-      <PaginationLink currentPage={currentPage} page={1} ariaLabel="Page 1" label="1" />
+      <PaginationLink currentPage={currentPage} page={1} aria-label="Page 1" label="1" />
       {currentPage >= siblingDelta + 4 && (
         <PaginationLink
           currentPage={currentPage}
           page={currentPage - siblingDelta - 1}
-          ariaLabel={`Page ${currentPage - siblingDelta - 1}`}
+          aria-label={`Page ${currentPage - siblingDelta - 1}`}
           label="..."
         />
       )}
@@ -54,28 +54,28 @@ function Pagination({ totalItemCount, siblingDelta, itemsPerPage, currentPage }:
           currentPage={currentPage}
           key={pageNumber.toString() + index}
           page={pageNumber}
-          ariaLabel={`Page ${pageNumber}`}
+          aria-label={`Page ${pageNumber}`}
           label={pageNumber}
         />
       ))}
       {currentPage <= totalPageCount - 3 - siblingDelta && (
         <PaginationLink
           currentPage={currentPage}
-          ariaLabel={`Page ${currentPage + siblingDelta + 1}`}
+          aria-label={`Page ${currentPage + siblingDelta + 1}`}
           page={currentPage + siblingDelta + 1}
           label="..."
         />
       )}
       <PaginationLink
         currentPage={currentPage}
-        ariaLabel={`Page ${totalPageCount}`}
+        aria-label={`Page ${totalPageCount}`}
         page={totalPageCount}
         label={totalPageCount}
       />
       {currentPage < totalPageCount && (
         <PaginationLink
           currentPage={currentPage}
-          ariaLabel="Next page"
+          aria-label="Next page"
           page={currentPage + 1}
           label={<FiChevronRight />}
         />
