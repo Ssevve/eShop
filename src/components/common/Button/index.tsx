@@ -44,7 +44,7 @@ function Button({
     <Component
       to={to}
       className={cx(
-        `flex items-center justify-center gap-4 rounded-sm uppercase ${paddingClasses} ${colorVariants[variant]} ${textSizeClass}`,
+        `flex items-center justify-center gap-4 rounded-sm uppercase ${paddingClasses} ${variants[variant]} ${textSizeClass}`,
         fullWidth ? 'w-full' : 'w-max'
       )}
       type="button"

@@ -12,10 +12,9 @@ module.exports = {
     },
     extend: {
       colors: {
-        danger: colors.red['700'],
-        primary: colors.green['600'],
-        'primary-hover': colors.green['700'],
-        'off-white': '#fafafa',
+        danger: colors.red[700],
+        primary: colors.green[600],
+        'primary-hover': colors.green[700],
       },
     },
   },
