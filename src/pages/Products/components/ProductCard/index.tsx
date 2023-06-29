@@ -25,9 +25,8 @@ function ProductCard({ product }: ProductCardProps) {
       <Link to={`/products/${product._id}`}>
         <img className="w-full rounded-sm pt-6" src={product.imageUrl} alt={product.name} />
         <div className="px-6 pb-6">
-          <a href="#">
-            <h2 className="mt-3 text-xl font-semibold tracking-tight">{product.name}</h2>
-          </a>
+          <h2 className="mt-3 text-xl font-semibold tracking-tight">{product.name}</h2>
+
           <div className="mb-6 mt-3 flex items-center">
             <StarRating rating={product.rating} size={16} />
           </div>
