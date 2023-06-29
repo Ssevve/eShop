@@ -35,7 +35,7 @@ function Button({
 }: ButtonProps) {
   const textSizeClass = `text-${textSize}`;
   const paddingClasses = evenPadding ? 'p-3' : 'px-6 py-3';
-  const colorVariants = {
+  const variants = {
     primary: 'bg-primary text-white hover:bg-primary-hover',
     neutral: 'bg-gray-200 text-gray-700 hover:bg-gray-300',
   };
