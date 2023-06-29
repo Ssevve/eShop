@@ -1,10 +1,10 @@
 import cx from 'classnames';
 
-interface ButtonProps {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   variant?: 'primary' | 'neutral';
-  fullWidth?: boolean;
   evenPadding?: boolean;
+  fullWidth?: boolean;
   as?: React.ElementType;
   textSize?:
     | 'xs'
@@ -20,21 +20,18 @@ interface ButtonProps {
     | '7xl'
     | '8xl'
     | '9xl';
-  ariaLabel?: string;
   to?: string;
-  onClick?: () => void;
 }
 
 function Button({
   children,
-  as = 'button',
+  as: Component = 'button',
   variant = 'primary',
   fullWidth = false,
   evenPadding = false,
   textSize = 'base',
   to,
-  onClick,
-  ariaLabel,
+  ...rest
 }: ButtonProps) {
   const textSizeClass = `text-${textSize}`;
   const paddingClasses = evenPadding ? 'p-3' : 'px-6 py-3';
@@ -43,20 +40,18 @@ function Button({
     neutral: 'bg-gray-200 text-gray-700 hover:bg-gray-300',
   };
 
-  const As = as;
   return (
-    <As
+    <Component
       to={to}
-      aria-label={ariaLabel}
       className={cx(
         `flex items-center justify-center gap-4 rounded-sm uppercase ${paddingClasses} ${colorVariants[variant]} ${textSizeClass}`,
         fullWidth ? 'w-full' : 'w-max'
       )}
       type="button"
-      onClick={onClick}
+      {...rest}
     >
       {children}
-    </As>
+    </Component>
   );
 }
 

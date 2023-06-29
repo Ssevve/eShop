@@ -38,7 +38,7 @@ function ProductCard({ product }: ProductCardProps) {
       </Link>
       <footer className="mx-3 flex justify-between gap-1 self-end border-t border-gray-200 py-3">
         <PriceGroup price={product.price} discountPrice={product.discountPrice} />
-        <Button ariaLabel="Add to cart" textSize="lg" onClick={handleAddToCartClick}>
+        <Button aria-label="Add to cart" textSize="lg" onClick={handleAddToCartClick}>
           <FiShoppingCart />
         </Button>
       </footer>

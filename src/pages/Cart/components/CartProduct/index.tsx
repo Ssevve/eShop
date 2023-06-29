@@ -52,7 +52,7 @@ function CartProduct({ initialQuantity, product }: CartProductProps) {
           variant="neutral"
           textSize="lg"
           onClick={handleRemove}
-          ariaLabel="Remove product from cart"
+          aria-label="Remove product from cart"
         >
           <FiTrash />
         </Button>
