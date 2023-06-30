@@ -9,7 +9,6 @@ import {
 import formatPriceString from 'utils/formatPriceString';
 import Button from 'components/common/Button';
 import CartProductList from './components/CartProductList';
-import { useEffect } from 'react';
 
 function Cart() {
   const dispatch = useAppDispatch();
@@ -18,10 +17,6 @@ function Cart() {
   const orderTotal = useAppSelector(selectCartTotal);
   const discount = useAppSelector(selectCartDiscount);
   const products = useAppSelector((state) => state.cart.products);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   const handleClearCart = () => dispatch(clearCart());
   const handleCheckout = () => {};

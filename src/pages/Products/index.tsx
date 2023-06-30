@@ -10,12 +10,6 @@ function Products() {
   const [searchParams] = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || 1;
 
-  let previousPage = undefined;
-  if (currentPage !== previousPage) {
-    previousPage = currentPage;
-    window.scrollTo(0, 0);
-  }
-
   const { data, error, isFetching } = useGetProductsQuery({
     page: currentPage,
     category: searchParams.get('category'),
