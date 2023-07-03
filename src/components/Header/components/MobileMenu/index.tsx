@@ -4,10 +4,9 @@ import { TfiClose } from 'react-icons/tfi';
 import { HiOutlineMail } from 'react-icons/hi';
 import { FiChevronDown, FiPhone } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import categories from 'lib/categories';
 import theme from 'lib/theme';
-import CategoryLink from '../CategoryLink';
 import SocialLinks from 'components/common/SocialLinks';
+import CategoryList from '../CategoryList';
 
 interface MobileMenuProps {
   toggleClose: () => void;
@@ -23,14 +22,13 @@ function MobileMenu({ toggleClose, isOpen }: MobileMenuProps) {
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          key="menu"
           initial={{ width: 0 }}
           animate={{ width: theme.width[80] }}
           exit={{ width: 0 }}
           className="fixed left-0 top-0 z-50 flex h-screen max-w-full flex-col content-start justify-between overflow-hidden border-r bg-white"
         >
           <div className="p-3">
-            <header className="flex items-center justify-between">
+            <section className="flex items-center justify-between">
               <h2 className="font-semibold uppercase text-gray-400">Menu</h2>
               <button
                 aria-label="Close menu"
@@ -40,7 +38,7 @@ function MobileMenu({ toggleClose, isOpen }: MobileMenuProps) {
               >
                 <TfiClose size={16} strokeWidth={2} />
               </button>
-            </header>
+            </section>
             <section className="overflow-y-auto py-6">
               <ul className="space-y-3 overflow-x-hidden font-medium">
                 <li>
@@ -60,31 +58,13 @@ function MobileMenu({ toggleClose, isOpen }: MobileMenuProps) {
                     <span>Products</span>
                     <FiChevronDown size={20} />
                   </button>
-                  {shouldShowCategories && (
-                    <ul className="ml-3 grid gap-3 space-y-1.5 overflow-hidden py-1.5">
-                      <li className="ml-1.5 rounded-sm p-1.5 hover:bg-gray-200">
-                        <CategoryLink onClick={toggleClose} category={null} label="All products" />
-                      </li>
-                      {categories.map((category) => (
-                        <li
-                          className="ml-1.5 w-full rounded-sm p-1.5 hover:bg-gray-200"
-                          key={category}
-                        >
-                          <CategoryLink
-                            onClick={toggleClose}
-                            category={category}
-                            label={category}
-                          />
-                        </li>
-                      ))}
-                    </ul>
-                  )}
+                  {shouldShowCategories && <CategoryList toggleClose={toggleClose} />}
                 </li>
               </ul>
             </section>
           </div>
           <div className="p-3">
-            <footer className={'w-full min-w-max border-t border-gray-200 pt-3'}>
+            <section className="w-full min-w-max border-t border-gray-200 pt-3">
               <h3 className="font-semibold uppercase text-gray-400">Contact us</h3>
               <div className="mt-6">
                 <div className="flex gap-3 selection:items-center">
@@ -109,10 +89,9 @@ function MobileMenu({ toggleClose, isOpen }: MobileMenuProps) {
               <div className="mt-3 flex">
                 <SocialLinks />
               </div>
-            </footer>
+            </section>
           </div>
         </motion.div>
-        // </>
       )}
     </AnimatePresence>
   );
