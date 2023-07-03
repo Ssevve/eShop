@@ -1,35 +1,34 @@
 import { screen } from '@testing-library/react';
 import renderWithProviders from 'utils/renderWithProviders';
 import { productConstraints } from 'lib/constants';
+import formatRating from './formatRating';
 import StarRating from '.';
 
 describe('StarRating component', () => {
   it('should render correct amount of stars', async () => {
     const rating = 2;
     renderWithProviders(<StarRating rating={rating} />);
-    expect(await screen.findAllByTitle(`${rating}/${productConstraints.rating.max}`)).toHaveLength(
-      productConstraints.rating.max
+    expect(screen.getAllByRole('img')).toHaveLength(productConstraints.rating.max);
+  });
+
+  it('should render correct amount of filled stars', async () => {
+    const rating = 2;
+    renderWithProviders(<StarRating rating={rating} />);
+    expect(screen.getAllByLabelText(/filled star/i)).toHaveLength(rating);
+  });
+
+  it('should render correct amount of empty stars', async () => {
+    const rating = 2;
+    renderWithProviders(<StarRating rating={rating} />);
+    expect(screen.getAllByLabelText(/empty star/i)).toHaveLength(
+      productConstraints.rating.max - rating
     );
   });
 
-  it('should render correct amount of gold stars', async () => {
-    const rating = 2;
+  it('should render correctly formatted rating', async () => {
+    const rating = 3;
     renderWithProviders(<StarRating rating={rating} />);
-    const stars = await screen.findAllByRole('img', {
-      name: `${rating}/${productConstraints.rating.max}`,
-    });
-    const goldStars = stars.filter((star) => star.getAttribute('fill') === 'gold');
-    expect(goldStars).toHaveLength(rating);
-  });
-
-  it('should render correct amount of not filled stars', async () => {
-    const rating = 2;
-    renderWithProviders(<StarRating rating={rating} />);
-    const stars = await screen.findAllByRole('img', {
-      name: `${rating}/${productConstraints.rating.max}`,
-    });
-    const transparentStars = stars.filter((star) => star.getAttribute('fill') === 'transparent');
-    expect(transparentStars).toHaveLength(productConstraints.rating.max - rating);
+    expect(screen.getByText(formatRating(rating))).toBeInTheDocument();
   });
 
   it('should render ratings count if it is provided', async () => {
