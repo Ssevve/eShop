@@ -70,29 +70,26 @@ function MobileMenu({ toggleClose, isOpen }: MobileMenuProps) {
                       <span>Products</span>
                       <FiChevronDown size={20} />
                     </button>
-                    <ul
-                      className={cx(
-                        shouldShowCategories ? 'block' : 'hidden',
-                        'space-y-2 overflow-hidden py-2'
-                      )}
-                    >
-                      <li className="ml-3 rounded-sm hover:bg-gray-200">
-                        <CategoryLink
-                          onClick={toggleCategories}
-                          category={null}
-                          label="All products"
-                        />
-                      </li>
-                      {categories.map((category) => (
-                        <li className="ml-3 w-full rounded-sm hover:bg-gray-200" key={category}>
+                    {shouldShowCategories && (
+                      <ul className="space-y-2 overflow-hidden py-2">
+                        <li className="ml-3 rounded-sm hover:bg-gray-200">
                           <CategoryLink
                             onClick={toggleCategories}
-                            category={category}
-                            label={category}
+                            category={null}
+                            label="All products"
                           />
                         </li>
-                      ))}
-                    </ul>
+                        {categories.map((category) => (
+                          <li className="ml-3 w-full rounded-sm hover:bg-gray-200" key={category}>
+                            <CategoryLink
+                              onClick={toggleCategories}
+                              category={category}
+                              label={category}
+                            />
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </li>
                 </ul>
               </section>
