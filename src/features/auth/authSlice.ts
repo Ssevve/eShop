@@ -14,8 +14,8 @@ import {
 import { RootState } from 'app/store';
 import auth from 'lib/firebaseConfig';
 import AuthState from 'types/AuthState';
-import { LoginSchema } from 'features/auth/schemas/loginSchema';
-import FirebaseErrors from 'features/auth/firebaseErrors';
+import { LoginSchema } from './schemas/loginSchema';
+import FirebaseErrors from './firebaseErrors';
 
 const initialState: AuthState = {
   user: undefined,
