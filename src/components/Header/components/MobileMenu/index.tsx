@@ -63,11 +63,7 @@ function MobileMenu({ toggleClose, isOpen }: MobileMenuProps) {
                   {shouldShowCategories && (
                     <ul className="ml-3 grid gap-3 space-y-1.5 overflow-hidden py-1.5">
                       <li className="ml-1.5 rounded-sm p-1.5 hover:bg-gray-200">
-                        <CategoryLink
-                          onClick={toggleCategories}
-                          category={null}
-                          label="All products"
-                        />
+                        <CategoryLink onClick={toggleClose} category={null} label="All products" />
                       </li>
                       {categories.map((category) => (
                         <li
@@ -75,7 +71,7 @@ function MobileMenu({ toggleClose, isOpen }: MobileMenuProps) {
                           key={category}
                         >
                           <CategoryLink
-                            onClick={toggleCategories}
+                            onClick={toggleClose}
                             category={category}
                             label={category}
                           />

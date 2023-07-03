@@ -28,11 +28,19 @@ function DesktopMenu({ shouldShowCategories, toggleCategories }: DesktopMenuProp
           <div className="absolute left-0 right-0 top-full mx-auto max-w-max pt-0.5">
             <ul className="grid grid-cols-2 gap-3 rounded-sm bg-white p-6">
               <li className="hover:underline">
-                <CategoryLink category={null} label="All products" />
+                <CategoryLink
+                  onClick={() => toggleCategories(false)}
+                  category={null}
+                  label="All products"
+                />
               </li>
               {categories.map((category) => (
                 <li className="hover:underline" key={category}>
-                  <CategoryLink category={category} label={category} />
+                  <CategoryLink
+                    onClick={() => toggleCategories(false)}
+                    category={category}
+                    label={category}
+                  />
                 </li>
               ))}
             </ul>

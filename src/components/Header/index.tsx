@@ -17,11 +17,11 @@ function Header() {
   const currentUser = useAppSelector(selectCurrentUser);
   const cartProductCount = useAppSelector(selectCartProductCount);
   const windowWidth = useWindowWidth();
-  const mediumBreakpoint = useBreakpointValue('md');
+  const mobileBreakpoint = useBreakpointValue('lg');
   const [isScrollLocked, setIsScrollLocked] = useScrollLock();
   const [shouldShowMenu, setShouldShowMenu] = useState(false);
 
-  const isMobile = windowWidth < mediumBreakpoint;
+  const isMobile = windowWidth < mobileBreakpoint;
 
   useEffect(() => {
     toggleMenu(false);
@@ -49,7 +49,7 @@ function Header() {
           />
         )}
       </AnimatePresence>
-      <header className={cx('sticky top-0 flex w-screen bg-white shadow md:z-50 md:flex-col')}>
+      <header className="sticky top-0 flex w-screen bg-white shadow lg:z-50">
         <nav className="mx-auto flex h-16 w-full max-w-screen-2xl items-center justify-between gap-3 px-3">
           {isMobile && (
             <button aria-label="Show menu" type="button" onClick={() => toggleMenu()}>
