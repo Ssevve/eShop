@@ -25,21 +25,16 @@ function Header() {
     if (!isMobile) setIsScrollLocked(false);
   }, [isMobile]);
 
-  const handleMenuOpen = () => {
-    setShouldShowMobileMenu(true);
-    setIsScrollLocked(true);
-  };
-
-  const handleMenuClose = () => {
-    setShouldShowMobileMenu(false);
-    setIsScrollLocked(false);
+  const toggleMobileMenu = () => {
+    setShouldShowMobileMenu((prev) => !prev);
+    setIsScrollLocked((prev) => !prev);
   };
 
   return (
     <header className="sticky top-0 z-50 flex bg-white shadow md:flex-col">
       <nav className="mx-auto flex h-16 w-full max-w-screen-2xl items-center justify-between gap-3 p-3">
         {isMobile && (
-          <button aria-label="Show menu" type="button" onClick={handleMenuOpen}>
+          <button aria-label="Show menu" type="button" onClick={toggleMobileMenu}>
             <FiMenu size={24} />
           </button>
         )}
@@ -71,7 +66,7 @@ function Header() {
           </Link>
         </div>
       </nav>
-      {isMobile && <MobileMenu onClose={handleMenuClose} isOpen={shouldShowMobileMenu} />}
+      {isMobile && <MobileMenu toggleClose={toggleMobileMenu} isOpen={shouldShowMobileMenu} />}
     </header>
   );
 }

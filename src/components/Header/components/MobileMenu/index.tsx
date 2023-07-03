@@ -11,11 +11,11 @@ import CategoryLink from '../CategoryLink';
 import SocialLinks from 'components/common/SocialLinks';
 
 interface MobileMenuProps {
-  onClose: () => void;
+  toggleClose: () => void;
   isOpen: boolean;
 }
 
-function MobileMenu({ onClose, isOpen }: MobileMenuProps) {
+function MobileMenu({ toggleClose, isOpen }: MobileMenuProps) {
   const [shouldShowCategories, setShouldShowCategories] = useState(false);
 
   const toggleCategories = () => setShouldShowCategories((prev) => !prev);
@@ -29,7 +29,7 @@ function MobileMenu({ onClose, isOpen }: MobileMenuProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute h-screen w-screen bg-black/60"
+            className="absolute left-0 top-0 h-screen w-screen bg-black/60"
           />
           <motion.div
             key="menu"
@@ -45,7 +45,7 @@ function MobileMenu({ onClose, isOpen }: MobileMenuProps) {
                   aria-label="Close menu"
                   type="button"
                   className="rounded-sm p-1.5 text-gray-400 hover:bg-gray-200 hover:text-gray-800"
-                  onClick={onClose}
+                  onClick={toggleClose}
                 >
                   <TfiClose size={16} strokeWidth={2} />
                 </button>

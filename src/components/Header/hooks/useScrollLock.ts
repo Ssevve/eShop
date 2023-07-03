@@ -1,11 +1,11 @@
-import { useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-type UseLockedBodyOutput = [boolean, (locked: boolean) => void];
+type UseLockedBodyOutput = [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 
 function useScrollLock(initialLocked = false): UseLockedBodyOutput {
   const [locked, setLocked] = useState(initialLocked);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const originalOverflow = document.body.style.overflowY;
     const originalPaddingRight = document.body.style.paddingRight;
     const scrollBarWidth = window.innerWidth - document.body.offsetWidth;
