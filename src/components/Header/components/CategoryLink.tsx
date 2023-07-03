@@ -9,7 +9,7 @@ interface CategoryLinkProps {
 function CategoryLink({ category, label, onClick }: CategoryLinkProps) {
   return (
     <Link
-      className="block h-full w-full min-w-max p-3"
+      className="block h-full min-w-max"
       onClick={onClick}
       to={category ? `/products?category=${category}` : '/products'}
     >

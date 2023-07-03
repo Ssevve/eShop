@@ -71,8 +71,8 @@ function MobileMenu({ toggleClose, isOpen }: MobileMenuProps) {
                       <FiChevronDown size={20} />
                     </button>
                     {shouldShowCategories && (
-                      <ul className="space-y-2 overflow-hidden py-2">
-                        <li className="ml-3 rounded-sm hover:bg-gray-200">
+                      <ul className="ml-3 grid gap-3 space-y-1.5 overflow-hidden py-1.5">
+                        <li className="ml-1.5 rounded-sm p-1.5 hover:bg-gray-200">
                           <CategoryLink
                             onClick={toggleCategories}
                             category={null}
@@ -80,7 +80,10 @@ function MobileMenu({ toggleClose, isOpen }: MobileMenuProps) {
                           />
                         </li>
                         {categories.map((category) => (
-                          <li className="ml-3 w-full rounded-sm hover:bg-gray-200" key={category}>
+                          <li
+                            className="ml-1.5 w-full rounded-sm p-1.5 hover:bg-gray-200"
+                            key={category}
+                          >
                             <CategoryLink
                               onClick={toggleCategories}
                               category={category}
