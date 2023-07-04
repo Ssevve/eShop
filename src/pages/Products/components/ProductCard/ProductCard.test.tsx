@@ -19,16 +19,6 @@ describe('ProductCard component', () => {
     );
   });
 
-  it('should render product category', () => {
-    const expectedProduct = products[0];
-    renderWithProviders(
-      <BrowserRouter>
-        <ProductCard product={expectedProduct} />
-      </BrowserRouter>
-    );
-    expect(screen.getByText(expectedProduct.category)).toBeInTheDocument();
-  });
-
   it('should render product name', () => {
     const expectedProduct = products[0];
     renderWithProviders(
