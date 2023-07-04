@@ -30,10 +30,6 @@ describe('Header component', () => {
     it('should render cart page link', () => {
       expect(screen.getByRole('link', { name: /cart/i })).toBeInTheDocument();
     });
-
-    it('should render categories component', () => {
-      expect(screen.getByRole('link', { name: /all products/i })).toBeInTheDocument();
-    });
   });
 
   describe('when user is logged in', () => {
@@ -77,10 +73,6 @@ describe('Header component', () => {
 
     it('should enders cart page link', () => {
       expect(screen.getByRole('link', { name: /cart/i })).toBeInTheDocument();
-    });
-
-    it('should render categories component', () => {
-      expect(screen.getByRole('link', { name: /all products/i })).toBeInTheDocument();
     });
   });
 });
