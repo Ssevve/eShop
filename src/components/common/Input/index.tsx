@@ -15,7 +15,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         {label}
         <input
           aria-invalid={error ? 'true' : 'false'}
-          className="w-0 min-w-full rounded-sm border border-black p-2"
+          className="w-0 min-w-full rounded-sm border p-2"
           type={type}
           ref={ref}
           {...rest}

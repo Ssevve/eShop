@@ -26,7 +26,7 @@ const routesConfig = [
         element: <Products />,
       },
       {
-        path: '/products/:id',
+        path: '/products/:productId',
         element: <Product />,
       },
       {

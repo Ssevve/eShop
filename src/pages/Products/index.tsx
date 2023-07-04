@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 import SortOrder from 'types/SortOrder';
-import { useGetProductsQuery } from 'app/services/products';
+import { useGetProductsQuery } from 'app/api';
 import PageLoader from 'components/common/PageLoader';
 import Pagination from './components/Pagination';
 import ProductList from './components/ProductList';

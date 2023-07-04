@@ -2,6 +2,14 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import Product from 'types/Product';
 import SortOrder from 'types/SortOrder';
 
+interface Review {
+  _id: string;
+  productId: string;
+  userId: string;
+  message: string;
+  rating: number;
+}
+
 interface GetProductsQueryArgs {
   page: number;
   category: string | null;
@@ -35,7 +43,7 @@ const sortQueries = {
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_URL }),
-  reducerPath: 'productsApi',
+  reducerPath: 'api',
   endpoints: (builder) => ({
     getProductById: builder.query<Product, string | undefined>({
       query: (id) => `products/${id}`,
@@ -52,7 +60,17 @@ export const api = createApi({
         return queryString;
       },
     }),
+    getReviewsById: builder.query<Review[], string | undefined>({
+      query: (productId) => `reviews/${productId}`,
+    }),
+    addReview: builder.mutation<Review, Partial<Review>>({
+      query: (body) => ({
+        url: 'reviews',
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useGetProductsQuery, useGetProductByIdQuery } = api;
+export const { useGetProductsQuery, useGetProductByIdQuery, useGetReviewsByIdQuery, useAddReviewMutation } = api;

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useGetProductByIdQuery } from 'app/services/products';
+import { useGetProductByIdQuery } from 'app/api';
 import { useAppDispatch } from 'app/hooks';
 import { addCartProduct } from 'features/cart/cartSlice';
 import { productConstraints } from 'lib/constants';
@@ -11,12 +11,13 @@ import NotFound from 'pages/NotFound';
 import PageLoader from 'components/common/PageLoader';
 import Error from 'pages/Error';
 import QuantityInput from 'components/common/QuantityInput';
+import Reviews from './components/Reviews';
 
 function Product() {
   const dispatch = useAppDispatch();
   const [quantity, setQuantity] = useState(productConstraints.quantity.min);
-  const { id } = useParams();
-  const { data: product, isFetching, error } = useGetProductByIdQuery(id);
+  const { productId } = useParams();
+  const { data: product, isFetching, error } = useGetProductByIdQuery(productId);
 
   const handleAddToCartClick = () => {
     if (product) {
@@ -32,9 +33,9 @@ function Product() {
 
   if (isFetching) return <PageLoader />;
   return (
-    <section className="m-auto flex w-full flex-wrap items-center justify-center gap-8">
+    <section>
       {product && (
-        <>
+        <div className="mx-auto flex w-full flex-wrap items-center justify-center gap-8">
           <img className="w-full max-w-sm" src={product.imageUrl} alt={product.name} />
           <section className="flex w-full max-w-lg flex-col gap-6">
             <header className="grid gap-y-3">
@@ -61,8 +62,9 @@ function Product() {
               <Button onClick={handleAddToCartClick}>Add to cart</Button>
             </footer>
           </section>
-        </>
+        </div>
       )}
+      <Reviews productId={productId} />
     </section>
   );
 }
