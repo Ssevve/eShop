@@ -63,7 +63,7 @@ export const api = createApi({
     getReviewsById: builder.query<Review[], string | undefined>({
       query: (productId) => `reviews/${productId}`,
     }),
-    addReview: builder.mutation<Review, Partial<Review>>({
+    addReview: builder.mutation<Review, Omit<Review, "_id">>({
       query: (body) => ({
         url: 'reviews',
         method: 'POST',
