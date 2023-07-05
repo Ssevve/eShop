@@ -68,7 +68,9 @@ function RegisterForm() {
         error={errors.repeatPassword}
         {...register('repeatPassword')}
       />
-      <SubmitButton text="Register" isLoading={isPendingAuth} />
+      <SubmitButton fullWidth isLoading={isPendingAuth}>
+        Register
+      </SubmitButton>
       <footer>
         <p className="text-md mt-4 flex justify-center gap-2 text-sm">
           Have an account?

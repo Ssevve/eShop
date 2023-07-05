@@ -59,7 +59,9 @@ function LoginForm() {
       </header>
       <Input label="Email" type="email" error={errors.email} {...register('email')} />
       <Input label="Password" type="password" error={errors.password} {...register('password')} />
-      <SubmitButton text="Log in" isLoading={isPendingAuth} />
+      <SubmitButton fullWidth isLoading={isPendingAuth}>
+        Log in
+      </SubmitButton>
       <footer>
         <p className="text-md mt-4 flex justify-center gap-2 text-sm">
           Need an account?
