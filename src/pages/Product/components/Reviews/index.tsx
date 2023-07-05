@@ -26,7 +26,7 @@ function Reviews({ productId }: ReviewsProps) {
   );
 
   return (
-    <section className="mt-6">
+    <section className="mt-6 w-full">
       <h2 className="text-4xl font-bold">Reviews</h2>
       {currentUser ? (
         <>
