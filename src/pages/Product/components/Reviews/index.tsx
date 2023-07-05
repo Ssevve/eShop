@@ -1,4 +1,4 @@
-import { useGetReviewsByIdQuery } from 'app/api';
+import { useGetReviewsByProductIdQuery } from 'app/api';
 import { useAppSelector } from 'app/hooks';
 import Loader from 'components/common/Loader';
 
@@ -15,10 +15,14 @@ interface ReviewsProps {
 function Reviews({ productId }: ReviewsProps) {
   const [isEditing, setIsEditing] = useState(false);
   const currentUser = useAppSelector(selectCurrentUser);
-  const { data: reviews, isFetching: isFetchingReviews, error } = useGetReviewsByIdQuery(productId);
+  const {
+    data: reviews,
+    isFetching: isFetchingReviews,
+    error,
+  } = useGetReviewsByProductIdQuery(productId);
   const currentUserReview = useMemo(
     () => reviews?.find((review) => review.userId === currentUser?.uid),
-    [currentUser?.uid, productId]
+    [currentUser?.uid, productId, reviews]
   );
 
   return (

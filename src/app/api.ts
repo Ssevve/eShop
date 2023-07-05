@@ -37,9 +37,11 @@ const sortQueries = {
 export const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_URL }),
   reducerPath: 'api',
+  tagTypes: ['Product', 'Reviews'],
   endpoints: (builder) => ({
     getProductById: builder.query<Product, string | undefined>({
       query: (id) => `products/${id}`,
+      providesTags: ['Product'],
     }),
     getProducts: builder.query<GetProductsResponse, GetProductsQueryArgs>({
       query: ({ page, category, sortOrder }) => {
@@ -53,17 +55,19 @@ export const api = createApi({
         return queryString;
       },
     }),
-    getReviewsById: builder.query<Review[], string | undefined>({
+    getReviewsByProductId: builder.query<Review[], string | undefined>({
       query: (productId) => `reviews/${productId}`,
+      providesTags: ['Reviews'],
     }),
-    addReview: builder.mutation<Review, Omit<Review, "_id">>({
+    addReview: builder.mutation<Review, Omit<Review, '_id'>>({
       query: (body) => ({
         url: 'reviews',
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['Product', 'Reviews'],
     }),
   }),
 });
 
-export const { useGetProductsQuery, useGetProductByIdQuery, useGetReviewsByIdQuery, useAddReviewMutation } = api;
+export const { useGetProductsQuery, useGetProductByIdQuery, useGetReviewsByProductIdQuery, useAddReviewMutation } = api;
