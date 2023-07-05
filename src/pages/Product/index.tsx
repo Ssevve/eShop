@@ -43,7 +43,11 @@ function Product() {
               <span className="mb-3 text-sm font-bold uppercase text-gray-400">
                 {product.category}
               </span>
-              <StarRating rating={product.rating} ratingsCount={product.ratingsCount} />
+              <StarRating
+                rating={product.rating}
+                showRatingsCount
+                ratingsCount={product.ratingsCount}
+              />
             </header>
             <section>
               <p>
