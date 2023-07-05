@@ -8,7 +8,7 @@ import PriceGroup from 'components/common/PriceGroup';
 import StarRating from 'components/common/StarRating';
 import Button from 'components/common/Button';
 import NotFound from 'pages/NotFound';
-import PageLoader from 'components/common/PageLoader';
+import Loader from 'components/common/Loader';
 import Error from 'pages/Error';
 import QuantityInput from 'components/common/QuantityInput';
 import Reviews from './components/Reviews';
@@ -31,7 +31,7 @@ function Product() {
     return <Error />;
   }
 
-  if (isFetching) return <PageLoader />;
+  if (isFetching) return <Loader />;
   return (
     <section>
       {product && (
@@ -64,7 +64,7 @@ function Product() {
           </section>
         </div>
       )}
-      <Reviews productId={productId} />
+      <Reviews productId={productId!} />
     </section>
   );
 }
