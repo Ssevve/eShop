@@ -2,7 +2,7 @@ import SubmitButton from 'components/common/SubmitButton';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { FiStar } from 'react-icons/fi';
 import theme from 'lib/theme';
-import { useAddReviewMutation } from 'app/api';
+import { useEditReviewMutation } from 'app/api';
 import Review from 'types/Review';
 import Button from 'components/common/Button';
 
@@ -23,13 +23,19 @@ function EditReviewForm({ review, setIsEditing }: EditReviewFormProps) {
       message: review.message,
     },
   });
-  const [addReview, { isLoading: isAddingReview }] = useAddReviewMutation();
+  const [editReview, { isLoading }] = useEditReviewMutation();
 
-  // const onSubmit: SubmitHandler<EditReviewSchema> = ({ rating, message }: EditReviewSchema) =>
-  //   addReview({ productId, userId, message, rating: Number(rating) });
+  const onSubmit: SubmitHandler<EditReviewSchema> = ({ rating, message }: EditReviewSchema) =>
+    editReview({
+      _id: review._id,
+      productId: review.productId,
+      userId: review.userId,
+      message,
+      rating: Number(rating),
+    });
 
   return (
-    <form className="my-6">
+    <form className="my-6" onSubmit={handleSubmit(onSubmit)}>
       <h4 className="mb-3 font-semibold">Rating</h4>
       <ul className="rounded-sm border bg-white font-medium sm:flex">
         <li className="w-full border-b sm:border-b-0 sm:border-r">
@@ -95,10 +101,13 @@ function EditReviewForm({ review, setIsEditing }: EditReviewFormProps) {
       </ul>
       <label className="my-6 block font-semibold">
         Message
-        <textarea {...register('message')} className="mt-3 w-0 min-w-full rounded-sm border p-3" />
+        <textarea
+          {...register('message')}
+          className="mt-3 w-0 min-w-full rounded-sm border p-3 font-normal"
+        />
       </label>
       <div className="flex gap-3">
-        <SubmitButton isLoading={isAddingReview}>Edit review</SubmitButton>
+        <SubmitButton isLoading={isLoading}>Edit review</SubmitButton>
         <Button onClick={() => setIsEditing(false)} variant="neutral">
           Cancel
         </Button>

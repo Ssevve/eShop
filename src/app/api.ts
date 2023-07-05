@@ -60,7 +60,7 @@ export const api = createApi({
       query: (productId) => `reviews/${productId}`,
       providesTags: ['Reviews'],
     }),
-    addReview: builder.mutation<Review, Omit<Review, '_id'>>({
+    addReview: builder.mutation<void, Omit<Review, '_id'>>({
       query: (body) => ({
         url: 'reviews',
         method: 'POST',
@@ -68,7 +68,15 @@ export const api = createApi({
       }),
       invalidatesTags: ['Product', 'Reviews', 'Products'],
     }),
+    editReview: builder.mutation<void, Review>({
+      query: (body) => ({
+        url: 'reviews',
+        method: 'PUT',
+        body,
+      }),
+      invalidatesTags: ['Product', 'Reviews', 'Products'],
+    }),
   }),
 });
 
-export const { useGetProductsQuery, useGetProductByIdQuery, useGetReviewsByProductIdQuery, useAddReviewMutation } = api;
+export const { useGetProductsQuery, useGetProductByIdQuery, useGetReviewsByProductIdQuery, useAddReviewMutation, useEditReviewMutation } = api;

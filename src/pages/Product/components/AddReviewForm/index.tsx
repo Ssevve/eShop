@@ -16,7 +16,7 @@ interface AddReviewSchema {
 
 function AddReviewForm({ userId, productId }: AddReviewFormProps) {
   const { register, handleSubmit } = useForm<AddReviewSchema>();
-  const [addReview, { isLoading: isAddingReview }] = useAddReviewMutation();
+  const [addReview, { isLoading }] = useAddReviewMutation();
 
   const onSubmit: SubmitHandler<AddReviewSchema> = ({ rating, message }: AddReviewSchema) =>
     addReview({ productId, userId, message, rating: Number(rating) });
@@ -88,9 +88,12 @@ function AddReviewForm({ userId, productId }: AddReviewFormProps) {
       </ul>
       <label className="my-6 block font-semibold">
         Message
-        <textarea {...register('message')} className="mt-3 w-0 min-w-full rounded-sm border p-3" />
+        <textarea
+          {...register('message')}
+          className="mt-3 w-0 min-w-full rounded-sm border p-3 font-normal"
+        />
       </label>
-      <SubmitButton isLoading={isAddingReview}>Send review</SubmitButton>
+      <SubmitButton isLoading={isLoading}>Send review</SubmitButton>
     </form>
   );
 }
