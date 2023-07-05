@@ -37,7 +37,7 @@ const sortQueries = {
 export const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_URL }),
   reducerPath: 'api',
-  tagTypes: ['Product', 'Reviews'],
+  tagTypes: ['Product', 'Reviews', 'Products'],
   endpoints: (builder) => ({
     getProductById: builder.query<Product, string | undefined>({
       query: (id) => `products/${id}`,
@@ -54,6 +54,7 @@ export const api = createApi({
 
         return queryString;
       },
+      providesTags: ['Products'],
     }),
     getReviewsByProductId: builder.query<Review[], string | undefined>({
       query: (productId) => `reviews/${productId}`,
@@ -65,7 +66,7 @@ export const api = createApi({
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['Product', 'Reviews'],
+      invalidatesTags: ['Product', 'Reviews', 'Products'],
     }),
   }),
 });
