@@ -1,14 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import Product from 'types/Product';
 import SortOrder from 'types/SortOrder';
-
-interface Review {
-  _id: string;
-  productId: string;
-  userId: string;
-  message: string;
-  rating: number;
-}
+import Review from 'types/Review';
 
 interface GetProductsQueryArgs {
   page: number;
