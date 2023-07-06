@@ -43,7 +43,7 @@ function ReviewForm(props: ReviewFormProps) {
         _id,
         productId,
         userId,
-        message,
+        message: message.trim(),
         rating: Number(rating),
       });
     }
@@ -52,7 +52,7 @@ function ReviewForm(props: ReviewFormProps) {
     return createReview({
       productId,
       userId,
-      message,
+      message: message.trim(),
       rating: Number(rating),
     });
   };
@@ -61,9 +61,10 @@ function ReviewForm(props: ReviewFormProps) {
     <form className="my-6" onSubmit={handleSubmit(onSubmit)}>
       <h4 className="mb-3 font-semibold">Rating</h4>
       <RatingInputGroup {...register('rating')} />
-      <label className="my-6 block font-semibold">
-        Message
+      <label className="my-6 block">
+        <span className="font-semibold">Message</span> <span>(optional)</span>
         <textarea
+          rows={10}
           {...register('message')}
           className="mt-3 w-0 min-w-full rounded-sm border p-3 font-normal"
         />

@@ -33,45 +33,43 @@ function Product() {
 
   if (isFetching) return <Loader />;
   return (
-    <section className="mx-auto w-full max-w-4xl gap-12">
-      {product && (
-        <>
-          <div className="mb-12 flex items-center justify-center gap-12">
-            <img className="w-full max-w-sm" src={product.imageUrl} alt={product.name} />
-            <section className="flex w-full flex-col gap-6">
-              <header className="grid gap-y-3">
-                <h1 className="text-4xl font-bold leading-tight">{product.name}</h1>
-                <span className="mb-3 text-sm font-bold uppercase text-gray-400">
-                  {product.category}
-                </span>
-                <StarRating
-                  rating={product.rating}
-                  showRatingsCount
-                  ratingsCount={product.ratingsCount}
-                />
-              </header>
-              <section>
-                <p>
-                  <span className="mr-1 font-semibold">Brand:</span>
-                  {product.brand}
-                </p>
-                <p>
-                  <span className="mr-1 font-semibold">Quantity:</span>
-                  {product.quantity}
-                </p>
-              </section>
-              <p className="break-words">{product.description}</p>
-              <PriceGroup price={product.price} discountPrice={product.discountPrice} />
-              <footer className="flex gap-6">
-                <QuantityInput count={quantity} setCount={setQuantity} />
-                <Button onClick={addToCart}>Add to cart</Button>
-              </footer>
+    product && (
+      <section className="mx-auto w-full max-w-4xl gap-12">
+        <div className="mb-12 flex flex-1 flex-wrap items-center justify-center gap-12">
+          <img className="w-full max-w-sm" src={product.imageUrl} alt={product.name} />
+          <div className="flex flex-1 flex-col gap-6">
+            <header className="grid gap-y-3">
+              <h1 className="text-4xl font-bold leading-tight">{product.name}</h1>
+              <span className="mb-3 text-sm font-bold uppercase text-gray-400">
+                {product.category}
+              </span>
+              <StarRating
+                rating={product.rating}
+                showRatingsCount
+                ratingsCount={product.ratingsCount}
+              />
+            </header>
+            <section>
+              <p>
+                <span className="mr-1 font-semibold">Brand:</span>
+                {product.brand}
+              </p>
+              <p>
+                <span className="mr-1 font-semibold">Quantity:</span>
+                {product.quantity}
+              </p>
             </section>
+            <p className="break-words">{product.description}</p>
+            <PriceGroup price={product.price} discountPrice={product.discountPrice} />
+            <footer className="flex gap-6">
+              <QuantityInput count={quantity} setCount={setQuantity} />
+              <Button onClick={addToCart}>Add to cart</Button>
+            </footer>
           </div>
-          {productId && <Reviews productId={productId} />}
-        </>
-      )}
-    </section>
+        </div>
+        {productId && <Reviews productId={productId} />}
+      </section>
+    )
   );
 }
 

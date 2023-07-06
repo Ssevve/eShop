@@ -17,22 +17,24 @@ function Review({ review, shouldShowControls = false, setIsEditing }: ReviewProp
 
   return (
     <article className="mt-12 first-of-type:mt-6">
-      <div className="mb-3 xs:flex xs:items-center xs:space-x-3">
-        <div className="mb-3 flex items-center gap-3 xs:mb-0">
-          <img className="h-10 w-10 rounded-full" src={cherryAvatar} alt="" />
-          <p className="font-medium">Author</p>
+      <div className="flex">
+        <img className="h-10 w-10 rounded-full" src={cherryAvatar} alt="" />
+        <div className="ml-3">
+          <div className="mb-3 flex gap-3">
+            <p className="font-medium">Author</p>
+            <StarRating rating={review.rating} />
+          </div>
+          <p className="mt-3 max-w-2xl">{review.message}</p>
+          {isOwnReview && shouldShowControls && (
+            <button
+              onClick={() => setIsEditing(true)}
+              className="mt-3 inline-block rounded-sm border bg-white px-3 py-1.5 text-xs font-medium hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200"
+            >
+              Edit
+            </button>
+          )}
         </div>
-        <StarRating rating={review.rating} />
       </div>
-      <p className="mt-3">{review.message}</p>
-      {isOwnReview && shouldShowControls && (
-        <button
-          onClick={() => setIsEditing(true)}
-          className="mt-3 inline-block rounded-sm border bg-white px-3 py-1.5 text-xs font-medium hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200"
-        >
-          Edit
-        </button>
-      )}
     </article>
   );
 }
