@@ -45,7 +45,7 @@ function Header() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute left-0 right-0 z-50 h-screen w-screen bg-black/60"
+            className="fixed left-0 top-0 z-50 h-screen w-screen bg-black/60"
           />
         )}
       </AnimatePresence>
