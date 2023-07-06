@@ -1,12 +1,10 @@
+import { useMemo, useState } from 'react';
 import { useGetReviewsByProductIdQuery } from 'app/api';
 import { useAppSelector } from 'app/hooks';
-import Loader from 'components/common/Loader';
-
 import { selectCurrentUser } from 'features/auth/authSlice';
-import AddReviewForm from '../AddReviewForm';
-import EditReviewForm from '../EditReviewForm';
+import Loader from 'components/common/Loader';
 import Review from '../Review';
-import { useMemo, useState } from 'react';
+import ReviewForm from '../ReviewForm';
 
 interface ReviewsProps {
   productId: string;
@@ -33,12 +31,12 @@ function Reviews({ productId }: ReviewsProps) {
           <h3 className="my-6 text-lg font-bold">Your review</h3>
           {currentUserReview ? (
             isEditing ? (
-              <EditReviewForm review={currentUserReview} setIsEditing={setIsEditing} />
+              <ReviewForm isEditForm review={currentUserReview} setIsEditing={setIsEditing} />
             ) : (
               <Review shouldShowControls review={currentUserReview} setIsEditing={setIsEditing} />
             )
           ) : (
-            <AddReviewForm userId={currentUser.uid} productId={productId} />
+            <ReviewForm userId={currentUser.uid} productId={productId} />
           )}
         </>
       ) : (
