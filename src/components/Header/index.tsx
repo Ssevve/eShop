@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import cx from 'classnames';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { FiUser, FiMenu, FiShoppingCart } from 'react-icons/fi';
