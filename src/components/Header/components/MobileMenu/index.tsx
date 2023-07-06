@@ -42,10 +42,7 @@ function MobileMenu({ toggleClose, isOpen }: MobileMenuProps) {
             <section className="overflow-y-auto py-6">
               <ul className="space-y-3 overflow-x-hidden font-medium">
                 <li>
-                  <Link
-                    to="/"
-                    className="flex items-center rounded-sm p-3 text-gray-900 hover:bg-gray-200"
-                  >
+                  <Link to="/" className="flex items-center rounded-sm p-3 hover:bg-gray-200">
                     Home
                   </Link>
                 </li>

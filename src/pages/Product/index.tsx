@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useGetProductByIdQuery } from 'app/services/products';
+import { useGetProductByIdQuery } from 'app/api';
 import { useAppDispatch } from 'app/hooks';
 import { addCartProduct } from 'features/cart/cartSlice';
 import { productConstraints } from 'lib/constants';
@@ -8,17 +8,18 @@ import PriceGroup from 'components/common/PriceGroup';
 import StarRating from 'components/common/StarRating';
 import Button from 'components/common/Button';
 import NotFound from 'pages/NotFound';
-import PageLoader from 'components/common/PageLoader';
+import Loader from 'components/common/Loader';
 import Error from 'pages/Error';
 import QuantityInput from 'components/common/QuantityInput';
+import Reviews from './components/Reviews';
 
 function Product() {
   const dispatch = useAppDispatch();
   const [quantity, setQuantity] = useState(productConstraints.quantity.min);
-  const { id } = useParams();
-  const { data: product, isFetching, error } = useGetProductByIdQuery(id);
+  const { productId } = useParams();
+  const { data: product, isFetching, error } = useGetProductByIdQuery(productId);
 
-  const handleAddToCartClick = () => {
+  const addToCart = () => {
     if (product) {
       dispatch(addCartProduct({ quantity, product }));
     }
@@ -30,19 +31,23 @@ function Product() {
     return <Error />;
   }
 
-  if (isFetching) return <PageLoader />;
+  if (isFetching) return <Loader />;
   return (
-    <section className="m-auto flex w-full flex-wrap items-center justify-center gap-8">
-      {product && (
-        <>
+    product && (
+      <section className="mx-auto w-full max-w-4xl gap-12">
+        <div className="mb-12 flex flex-1 flex-wrap items-center justify-center gap-12">
           <img className="w-full max-w-sm" src={product.imageUrl} alt={product.name} />
-          <section className="flex w-full max-w-lg flex-col gap-6">
+          <div className="flex flex-1 flex-col gap-6">
             <header className="grid gap-y-3">
               <h1 className="text-4xl font-bold leading-tight">{product.name}</h1>
               <span className="mb-3 text-sm font-bold uppercase text-gray-400">
                 {product.category}
               </span>
-              <StarRating rating={product.rating} ratingsCount={product.ratingsCount} />
+              <StarRating
+                rating={product.rating}
+                showRatingsCount
+                ratingsCount={product.ratingsCount}
+              />
             </header>
             <section>
               <p>
@@ -58,12 +63,13 @@ function Product() {
             <PriceGroup price={product.price} discountPrice={product.discountPrice} />
             <footer className="flex gap-6">
               <QuantityInput count={quantity} setCount={setQuantity} />
-              <Button onClick={handleAddToCartClick}>Add to cart</Button>
+              <Button onClick={addToCart}>Add to cart</Button>
             </footer>
-          </section>
-        </>
-      )}
-    </section>
+          </div>
+        </div>
+        {productId && <Reviews productId={productId} />}
+      </section>
+    )
   );
 }
 

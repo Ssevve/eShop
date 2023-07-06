@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router-dom';
 import SortOrder from 'types/SortOrder';
-import { useGetProductsQuery } from 'app/services/products';
-import PageLoader from 'components/common/PageLoader';
+import { useGetProductsQuery } from 'app/api';
+import Loader from 'components/common/Loader';
 import Pagination from './components/Pagination';
 import ProductList from './components/ProductList';
 import Filters from './components/Filters';
@@ -28,7 +28,7 @@ function Products() {
       </>
     );
   }
-  if (isFetching) return <PageLoader />;
+  if (isFetching) return <Loader />;
   return (
     <section className="mx-auto flex w-full flex-col gap-4">
       <Filters />

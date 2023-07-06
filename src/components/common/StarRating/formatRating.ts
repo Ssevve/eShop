@@ -1,5 +1,5 @@
 function formatRating(rating: number) {
-  return rating.toFixed(1);
+  return Number(rating).toFixed(1);
 }
 
 export default formatRating;

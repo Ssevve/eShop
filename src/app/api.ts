@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import Product from 'types/Product';
 import SortOrder from 'types/SortOrder';
+import Review from 'types/Review';
 
 interface GetProductsQueryArgs {
   page: number;
@@ -35,10 +36,12 @@ const sortQueries = {
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_URL }),
-  reducerPath: 'productsApi',
+  reducerPath: 'api',
+  tagTypes: ['Product', 'Reviews', 'Products'],
   endpoints: (builder) => ({
     getProductById: builder.query<Product, string | undefined>({
       query: (id) => `products/${id}`,
+      providesTags: ['Product'],
     }),
     getProducts: builder.query<GetProductsResponse, GetProductsQueryArgs>({
       query: ({ page, category, sortOrder }) => {
@@ -51,8 +54,29 @@ export const api = createApi({
 
         return queryString;
       },
+      providesTags: ['Products'],
+    }),
+    getReviewsByProductId: builder.query<Review[], string | undefined>({
+      query: (productId) => `reviews/${productId}`,
+      providesTags: ['Reviews'],
+    }),
+    addReview: builder.mutation<void, Omit<Review, '_id'>>({
+      query: (body) => ({
+        url: 'reviews',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Product', 'Reviews', 'Products'],
+    }),
+    editReview: builder.mutation<void, Review>({
+      query: (body) => ({
+        url: 'reviews',
+        method: 'PUT',
+        body,
+      }),
+      invalidatesTags: ['Product', 'Reviews', 'Products'],
     }),
   }),
 });
 
-export const { useGetProductsQuery, useGetProductByIdQuery } = api;
+export const { useGetProductsQuery, useGetProductByIdQuery, useGetReviewsByProductIdQuery, useAddReviewMutation, useEditReviewMutation } = api;

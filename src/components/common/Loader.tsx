@@ -1,7 +1,7 @@
 import { ThreeDots } from 'react-loader-spinner';
 import theme from 'lib/theme';
 
-function PageLoader() {
+function Loader() {
   return (
     <div className="mx-auto">
       <ThreeDots ariaLabel="Loading" height={48} width={60} color={theme.colors['primary']} />
@@ -9,4 +9,4 @@ function PageLoader() {
   );
 }
 
-export default PageLoader;
+export default Loader;

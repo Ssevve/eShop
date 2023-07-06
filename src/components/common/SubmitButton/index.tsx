@@ -1,20 +1,20 @@
 import { ThreeDots } from 'react-loader-spinner';
+import Button, { ButtonProps } from '../Button';
 
-interface SubmitButtonProps {
-  text: string;
+interface SubmitButtonProps extends ButtonProps {
   isLoading: boolean;
 }
 
-function SubmitButton({ text, isLoading }: SubmitButtonProps) {
+function SubmitButton({ isLoading, children, ...rest }: SubmitButtonProps) {
   return (
-    <button
-      className="flex justify-center rounded-sm border border-primary bg-primary p-2 font-bold text-white transition duration-75 ease-out hover:border-primary hover:bg-primary hover:ease-in"
+    <Button
       type="submit"
-      aria-label={isLoading ? 'Loading' : ''}
+      aria-label={isLoading ? 'Loading' : undefined}
       disabled={isLoading}
+      {...rest}
     >
-      {isLoading ? <ThreeDots height={24} width={30} color="#fff" /> : text}
-    </button>
+      {isLoading ? <ThreeDots height={24} width={30} color="#fff" /> : children}
+    </Button>
   );
 }
 
