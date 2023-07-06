@@ -9,12 +9,13 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  User as FirebaseUser,
+  UserInfo as FirebaseUserInfo,
 } from 'firebase/auth';
 import { RootState } from 'app/store';
 import auth from 'lib/firebaseConfig';
 import AuthState from 'types/AuthState';
 import { LoginSchema } from './schemas/loginSchema';
+import { RegisterSchema } from './schemas/registerSchema';
 import FirebaseErrors from './firebaseErrors';
 
 const initialState: AuthState = {
@@ -32,8 +33,7 @@ function isPendingAction(action: Action) {
 }
 
 export const registerUser = createAsyncThunk(
-  'auth/registerUser',
-  ({ email, password }: LoginSchema) =>
+  'auth/registerUser', async ({ email, password  }: RegisterSchema) =>
     createUserWithEmailAndPassword(auth, email, password)
 );
 
@@ -51,12 +51,11 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setUser(state, action: PayloadAction<FirebaseUser | undefined>) {
+    setUser(state, action: PayloadAction<FirebaseUserInfo | undefined>) {
       if (action.payload) {
         state.user = {
           uid: action.payload.uid,
-          email: action.payload.email!,
-          phoneNumber: action.payload.phoneNumber,
+          email: action.payload.email || '',
         };
       } else {
         state.user = undefined;
@@ -75,16 +74,14 @@ export const authSlice = createSlice({
         state.status = 'SUCCESS';
         state.user = {
           uid: action.payload.user.uid,
-          email: action.payload.user.email!,
-          phoneNumber: action.payload.user.phoneNumber,
+          email: action.payload.user.email || '',
         };
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.status = 'SUCCESS';
         state.user = {
           uid: action.payload.user.uid,
-          email: action.payload.user.email!,
-          phoneNumber: action.payload.user.phoneNumber,
+          email: action.payload.user.email || '',
         };
       })
       .addCase(logoutUser.fulfilled, (state) => {

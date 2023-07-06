@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithProviders from 'utils/renderWithProviders';
-import { passwordConstraints } from 'lib/constants';
+import { userConstraints } from 'lib/constants';
 import mockUser from 'mocks/user';
 import LoginForm from '.';
 
@@ -32,7 +32,7 @@ describe('LoginForm component', () => {
     await user.click(screen.getByRole('button', { name: 'Log in' }));
 
     expect(
-      screen.getByText(`Minimum password length is ${passwordConstraints.min}`)
+      screen.getByText(`Minimum password length is ${userConstraints.password.min}`)
     ).toBeInTheDocument();
   });
 

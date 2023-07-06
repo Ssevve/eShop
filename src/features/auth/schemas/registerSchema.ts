@@ -1,9 +1,11 @@
 import { z } from 'zod';
+import { userConstraints } from 'lib/constants';
 
 export const registerSchema = z
   .object({
     email: z.string().email('Invalid email'),
-    password: z.string().min(6, 'Minimum password length is 6'),
+    password: z.string()
+      .min(userConstraints.password.min, `Minimum password length is ${userConstraints.password.min}`),
     repeatPassword: z.string(),
   })
   .refine((data) => data.password === data.repeatPassword, {
@@ -11,4 +13,5 @@ export const registerSchema = z
     message: "Passwords don't match",
   });
 
-export type RegisterSchema = z.infer<typeof registerSchema>;
+type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
+export type RegisterSchema = Optional<z.infer<typeof registerSchema>, 'repeatPassword'>;
