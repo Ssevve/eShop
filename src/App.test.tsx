@@ -70,7 +70,6 @@ it("should render account page if path is '/account' and user is logged in", asy
       user: {
         uid: mockUser.uid,
         email: mockUser.email,
-        phoneNumber: mockUser.phoneNumber,
       },
       status,
       error: {

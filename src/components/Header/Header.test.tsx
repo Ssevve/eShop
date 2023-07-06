@@ -39,7 +39,6 @@ describe('Header component', () => {
         user: {
           uid: mockUser.uid,
           email: mockUser.email,
-          phoneNumber: mockUser.phoneNumber,
         },
         status,
         error: {
