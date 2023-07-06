@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import { forwardRef } from 'react';
 import { FieldError } from 'react-hook-form/dist/types';
 
