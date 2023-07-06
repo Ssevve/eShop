@@ -1,7 +1,6 @@
 import { screen } from '@testing-library/react';
 import renderWithProviders from 'utils/renderWithProviders';
 import { productConstraints } from 'lib/constants';
-import formatRating from './formatRating';
 import StarRating from '.';
 
 describe('StarRating component', () => {
@@ -23,12 +22,6 @@ describe('StarRating component', () => {
     expect(screen.getAllByLabelText(/empty star/i)).toHaveLength(
       productConstraints.rating.max - rating
     );
-  });
-
-  it('should render correctly formatted rating', async () => {
-    const rating = 3;
-    renderWithProviders(<StarRating rating={rating} />);
-    expect(screen.getByText(formatRating(rating))).toBeInTheDocument();
   });
 
   it('should render ratings count if it is provided', async () => {

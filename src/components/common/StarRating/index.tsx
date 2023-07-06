@@ -1,7 +1,6 @@
 import { FiStar } from 'react-icons/fi';
 import { productConstraints } from 'lib/constants';
 import theme from 'lib/theme';
-import formatRating from './formatRating';
 
 interface StarRatingProps {
   rating: number;
@@ -35,7 +34,7 @@ function StarRating({
     >
       {stars}
       <span className="ml-3 mr-3 rounded-sm bg-green-100 px-3 py-0.5 text-xs font-semibold text-primary">
-        {formatRating(rating)}
+        {rating}
       </span>
       {showRatingsCount && (
         <span className="text-sm">
