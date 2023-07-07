@@ -17,10 +17,17 @@ export const productConstraints: ProductConstraints = {
 };
 
 type PasswordConstraints = ConstraintRecord<MinKey>;
-type UserConstraints = { password: PasswordConstraints };
+type NameConstraints = ConstraintRecord<MinKey>;
+type UserConstraints = { password: PasswordConstraints, firstName: NameConstraints, lastName: NameConstraints };
 
 export const userConstraints: UserConstraints = {
   password: {
     min: 6,
+  },
+  firstName: {
+    min: 2,
+  },
+  lastName: {
+    min: 2,
   },
 };

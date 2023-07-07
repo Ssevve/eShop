@@ -1,22 +1,25 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import {
-  registerUser,
   resetAuthStatusAndErrors,
   selectIsPendingAuth,
+  selectIsRegisterSuccess,
 } from 'features/auth/authSlice';
 import { registerSchema, RegisterSchema } from 'features/auth/schemas/registerSchema';
 import Logo from 'components/common/Logo/Logo';
 import ErrorBox from 'components/common/ErrorBox';
 import Input from 'components/common/Input';
 import SubmitButton from 'components/common/SubmitButton';
+import { registerUser } from 'features/auth/authSlice';
 
 function RegisterForm() {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const emailTaken = useAppSelector((state) => state.auth.error.emailTaken);
+  const registerSuccess = useAppSelector(selectIsRegisterSuccess);
   const serverError = useAppSelector((state) => state.auth.error.server);
   const isPendingAuth = useAppSelector(selectIsPendingAuth);
   const {
@@ -38,12 +41,18 @@ function RegisterForm() {
     }
   }, [emailTaken]);
 
+  if (registerSuccess) navigate('/login');
+
   useEffect(() => {
     dispatch(resetAuthStatusAndErrors());
   }, []);
 
-  const onSubmit: SubmitHandler<RegisterSchema> = ({ email, password }: RegisterSchema) =>
-    dispatch(registerUser({ email, password }));
+  const onSubmit: SubmitHandler<RegisterSchema> = ({
+    email,
+    firstName,
+    lastName,
+    password,
+  }: RegisterSchema) => dispatch(registerUser({ email, firstName, lastName, password }));
 
   return (
     <form
@@ -60,6 +69,8 @@ function RegisterForm() {
         />
       </header>
       <Input label="Email" type="email" error={errors.email} {...register('email')} />
+      <Input label="First Name" type="text" error={errors.firstName} {...register('firstName')} />
+      <Input label="Last Name" type="text" error={errors.lastName} {...register('lastName')} />
       <Input label="Password" type="password" error={errors.password} {...register('password')} />
       <Input
         label="Repeat Password"

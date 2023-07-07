@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import Product from 'types/Product';
 import SortOrder from 'types/SortOrder';
 import Review from 'types/Review';
+import firebase from 'lib/firebaseConfig';
 
 interface GetProductsQueryArgs {
   page: number;
@@ -35,7 +36,16 @@ const sortQueries = {
 };
 
 export const api = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_URL }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: import.meta.env.VITE_API_URL,
+    prepareHeaders: async (headers) => {
+      const token = await firebase.currentUser?.getIdToken();
+      if (token) {
+        headers.set('authorization', `Bearer ${token}`)
+      }
+      return headers
+    }
+  }),
   reducerPath: 'api',
   tagTypes: ['Product', 'Reviews', 'Products'],
   endpoints: (builder) => ({
@@ -60,15 +70,18 @@ export const api = createApi({
       query: (productId) => `reviews/${productId}`,
       providesTags: ['Reviews'],
     }),
-    addReview: builder.mutation<void, Omit<Review, '_id'>>({
-      query: (body) => ({
+    // TODO: Fix Review type
+    addReview: builder.mutation<void, Omit<Review, '_id' | 'userId' | 'userFirstName'>>({
+      query: (body) => {        
+        return ({
         url: 'reviews',
         method: 'POST',
         body,
-      }),
+      })},
       invalidatesTags: ['Product', 'Reviews', 'Products'],
     }),
-    editReview: builder.mutation<void, Review>({
+    // TODO: Fix Review type
+    editReview: builder.mutation<void, Omit<Review, 'userId' | 'userFirstName'>>({
       query: (body) => ({
         url: 'reviews',
         method: 'PUT',

@@ -4,9 +4,9 @@ import {
   createAsyncThunk,
   Action,
   PayloadAction,
+  AnyAction,
 } from '@reduxjs/toolkit';
 import {
-  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   UserInfo as FirebaseUserInfo,
@@ -17,6 +17,7 @@ import AuthState from 'types/AuthState';
 import { LoginSchema } from './schemas/loginSchema';
 import { RegisterSchema } from './schemas/registerSchema';
 import FirebaseErrors from './firebaseErrors';
+import User from 'types/User';
 
 const initialState: AuthState = {
   user: undefined,
@@ -33,14 +34,29 @@ function isPendingAction(action: Action) {
 }
 
 export const registerUser = createAsyncThunk(
-  'auth/registerUser', async ({ email, password  }: RegisterSchema) =>
-    createUserWithEmailAndPassword(auth, email, password)
+  'auth/registerUser', async ({ email, password, firstName, lastName }: RegisterSchema) => {
+    const url = `${import.meta.env.VITE_API_URL}/users/register`;
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type':'application/json',
+      },
+      body: JSON.stringify({ email, password, firstName, lastName }),
+    })
+    return await res.json();
+  }
 );
 
 export const loginUser = createAsyncThunk(
-  'auth/loginUser',
-  ({ email, password }: LoginSchema) =>
-    signInWithEmailAndPassword(auth, email, password)
+  'auth/getUserByFirebaseId', async ({ email, password }: LoginSchema) => {
+    const firebaseUser = await signInWithEmailAndPassword(auth, email, password);
+    if (firebaseUser) {
+      const url = `${import.meta.env.VITE_API_URL}/users/${firebaseUser.user.uid}`;
+      const res = await fetch(url);
+      return await res.json();
+    }
+    return firebaseUser;
+  }
 );
 
 export const logoutUser = createAsyncThunk('auth/logoutUser', () =>
@@ -51,15 +67,13 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setUser(state, action: PayloadAction<FirebaseUserInfo | undefined>) {
+    setUser(state, action: PayloadAction<User | undefined>) {
       if (action.payload) {
-        state.user = {
-          uid: action.payload.uid,
-          email: action.payload.email || '',
-        };
+        state.user = action.payload;
       } else {
         state.user = undefined;
       }
+      
     },
     resetAuthStatusAndErrors(state) {
       state.status = 'IDLE';
@@ -69,23 +83,16 @@ export const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(loginUser.fulfilled, (state, action) => {
-        console.log(action);
-        state.status = 'SUCCESS';
-        state.user = {
-          uid: action.payload.user.uid,
-          email: action.payload.user.email || '',
-        };
+      .addCase(loginUser.fulfilled, (state, action: AnyAction) => {
+        state.status = 'LOGIN_SUCCESS';
+        state.user = action.payload;
       })
-      .addCase(registerUser.fulfilled, (state, action) => {
-        state.status = 'SUCCESS';
-        state.user = {
-          uid: action.payload.user.uid,
-          email: action.payload.user.email || '',
-        };
+      .addCase(registerUser.fulfilled, (state, action: AnyAction) => {
+        console.log(action);
+        state.status = 'REGISTER_SUCCESS';
       })
       .addCase(logoutUser.fulfilled, (state) => {
-        state.status = 'SUCCESS';
+        state.status = 'LOGOUT_SUCCESS';
         state.user = undefined;
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -123,6 +130,7 @@ export const authSlice = createSlice({
 export const { resetAuthStatusAndErrors, setUser } = authSlice.actions;
 
 export const selectCurrentUser = (state: RootState) => state.auth.user;
+export const selectIsRegisterSuccess = (state: RootState) => state.auth.status === 'REGISTER_SUCCESS';
 export const selectIsPendingAuth = (state: RootState) =>
   state.auth.status === 'PENDING';
 

@@ -9,11 +9,13 @@ interface EditReviewFormProps {
   isEditForm: true;
   review: Review;
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
+  productId?: never;
 }
 
 interface CreateReviewFormProps {
   isEditForm?: never;
-  userId: string;
+  review?: never;
+  setIsEditing?: never;
   productId: string;
 }
 
@@ -38,20 +40,18 @@ function ReviewForm(props: ReviewFormProps) {
 
   const onSubmit: SubmitHandler<ReviewSchema> = ({ rating, message }: ReviewSchema) => {
     if (isEditForm) {
-      const { _id, productId, userId } = props.review;
+      const { _id, productId } = props.review;
       return editReview({
         _id,
         productId,
-        userId,
         message: message.trim(),
         rating: Number(rating),
       });
     }
 
-    const { productId, userId } = props;
+    const { productId } = props;
     return createReview({
       productId,
-      userId,
       message: message.trim(),
       rating: Number(rating),
     });
