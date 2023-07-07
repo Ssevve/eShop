@@ -42,10 +42,14 @@ function RegisterForm() {
   }, [emailTaken]);
 
   useEffect(() => {
-    dispatch(resetAuthStatusAndErrors());
+    return () => {
+      dispatch(resetAuthStatusAndErrors());
+    };
   }, []);
 
-  if (registerSuccess) navigate('/login');
+  useEffect(() => {
+    if (registerSuccess) navigate('/login');
+  }, [registerSuccess]);
 
   const onSubmit: SubmitHandler<RegisterSchema> = ({
     email,

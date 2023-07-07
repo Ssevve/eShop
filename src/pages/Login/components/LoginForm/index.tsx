@@ -29,7 +29,9 @@ function LoginForm() {
     dispatch(loginUser({ email, password }));
 
   useEffect(() => {
-    dispatch(resetAuthStatusAndErrors());
+    return () => {
+      dispatch(resetAuthStatusAndErrors());
+    };
   }, []);
 
   useEffect(() => {
