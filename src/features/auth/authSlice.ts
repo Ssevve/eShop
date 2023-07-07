@@ -84,14 +84,14 @@ export const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.fulfilled, (state, action: AnyAction) => {
-        state.status = 'LOGIN_SUCCESS';
+        state.status = 'IDLE';
         state.user = action.payload;
       })
       .addCase(registerUser.fulfilled, (state, action: AnyAction) => {
         state.status = 'REGISTER_SUCCESS';
       })
       .addCase(logoutUser.fulfilled, (state) => {
-        state.status = 'LOGOUT_SUCCESS';
+        state.status = 'IDLE';
         state.user = undefined;
       })
       .addCase(loginUser.rejected, (state, action) => {
