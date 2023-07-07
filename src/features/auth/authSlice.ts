@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import {
   createSlice,
   createAsyncThunk,
@@ -9,14 +8,13 @@ import {
 import {
   signInWithEmailAndPassword,
   signOut,
-  UserInfo as FirebaseUserInfo,
 } from 'firebase/auth';
 import { RootState } from 'app/store';
 import auth from 'lib/firebaseConfig';
 import AuthState from 'types/AuthState';
 import { LoginSchema } from './schemas/loginSchema';
 import { RegisterSchema } from './schemas/registerSchema';
-import FirebaseErrors from './firebaseErrors';
+import FirebaseLoginErrors from './firebaseLoginErrors';
 import User from 'types/User';
 
 const initialState: AuthState = {
@@ -34,16 +32,18 @@ function isPendingAction(action: Action) {
 }
 
 export const registerUser = createAsyncThunk(
-  'auth/registerUser', async ({ email, password, firstName, lastName }: RegisterSchema) => {
-    const url = `${import.meta.env.VITE_API_URL}/users/register`;
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type':'application/json',
-      },
-      body: JSON.stringify({ email, password, firstName, lastName }),
-    })
-    return await res.json();
+  'auth/registerUser', async ({ email, password, firstName, lastName }: RegisterSchema, { rejectWithValue }) => {
+      const url = `${import.meta.env.VITE_API_URL}/users/register`;
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type':'application/json',
+        },
+        body: JSON.stringify({ email, password, firstName, lastName }), 
+      });
+      if (res.status === 409) return rejectWithValue(res.status);
+      else if (!res.ok) return rejectWithValue(res.status);
+      return await res.json();
   }
 );
 
@@ -73,12 +73,12 @@ export const authSlice = createSlice({
       } else {
         state.user = undefined;
       }
-      
     },
     resetAuthStatusAndErrors(state) {
       state.status = 'IDLE';
       state.error.invalidCredentials = false;
       state.error.server = false;
+      state.error.emailTaken = false;
     },
   },
   extraReducers: (builder) => {
@@ -88,7 +88,6 @@ export const authSlice = createSlice({
         state.user = action.payload;
       })
       .addCase(registerUser.fulfilled, (state, action: AnyAction) => {
-        console.log(action);
         state.status = 'REGISTER_SUCCESS';
       })
       .addCase(logoutUser.fulfilled, (state) => {
@@ -97,8 +96,8 @@ export const authSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.status = 'ERROR';
-        if (action.error.code === FirebaseErrors.UserNotFound
-          || action.error.code === FirebaseErrors.WrongPassword) {
+        if (action.error.code === FirebaseLoginErrors.UserNotFound
+          || action.error.code === FirebaseLoginErrors.WrongPassword) {
           state.error.invalidCredentials = true;
           state.error.server = false;
         } else {
@@ -108,7 +107,7 @@ export const authSlice = createSlice({
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.status = 'ERROR';
-        if (action.error.code === FirebaseErrors.EmailTaken) {
+        if (action.payload === 409) {
           state.error.emailTaken = true;
           state.error.server = false;
         } else {
@@ -123,6 +122,7 @@ export const authSlice = createSlice({
         state.status = 'PENDING';
         state.error.server = false;
         state.error.invalidCredentials = false;
+        state.error.emailTaken = false;
       })
   },
 });
