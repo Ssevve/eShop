@@ -8,9 +8,15 @@ function useAuth() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        dispatch(setUser(user));
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      if (firebaseUser) {
+        const setUserInfo = async () => {
+          const url = `${import.meta.env.VITE_API_URL}/users/${firebaseUser.uid}`;
+          const res = await fetch(url);
+          const user = await res.json();
+          if (user) dispatch(setUser(user));
+        };
+        setUserInfo();
       } else {
         dispatch(setUser(undefined));
       }

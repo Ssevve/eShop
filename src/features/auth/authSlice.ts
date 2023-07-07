@@ -48,7 +48,7 @@ export const registerUser = createAsyncThunk(
 );
 
 export const loginUser = createAsyncThunk(
-  'auth/getUserByFirebaseId', async ({ email, password }: LoginSchema) => {
+  'auth/loginUser', async ({ email, password }: LoginSchema) => {
     const firebaseUser = await signInWithEmailAndPassword(auth, email, password);
     if (firebaseUser) {
       const url = `${import.meta.env.VITE_API_URL}/users/${firebaseUser.user.uid}`;
