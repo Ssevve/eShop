@@ -2,7 +2,7 @@ import { PreloadedState, combineReducers, configureStore } from '@reduxjs/toolki
 import authReducer from 'features/auth/authSlice';
 import cartReducer from 'features/cart/cartSlice';
 import { api } from 'app/api';
-import localStorageMiddleware from "./middleware/localStorageMiddleware";
+import localStorageMiddleware from "./middleware/cartLocalStorageMiddleware";
 
 const rootReducer = combineReducers({
   auth: authReducer,
