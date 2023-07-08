@@ -3,7 +3,6 @@ import {
   createAsyncThunk,
   Action,
   PayloadAction,
-  AnyAction,
 } from '@reduxjs/toolkit';
 import {
   signInWithEmailAndPassword,
@@ -18,7 +17,7 @@ import FirebaseLoginErrors from './firebaseLoginErrors';
 import User from 'types/User';
 
 const initialState: AuthState = {
-  user: undefined,
+  user: localStorage['user'] ? JSON.parse(localStorage['user']) : undefined,
   status: 'IDLE',
   error: {
     server: false,
@@ -48,20 +47,10 @@ export const registerUser = createAsyncThunk(
 );
 
 export const loginUser = createAsyncThunk(
-  'auth/loginUser', async ({ email, password }: LoginSchema) => {
-    const firebaseUser = await signInWithEmailAndPassword(auth, email, password);
-    if (firebaseUser) {
-      const url = `${import.meta.env.VITE_API_URL}/users/${firebaseUser.user.uid}`;
-      const res = await fetch(url);
-      return await res.json();
-    }
-    return firebaseUser;
-  }
-);
+  'auth/loginUser', async ({ email, password }: LoginSchema) => 
+    signInWithEmailAndPassword(auth, email, password));
 
-export const logoutUser = createAsyncThunk('auth/logoutUser', () =>
-  signOut(auth)
-);
+export const logoutUser = createAsyncThunk('auth/logoutUser', () => signOut(auth));
 
 export const authSlice = createSlice({
   name: 'auth',
@@ -74,6 +63,9 @@ export const authSlice = createSlice({
         state.user = undefined;
       }
     },
+    setServerError(state, action: PayloadAction<boolean>) {
+      state.error.server = action.payload;
+    },
     resetAuthStatusAndErrors(state) {
       state.status = 'IDLE';
       state.error.invalidCredentials = false;
@@ -83,16 +75,14 @@ export const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(loginUser.fulfilled, (state, action: AnyAction) => {
+      .addCase(loginUser.fulfilled, (state) => {
         state.status = 'IDLE';
-        state.user = action.payload;
       })
-      .addCase(registerUser.fulfilled, (state, action: AnyAction) => {
+      .addCase(registerUser.fulfilled, (state) => {
         state.status = 'REGISTER_SUCCESS';
       })
       .addCase(logoutUser.fulfilled, (state) => {
         state.status = 'IDLE';
-        state.user = undefined;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.status = 'ERROR';
@@ -127,7 +117,7 @@ export const authSlice = createSlice({
   },
 });
 
-export const { resetAuthStatusAndErrors, setUser } = authSlice.actions;
+export const { resetAuthStatusAndErrors, setServerError, setUser } = authSlice.actions;
 
 export const selectCurrentUser = (state: RootState) => state.auth.user;
 export const selectIsRegisterSuccess = (state: RootState) => state.auth.status === 'REGISTER_SUCCESS';

@@ -1,28 +1,40 @@
 import { useEffect } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
-import auth from 'lib/firebaseConfig';
 import { useAppDispatch } from 'app/hooks';
-import { setUser } from './authSlice';
+import { beforeAuthStateChanged } from 'firebase/auth';
+import { setServerError, setUser } from './authSlice';
+import auth from 'lib/firebaseConfig';
 
 function useAuth() {
   const dispatch = useAppDispatch();
 
+  const clearUserState = () => {
+    localStorage.removeItem('user');
+    dispatch(setUser(undefined));
+  };
+
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+    const unsubscribe = beforeAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
-        const setUserInfo = async () => {
+        try {
           const url = `${import.meta.env.VITE_API_URL}/users/${firebaseUser.uid}`;
           const res = await fetch(url);
-          const user = await res.json();
-          if (user) dispatch(setUser(user));
-        };
-        setUserInfo();
+          if (res.ok) {
+            const user = await res.json();
+            localStorage.setItem('user', JSON.stringify(user));
+            dispatch(setUser(user));
+          } else {
+            clearUserState();
+            throw Error('Failed to fetch user data.');
+          }
+        } catch (error) {
+          clearUserState();
+          if (location.pathname === '/login') dispatch(setServerError(true));
+        }
       } else {
-        dispatch(setUser(undefined));
+        clearUserState();
       }
     });
     return unsubscribe;
   }, []);
 }
-
 export default useAuth;
