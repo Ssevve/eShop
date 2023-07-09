@@ -1,12 +1,12 @@
 import Status from './Status';
 import User from './User';
 
-type Error = false | 'server' | 'invalidCredentials' | 'emailTaken';
+type AuthError = false | 'server' | 'invalidCredentials' | 'emailTaken';
 
 interface AuthState {
   user: User | undefined;
   status: Status;
-  error: Error;
+  error: AuthError;
 }
 
 export default AuthState;
