@@ -20,14 +20,13 @@ const initialState: CartState = {
 
 export const cartSlice = createSlice({
   name: 'cart',
-  initialState: initialState,
+  initialState,
   reducers: {
     addCartProduct(state, action: PayloadAction<CartProduct>) {
-      const duplicateIndex = state.products.findIndex((entry) => entry.product._id === action.payload.product._id);
-      if (duplicateIndex !== -1) {
-        const duplicateProduct = state.products[duplicateIndex];
-        const newQuantity = duplicateProduct.quantity + action.payload.quantity;
-        duplicateProduct.quantity = newQuantity < productConstraints.quantity.max ? newQuantity : productConstraints.quantity.max;   
+      const duplicate = state.products.find((entry) => entry.product._id === action.payload.product._id);
+      if (duplicate) {
+        const newQuantity = duplicate.quantity + action.payload.quantity;
+        duplicate.quantity = newQuantity < productConstraints.quantity.max ? newQuantity : productConstraints.quantity.max;   
       } else {
         state.products.push(action.payload);
       }
@@ -36,12 +35,13 @@ export const cartSlice = createSlice({
       state.products = state.products.filter((entry) => entry.product._id !== action.payload);
     },
     setCartProductQuantity(state, action: PayloadAction<{ productId: string; quantity: number; }>) {
-      const index = state.products.findIndex((entry) => entry.product._id === action.payload.productId);
-      const product = state.products[index];
-      if (action.payload.quantity < productConstraints.quantity.min || !action.payload.quantity) {
-        product.quantity = productConstraints.quantity.min;
-      } else {
-        product.quantity = action.payload.quantity;
+      const product = state.products.find((entry) => entry.product._id === action.payload.productId);
+      if (product) {
+        if (action.payload.quantity < productConstraints.quantity.min || !action.payload.quantity) {
+          product.quantity = productConstraints.quantity.min;
+        } else {
+          product.quantity = action.payload.quantity;
+        }
       }
     },
     clearCart(state) {
