@@ -1,31 +1,33 @@
-const MAX_PRODUCT_RATING = 5;
-const MIN_PASSWORD_LENGTH = 6;
-const MIN_PRODUCT_QUANTITY = 1;
-const MAX_PRODUCT_QUANTITY = 99;
-
 type MinKey = 'min';
 type MaxKey = 'max';
-type MinMaxKey = MinKey | MaxKey;
+type ConstraintRecord<T extends string> = Record<T, number>;
 
-type QuantityKeys = MinMaxKey;
-type QuantityConstraints = Record<QuantityKeys, number>;
-
-type RatingKeys = MaxKey;
-type RatingConstraints = Record<RatingKeys, number>;
-
-export type ProductConstraints = { quantity: QuantityConstraints, rating: RatingConstraints };
+type QuantityConstraints = ConstraintRecord<MinKey | MaxKey>;
+type RatingConstraints = ConstraintRecord<MaxKey>;
+type ProductConstraints = { quantity: QuantityConstraints, rating: RatingConstraints };
 
 export const productConstraints: ProductConstraints = {
   quantity: {
-    min: MIN_PRODUCT_QUANTITY,
-    max: MAX_PRODUCT_QUANTITY,
+    min: 1,
+    max: 99,
   },
   rating: {
-    max: MAX_PRODUCT_RATING,
+    max: 5,
   }
 };
 
-type PasswordKeys = MinKey;
-type PasswordConstraints = Record<PasswordKeys, number>;
+type PasswordConstraints = ConstraintRecord<MinKey>;
+type NameConstraints = ConstraintRecord<MinKey>;
+type UserConstraints = { password: PasswordConstraints, firstName: NameConstraints, lastName: NameConstraints };
 
-export const passwordConstraints: PasswordConstraints = { min: MIN_PASSWORD_LENGTH };
+export const userConstraints: UserConstraints = {
+  password: {
+    min: 6,
+  },
+  firstName: {
+    min: 2,
+  },
+  lastName: {
+    min: 2,
+  },
+};

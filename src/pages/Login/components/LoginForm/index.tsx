@@ -3,7 +3,12 @@ import { Link } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { loginUser, resetAuthStatusAndErrors, selectIsPendingAuth } from 'features/auth/authSlice';
+import {
+  loginUser,
+  selectServerError,
+  resetAuthStatusAndError,
+  selectIsPendingAuth,
+} from 'features/auth/authSlice';
 import { loginSchema, LoginSchema } from 'features/auth/schemas/loginSchema';
 import Logo from 'components/common/Logo/Logo';
 import Input from 'components/common/Input';
@@ -12,8 +17,10 @@ import SubmitButton from 'components/common/SubmitButton';
 
 function LoginForm() {
   const dispatch = useAppDispatch();
-  const invalidCredentials = useAppSelector((state) => state.auth.error.invalidCredentials);
-  const serverError = useAppSelector((state) => state.auth.error.server);
+  const areInvalidCredentials = useAppSelector(
+    (state) => state.auth.error === 'invalidCredentials'
+  );
+  const isServerError = useAppSelector(selectServerError);
   const isPendingAuth = useAppSelector(selectIsPendingAuth);
   const {
     register,
@@ -29,35 +36,50 @@ function LoginForm() {
     dispatch(loginUser({ email, password }));
 
   useEffect(() => {
-    dispatch(resetAuthStatusAndErrors());
+    return () => {
+      dispatch(resetAuthStatusAndError());
+    };
   }, []);
 
   useEffect(() => {
-    if (invalidCredentials) {
+    if (areInvalidCredentials) {
       setError('email', { message: 'Invalid email or password' });
       setError('password', { message: 'Invalid email or password' });
     } else {
       clearErrors();
     }
-  }, [invalidCredentials]);
+  }, [areInvalidCredentials]);
 
   return (
     <form
       aria-label="Log in"
-      noValidate
       onSubmit={handleSubmit(onSubmit)}
       className="mx-auto flex shrink basis-96 flex-col gap-4 rounded-sm bg-white p-6 drop-shadow-md"
     >
       <header className="flex flex-col items-center justify-center gap-4">
         <Logo />
         <ErrorBox
-          isError={serverError}
+          isError={isServerError}
           title="Could not log in"
           errorMessage="Something went wrong. Please try again."
         />
       </header>
-      <Input label="Email" type="email" error={errors.email} {...register('email')} />
-      <Input label="Password" type="password" error={errors.password} {...register('password')} />
+      <Input
+        label="Email"
+        autoComplete="email"
+        type="email"
+        error={errors.email}
+        {...register('email')}
+        required
+      />
+      <Input
+        label="Password"
+        autoComplete="current-password"
+        type="password"
+        error={errors.password}
+        {...register('password')}
+        required
+      />
       <SubmitButton fullWidth isLoading={isPendingAuth}>
         Log in
       </SubmitButton>

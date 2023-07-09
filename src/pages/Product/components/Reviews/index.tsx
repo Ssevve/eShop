@@ -19,8 +19,8 @@ function Reviews({ productId }: ReviewsProps) {
     error,
   } = useGetReviewsByProductIdQuery(productId);
   const currentUserReview = useMemo(
-    () => reviews?.find((review) => review.userId === currentUser?.uid),
-    [currentUser?.uid, productId, reviews]
+    () => reviews?.find((review) => review.userId === currentUser?._id),
+    [currentUser?._id, productId, reviews]
   );
 
   return (
@@ -36,7 +36,7 @@ function Reviews({ productId }: ReviewsProps) {
               <Review shouldShowControls review={currentUserReview} setIsEditing={setIsEditing} />
             )
           ) : (
-            <ReviewForm userId={currentUser.uid} productId={productId} />
+            <ReviewForm productId={productId} />
           )}
         </>
       ) : (

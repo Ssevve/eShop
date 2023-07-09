@@ -13,7 +13,7 @@ interface ReviewProps {
 function Review({ review, shouldShowControls = false, setIsEditing }: ReviewProps) {
   const currentUser = useAppSelector(selectCurrentUser);
 
-  const isOwnReview = currentUser?.uid === review.userId;
+  const isOwnReview = currentUser?._id === review.userId;
 
   return (
     <article className="mt-12 first-of-type:mt-6">
@@ -21,7 +21,7 @@ function Review({ review, shouldShowControls = false, setIsEditing }: ReviewProp
         <img className="h-10 w-10 rounded-full" src={cherryAvatar} alt="" />
         <div className="ml-3">
           <div className="mb-3 flex gap-3">
-            <p className="font-medium">Author</p>
+            <p className="font-medium">{review.userFirstName}</p>
             <StarRating rating={review.rating} />
           </div>
           <p className="mt-3 max-w-2xl">{review.message}</p>

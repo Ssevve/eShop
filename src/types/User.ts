@@ -1,7 +1,9 @@
 interface User {
-  uid: string;
+  _id: string;
+  firstName: string;
+  lastName: string;
+  firebaseId: string;
   email: string;
-  phoneNumber: string | undefined | null;
 }
 
 export default User;

@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import {
   createSlice,
   createAsyncThunk,
@@ -6,25 +5,21 @@ import {
   PayloadAction,
 } from '@reduxjs/toolkit';
 import {
-  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  User as FirebaseUser,
 } from 'firebase/auth';
 import { RootState } from 'app/store';
 import auth from 'lib/firebaseConfig';
 import AuthState from 'types/AuthState';
 import { LoginSchema } from './schemas/loginSchema';
-import FirebaseErrors from './firebaseErrors';
+import { RegisterSchema } from './schemas/registerSchema';
+import FirebaseLoginErrors from './firebaseErrors';
+import User from 'types/User';
 
 const initialState: AuthState = {
-  user: undefined,
+  user: localStorage['user'] ? JSON.parse(localStorage['user']) : undefined,
   status: 'IDLE',
-  error: {
-    server: false,
-    invalidCredentials: false,
-    emailTaken: false,
-  },
+  error: false,
 };
 
 function isPendingAction(action: Action) {
@@ -32,100 +27,83 @@ function isPendingAction(action: Action) {
 }
 
 export const registerUser = createAsyncThunk(
-  'auth/registerUser',
-  ({ email, password }: LoginSchema) =>
-    createUserWithEmailAndPassword(auth, email, password)
+  'auth/registerUser', async ({ email, password, firstName, lastName }: RegisterSchema, { rejectWithValue }) => {
+      const url = `${import.meta.env.VITE_API_URL}/users/register`;
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type':'application/json',
+        },
+        body: JSON.stringify({ email, password, firstName, lastName }), 
+      });
+      if (res.status === 409) return rejectWithValue(res.status);
+      else if (!res.ok) return rejectWithValue(res.status);
+      return await res.json();
+  }
 );
 
 export const loginUser = createAsyncThunk(
-  'auth/loginUser',
-  ({ email, password }: LoginSchema) =>
-    signInWithEmailAndPassword(auth, email, password)
-);
+  'auth/loginUser', async ({ email, password }: LoginSchema) => 
+    signInWithEmailAndPassword(auth, email, password));
 
-export const logoutUser = createAsyncThunk('auth/logoutUser', () =>
-  signOut(auth)
-);
+export const logoutUser = createAsyncThunk('auth/logoutUser', () => signOut(auth));
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setUser(state, action: PayloadAction<FirebaseUser | undefined>) {
-      if (action.payload) {
-        state.user = {
-          uid: action.payload.uid,
-          email: action.payload.email!,
-          phoneNumber: action.payload.phoneNumber,
-        };
-      } else {
-        state.user = undefined;
-      }
+    setUser(state, action: PayloadAction<User | undefined>) {
+      if (action.payload) state.user = action.payload;
+      else state.user = undefined;
     },
-    resetAuthStatusAndErrors(state) {
+    setServerError(state) {
+      state.error = 'server';
+    },
+    resetAuthStatusAndError(state) {
       state.status = 'IDLE';
-      state.error.invalidCredentials = false;
-      state.error.server = false;
+      state.error = false;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(loginUser.fulfilled, (state, action) => {
-        console.log(action);
-        state.status = 'SUCCESS';
-        state.user = {
-          uid: action.payload.user.uid,
-          email: action.payload.user.email!,
-          phoneNumber: action.payload.user.phoneNumber,
-        };
+      .addCase(loginUser.fulfilled, (state) => {
+        state.status = 'IDLE';
       })
-      .addCase(registerUser.fulfilled, (state, action) => {
-        state.status = 'SUCCESS';
-        state.user = {
-          uid: action.payload.user.uid,
-          email: action.payload.user.email!,
-          phoneNumber: action.payload.user.phoneNumber,
-        };
+      .addCase(registerUser.fulfilled, (state) => {
+        state.status = 'REGISTER_SUCCESS';
       })
       .addCase(logoutUser.fulfilled, (state) => {
-        state.status = 'SUCCESS';
-        state.user = undefined;
+        state.status = 'IDLE';
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.status = 'ERROR';
-        if (action.error.code === FirebaseErrors.UserNotFound
-          || action.error.code === FirebaseErrors.WrongPassword) {
-          state.error.invalidCredentials = true;
-          state.error.server = false;
+        if (action.error.code === FirebaseLoginErrors.UserNotFound
+          || action.error.code === FirebaseLoginErrors.WrongPassword) {
+            state.error = 'invalidCredentials';
         } else {
-          state.error.invalidCredentials = false;
-          state.error.server = true;
+          state.error = 'server';
         }
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.status = 'ERROR';
-        if (action.error.code === FirebaseErrors.EmailTaken) {
-          state.error.emailTaken = true;
-          state.error.server = false;
-        } else {
-          state.error.emailTaken = false;
-          state.error.server = true;
-        }
+        if (action.payload === 409) state.error = 'emailTaken';
+        else state.error = 'server';
       })
       .addCase(logoutUser.rejected, (state) => {
         state.status = 'ERROR';
       })
       .addMatcher(isPendingAction, (state) => {
         state.status = 'PENDING';
-        state.error.server = false;
-        state.error.invalidCredentials = false;
+        state.error = false;
       })
   },
 });
 
-export const { resetAuthStatusAndErrors, setUser } = authSlice.actions;
+export const { resetAuthStatusAndError, setServerError, setUser } = authSlice.actions;
 
 export const selectCurrentUser = (state: RootState) => state.auth.user;
+export const selectIsRegisterSuccess = (state: RootState) => state.auth.status === 'REGISTER_SUCCESS';
+export const selectServerError = (state: RootState) => state.auth.error === 'server';
 export const selectIsPendingAuth = (state: RootState) =>
   state.auth.status === 'PENDING';
 

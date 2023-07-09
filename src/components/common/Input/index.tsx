@@ -20,7 +20,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           {...rest}
         />
         {error && (
-          <strong className="text-sm font-normal text-red-600" role="alert">
+          <strong className="text-sm font-normal text-danger" role="alert">
             {error.message}
           </strong>
         )}

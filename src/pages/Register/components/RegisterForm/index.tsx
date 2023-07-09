@@ -1,23 +1,27 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import {
-  registerUser,
-  resetAuthStatusAndErrors,
+  resetAuthStatusAndError,
+  selectServerError,
   selectIsPendingAuth,
+  selectIsRegisterSuccess,
 } from 'features/auth/authSlice';
 import { registerSchema, RegisterSchema } from 'features/auth/schemas/registerSchema';
 import Logo from 'components/common/Logo/Logo';
 import ErrorBox from 'components/common/ErrorBox';
 import Input from 'components/common/Input';
 import SubmitButton from 'components/common/SubmitButton';
+import { registerUser } from 'features/auth/authSlice';
 
 function RegisterForm() {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const emailTaken = useAppSelector((state) => state.auth.error.emailTaken);
-  const serverError = useAppSelector((state) => state.auth.error.server);
+  const isEmailTaken = useAppSelector((state) => state.auth.error === 'emailTaken');
+  const registerSuccess = useAppSelector(selectIsRegisterSuccess);
+  const isServerError = useAppSelector(selectServerError);
   const isPendingAuth = useAppSelector(selectIsPendingAuth);
   const {
     register,
@@ -31,19 +35,29 @@ function RegisterForm() {
   });
 
   useEffect(() => {
-    if (emailTaken) {
+    if (isEmailTaken) {
       setError('email', { message: 'Email already taken' });
     } else {
       clearErrors();
     }
-  }, [emailTaken]);
+  }, [isEmailTaken]);
 
   useEffect(() => {
-    dispatch(resetAuthStatusAndErrors());
+    return () => {
+      dispatch(resetAuthStatusAndError());
+    };
   }, []);
 
-  const onSubmit: SubmitHandler<RegisterSchema> = ({ email, password }: RegisterSchema) =>
-    dispatch(registerUser({ email, password }));
+  useEffect(() => {
+    if (registerSuccess) navigate('/login');
+  }, [registerSuccess]);
+
+  const onSubmit: SubmitHandler<RegisterSchema> = ({
+    email,
+    firstName,
+    lastName,
+    password,
+  }: RegisterSchema) => dispatch(registerUser({ email, firstName, lastName, password }));
 
   return (
     <form
@@ -54,18 +68,50 @@ function RegisterForm() {
       <header className="flex flex-col items-center justify-center gap-4">
         <Logo />
         <ErrorBox
-          isError={serverError}
+          isError={isServerError}
           title="Could not create an account"
           errorMessage="Something went wrong. Please try again."
         />
       </header>
-      <Input label="Email" type="email" error={errors.email} {...register('email')} />
-      <Input label="Password" type="password" error={errors.password} {...register('password')} />
+      <Input
+        label="Email"
+        autoComplete="email"
+        type="email"
+        error={errors.email}
+        {...register('email')}
+        required
+      />
+      <Input
+        label="First Name"
+        autoComplete="given-name"
+        type="text"
+        error={errors.firstName}
+        {...register('firstName')}
+        required
+      />
+      <Input
+        label="Last Name"
+        autoComplete="family-name"
+        type="text"
+        error={errors.lastName}
+        {...register('lastName')}
+        required
+      />
+      <Input
+        label="Password"
+        autoComplete="new-password"
+        type="password"
+        error={errors.password}
+        {...register('password')}
+        required
+      />
       <Input
         label="Repeat Password"
+        autoComplete="new-password"
         type="password"
         error={errors.repeatPassword}
         {...register('repeatPassword')}
+        required
       />
       <SubmitButton fullWidth isLoading={isPendingAuth}>
         Register

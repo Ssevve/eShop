@@ -1,3 +1,3 @@
-type Status = 'IDLE' | 'PENDING' | 'ERROR' | 'SUCCESS';
+type Status = 'IDLE' | 'PENDING' | 'ERROR' | 'REGISTER_SUCCESS';
 
 export default Status;
