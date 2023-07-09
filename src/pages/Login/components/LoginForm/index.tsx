@@ -29,6 +29,7 @@ function LoginForm() {
     clearErrors,
     formState: { errors },
   } = useForm<LoginSchema>({
+    mode: 'onBlur',
     resolver: zodResolver(loginSchema),
   });
 

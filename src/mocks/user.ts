@@ -6,8 +6,11 @@ interface UserWithPassword extends User {
 
 const user: UserWithPassword = {
   email: 'correct@email.com',
-  uid: 'test-user-id',
+  _id: 'testUserId',
+  firebaseId: 'testFirebaseId',
+  firstName: 'testFirstName',
+  lastName: 'testLastName',
   password: 'correctPassword',
-}
+};
 
 export default user;

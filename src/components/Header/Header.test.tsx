@@ -36,12 +36,9 @@ describe('Header component', () => {
     const status: Status = 'IDLE';
     const preloadedState = {
       auth: {
-        user: {
-          uid: mockUser.uid,
-          email: mockUser.email,
-        },
+        user: mockUser,
         status,
-        error: false,
+        error: false as false,
       },
     };
 
