@@ -16,24 +16,43 @@ describe('LoginForm component', () => {
     );
   });
 
-  it('should show error message if email format is not valid', async () => {
+  it('should show error message on blur if email format is not valid', async () => {
     const user = userEvent.setup();
     await user.type(screen.getByRole('textbox', { name: 'Email' }), 'badformat');
-    await user.type(screen.getByLabelText('Password'), mockUser.password);
-    await user.click(screen.getByRole('button', { name: 'Log in' }));
+    await user.tab();
 
     expect(screen.getByText('Invalid email')).toBeInTheDocument();
   });
 
-  it('should show error message if password is too short', async () => {
+  it('should not show error message on blur if email format is valid', async () => {
     const user = userEvent.setup();
-    await user.type(screen.getByRole('textbox', { name: 'Email' }), mockUser.email);
-    await user.type(screen.getByLabelText('Password'), 'short');
-    await user.click(screen.getByRole('button', { name: 'Log in' }));
+    await user.type(screen.getByRole('textbox', { name: 'Email' }), 'correct@format.com');
+    await user.tab();
+
+    expect(screen.queryByText('Invalid email')).not.toBeInTheDocument();
+  });
+
+  it('should show error message on blur if password is too short', async () => {
+    const user = userEvent.setup();
+    await user.type(
+      screen.getByLabelText('Password'),
+      't'.repeat(userConstraints.password.min - 1)
+    );
+    await user.tab();
 
     expect(
       screen.getByText(`Minimum password length is ${userConstraints.password.min}`)
     ).toBeInTheDocument();
+  });
+
+  it('should not show error message on blur if password is length is correct', async () => {
+    const user = userEvent.setup();
+    await user.type(screen.getByLabelText('Password'), 't'.repeat(userConstraints.password.min));
+    await user.tab();
+
+    expect(
+      screen.queryByText(`Minimum password length is ${userConstraints.password.min}`)
+    ).not.toBeInTheDocument();
   });
 
   it('should show error messages if user is not found', async () => {
