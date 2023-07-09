@@ -41,11 +41,7 @@ describe('Header component', () => {
           email: mockUser.email,
         },
         status,
-        error: {
-          server: false,
-          invalidCredentials: false,
-          emailTaken: false,
-        },
+        error: false,
       },
     };
 

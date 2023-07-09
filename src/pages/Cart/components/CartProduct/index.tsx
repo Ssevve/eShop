@@ -7,21 +7,16 @@ import { useState } from 'react';
 import { FiTrash } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import Product from 'types/Product';
-import useWindowWidth from 'hooks/useWindowWidth';
-import useBreakpointValue from 'hooks/useBreakpointValue';
 
 interface CartProductProps {
   initialQuantity: number;
   product: Product;
+  compactInput: boolean;
 }
 
-function CartProduct({ initialQuantity, product }: CartProductProps) {
+function CartProduct({ initialQuantity, product, compactInput }: CartProductProps) {
   const dispatch = useAppDispatch();
   const [quantity, setQuantity] = useState(initialQuantity);
-  const windowWidth = useWindowWidth();
-  const smallBreakpoint = useBreakpointValue('sm');
-
-  const shouldRenderCompactInput = windowWidth < smallBreakpoint;
 
   const handleQuantityChange = (quantity: number) => {
     setQuantity(quantity);
@@ -42,11 +37,7 @@ function CartProduct({ initialQuantity, product }: CartProductProps) {
         <PriceGroup price={product.price} discountPrice={product.discountPrice} />
       </section>
       <div className="col-start-2 flex items-end gap-3 sm:col-start-3 sm:justify-self-end">
-        <QuantityInput
-          compact={shouldRenderCompactInput}
-          count={quantity}
-          setCount={handleQuantityChange}
-        />
+        <QuantityInput compact={compactInput} count={quantity} setCount={handleQuantityChange} />
         <Button
           evenPadding
           variant="neutral"
