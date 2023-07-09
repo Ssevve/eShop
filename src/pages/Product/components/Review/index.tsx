@@ -4,13 +4,20 @@ import StarRating from 'components/common/StarRating';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import ReviewType from 'types/Review';
 
-interface ReviewProps {
+type ReviewProps = {
   review: ReviewType;
-  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
-  shouldShowControls?: boolean;
-}
+} & (
+  | {
+      editable: true;
+      setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
+    }
+  | {
+      setIsEditing?: never;
+      editable?: never;
+    }
+);
 
-function Review({ review, shouldShowControls = false, setIsEditing }: ReviewProps) {
+function Review({ review, ...rest }: ReviewProps) {
   const currentUser = useAppSelector(selectCurrentUser);
 
   const isOwnReview = currentUser?._id === review.userId;
@@ -25,9 +32,9 @@ function Review({ review, shouldShowControls = false, setIsEditing }: ReviewProp
             <StarRating rating={review.rating} />
           </div>
           <p className="mt-3 max-w-2xl">{review.message}</p>
-          {isOwnReview && shouldShowControls && (
+          {isOwnReview && rest.editable && (
             <button
-              onClick={() => setIsEditing(true)}
+              onClick={() => rest.setIsEditing(true)}
               className="mt-3 inline-block rounded-sm border bg-white px-3 py-1.5 text-xs font-medium hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200"
             >
               Edit
