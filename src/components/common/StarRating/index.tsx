@@ -2,19 +2,21 @@ import { FiStar } from 'react-icons/fi';
 import { productConstraints } from 'lib/constants';
 import theme from 'lib/theme';
 
-interface StarRatingProps {
+type StarRatingProps = {
   rating: number;
-  ratingsCount?: number;
-  showRatingsCount?: boolean;
   size?: number;
-}
+} & (
+  | {
+      ratingsCount: number;
+      showRatingsCount: true;
+    }
+  | {
+      ratingsCount?: never;
+      showRatingsCount?: never;
+    }
+);
 
-function StarRating({
-  rating,
-  showRatingsCount = false,
-  ratingsCount = 0,
-  size = 16,
-}: StarRatingProps) {
+function StarRating({ rating, ratingsCount, size = 16, ...rest }: StarRatingProps) {
   const flatRating = Math.floor(rating);
   const stars = Array.from({ length: productConstraints.rating.max }, (_, i) => (
     <FiStar
@@ -36,7 +38,7 @@ function StarRating({
       <span className="ml-3 mr-3 rounded-sm bg-green-100 px-3 py-0.5 text-xs font-semibold text-primary">
         {rating}
       </span>
-      {showRatingsCount && (
+      {rest.showRatingsCount && (
         <span className="text-sm">
           {`(${ratingsCount} ${ratingsCount === 1 ? 'rating' : 'ratings'})`}
         </span>

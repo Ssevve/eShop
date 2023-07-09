@@ -24,9 +24,14 @@ describe('StarRating component', () => {
     );
   });
 
-  it('should render ratings count if it is provided', async () => {
+  it('should render correct ratings count if showRatingsCount and ratingsCount props are provided', async () => {
     const ratingsCount = 3;
-    renderWithProviders(<StarRating rating={2} ratingsCount={ratingsCount} />);
+    renderWithProviders(<StarRating showRatingsCount rating={2} ratingsCount={ratingsCount} />);
     expect(screen.getByText(`(${ratingsCount} ratings)`)).toBeInTheDocument();
+  });
+
+  it('should not render ratings count by default', async () => {
+    renderWithProviders(<StarRating rating={2} />);
+    expect(screen.queryByText('ratings', { exact: false })).not.toBeInTheDocument();
   });
 });
