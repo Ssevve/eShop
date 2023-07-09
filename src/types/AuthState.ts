@@ -1,11 +1,7 @@
 import Status from './Status';
 import User from './User';
 
-interface Error {
-  server: boolean;
-  invalidCredentials: boolean;
-  emailTaken: boolean;
-}
+type Error = false | 'server' | 'invalidCredentials' | 'emailTaken';
 
 interface AuthState {
   user: User | undefined;

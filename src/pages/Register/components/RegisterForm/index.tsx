@@ -4,7 +4,8 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import {
-  resetAuthStatusAndErrors,
+  resetAuthStatusAndError,
+  selectServerError,
   selectIsPendingAuth,
   selectIsRegisterSuccess,
 } from 'features/auth/authSlice';
@@ -18,9 +19,9 @@ import { registerUser } from 'features/auth/authSlice';
 function RegisterForm() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const emailTaken = useAppSelector((state) => state.auth.error.emailTaken);
+  const isEmailTaken = useAppSelector((state) => state.auth.error === 'emailTaken');
   const registerSuccess = useAppSelector(selectIsRegisterSuccess);
-  const serverError = useAppSelector((state) => state.auth.error.server);
+  const isServerError = useAppSelector(selectServerError);
   const isPendingAuth = useAppSelector(selectIsPendingAuth);
   const {
     register,
@@ -34,16 +35,16 @@ function RegisterForm() {
   });
 
   useEffect(() => {
-    if (emailTaken) {
+    if (isEmailTaken) {
       setError('email', { message: 'Email already taken' });
     } else {
       clearErrors();
     }
-  }, [emailTaken]);
+  }, [isEmailTaken]);
 
   useEffect(() => {
     return () => {
-      dispatch(resetAuthStatusAndErrors());
+      dispatch(resetAuthStatusAndError());
     };
   }, []);
 
@@ -67,20 +68,50 @@ function RegisterForm() {
       <header className="flex flex-col items-center justify-center gap-4">
         <Logo />
         <ErrorBox
-          isError={serverError}
+          isError={isServerError}
           title="Could not create an account"
           errorMessage="Something went wrong. Please try again."
         />
       </header>
-      <Input label="Email" type="email" error={errors.email} {...register('email')} />
-      <Input label="First Name" type="text" error={errors.firstName} {...register('firstName')} />
-      <Input label="Last Name" type="text" error={errors.lastName} {...register('lastName')} />
-      <Input label="Password" type="password" error={errors.password} {...register('password')} />
+      <Input
+        label="Email"
+        autoComplete="email"
+        type="email"
+        error={errors.email}
+        {...register('email')}
+        required
+      />
+      <Input
+        label="First Name"
+        autoComplete="given-name"
+        type="text"
+        error={errors.firstName}
+        {...register('firstName')}
+        required
+      />
+      <Input
+        label="Last Name"
+        autoComplete="family-name"
+        type="text"
+        error={errors.lastName}
+        {...register('lastName')}
+        required
+      />
+      <Input
+        label="Password"
+        autoComplete="new-password"
+        type="password"
+        error={errors.password}
+        {...register('password')}
+        required
+      />
       <Input
         label="Repeat Password"
+        autoComplete="new-password"
         type="password"
         error={errors.repeatPassword}
         {...register('repeatPassword')}
+        required
       />
       <SubmitButton fullWidth isLoading={isPendingAuth}>
         Register

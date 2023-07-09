@@ -13,17 +13,13 @@ import auth from 'lib/firebaseConfig';
 import AuthState from 'types/AuthState';
 import { LoginSchema } from './schemas/loginSchema';
 import { RegisterSchema } from './schemas/registerSchema';
-import FirebaseLoginErrors from './firebaseLoginErrors';
+import FirebaseLoginErrors from './firebaseErrors';
 import User from 'types/User';
 
 const initialState: AuthState = {
   user: localStorage['user'] ? JSON.parse(localStorage['user']) : undefined,
   status: 'IDLE',
-  error: {
-    server: false,
-    invalidCredentials: false,
-    emailTaken: false,
-  },
+  error: false,
 };
 
 function isPendingAction(action: Action) {
@@ -57,20 +53,15 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     setUser(state, action: PayloadAction<User | undefined>) {
-      if (action.payload) {
-        state.user = action.payload;
-      } else {
-        state.user = undefined;
-      }
+      if (action.payload) state.user = action.payload;
+      else state.user = undefined;
     },
-    setServerError(state, action: PayloadAction<boolean>) {
-      state.error.server = action.payload;
+    setServerError(state) {
+      state.error = 'server';
     },
-    resetAuthStatusAndErrors(state) {
+    resetAuthStatusAndError(state) {
       state.status = 'IDLE';
-      state.error.invalidCredentials = false;
-      state.error.server = false;
-      state.error.emailTaken = false;
+      state.error = false;
     },
   },
   extraReducers: (builder) => {
@@ -88,39 +79,31 @@ export const authSlice = createSlice({
         state.status = 'ERROR';
         if (action.error.code === FirebaseLoginErrors.UserNotFound
           || action.error.code === FirebaseLoginErrors.WrongPassword) {
-          state.error.invalidCredentials = true;
-          state.error.server = false;
+            state.error = 'invalidCredentials';
         } else {
-          state.error.invalidCredentials = false;
-          state.error.server = true;
+          state.error = 'server';
         }
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.status = 'ERROR';
-        if (action.payload === 409) {
-          state.error.emailTaken = true;
-          state.error.server = false;
-        } else {
-          state.error.emailTaken = false;
-          state.error.server = true;
-        }
+        if (action.payload === 409) state.error = 'emailTaken';
+        else state.error = 'server';
       })
       .addCase(logoutUser.rejected, (state) => {
         state.status = 'ERROR';
       })
       .addMatcher(isPendingAction, (state) => {
         state.status = 'PENDING';
-        state.error.server = false;
-        state.error.invalidCredentials = false;
-        state.error.emailTaken = false;
+        state.error = false;
       })
   },
 });
 
-export const { resetAuthStatusAndErrors, setServerError, setUser } = authSlice.actions;
+export const { resetAuthStatusAndError, setServerError, setUser } = authSlice.actions;
 
 export const selectCurrentUser = (state: RootState) => state.auth.user;
 export const selectIsRegisterSuccess = (state: RootState) => state.auth.status === 'REGISTER_SUCCESS';
+export const selectServerError = (state: RootState) => state.auth.error === 'server';
 export const selectIsPendingAuth = (state: RootState) =>
   state.auth.status === 'PENDING';
 

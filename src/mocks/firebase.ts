@@ -13,10 +13,5 @@ vi.mock('firebase/auth', () => {
         return Promise.reject({ code: FirebaseErrors.WrongPassword });
       }
     },
-    createUserWithEmailAndPassword(auth: Auth, email: string, password: string) {
-      if (email === mockUser.email) {
-        return Promise.reject({ code: FirebaseErrors.EmailTaken });
-      }
-    }
   };
 });

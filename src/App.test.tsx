@@ -72,11 +72,7 @@ it("should render account page if path is '/account' and user is logged in", asy
         email: mockUser.email,
       },
       status,
-      error: {
-        server: false,
-        invalidCredentials: false,
-        emailTaken: false,
-      },
+      error: false,
     },
   };
   const router = createMemoryRouter(routesConfig, {

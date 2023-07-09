@@ -14,19 +14,14 @@ function useAuth() {
         return;
       }
 
-      try {
-        const url = `${import.meta.env.VITE_API_URL}/users/${firebaseUser.uid}`;
-        const res = await fetch(url);
-        if (res.ok) {
-          const user = await res.json();
-          dispatch(setUser(user));
-        } else {
-          dispatch(setUser(undefined));
-          throw Error('Failed to fetch user data.');
-        }
-      } catch (error) {
+      const url = `${import.meta.env.VITE_API_URL}/users/${firebaseUser.uid}`;
+      const res = await fetch(url);
+      if (res.ok) {
+        const user = await res.json();
+        dispatch(setUser(user));
+      } else {
         dispatch(setUser(undefined));
-        if (location.pathname === '/login') dispatch(setServerError(true));
+        if (location.pathname === '/login') dispatch(setServerError());
       }
     });
     return unsubscribe;
