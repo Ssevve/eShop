@@ -4,7 +4,7 @@ import { rest } from 'msw';
 import renderWithProviders from 'utils/renderWithProviders';
 import server from 'mocks/api/server';
 import products from 'mocks/products';
-import routesConfig from 'routes/routesConfig';
+import routesConfig from 'config/routes';
 
 describe('Product page', () => {
   it('should render page loader when fetching data', () => {

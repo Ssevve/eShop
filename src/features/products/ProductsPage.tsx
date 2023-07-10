@@ -1,6 +1,6 @@
-import ProductList from './components/ProductList';
-import Filters from './components/Filters';
-import Pagination from './components/Pagination';
+import ProductList from './ProductList';
+import Filters from './Filters';
+import Pagination from 'components/common/Pagination';
 import { useSearchParams } from 'react-router-dom';
 import { useGetProductsQuery } from 'features/products/productsSlice';
 import Error from 'pages/Error';

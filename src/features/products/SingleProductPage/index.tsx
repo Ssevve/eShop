@@ -11,9 +11,9 @@ import NotFound from 'pages/NotFound';
 import Loader from 'components/common/Loader';
 import Error from 'pages/Error';
 import QuantityInput from 'components/common/QuantityInput';
-import Reviews from './components/Reviews';
+import Reviews from 'pages/Product/components/Reviews';
 
-function Product() {
+function SingleProductPage() {
   const dispatch = useAppDispatch();
   const [quantity, setQuantity] = useState(productConstraints.quantity.min);
   const { productId } = useParams();
@@ -70,4 +70,4 @@ function Product() {
   );
 }
 
-export default Product;
+export default SingleProductPage;
