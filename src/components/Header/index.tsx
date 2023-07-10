@@ -48,7 +48,7 @@ function Header() {
           />
         )}
       </AnimatePresence>
-      <header className="sticky top-0 flex w-screen bg-white shadow lg:z-50">
+      <header className="sticky top-0 z-10 flex w-screen bg-white shadow lg:z-50">
         <nav className="mx-auto flex h-16 w-full max-w-screen-2xl items-center justify-between gap-3 px-3">
           {isMobile && (
             <button aria-label="Show menu" type="button" onClick={() => toggleMenu()}>

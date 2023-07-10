@@ -4,7 +4,7 @@ import Button from 'components/common/Button';
 
 function Home() {
   return (
-    <section className="flex flex-col items-center justify-evenly gap-6 md:flex-row">
+    <section className="flex grow flex-col items-center justify-evenly gap-6 md:flex-row">
       <img
         className="aspect-square max-h-96 md:max-h-none md:w-1/2 xl:w-1/3"
         src={groceriesIllustration}
