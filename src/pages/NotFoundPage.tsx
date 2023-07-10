@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import Button from 'components/common/Button';
 
-function NotFound() {
+function NotFoundPage() {
   return (
     <section className="flex grow flex-col justify-center gap-6 text-center">
       <h1 className="text-7xl font-extrabold tracking-tight text-primary lg:text-9xl">404</h1>
@@ -21,4 +21,4 @@ function NotFound() {
   );
 }
 
-export default NotFound;
+export default NotFoundPage;

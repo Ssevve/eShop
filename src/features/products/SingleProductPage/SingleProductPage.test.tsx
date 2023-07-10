@@ -25,7 +25,7 @@ describe('Product page', () => {
     expect(await screen.findByLabelText('Loading')).not.toBeInTheDocument();
   });
 
-  it('should render <NotFound /> when product was not found', async () => {
+  it('should render <NotFoundPage /> when product was not found', async () => {
     const router = createMemoryRouter(routesConfig, {
       initialEntries: [`/products/bad-id`],
     });
@@ -33,7 +33,7 @@ describe('Product page', () => {
     expect(await screen.findByRole('heading', { name: '404' })).toBeInTheDocument();
   });
 
-  it('should render <Error /> on error api response', async () => {
+  it('should render <ErrorPage /> on error api response', async () => {
     // force msw to return error response
     server.use(
       rest.get(`${import.meta.env.VITE_API_URL}/products/:id`, (req, res, ctx) => {

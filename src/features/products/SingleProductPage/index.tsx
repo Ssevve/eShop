@@ -7,9 +7,9 @@ import { productConstraints } from 'lib/constants';
 import PriceGroup from 'components/common/PriceGroup';
 import StarRating from 'components/common/StarRating';
 import Button from 'components/common/Button';
-import NotFound from 'pages/NotFound';
+import NotFoundPage from 'pages/NotFoundPage';
 import Loader from 'components/common/Loader';
-import Error from 'pages/Error';
+import ErrorPage from 'pages/ErrorPage';
 import QuantityInput from 'components/common/QuantityInput';
 import Reviews from 'pages/Product/components/Reviews';
 
@@ -28,9 +28,9 @@ function SingleProductPage() {
   if (isFetching) return <Loader />;
 
   const isFetchBaseQueryError = error && 'data' in error;
-  if (isFetchBaseQueryError && error.status !== 404 && error.status !== 400) return <Error />;
+  if (isFetchBaseQueryError && error.status !== 404 && error.status !== 400) return <ErrorPage />;
 
-  if (!product) return <NotFound />;
+  if (!product) return <NotFoundPage />;
   return (
     <section className="mx-auto w-full max-w-4xl gap-12">
       <div className="mb-12 flex flex-1 flex-wrap items-center justify-center gap-12">

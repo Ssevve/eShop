@@ -3,10 +3,10 @@ import GuestRoutes from 'features/auth/GuestRoutes';
 import RootLayout from 'components/RootLayout';
 import AccountPage from 'features/auth/AccountPage';
 import CartPage from 'features/cart/CartPage';
-import Home from 'pages/Home';
+import HomePage from 'pages/HomePage';
 import LoginPage from 'features/auth/LoginPage';
-import NotFound from 'pages/NotFound';
-import Error from 'pages/Error';
+import NotFoundPage from 'pages/NotFoundPage';
+import ErrorPage from 'pages/ErrorPage';
 import SingleProductPage from 'features/products/SingleProductPage';
 import ProductsPage from 'features/products/ProductsPage';
 import RegisterPage from 'features/auth/RegisterPage';
@@ -15,11 +15,11 @@ const routes = [
   {
     path: '/',
     element: <RootLayout />,
-    errorElement: <Error />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: '/',
-        element: <Home />,
+        element: <HomePage />,
       },
       {
         path: '/products',
@@ -58,7 +58,7 @@ const routes = [
       },
       {
         path: '*',
-        element: <NotFound />,
+        element: <NotFoundPage />,
       },
     ],
   },

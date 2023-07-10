@@ -10,7 +10,7 @@ import formatPriceString from 'utils/formatPriceString';
 import Button from 'components/common/Button';
 import CartProductList from '../CartProductList';
 
-function Cart() {
+function CartPage() {
   const dispatch = useAppDispatch();
   const productCount = useAppSelector(selectCartProductCount);
   const originalPrice = useAppSelector(selectCartOriginalPrice);
@@ -59,4 +59,4 @@ function Cart() {
   );
 }
 
-export default Cart;
+export default CartPage;

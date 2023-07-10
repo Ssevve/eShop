@@ -1,6 +1,6 @@
 import LoginForm from './LoginForm';
 
-function Login() {
+function LoginPage() {
   return (
     <section className="flex grow items-center">
       <LoginForm />
@@ -8,4 +8,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginPage;

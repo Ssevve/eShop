@@ -2,7 +2,7 @@ import groceriesIllustration from 'assets/groceries.svg';
 import { Link } from 'react-router-dom';
 import Button from 'components/common/Button';
 
-function Home() {
+function HomePage() {
   return (
     <section className="flex grow flex-col items-center justify-evenly gap-6 md:flex-row">
       <img
@@ -35,4 +35,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default HomePage;

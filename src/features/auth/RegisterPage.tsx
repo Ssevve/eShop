@@ -1,6 +1,6 @@
 import RegisterForm from './RegisterForm';
 
-function Register() {
+function RegisterPage() {
   return (
     <section className="flex grow items-center">
       <RegisterForm />
@@ -8,4 +8,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default RegisterPage;

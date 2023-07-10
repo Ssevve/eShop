@@ -3,10 +3,10 @@ import Filters from './Filters';
 import Pagination from 'components/common/Pagination';
 import { useSearchParams } from 'react-router-dom';
 import { useGetProductsQuery } from 'features/products/productsSlice';
-import Error from 'pages/Error';
+import ErrorPage from 'pages/ErrorPage';
 import Loader from 'components/common/Loader';
 
-function Products() {
+function ProductsPage() {
   const [searchParams] = useSearchParams();
   const page = Number(searchParams.get('page')) || 1;
 
@@ -34,7 +34,7 @@ function Products() {
   return (
     <section className="mx-auto flex h-full w-full flex-col gap-6">
       {isError ? (
-        <Error />
+        <ErrorPage />
       ) : (
         <>
           <Filters />
@@ -45,4 +45,4 @@ function Products() {
   );
 }
 
-export default Products;
+export default ProductsPage;
