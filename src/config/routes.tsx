@@ -2,7 +2,7 @@ import AuthRoutes from 'features/auth/AuthRoutes';
 import GuestRoutes from 'features/auth/GuestRoutes';
 import RootLayout from 'components/RootLayout';
 import AccountPage from 'features/auth/AccountPage';
-import Cart from 'pages/Cart';
+import CartPage from 'features/cart/CartPage';
 import Home from 'pages/Home';
 import LoginPage from 'features/auth/LoginPage';
 import NotFound from 'pages/NotFound';
@@ -31,7 +31,7 @@ const routes = [
       },
       {
         path: '/cart',
-        element: <Cart />,
+        element: <CartPage />,
       },
       {
         element: <GuestRoutes />,
