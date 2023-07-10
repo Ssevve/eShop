@@ -9,7 +9,7 @@ import {
   signOut,
 } from 'firebase/auth';
 import { RootState } from 'app/store';
-import auth from 'lib/firebaseConfig';
+import auth from 'config/firebase';
 import AuthState from 'types/AuthState';
 import { LoginSchema } from './schemas/loginSchema';
 import { RegisterSchema } from './schemas/registerSchema';
@@ -19,7 +19,7 @@ import User from 'types/User';
 const initialState: AuthState = {
   user: localStorage['user'] ? JSON.parse(localStorage['user']) : undefined,
   status: 'IDLE',
-  error: false,
+  error: null,
 };
 
 function isPendingAction(action: Action) {
@@ -61,7 +61,7 @@ export const authSlice = createSlice({
     },
     resetAuthStatusAndError(state) {
       state.status = 'IDLE';
-      state.error = false;
+      state.error = null;
     },
   },
   extraReducers: (builder) => {
@@ -94,7 +94,7 @@ export const authSlice = createSlice({
       })
       .addMatcher(isPendingAction, (state) => {
         state.status = 'PENDING';
-        state.error = false;
+        state.error = null;
       })
   },
 });

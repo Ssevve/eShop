@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useAppDispatch } from 'app/hooks';
 import { beforeAuthStateChanged } from 'firebase/auth';
 import { setServerError, setUser } from './authSlice';
-import auth from 'lib/firebaseConfig';
+import auth from 'config/firebase';
 
 function useAuth() {
   const dispatch = useAppDispatch();

@@ -1,17 +1,17 @@
-import AuthRoutes from 'routes/AuthRoutes';
-import GuestRoutes from 'routes/GuestRoutes';
-import RootLayout from 'layouts/RootLayout';
+import AuthRoutes from 'features/auth/AuthRoutes';
+import GuestRoutes from 'features/auth/GuestRoutes';
+import RootLayout from 'components/RootLayout';
 import Account from 'pages/Account';
 import Cart from 'pages/Cart';
 import Home from 'pages/Home';
 import Login from 'pages/Login';
 import NotFound from 'pages/NotFound';
 import Error from 'pages/Error';
-import Product from 'pages/Product';
-import Products from 'pages/Products';
+import SingleProductPage from 'features/products/SingleProductPage';
+import ProductsPage from 'features/products/ProductsPage';
 import Register from 'pages/Register';
 
-const routesConfig = [
+const routes = [
   {
     path: '/',
     element: <RootLayout />,
@@ -23,11 +23,11 @@ const routesConfig = [
       },
       {
         path: '/products',
-        element: <Products />,
+        element: <ProductsPage />,
       },
       {
         path: '/products/:productId',
-        element: <Product />,
+        element: <SingleProductPage />,
       },
       {
         path: '/cart',
@@ -64,4 +64,4 @@ const routesConfig = [
   },
 ];
 
-export default routesConfig;
+export default routes;

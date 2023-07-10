@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import useAuth from 'features/auth/useAuth';
-import routesConfig from 'routes/routesConfig';
+import routesConfig from 'config/routes';
 
 const router = createBrowserRouter(routesConfig);
 

@@ -4,7 +4,7 @@ import renderWithProviders from 'utils/renderWithProviders';
 import mockUser from 'mocks/user';
 import Status from 'types/Status';
 import App from './App';
-import routesConfig from 'routes/routesConfig';
+import routesConfig from 'config/routes';
 
 describe('App component', () => {
   it('should render page header', () => {
@@ -67,12 +67,9 @@ it("should render account page if path is '/account' and user is logged in", asy
   const status: Status = 'IDLE';
   const preloadedState = {
     auth: {
-      user: {
-        uid: mockUser.uid,
-        email: mockUser.email,
-      },
+      user: mockUser,
       status,
-      error: false,
+      error: null,
     },
   };
   const router = createMemoryRouter(routesConfig, {

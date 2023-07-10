@@ -1,11 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import firebase from 'lib/firebaseConfig';
+import auth from 'config/firebase';
 
 const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_URL,
     prepareHeaders: async (headers) => {
-      const token = await firebase.currentUser?.getIdToken();
+      const token = await auth.currentUser?.getIdToken();
       if (token) headers.set('authorization', `Bearer ${token}`);
       return headers;
     }
