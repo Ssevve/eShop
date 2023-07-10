@@ -1,6 +1,5 @@
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { logoutUser, selectCurrentUser } from 'features/auth/authSlice';
-import { FiLogOut } from 'react-icons/fi';
 
 function Account() {
   const dispatch = useAppDispatch();

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useAppDispatch } from 'app/hooks';
 import { beforeAuthStateChanged } from 'firebase/auth';
-import { setServerError, setUser } from './authSlice';
+import { setServerError, setUser } from '../features/auth/authSlice';
 import auth from 'config/firebase';
 
 function useAuth() {

@@ -9,7 +9,7 @@ import {
   resetAuthStatusAndError,
   selectIsPendingAuth,
 } from 'features/auth/authSlice';
-import { loginSchema, LoginSchema } from 'features/auth/schemas/loginSchema';
+import { loginSchema, LoginSchema } from 'features/auth/lib/loginSchema';
 import Logo from 'components/common/Logo/Logo';
 import Input from 'components/common/Input';
 import ErrorBox from 'components/common/ErrorBox';

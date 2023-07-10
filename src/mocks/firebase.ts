@@ -1,4 +1,4 @@
-import FirebaseErrors from 'features/auth/firebaseErrors';
+import FirebaseErrors from 'features/auth/lib/firebaseErrors';
 import { Auth } from 'firebase/auth';
 import { vi } from 'vitest';
 import mockUser from './user';

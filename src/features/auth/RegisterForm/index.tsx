@@ -9,12 +9,12 @@ import {
   selectIsPendingAuth,
   selectIsRegisterSuccess,
 } from 'features/auth/authSlice';
-import { registerSchema, RegisterSchema } from 'features/auth/schemas/registerSchema';
+import { registerUser } from 'features/auth/authSlice';
+import { registerSchema, RegisterSchema } from 'features/auth/lib/registerSchema';
 import Logo from 'components/common/Logo/Logo';
 import ErrorBox from 'components/common/ErrorBox';
 import Input from 'components/common/Input';
 import SubmitButton from 'components/common/SubmitButton';
-import { registerUser } from 'features/auth/authSlice';
 
 function RegisterForm() {
   const navigate = useNavigate();

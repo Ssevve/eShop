@@ -1,15 +1,15 @@
 import AuthRoutes from 'features/auth/AuthRoutes';
 import GuestRoutes from 'features/auth/GuestRoutes';
 import RootLayout from 'components/RootLayout';
-import Account from 'pages/Account';
+import AccountPage from 'features/auth/AccountPage';
 import Cart from 'pages/Cart';
 import Home from 'pages/Home';
-import Login from 'pages/Login';
+import LoginPage from 'features/auth/LoginPage';
 import NotFound from 'pages/NotFound';
 import Error from 'pages/Error';
 import SingleProductPage from 'features/products/SingleProductPage';
 import ProductsPage from 'features/products/ProductsPage';
-import Register from 'pages/Register';
+import RegisterPage from 'features/auth/RegisterPage';
 
 const routes = [
   {
@@ -38,11 +38,11 @@ const routes = [
         children: [
           {
             path: '/login',
-            element: <Login />,
+            element: <LoginPage />,
           },
           {
             path: '/register',
-            element: <Register />,
+            element: <RegisterPage />,
           },
         ],
       },
@@ -52,7 +52,7 @@ const routes = [
         children: [
           {
             path: '/account',
-            element: <Account />,
+            element: <AccountPage />,
           },
         ],
       },

@@ -11,9 +11,9 @@ import {
 import { RootState } from 'app/store';
 import auth from 'config/firebase';
 import AuthState from 'types/AuthState';
-import { LoginSchema } from './schemas/loginSchema';
-import { RegisterSchema } from './schemas/registerSchema';
-import FirebaseLoginErrors from './firebaseErrors';
+import { LoginSchema } from './lib/loginSchema';
+import { RegisterSchema } from './lib/registerSchema';
+import FirebaseLoginErrors from './lib/firebaseErrors';
 import User from 'types/User';
 
 const initialState: AuthState = {
