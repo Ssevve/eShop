@@ -8,9 +8,15 @@ import { RootState } from 'app/store';
 import { productConstraints } from 'lib/constants';
 import calculateCartTotal from 'utils/calculateCartTotal';
 import calculateOriginalPrice from 'utils/calculateOriginalPrice';
-import CartProduct from 'types/CartProduct';
+import { Product } from 'features/products/productsSlice';
 
-interface CartState {
+
+export type CartProduct = {
+  quantity: number;
+  product: Product;
+}
+
+type CartState = {
   products: CartProduct[];
 }
 

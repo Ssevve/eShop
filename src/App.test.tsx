@@ -2,7 +2,7 @@ import { screen, waitFor } from '@testing-library/react';
 import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 import renderWithProviders from 'utils/renderWithProviders';
 import mockUser from 'mocks/user';
-import Status from 'types/Status';
+import { AuthStatus } from 'features/auth/authSlice';
 import App from './App';
 import routesConfig from 'config/routes';
 
@@ -64,7 +64,7 @@ it("should redirect to log in page if path is '/account' and user is not logged 
 });
 
 it("should render account page if path is '/account' and user is logged in", async () => {
-  const status: Status = 'IDLE';
+  const status: AuthStatus = 'IDLE';
   const preloadedState = {
     auth: {
       user: mockUser,

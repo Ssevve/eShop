@@ -1,17 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
+import SortOption from 'types/SortOption';
 import SortSelect from './components/SortSelect';
-
-export type Sort = string | null;
-export type Order = string | null;
-
-export type SortOption = {
-  id: number;
-  label: string;
-  value: {
-    sort: Sort;
-    order: Order;
-  };
-};
 
 const sortOptions: SortOption[] = [
   {

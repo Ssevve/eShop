@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import mockUser from 'mocks/user';
-import Status from 'types/Status';
+import { AuthStatus } from 'features/auth/authSlice';
 import renderWithProviders from 'utils/renderWithProviders';
 import Header from '.';
 
@@ -33,7 +33,7 @@ describe('Header component', () => {
   });
 
   describe('when user is logged in', () => {
-    const status: Status = 'IDLE';
+    const status: AuthStatus = 'IDLE';
     const preloadedState = {
       auth: {
         user: mockUser,

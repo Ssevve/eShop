@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import ProductCard from '../ProductCard';
-import Product from 'types/Product';
+import { Product } from 'features/products/productsSlice';
 
 type ProductListProps = {
   products: Product[];

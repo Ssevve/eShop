@@ -1,21 +1,37 @@
-import SelectOption from "types/SelectOption";
+import SortOption from "types/SortOption";
 
-const sortOptions: SelectOption[] = [
+const sortOptions: SortOption[] = [
   {
+    id: 1,
     label: 'Test option 1',
-    value: 'testOption1',
+    value: {
+      sort: 'testSort1',
+      order: 'testOrder1',
+    },
   },
   {
+    id: 2,
     label: 'Test option 2',
-    value: 'testOption2',
+    value: {
+      sort: 'testSort1',
+      order: 'testOrder1',
+    },
   },
   {
+    id: 3,
     label: 'Test option 3',
-    value: 'testOption3',
+    value: {
+      sort: 'testSort1',
+      order: 'testOrder1',
+    },
   },
   {
+    id: 4,
     label: 'Test option 4',
-    value: 'testOption4',
+    value: {
+      sort: 'testSort1',
+      order: 'testOrder1',
+    },
   },
 ];
 

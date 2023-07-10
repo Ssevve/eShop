@@ -10,11 +10,19 @@ import {
 } from 'firebase/auth';
 import { RootState } from 'app/store';
 import auth from 'config/firebase';
-import AuthState from 'types/AuthState';
 import { LoginSchema } from './lib/loginSchema';
 import { RegisterSchema } from './lib/registerSchema';
 import FirebaseLoginErrors from './lib/firebaseErrors';
 import User from 'types/User';
+
+type AuthError = null | 'server' | 'invalidCredentials' | 'emailTaken';
+export type AuthStatus = 'IDLE' | 'PENDING' | 'ERROR' | 'REGISTER_SUCCESS';
+
+interface AuthState {
+  user: User;
+  status: AuthStatus;
+  error: AuthError;
+}
 
 const initialState: AuthState = {
   user: localStorage['user'] ? JSON.parse(localStorage['user']) : undefined,

@@ -1,7 +1,20 @@
-import { Order, Sort } from 'pages/Products/components/Filters';
+import { Sort, Order } from 'types/SortOption';
 import apiSlice from '../api/apiSlice'
-import Product from 'types/Product';
 import Category from 'types/Category';
+
+export type Product = {
+  _id: string;
+  name: string;
+  brand: string;
+  price: number;
+  discountPrice: number;
+  imageUrl: string;
+  quantity: string;
+  category: string;
+  rating: number;
+  ratingsCount: number;
+  description: string;
+}
 
 type GetProductsQueryParams = {
   page: number;
