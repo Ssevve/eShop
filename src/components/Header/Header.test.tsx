@@ -38,7 +38,7 @@ describe('Header component', () => {
       auth: {
         user: mockUser,
         status,
-        error: false as false,
+        error: null,
       },
     };
 
