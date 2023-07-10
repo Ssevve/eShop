@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useGetProductByIdQuery } from 'app/api';
+import { useGetProductByIdQuery } from 'features/products/productsSlice';
 import { useAppDispatch } from 'app/hooks';
 import { addCartProduct } from 'features/cart/cartSlice';
 import { productConstraints } from 'lib/constants';

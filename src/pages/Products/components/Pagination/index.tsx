@@ -1,17 +1,26 @@
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import PaginationLink from './PaginationLink';
+import { useMemo } from 'react';
 
 interface PaginationProps {
-  totalItemCount: number;
-  siblingDelta: number;
-  itemsPerPage: number;
   currentPage: number;
+  siblingDelta?: number;
+  totalResults: number;
+  productsPerPage: number;
 }
 
-function Pagination({ totalItemCount, siblingDelta, itemsPerPage, currentPage }: PaginationProps) {
-  const totalPageCount = Math.ceil(totalItemCount / itemsPerPage);
+function Pagination({
+  currentPage,
+  totalResults,
+  productsPerPage,
+  siblingDelta = 1,
+}: PaginationProps) {
+  const totalPageCount = useMemo(
+    () => Math.ceil(totalResults / productsPerPage),
+    [totalResults, productsPerPage]
+  );
 
-  const paginate = (current: number, last: number, delta = 1) => {
+  const paginate = (current: number, last: number, delta: number) => {
     const leftSibling = current - delta;
     const rightSibling = current + delta + 1;
     const pageNumbers = [];

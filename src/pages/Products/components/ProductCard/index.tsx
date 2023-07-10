@@ -9,7 +9,7 @@ import Button from 'components/common/Button';
 import StarRating from 'components/common/StarRating';
 
 interface ProductCardProps {
-  product: Product | undefined;
+  product: Product;
 }
 
 function ProductCard({ product }: ProductCardProps) {

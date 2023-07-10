@@ -1,44 +1,46 @@
-import { useSearchParams } from 'react-router-dom';
-import SortOrder from 'types/SortOrder';
-import { useGetProductsQuery } from 'app/api';
-import Loader from 'components/common/Loader';
-import Pagination from './components/Pagination';
 import ProductList from './components/ProductList';
 import Filters from './components/Filters';
+import Pagination from './components/Pagination';
+import { useSearchParams } from 'react-router-dom';
+import { useGetProductsQuery } from 'features/products/productsSlice';
+import Error from 'pages/Error';
+import Loader from 'components/common/Loader';
 
 function Products() {
   const [searchParams] = useSearchParams();
-  const currentPage = Number(searchParams.get('page')) || 1;
+  const page = Number(searchParams.get('page')) || 1;
 
-  const { data, error, isFetching } = useGetProductsQuery({
-    page: currentPage,
+  const { data, isError, isFetching } = useGetProductsQuery({
+    page,
     category: searchParams.get('category'),
-    sortOrder: searchParams.get('order') as SortOrder,
+    sort: searchParams.get('sort'),
+    order: searchParams.get('order'),
   });
 
-  const productsPerPage = data?.productsPerPage || 0;
-  const products = data?.products || [];
-  const totalProductCount = data?.totalResults || 0;
-
-  if (error) {
-    return (
+  const PaginatedProducts = () =>
+    isFetching ? (
+      <Loader />
+    ) : (
       <>
-        <span className="text-xl font-bold">Error!</span>
-        <p className="mt-2">Could not get data from the server. Please try again later.</p>
+        <ProductList products={data?.products || []} />
+        <Pagination
+          currentPage={page}
+          totalResults={data?.totalResults || 0}
+          productsPerPage={data?.productsPerPage || 0}
+        />
       </>
     );
-  }
-  if (isFetching) return <Loader />;
+
   return (
-    <section className="mx-auto flex w-full flex-col gap-4">
-      <Filters />
-      <ProductList products={products} />
-      <Pagination
-        totalItemCount={totalProductCount}
-        currentPage={currentPage}
-        siblingDelta={1}
-        itemsPerPage={productsPerPage}
-      />
+    <section className="mx-auto flex h-full w-full flex-col gap-6">
+      {isError ? (
+        <Error />
+      ) : (
+        <>
+          <Filters />
+          <PaginatedProducts />
+        </>
+      )}
     </section>
   );
 }

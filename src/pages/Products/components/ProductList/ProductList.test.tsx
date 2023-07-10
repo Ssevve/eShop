@@ -8,7 +8,7 @@ describe('ProductList component', () => {
   it('should render all products', async () => {
     renderWithProviders(
       <BrowserRouter>
-        <ProductList products={products} />
+        <ProductList />
       </BrowserRouter>
     );
     expect(await screen.findAllByRole('listitem')).toHaveLength(products.length);

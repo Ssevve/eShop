@@ -1,13 +1,13 @@
 import { PreloadedState, combineReducers, configureStore } from '@reduxjs/toolkit';
 import authReducer from 'features/auth/authSlice';
 import cartReducer from 'features/cart/cartSlice';
-import { api } from 'app/api';
+import apiSlice from 'features/api/apiSlice';
 import {cartLocalStorageMiddleware, userLocalStorageMiddleware} from "./middleware";
 
 const rootReducer = combineReducers({
   auth: authReducer,
   cart: cartReducer,
-  [api.reducerPath]: api.reducer,
+  [apiSlice.reducerPath]: apiSlice.reducer,
 });
 
 export function setupStore(preloadedState?: PreloadedState<RootState>) {
@@ -24,7 +24,7 @@ export function setupStore(preloadedState?: PreloadedState<RootState>) {
           ],
           ignoredPaths: ['auth.user'],
         },
-      }).concat(api.middleware, cartLocalStorageMiddleware.middleware, userLocalStorageMiddleware.middleware),
+      }).concat(apiSlice.middleware, cartLocalStorageMiddleware.middleware, userLocalStorageMiddleware.middleware),
     preloadedState,
   });
 }

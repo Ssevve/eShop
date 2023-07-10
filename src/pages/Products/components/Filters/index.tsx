@@ -1,46 +1,73 @@
 import { useSearchParams } from 'react-router-dom';
-import SelectOption from 'types/SelectOption';
 import SortSelect from './components/SortSelect';
 
-const sortOptions: SelectOption[] = [
+export type Sort = string | null;
+export type Order = string | null;
+
+export type SortOption = {
+  id: number;
+  label: string;
+  value: {
+    sort: Sort;
+    order: Order;
+  };
+};
+
+const sortOptions: SortOption[] = [
   {
+    id: 1,
     label: 'Name (A-Z)',
-    value: 'nameAscending',
+    value: {
+      sort: 'name',
+      order: 'asc',
+    },
   },
   {
+    id: 2,
     label: 'Name (Z-A)',
-    value: 'nameDescending',
+    value: {
+      sort: 'name',
+      order: 'desc',
+    },
   },
   {
+    id: 3,
     label: 'Price asc.',
-    value: 'priceAscending',
+    value: {
+      sort: 'discountPrice',
+      order: 'asc',
+    },
   },
   {
+    id: 4,
     label: 'Price desc.',
-    value: 'priceDescending',
+    value: {
+      sort: 'discountPrice',
+      order: 'desc',
+    },
   },
 ];
 
 function Filters() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const handleSortChange = (option: SelectOption) => {
-    if (option.value) {
-      searchParams.set('order', option.value);
-      searchParams.set('page', '1');
-    } else searchParams.delete('order');
+  const handleSortChange = (option: SortOption) => {
+    searchParams.set('sort', option.value.sort || '');
+    searchParams.set('order', option.value.order || '');
+    searchParams.set('page', '1');
     setSearchParams(searchParams);
   };
 
   const initialSortOption = sortOptions.find(
-    (option) => option.value === searchParams.get('order')
+    (option) =>
+      option.value.sort === searchParams.get('sort') &&
+      option.value.order === searchParams.get('order')
   );
 
   return (
     <>
       <SortSelect
         initialValue={initialSortOption}
-        key={initialSortOption?.value}
         options={sortOptions}
         label="Sort by"
         onChange={handleSortChange}

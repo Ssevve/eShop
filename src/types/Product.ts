@@ -1,4 +1,4 @@
-interface Product {
+type Product = {
   _id: string;
   name: string;
   brand: string;

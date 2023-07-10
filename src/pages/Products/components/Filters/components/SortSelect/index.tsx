@@ -1,13 +1,13 @@
 import { useRef, useState } from 'react';
 import cx from 'classnames';
 import { FiChevronDown } from 'react-icons/fi';
-import SelectOption from 'types/SelectOption';
+import { SortOption } from '../..';
 
 interface SelectProps {
-  options: SelectOption[];
+  options: SortOption[];
   label: string;
-  onChange: (option: SelectOption) => void;
-  initialValue?: SelectOption;
+  onChange: (option: SortOption) => void;
+  initialValue?: SortOption;
 }
 
 function SortSelect({ options, initialValue = undefined, label, onChange }: SelectProps) {
@@ -15,28 +15,24 @@ function SortSelect({ options, initialValue = undefined, label, onChange }: Sele
   const [selectedOption, setSelectedOption] = useState(initialValue);
   const selectMenuRef = useRef<HTMLUListElement>(null);
 
-  const handleOpen = () => {
-    setIsOpen(true);
-    if (selectMenuRef.current) {
-      selectMenuRef.current.scrollIntoView({
-        block: 'nearest',
-      });
-    }
+  const toggleMenu = (bool?: boolean) => {
+    if (bool === false) setIsOpen(false);
+    else if (bool === undefined) setIsOpen((prev) => !prev);
   };
-  const handleClose = () => setIsOpen(false);
-  const handleChange = (option: SelectOption) => {
+
+  const handleChange = (option: SortOption) => {
     onChange(option);
     setSelectedOption(option);
-    handleClose();
+    setIsOpen(false);
   };
 
   return (
-    <div className="relative z-10 w-max" onMouseLeave={handleClose}>
+    <div className="relative w-max" onMouseLeave={() => toggleMenu(false)}>
       <button
         aria-label={label}
         type="button"
         className="flex cursor-pointer items-center justify-between gap-3 rounded-sm border p-3 text-left"
-        onClick={handleOpen}
+        onClick={() => toggleMenu()}
       >
         {selectedOption ? selectedOption.label : label}
         <FiChevronDown size={20} />
@@ -46,7 +42,7 @@ function SortSelect({ options, initialValue = undefined, label, onChange }: Sele
           {options.map(
             (option) =>
               isOpen && (
-                <li key={option.value}>
+                <li key={option.id}>
                   <button
                     className={cx(
                       'w-full p-3 text-left hover:bg-primary hover:text-white',
