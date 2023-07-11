@@ -2,7 +2,7 @@ import { useAppSelector } from 'app/hooks';
 import cherryAvatar from 'assets/avatar-cherry.svg';
 import StarRating from 'components/common/StarRating';
 import { selectCurrentUser } from 'features/auth/authSlice';
-import ReviewType from 'types/Review';
+import { Review as ReviewType } from '../reviewsSlice';
 
 type ReviewProps = {
   review: ReviewType;
@@ -17,7 +17,7 @@ type ReviewProps = {
     }
 );
 
-function Review({ review, ...rest }: ReviewProps) {
+function Review({ review, editable, setIsEditing }: ReviewProps) {
   const currentUser = useAppSelector(selectCurrentUser);
 
   const isOwnReview = currentUser?._id === review.userId;
@@ -32,9 +32,9 @@ function Review({ review, ...rest }: ReviewProps) {
             <StarRating rating={review.rating} />
           </div>
           <p className="mt-3 max-w-2xl">{review.message}</p>
-          {isOwnReview && rest.editable && (
+          {isOwnReview && editable && (
             <button
-              onClick={() => rest.setIsEditing(true)}
+              onClick={() => setIsEditing(true)}
               className="mt-3 inline-block rounded-sm border bg-white px-3 py-1.5 text-xs font-medium hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200"
             >
               Edit

@@ -15,6 +15,7 @@ const RatingInput = forwardRef<HTMLInputElement, RatingInputProps>(({ rating, ..
         type="radio"
         value={rating}
         {...rest}
+        required
       />
       <span className="mr-1.5">{rating}</span>{' '}
       <FiStar

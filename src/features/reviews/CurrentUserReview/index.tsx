@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { useGetReviewsByProductIdQuery } from 'app/api';
-import ReviewForm from '../ReviewForm';
+import { useGetReviewsByProductIdQuery } from 'features/reviews/reviewsSlice';
+import CreateReviewForm from '../CreateReviewForm';
+import EditReviewForm from '../EditReviewForm';
 import Review from '../Review';
 
 interface CurrentUserReviewProps {
   productId: string;
-  currentUserId: string | undefined;
+  currentUserId: string;
 }
 
 function CurrentUserReview({ productId, currentUserId }: CurrentUserReviewProps) {
@@ -19,20 +20,14 @@ function CurrentUserReview({ productId, currentUserId }: CurrentUserReviewProps)
   return (
     <section>
       <h3 className="my-6 text-lg font-bold">Your review</h3>
-      {currentUserId ? (
-        <>
-          {review ? (
-            isEditing ? (
-              <ReviewForm isEditForm review={review} setIsEditing={setIsEditing} />
-            ) : (
-              <Review editable review={review} setIsEditing={setIsEditing} />
-            )
-          ) : (
-            <ReviewForm productId={productId} />
-          )}
-        </>
+      {review ? (
+        isEditing ? (
+          <EditReviewForm review={review} setIsEditing={setIsEditing} />
+        ) : (
+          <Review editable review={review} setIsEditing={setIsEditing} />
+        )
       ) : (
-        <p className="my-6">You need to log in to be able to write a review!</p>
+        <CreateReviewForm productId={productId} />
       )}
     </section>
   );
