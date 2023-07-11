@@ -4,7 +4,10 @@ type ConstraintRecord<T extends string> = Record<T, number>;
 
 type QuantityConstraints = ConstraintRecord<MinKey | MaxKey>;
 type RatingConstraints = ConstraintRecord<MaxKey>;
-type ProductConstraints = { quantity: QuantityConstraints, rating: RatingConstraints };
+interface ProductConstraints { 
+  quantity: QuantityConstraints;
+  rating: RatingConstraints;
+};
 
 export const productConstraints: ProductConstraints = {
   quantity: {
@@ -18,7 +21,11 @@ export const productConstraints: ProductConstraints = {
 
 type PasswordConstraints = ConstraintRecord<MinKey>;
 type NameConstraints = ConstraintRecord<MinKey>;
-type UserConstraints = { password: PasswordConstraints, firstName: NameConstraints, lastName: NameConstraints };
+interface UserConstraints {
+  password: PasswordConstraints; 
+  firstName: NameConstraints;
+  lastName: NameConstraints;
+};
 
 export const userConstraints: UserConstraints = {
   password: {

@@ -4,18 +4,19 @@ import StarRating from 'components/common/StarRating';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { Review as ReviewType } from '../reviewsSlice';
 
+interface EditableReviewProps {
+  editable: true;
+  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+interface NotEditableReviewProps {
+  setIsEditing?: never;
+  editable?: never;
+}
+
 type ReviewProps = {
   review: ReviewType;
-} & (
-  | {
-      editable: true;
-      setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
-    }
-  | {
-      setIsEditing?: never;
-      editable?: never;
-    }
-);
+} & (EditableReviewProps | NotEditableReviewProps);
 
 function Review({ review, editable, setIsEditing }: ReviewProps) {
   const currentUser = useAppSelector(selectCurrentUser);

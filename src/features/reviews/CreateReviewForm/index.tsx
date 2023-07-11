@@ -5,9 +5,9 @@ import ErrorBox from 'components/common/ErrorBox';
 import RatingInputGroup from '../RatingInputGroup';
 import SubmitButton from 'components/common/SubmitButton';
 
-type CreateReviewFormProps = {
+interface CreateReviewFormProps {
   productId: string;
-};
+}
 
 function CreateReviewForm({ productId }: CreateReviewFormProps) {
   const [createReview, { isLoading, error }] = useCreateReviewMutation();

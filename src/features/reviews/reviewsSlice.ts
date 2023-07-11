@@ -1,6 +1,6 @@
 import apiSlice from '../api/apiSlice'
 
-export type Review = {
+export interface Review {
   _id: string;
   userFirstName: string;
   productId: string;
@@ -10,10 +10,25 @@ export type Review = {
 }
 
 type GetReviewsByProductIdReqParams = string | undefined;
-type CreateReviewReqBody = { productId: string; rating: number; message?: string; };
-type EditReviewReqBody = {_id: string; rating: number; message?: string; };
 
-type ReviewsErrorResBody = { status: number; data: { message: string; } }
+interface CreateReviewReqBody {
+  productId: string;
+  rating: number;
+  message?: string;
+}
+
+interface EditReviewReqBody {
+  _id: string;
+  rating: number;
+  message?: string;
+};
+
+interface ReviewsErrorResBody {
+  status: number;
+  data: {
+    message: string;
+  }
+}
 
 const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

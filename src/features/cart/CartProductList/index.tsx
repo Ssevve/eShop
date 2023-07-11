@@ -1,4 +1,4 @@
-import CartProductType from 'types/CartProduct';
+import { CartProduct as CartProductType } from 'features/cart/cartSlice';
 import CartProduct from '../CartProduct';
 import useWindowWidth from 'hooks/useWindowWidth';
 import useBreakpointValue from 'hooks/useBreakpointValue';

@@ -7,10 +7,10 @@ import RatingInputGroup from '../RatingInputGroup';
 import SubmitButton from 'components/common/SubmitButton';
 import Button from 'components/common/Button';
 
-type EditReviewFormProps = {
+interface EditReviewFormProps {
   review: Review;
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
-};
+}
 
 function EditReviewForm({ review, setIsEditing }: EditReviewFormProps) {
   const [editReview, { isLoading, isSuccess, error }] = useEditReviewMutation();

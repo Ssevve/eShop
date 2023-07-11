@@ -3,9 +3,9 @@ import { FieldError } from 'react-hook-form';
 import RatingInput from '../RatingInput';
 import FormInputErrorMessage from 'components/common/FormInputErrorMessage';
 
-type RatingInputGroupProps = { error?: FieldError } & React.PropsWithoutRef<
-  JSX.IntrinsicElements['input']
->;
+interface RatingInputGroupProps extends React.PropsWithoutRef<JSX.IntrinsicElements['input']> {
+  error?: FieldError;
+}
 
 const RatingInputGroup = forwardRef<HTMLInputElement, RatingInputGroupProps>(
   ({ error, ...rest }, ref) => {

@@ -1,4 +1,6 @@
-type FormInputErrorMessageProps = { message: string };
+interface FormInputErrorMessageProps {
+  message: string;
+}
 
 function FormInputErrorMessage({ message }: FormInputErrorMessageProps) {
   return (

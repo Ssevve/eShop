@@ -11,12 +11,12 @@ import calculateOriginalPrice from 'utils/calculateOriginalPrice';
 import { Product } from 'features/products/productsSlice';
 
 
-export type CartProduct = {
+export interface CartProduct {
   quantity: number;
   product: Product;
 }
 
-type CartState = {
+interface CartState {
   products: CartProduct[];
 }
 

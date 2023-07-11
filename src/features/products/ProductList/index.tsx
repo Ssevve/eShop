@@ -1,9 +1,9 @@
 import ProductCard from '../ProductCard';
 import { Product } from 'features/products/productsSlice';
 
-type ProductListProps = {
+interface ProductListProps {
   products: Product[];
-};
+}
 
 function ProductList({ products }: ProductListProps) {
   return (

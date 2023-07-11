@@ -5,7 +5,11 @@ import Loader from 'components/common/Loader';
 import Review from '../Review';
 import CurrentUserReview from '../CurrentUserReview';
 
-const NoReviewsMessage = ({ isError }: { isError: boolean }) => {
+interface NoReviewsMessageProps {
+  isError: boolean;
+}
+
+const NoReviewsMessage = ({ isError }: NoReviewsMessageProps) => {
   return isError ? (
     <p className="my-6">There was a problem loading reviews. We are working on it!</p>
   ) : (
@@ -13,7 +17,11 @@ const NoReviewsMessage = ({ isError }: { isError: boolean }) => {
   );
 };
 
-function Reviews({ productId }: { productId: string }) {
+interface ReviewsProps {
+  productId: string;
+}
+
+function Reviews({ productId }: ReviewsProps) {
   const currentUser = useAppSelector(selectCurrentUser);
   const { data: reviews, isFetching, isError } = useGetReviewsByProductIdQuery(productId);
 

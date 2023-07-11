@@ -1,4 +1,4 @@
-import CartProduct from "types/CartProduct";
+import { CartProduct } from "features/cart/cartSlice";
 
 const cartProducts: CartProduct[] = [
   {

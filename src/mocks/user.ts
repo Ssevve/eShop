@@ -1,8 +1,8 @@
 import User from 'types/User';
 
-type UserWithPassword = {
+interface UserWithPassword extends User {
   password: string; 
-} & User;
+}
 
 const user: UserWithPassword = {
   email: 'correct@email.com',

@@ -2,7 +2,7 @@ import { Sort, Order } from 'types/SortOption';
 import apiSlice from '../api/apiSlice'
 import Category from 'types/Category';
 
-export type Product = {
+export interface Product {
   _id: string;
   name: string;
   brand: string;
@@ -16,14 +16,14 @@ export type Product = {
   description: string;
 }
 
-type GetProductsQueryParams = {
+interface GetProductsQueryParams {
   page: number;
   category: Category;
   sort: Sort;
   order: Order;
 }
 
-type GetProductsResponse = {
+interface GetProductsResponse {
   products: Product[];
   totalResults: number;
   productsPerPage: number;

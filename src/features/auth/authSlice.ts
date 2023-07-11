@@ -19,7 +19,7 @@ type AuthError = null | 'server' | 'invalidCredentials' | 'emailTaken';
 export type AuthStatus = 'IDLE' | 'PENDING' | 'ERROR' | 'REGISTER_SUCCESS';
 
 interface AuthState {
-  user: User;
+  user: User | undefined;
   status: AuthStatus;
   error: AuthError;
 }
