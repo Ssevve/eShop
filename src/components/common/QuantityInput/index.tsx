@@ -1,4 +1,3 @@
-import cx from 'classnames';
 import { productConstraints } from 'lib/constants';
 import { FiPlus, FiMinus } from 'react-icons/fi';
 
@@ -46,7 +45,7 @@ function QuantityInput({
       {!compact && (
         <button
           aria-label="Decrease quantity"
-          className={cx('items-center border-r px-2', isMinimumQuantity && 'text-gray-400')}
+          className={`items-center border-r px-2 ${isMinimumQuantity && 'text-gray-400'}`}
           type="button"
           onClick={handleDecrement}
           disabled={isMinimumQuantity}
@@ -66,7 +65,7 @@ function QuantityInput({
       {!compact && (
         <button
           aria-label="Increase quantity"
-          className={cx('items-center border-l px-2', isMaximumQuantity && 'text-gray-400')}
+          className={`items-center border-l px-2 ${isMaximumQuantity && 'text-gray-400'}`}
           type="button"
           onClick={handleIncrement}
           disabled={isMaximumQuantity}

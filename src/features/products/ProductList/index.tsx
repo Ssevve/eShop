@@ -1,4 +1,3 @@
-import cx from 'classnames';
 import ProductCard from '../ProductCard';
 import { Product } from 'features/products/productsSlice';
 
@@ -11,10 +10,9 @@ function ProductList({ products }: ProductListProps) {
     <section className="w-full">
       {products.length ? (
         <ul
-          className={cx(
-            'grid gap-3 lg:grid-cols-4 xl:grid-cols-5',
+          className={`grid gap-3 lg:grid-cols-4 xl:grid-cols-5 ${
             products.length > 1 && 'xs:grid-cols-2'
-          )}
+          }`}
         >
           {products.map((product) => (
             <li key={product._id}>

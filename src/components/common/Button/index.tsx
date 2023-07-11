@@ -33,8 +33,6 @@ function Button({
   to,
   ...rest
 }: ButtonProps) {
-  const textSizeClass = `text-${textSize}`;
-  const paddingClasses = evenPadding ? 'p-3' : 'px-6 py-3';
   const variants = {
     primary: 'bg-primary text-white hover:bg-primary-hover',
     neutral: 'bg-gray-200 text-gray-700 hover:bg-gray-300',
@@ -44,8 +42,11 @@ function Button({
     <Component
       to={to}
       className={cx(
-        `flex items-center justify-center gap-4 rounded-sm uppercase ${paddingClasses} ${variants[variant]} ${textSizeClass}`,
-        fullWidth ? 'w-full' : 'w-max'
+        'flex items-center justify-center gap-4 rounded-sm uppercase',
+        `text-${textSize}`,
+        fullWidth ? 'w-full' : 'w-max',
+        evenPadding ? 'p-3' : 'px-6 py-3',
+        variants[variant]
       )}
       type="button"
       {...rest}

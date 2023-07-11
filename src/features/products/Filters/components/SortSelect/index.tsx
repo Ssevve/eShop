@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react';
-import cx from 'classnames';
 import { FiChevronDown } from 'react-icons/fi';
-import { SortOption } from '../..';
+import SortOption from 'types/SortOption';
 
 interface SelectProps {
   options: SortOption[];
@@ -44,10 +43,9 @@ function SortSelect({ options, initialValue = undefined, label, onChange }: Sele
               isOpen && (
                 <li key={option.id}>
                   <button
-                    className={cx(
-                      'w-full p-3 text-left hover:bg-primary hover:text-white',
+                    className={`w-full p-3 text-left hover:bg-primary hover:text-white ${
                       option === selectedOption && 'bg-primary text-white'
-                    )}
+                    }`}
                     type="button"
                     onClick={() => handleChange(option)}
                   >
