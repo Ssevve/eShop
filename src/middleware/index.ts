@@ -1,7 +1,7 @@
 import { createListenerMiddleware, isAnyOf } from '@reduxjs/toolkit';
 import { addCartProduct, removeCartProduct, setCartProductQuantity, clearCart } from 'features/cart/cartSlice';
 import { setUser } from 'features/auth/authSlice';
-import type { RootState } from '../app/store';
+import { RootState } from '../app/store';
 
 export const cartLocalStorageMiddleware = createListenerMiddleware();
 cartLocalStorageMiddleware.startListening({
