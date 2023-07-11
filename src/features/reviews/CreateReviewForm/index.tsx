@@ -1,5 +1,5 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useCreateReviewMutation } from 'features/reviews/reviewsSlice';
+import { useCreateReviewMutation } from 'app/services/reviews';
 import { ReviewSchema } from '../lib/reviewSchema';
 import ErrorBox from 'components/common/ErrorBox';
 import RatingInputGroup from '../RatingInputGroup';

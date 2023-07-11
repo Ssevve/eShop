@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useGetReviewsByProductIdQuery } from 'features/reviews/reviewsSlice';
+import { useGetReviewsByProductIdQuery } from 'app/services/reviews';
 import CreateReviewForm from '../CreateReviewForm';
 import EditReviewForm from '../EditReviewForm';
 import Review from '../Review';

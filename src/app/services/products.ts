@@ -1,5 +1,5 @@
 import { Sort, Order } from 'types/SortOption';
-import apiSlice from '../api/apiSlice'
+import api from './api'
 import Category from 'types/Category';
 
 export interface Product {
@@ -31,7 +31,7 @@ interface GetProductsResponse {
 
 type GetProductByIdReqParams = string | undefined;
 
-const extendedApiSlice = apiSlice.injectEndpoints({
+const productsApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getProducts: builder.query<GetProductsResponse, GetProductsQueryParams>({
       query: ({ page, category, sort, order }) => {
@@ -54,4 +54,4 @@ const extendedApiSlice = apiSlice.injectEndpoints({
   overrideExisting: false,
 })
 
-export const { useGetProductsQuery, useGetProductByIdQuery } = extendedApiSlice;
+export const { useGetProductsQuery, useGetProductByIdQuery } = productsApi;

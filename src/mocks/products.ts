@@ -1,4 +1,4 @@
-import { Product } from 'features/products/productsSlice';
+import { Product } from 'app/services/products';
 
 const products: Product[] = [
   {

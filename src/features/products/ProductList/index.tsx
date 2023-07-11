@@ -1,5 +1,5 @@
 import ProductCard from '../ProductCard';
-import { Product } from 'features/products/productsSlice';
+import { Product } from 'app/services/products';
 
 interface ProductListProps {
   products: Product[];

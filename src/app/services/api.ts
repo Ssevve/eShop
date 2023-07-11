@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import auth from 'config/firebase';
 
-const apiSlice = createApi({
+const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_URL,
     prepareHeaders: async (headers) => {
@@ -14,4 +14,4 @@ const apiSlice = createApi({
   endpoints: () => ({}),
 });
 
-export  default apiSlice;
+export default api;

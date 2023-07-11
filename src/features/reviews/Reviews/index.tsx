@@ -1,4 +1,4 @@
-import { useGetReviewsByProductIdQuery } from 'features/reviews/reviewsSlice';
+import { useGetReviewsByProductIdQuery } from 'app/services/reviews';
 import { useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import Loader from 'components/common/Loader';

@@ -3,7 +3,7 @@ import { FiShoppingCart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { addCartProduct } from 'features/cart/cartSlice';
 import { productConstraints } from 'lib/constants';
-import { Product } from 'features/products/productsSlice';
+import { Product } from 'app/services/products';
 import PriceGroup from 'components/common/PriceGroup';
 import Button from 'components/common/Button';
 import StarRating from 'components/common/StarRating';

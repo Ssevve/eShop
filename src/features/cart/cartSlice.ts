@@ -8,7 +8,7 @@ import { RootState } from 'app/store';
 import { productConstraints } from 'lib/constants';
 import calculateCartTotal from 'utils/calculateCartTotal';
 import calculateOriginalPrice from 'utils/calculateOriginalPrice';
-import { Product } from 'features/products/productsSlice';
+import { Product } from 'app/services/products';
 
 
 export interface CartProduct {

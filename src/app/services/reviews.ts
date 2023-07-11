@@ -1,4 +1,4 @@
-import apiSlice from '../api/apiSlice'
+import api from './api'
 
 export interface Review {
   _id: string;
@@ -30,7 +30,7 @@ interface ReviewsErrorResBody {
   }
 }
 
-const extendedApiSlice = apiSlice.injectEndpoints({
+const reviewsApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getReviewsByProductId: builder.query<Review[], GetReviewsByProductIdReqParams>({
       query: (productId) => `reviews/${productId}`,
@@ -78,4 +78,4 @@ const extendedApiSlice = apiSlice.injectEndpoints({
   overrideExisting: false,
 })
 
-export const { useGetReviewsByProductIdQuery, useCreateReviewMutation, useEditReviewMutation } = extendedApiSlice;
+export const { useGetReviewsByProductIdQuery, useCreateReviewMutation, useEditReviewMutation } = reviewsApi;

@@ -6,7 +6,7 @@ import QuantityInput from 'components/common/QuantityInput';
 import { useState } from 'react';
 import { FiTrash } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import { Product } from 'features/products/productsSlice';
+import { Product } from 'app/services/products';
 
 interface CartProductProps {
   initialQuantity: number;
