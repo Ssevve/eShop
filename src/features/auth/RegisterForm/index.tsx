@@ -67,11 +67,7 @@ function RegisterForm() {
     >
       <header className="flex flex-col items-center justify-center gap-4">
         <Logo />
-        <ErrorBox
-          isError={isServerError}
-          title="Could not create an account"
-          errorMessage="Something went wrong. Please try again."
-        />
+        {isServerError && <ErrorBox title="Could not create an account" />}
       </header>
       <Input
         label="Email"

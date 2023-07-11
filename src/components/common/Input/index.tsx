@@ -1,5 +1,6 @@
 import { forwardRef } from 'react';
 import { FieldError } from 'react-hook-form/dist/types';
+import FormInputErrorMessage from '../FormInputErrorMessage';
 
 interface InputProps extends React.PropsWithoutRef<JSX.IntrinsicElements['input']> {
   label: string;
@@ -14,16 +15,12 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         {label}
         <input
           aria-invalid={error ? 'true' : 'false'}
-          className="w-0 min-w-full rounded-sm border p-3"
+          className={`w-0 min-w-full rounded-sm border p-3 ${error ? 'border-danger' : ''}`}
           type={type}
           ref={ref}
           {...rest}
         />
-        {error && (
-          <strong className="text-sm font-normal text-danger" role="alert">
-            {error.message}
-          </strong>
-        )}
+        {error?.message && <FormInputErrorMessage message={error.message} />}
       </label>
     );
   }

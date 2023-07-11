@@ -59,11 +59,7 @@ function LoginForm() {
     >
       <header className="flex flex-col items-center justify-center gap-4">
         <Logo />
-        <ErrorBox
-          isError={isServerError}
-          title="Could not log in"
-          errorMessage="Something went wrong. Please try again."
-        />
+        {isServerError && <ErrorBox title="Could not log in" />}
       </header>
       <Input
         label="Email"

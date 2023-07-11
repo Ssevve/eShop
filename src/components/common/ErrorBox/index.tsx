@@ -1,17 +1,15 @@
 interface ErrorBoxProps {
-  isError: boolean;
-  title: string;
-  errorMessage: string;
+  title?: string;
+  errorMessage?: string;
 }
 
-function ErrorBox({ isError, title, errorMessage }: ErrorBoxProps) {
-  if (!isError) return null;
+function ErrorBox({ title, errorMessage }: ErrorBoxProps) {
   return (
     <div className="w-full rounded-sm border border-danger bg-red-100 p-4 text-danger">
       <header className="flex justify-between">
-        <strong>{title}</strong>
+        <strong>{title || 'Error!'}</strong>
       </header>
-      <p className="mt-2 text-sm">{errorMessage}</p>
+      <p className="mt-2 text-sm">{errorMessage || 'Something went wrong. Please try again.'}</p>
     </div>
   );
 }

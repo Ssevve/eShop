@@ -1,8 +1,12 @@
 import { z } from 'zod';
+import { userConstraints } from 'lib/constants';
 
 export const loginSchema = z.object({
   email: z.string().email('Invalid email'),
-  password: z.string().min(6, 'Minimum password length is 6'),
+  password: z.string().min(
+      userConstraints.password.min,
+      `Minimum password length is ${userConstraints.password.min}`
+      ),
 });
 
 export type LoginSchema = z.infer<typeof loginSchema>;
