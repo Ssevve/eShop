@@ -1,10 +1,9 @@
-import ProductList from './ProductList';
 import Filters from './Filters';
-import Pagination from 'components/common/Pagination';
 import { useSearchParams } from 'react-router-dom';
 import { useGetProductsQuery } from 'features/products/productsSlice';
 import ErrorPage from 'pages/ErrorPage';
 import Loader from 'components/common/Loader';
+import PaginatedProducts from './PaginatedProducts';
 
 function ProductsPage() {
   const [searchParams] = useSearchParams();
@@ -17,20 +16,6 @@ function ProductsPage() {
     order: searchParams.get('order'),
   });
 
-  const PaginatedProducts = () =>
-    isFetching ? (
-      <Loader />
-    ) : (
-      <>
-        <ProductList products={data?.products || []} />
-        <Pagination
-          currentPage={page}
-          totalResults={data?.totalResults || 0}
-          productsPerPage={data?.productsPerPage || 0}
-        />
-      </>
-    );
-
   return (
     <section className="mx-auto flex h-full w-full flex-col gap-6">
       {isError ? (
@@ -38,7 +23,16 @@ function ProductsPage() {
       ) : (
         <>
           <Filters />
-          <PaginatedProducts />
+          {isFetching ? (
+            <Loader />
+          ) : (
+            <PaginatedProducts
+              currentPage={page}
+              products={data?.products || []}
+              totalResults={data?.totalResults || 0}
+              productsPerPage={data?.productsPerPage || 0}
+            />
+          )}
         </>
       )}
     </section>
