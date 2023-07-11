@@ -11,7 +11,7 @@ import NotFoundPage from 'pages/NotFoundPage';
 import Loader from 'components/common/Loader';
 import ErrorPage from 'pages/ErrorPage';
 import QuantityInput from 'components/common/QuantityInput';
-import Reviews from 'pages/Product/components/Reviews';
+import Reviews from 'features/reviews/Reviews';
 
 function SingleProductPage() {
   const dispatch = useAppDispatch();
@@ -27,8 +27,8 @@ function SingleProductPage() {
 
   if (isFetching) return <Loader />;
 
-  const isFetchBaseQueryError = error && 'data' in error;
-  if (isFetchBaseQueryError && error.status !== 404 && error.status !== 400) return <ErrorPage />;
+  const isFetchBaseQueryError = error && 'status' in error;
+  if (isFetchBaseQueryError && error.status !== 404) return <ErrorPage />;
 
   if (!product) return <NotFoundPage />;
   return (
