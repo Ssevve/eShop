@@ -24,7 +24,7 @@ function Review({ review, editable, setIsEditing }: ReviewProps) {
 
   const isOwnReview = currentUser?._id === review.userId;
 
-  const avatarSize = theme.spacing['10'];
+  const avatarSize = theme.spacing[10];
   return (
     <article className="mt-12 first-of-type:mt-6">
       <div className="flex">

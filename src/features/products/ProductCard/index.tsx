@@ -26,7 +26,7 @@ function ProductCard({ product }: ProductCardProps) {
       <Link to={`/products/${product._id}`}>
         <img
           className="mx-auto h-80 rounded-sm object-scale-down"
-          height={theme.spacing['80']}
+          height={theme.spacing[80]}
           src={product.imageUrl}
           alt={product.name}
         />
