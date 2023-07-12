@@ -18,8 +18,7 @@ function CurrentUserReview({ productId, currentUserId }: CurrentUserReviewProps)
   });
 
   return (
-    <section>
-      <h3 className="my-6 text-lg font-bold">Your review</h3>
+    <>
       {review ? (
         isEditing ? (
           <EditReviewForm review={review} setIsEditing={setIsEditing} />
@@ -29,7 +28,7 @@ function CurrentUserReview({ productId, currentUserId }: CurrentUserReviewProps)
       ) : (
         <CreateReviewForm productId={productId} />
       )}
-    </section>
+    </>
   );
 }
 

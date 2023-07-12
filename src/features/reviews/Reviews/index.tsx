@@ -28,25 +28,28 @@ function Reviews({ productId }: ReviewsProps) {
   return (
     <section className="mt-6 w-full">
       <h2 className="text-4xl font-bold">Reviews</h2>
-      {currentUser ? (
-        <CurrentUserReview productId={productId} currentUserId={currentUser?._id} />
+      {isFetching ? (
+        <Loader />
       ) : (
-        <p className="my-6">You need to log in to be able to write a review!</p>
-      )}
-      <section>
-        {isFetching ? (
-          <Loader />
-        ) : (
-          <div>
+        <>
+          <section>
+            <h3 className="my-6 text-lg font-bold">Your review</h3>
+            {currentUser ? (
+              <CurrentUserReview productId={productId} currentUserId={currentUser._id} />
+            ) : (
+              <p className="my-6">You need to log in to be able to write a review!</p>
+            )}
+          </section>
+          <section>
             <h3 className="mt-12 text-lg font-bold">All reviews</h3>
             {reviews?.length ? (
               reviews.map((review) => <Review key={review._id} review={review} />)
             ) : (
               <NoReviewsMessage isError={isError} />
             )}
-          </div>
-        )}
-      </section>
+          </section>
+        </>
+      )}
     </section>
   );
 }
