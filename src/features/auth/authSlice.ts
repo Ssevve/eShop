@@ -74,36 +74,44 @@ export const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(loginUser.fulfilled, (state) => {
-        state.status = 'IDLE';
-      })
-      .addCase(registerUser.fulfilled, (state) => {
-        state.status = 'REGISTER_SUCCESS';
-      })
-      .addCase(logoutUser.fulfilled, (state) => {
-        state.status = 'IDLE';
-      })
-      .addCase(loginUser.rejected, (state, action) => {
-        state.status = 'ERROR';
-        if (action.error.code === FirebaseLoginErrors.UserNotFound
-          || action.error.code === FirebaseLoginErrors.WrongPassword) {
-            state.error = 'invalidCredentials';
-        } else {
-          state.error = 'server';
-        }
-      })
-      .addCase(registerUser.rejected, (state, action) => {
-        state.status = 'ERROR';
-        if (action.payload === 409) state.error = 'emailTaken';
-        else state.error = 'server';
-      })
-      .addCase(logoutUser.rejected, (state) => {
-        state.status = 'ERROR';
-      })
-      .addMatcher(isPendingAction, (state) => {
-        state.status = 'PENDING';
-        state.error = null;
-      })
+    .addCase(loginUser.pending, (state) => {
+      state.status = 'PENDING';
+      state.error = null;
+    })
+    .addCase(loginUser.fulfilled, (state) => {
+      state.status = 'IDLE';
+    })
+    .addCase(loginUser.rejected, (state, action) => {
+      state.status = 'ERROR';
+      if (action.error.code === FirebaseLoginErrors.UserNotFound
+        || action.error.code === FirebaseLoginErrors.WrongPassword) {
+          state.error = 'invalidCredentials';
+      } else {
+        state.error = 'server';
+      }
+    })
+    .addCase(registerUser.pending, (state) => {
+      state.status = 'PENDING';
+      state.error = null;
+    })
+    .addCase(registerUser.fulfilled, (state) => {
+      state.status = 'REGISTER_SUCCESS';
+    })
+    .addCase(registerUser.rejected, (state, action) => {
+      state.status = 'ERROR';
+      if (action.payload === 409) state.error = 'emailTaken';
+      else state.error = 'server';
+    })
+    .addCase(logoutUser.pending, (state) => {
+      state.status = 'PENDING';
+      state.error = null;
+    })
+    .addCase(logoutUser.fulfilled, (state) => {
+      state.status = 'IDLE';
+    })
+    .addCase(logoutUser.rejected, (state) => {
+      state.status = 'ERROR';
+    })
   },
 });
 
