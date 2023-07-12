@@ -1,4 +1,4 @@
-import { Product } from '../productsSlice';
+import { Product } from 'app/services/products';
 import ProductList from '../ProductList';
 import Pagination from 'components/common/Pagination';
 
