@@ -1,20 +1,14 @@
-import cx from 'classnames';
 import formatPriceString from 'utils/formatPriceString';
 
 interface PriceProps {
   price: number;
   isOld?: boolean;
-  isNew?: boolean;
 }
 
-function Price({ price, isOld = false, isNew = false }: PriceProps) {
+function Price({ price, isOld }: PriceProps) {
   return (
     <span
-      className={cx(
-        'font-bold',
-        isNew && 'ml-2',
-        isOld ? 'text-base text-gray-400 line-through' : 'text-xl'
-      )}
+      className={`font-bold ${isOld ? 'text-base text-gray-400 line-through' : 'ml-2 text-xl'}`}
     >
       {formatPriceString(price)}
     </span>
