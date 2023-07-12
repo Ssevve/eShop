@@ -1,4 +1,4 @@
-import Filters from './Filters';
+import Filters from 'features/filters/Filters';
 import { useSearchParams } from 'react-router-dom';
 import { useGetProductsQuery } from 'app/services/products';
 import ErrorPage from 'pages/ErrorPage';
