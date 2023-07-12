@@ -1,8 +1,9 @@
 import { useAppSelector } from 'app/hooks';
 import cherryAvatar from 'assets/avatar-cherry.svg';
-import StarRating from 'components/common/StarRating';
 import { selectCurrentUser } from 'features/auth/authSlice';
-import { Review as ReviewType } from '../reviewsSlice';
+import { Review as ReviewType } from 'app/services/reviews';
+import theme from 'lib/theme';
+import StarRating from 'components/common/StarRating';
 
 interface EditableReviewProps {
   editable: true;
@@ -23,10 +24,17 @@ function Review({ review, editable, setIsEditing }: ReviewProps) {
 
   const isOwnReview = currentUser?._id === review.userId;
 
+  const avatarSize = theme.spacing['10'];
   return (
     <article className="mt-12 first-of-type:mt-6">
       <div className="flex">
-        <img className="h-10 w-10 rounded-full" src={cherryAvatar} alt="" />
+        <img
+          className="h-10 w-10 rounded-full"
+          width={avatarSize}
+          height={avatarSize}
+          src={cherryAvatar}
+          alt=""
+        />
         <div className="ml-3">
           <div className="mb-3 flex gap-3">
             <p className="font-medium">{review.userFirstName}</p>
