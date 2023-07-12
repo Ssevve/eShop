@@ -5,9 +5,14 @@ type SubmitButtonProps = {
   isLoading: boolean;
 } & ButtonProps;
 
-function SubmitButton({ children, isLoading, ...rest }: SubmitButtonProps) {
+function SubmitButton({ children, isLoading, fullWidth }: SubmitButtonProps) {
   return (
-    <Button type="submit" aria-label={isLoading ? 'Loading' : undefined} disabled={isLoading}>
+    <Button
+      fullWidth={fullWidth}
+      type="submit"
+      aria-label={isLoading ? 'Loading' : undefined}
+      disabled={isLoading}
+    >
       {isLoading ? <ThreeDots height={24} width={30} color="#fff" /> : children}
     </Button>
   );
