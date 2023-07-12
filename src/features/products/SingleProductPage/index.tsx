@@ -4,6 +4,7 @@ import { useGetProductByIdQuery } from 'app/services/products';
 import { useAppDispatch } from 'app/hooks';
 import { addCartProduct } from 'features/cart/cartSlice';
 import { productConstraints } from 'lib/constants';
+import theme from 'lib/theme';
 import PriceGroup from 'components/common/PriceGroup';
 import StarRating from 'components/common/StarRating';
 import Button from 'components/common/Button';
@@ -34,7 +35,12 @@ function SingleProductPage() {
   return (
     <section className="mx-auto w-full max-w-4xl gap-12">
       <div className="mb-12 flex flex-1 flex-wrap items-center justify-center gap-12">
-        <img className="w-full max-w-sm" src={product.imageUrl} alt={product.name} />
+        <img
+          className="h-96 w-full max-w-sm object-scale-down"
+          height={theme.spacing['96']}
+          src={product.imageUrl}
+          alt={product.name}
+        />
         <div className="flex flex-1 flex-col gap-6">
           <header className="grid gap-y-3">
             <h1 className="text-4xl font-bold leading-tight">{product.name}</h1>
