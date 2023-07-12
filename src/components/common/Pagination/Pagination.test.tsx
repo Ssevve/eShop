@@ -7,7 +7,7 @@ describe('Pagination component', () => {
   it('should not render anything if total page count is 1', () => {
     renderWithProviders(
       <BrowserRouter>
-        <Pagination totalItemCount={19} currentPage={1} siblingDelta={1} itemsPerPage={20} />
+        <Pagination totalResults={19} currentPage={1} siblingDelta={1} itemsPerPage={20} />
       </BrowserRouter>
     );
     expect(screen.queryByRole('list')).not.toBeInTheDocument();
@@ -16,7 +16,7 @@ describe('Pagination component', () => {
   it('should render first page button', () => {
     renderWithProviders(
       <BrowserRouter>
-        <Pagination totalItemCount={200} currentPage={4} siblingDelta={1} itemsPerPage={30} />
+        <Pagination totalResults={200} currentPage={4} siblingDelta={1} itemsPerPage={30} />
       </BrowserRouter>
     );
     expect(screen.getByRole('link', { name: /page 1/i })).toBeInTheDocument();
@@ -25,20 +25,20 @@ describe('Pagination component', () => {
   it('should render middle page links', () => {
     renderWithProviders(
       <BrowserRouter>
-        <Pagination totalItemCount={200} currentPage={4} siblingDelta={1} itemsPerPage={30} />
+        <Pagination totalResults={200} currentPage={4} siblingDelta={1} itemsPerPage={30} />
       </BrowserRouter>
     );
     expect(screen.getByRole('link', { name: /page 2/i })).toBeInTheDocument();
   });
 
   it('should render last page button', () => {
-    const totalItemCount = 200;
+    const totalResults = 200;
     const itemsPerPage = 20;
-    const totalPageCount = totalItemCount / itemsPerPage;
+    const totalPageCount = totalResults / itemsPerPage;
     renderWithProviders(
       <BrowserRouter>
         <Pagination
-          totalItemCount={totalItemCount}
+          totalResults={totalResults}
           currentPage={4}
           siblingDelta={1}
           itemsPerPage={itemsPerPage}
@@ -53,7 +53,7 @@ describe('Pagination component', () => {
   it("should render a 'previous page' link if current page is greater than 1", () => {
     renderWithProviders(
       <BrowserRouter>
-        <Pagination totalItemCount={200} currentPage={2} siblingDelta={1} itemsPerPage={20} />
+        <Pagination totalResults={200} currentPage={2} siblingDelta={1} itemsPerPage={20} />
       </BrowserRouter>
     );
     expect(screen.getByRole('link', { name: /previous page/i })).toBeInTheDocument();
@@ -62,7 +62,7 @@ describe('Pagination component', () => {
   it("should not render a 'previous page' link if current page is 1", () => {
     renderWithProviders(
       <BrowserRouter>
-        <Pagination totalItemCount={200} currentPage={1} siblingDelta={1} itemsPerPage={20} />
+        <Pagination totalResults={200} currentPage={1} siblingDelta={1} itemsPerPage={20} />
       </BrowserRouter>
     );
     expect(screen.queryByRole('link', { name: /previous page/i })).not.toBeInTheDocument();
@@ -71,7 +71,7 @@ describe('Pagination component', () => {
   it("should render a 'next page' link if current page is less than total page count", () => {
     renderWithProviders(
       <BrowserRouter>
-        <Pagination totalItemCount={200} currentPage={1} siblingDelta={1} itemsPerPage={20} />
+        <Pagination totalResults={200} currentPage={1} siblingDelta={1} itemsPerPage={20} />
       </BrowserRouter>
     );
     expect(screen.getByRole('link', { name: /next page/i })).toBeInTheDocument();
@@ -80,7 +80,7 @@ describe('Pagination component', () => {
   it("should not render a 'next page' link if current page is equal to total page count", () => {
     renderWithProviders(
       <BrowserRouter>
-        <Pagination totalItemCount={200} currentPage={10} siblingDelta={1} itemsPerPage={20} />
+        <Pagination totalResults={200} currentPage={10} siblingDelta={1} itemsPerPage={20} />
       </BrowserRouter>
     );
     expect(screen.queryByRole('link', { name: /next page/i })).not.toBeInTheDocument();
@@ -89,7 +89,7 @@ describe('Pagination component', () => {
   it("should render 'more previous pages' link if needed", () => {
     renderWithProviders(
       <BrowserRouter>
-        <Pagination totalItemCount={200} currentPage={5} siblingDelta={1} itemsPerPage={20} />
+        <Pagination totalResults={200} currentPage={5} siblingDelta={1} itemsPerPage={20} />
       </BrowserRouter>
     );
     expect(screen.getByRole('link', { name: /page 3/i })).toHaveTextContent('...');
@@ -98,7 +98,7 @@ describe('Pagination component', () => {
   it("should render 'more next pages' link if needed", () => {
     renderWithProviders(
       <BrowserRouter>
-        <Pagination totalItemCount={200} currentPage={5} siblingDelta={1} itemsPerPage={20} />
+        <Pagination totalResults={200} currentPage={5} siblingDelta={1} itemsPerPage={20} />
       </BrowserRouter>
     );
     expect(screen.getByRole('link', { name: /page 7/i })).toHaveTextContent('...');

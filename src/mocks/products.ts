@@ -12,7 +12,7 @@ const products: Product[] = [
     quantity: 'Test quantity 1',
     rating: 5,
     ratingsCount: 23,
-    _id: 'testId',
+    _id: 'testProductId',
   },
   {
     brand: 'Test brand 2',
@@ -25,7 +25,7 @@ const products: Product[] = [
     quantity: 'Test quantity 2',
     rating: 1,
     ratingsCount: 12,
-    _id: 'testId2',
+    _id: 'testProductId2',
   },
   {
     brand: 'Test brand 3',
@@ -38,7 +38,7 @@ const products: Product[] = [
     quantity: 'Test quantity 3',
     rating: 3,
     ratingsCount: 2,
-    _id: 'testId3',
+    _id: 'testProductId3',
   },
 ];
 

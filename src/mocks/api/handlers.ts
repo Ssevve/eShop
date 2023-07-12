@@ -1,6 +1,7 @@
 import { rest } from 'msw';
 import products from '../products';
 import mockUser from 'mocks/user';
+import mockReviews from 'mocks/reviews';
 
 const handlers = [
   rest.get(`${import.meta.env.VITE_API_URL}/products/:id`, (req, res, ctx) => {
@@ -11,6 +12,9 @@ const handlers = [
   rest.post(`${import.meta.env.VITE_API_URL}/users/register`, async (req, res, ctx) => {
     const { email } = await req.json();
     if (email === mockUser.email) return res(ctx.status(409));
+  }),
+  rest.get(`${import.meta.env.VITE_API_URL}/reviews/:id`, (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(mockReviews));
   }),
 ];
 
