@@ -6,18 +6,18 @@ interface PaginationProps {
   currentPage: number;
   siblingDelta?: number;
   totalResults: number;
-  productsPerPage: number;
+  itemsPerPage: number;
 }
 
 function Pagination({
   currentPage,
   totalResults,
-  productsPerPage,
+  itemsPerPage,
   siblingDelta = 1,
 }: PaginationProps) {
   const totalPageCount = useMemo(
-    () => Math.ceil(totalResults / productsPerPage),
-    [totalResults, productsPerPage]
+    () => Math.ceil(totalResults / itemsPerPage),
+    [totalResults, itemsPerPage]
   );
 
   const paginate = (current: number, last: number, delta: number) => {

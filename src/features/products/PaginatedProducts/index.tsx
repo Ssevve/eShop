@@ -21,7 +21,7 @@ function PaginatedProducts({
       <Pagination
         currentPage={currentPage}
         totalResults={totalResults}
-        productsPerPage={productsPerPage}
+        itemsPerPage={productsPerPage}
       />
     </>
   );
