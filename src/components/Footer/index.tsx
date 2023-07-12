@@ -3,7 +3,7 @@ import SocialLinks from 'components/common/SocialLinks';
 
 function Footer() {
   return (
-    <footer className="rounded-lg border-t bg-white">
+    <footer className="border-t bg-white">
       <div className="mx-auto w-full max-w-screen-2xl p-3">
         <div className="sm:flex sm:items-center sm:justify-between">
           <Logo />
