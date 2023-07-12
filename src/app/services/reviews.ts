@@ -68,7 +68,6 @@ const reviewsApi = api.injectEndpoints({
           status: response.status,
           data: response.data.message,
         }),
-      // @ts-ignore
       invalidatesTags: (result) => result ? [     
         { type: 'Reviews', id: 'LIST' },
         { type: 'Products', id: result.productId }
