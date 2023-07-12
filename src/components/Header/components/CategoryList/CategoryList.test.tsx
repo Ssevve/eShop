@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import renderWithProviders from 'utils/renderWithProviders';
 import CategoryList from '.';
 import { vi } from 'vitest';
-import categories from 'lib/categories';
+import categories from 'features/categories/categories';
 
 describe('CategoryList component', () => {
   it("should render 'all products' link", () => {

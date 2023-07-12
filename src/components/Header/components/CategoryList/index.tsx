@@ -1,5 +1,5 @@
 import CategoryLink from '../CategoryLink';
-import categories from 'lib/categories';
+import categories from 'features/categories/categories';
 
 interface CategoryListProps {
   toggleClose: () => void;
