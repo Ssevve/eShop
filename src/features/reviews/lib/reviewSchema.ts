@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const reviewSchema = z.object({
-  rating: z.number(),
+  rating: z.string(),
   message: z.string(),
 });
 

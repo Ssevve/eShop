@@ -19,7 +19,7 @@ function EditReviewForm({ review, setIsEditing }: EditReviewFormProps) {
     formState: { errors },
   } = useForm<ReviewSchema>({
     defaultValues: {
-      rating: review.rating,
+      rating: review.rating.toString(),
       message: review.message,
     },
   });
@@ -28,7 +28,7 @@ function EditReviewForm({ review, setIsEditing }: EditReviewFormProps) {
     editReview({
       _id: review._id,
       message: message?.trim(),
-      rating: rating,
+      rating: Number(rating),
     });
 
     if (isSuccess) setIsEditing(false);

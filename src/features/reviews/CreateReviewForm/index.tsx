@@ -21,7 +21,7 @@ function CreateReviewForm({ productId }: CreateReviewFormProps) {
     return createReview({
       productId,
       message: message?.trim(),
-      rating: rating,
+      rating: Number(rating),
     });
   };
 

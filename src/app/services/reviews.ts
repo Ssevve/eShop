@@ -58,7 +58,7 @@ const reviewsApi = api.injectEndpoints({
     }),
     editReview: builder.mutation<Review, EditReviewReqBody>({
       query: (body) => ({
-        url: 'reviews',
+        url: `reviews/${body._id}`,
         method: 'PUT',
         body,
       }),
