@@ -3,31 +3,23 @@ import renderWithProviders from 'utils/renderWithProviders';
 import ErrorBox from '.';
 
 describe('ErrorBox component', () => {
-  describe('when isError is true', () => {
-    it('should render title', () => {
-      renderWithProviders(<ErrorBox isError title="Error title" errorMessage="Error message" />);
-      expect(screen.getByText('Error title')).toBeInTheDocument();
-    });
-
-    it('should render error message', () => {
-      renderWithProviders(<ErrorBox isError title="Error title" errorMessage="Error message" />);
-      expect(screen.getByText('Error message')).toBeInTheDocument();
-    });
+  it("should render default title if 'title' prop is not passed in", () => {
+    renderWithProviders(<ErrorBox />);
+    expect(screen.getByText('Error!')).toBeInTheDocument();
   });
 
-  describe('when isError is false', () => {
-    it('should not render title', () => {
-      renderWithProviders(
-        <ErrorBox isError={false} title="Error title" errorMessage="Error message" />
-      );
-      expect(screen.queryByText('Error title')).not.toBeInTheDocument();
-    });
+  it("should render default message if 'message' prop is not passed in", () => {
+    renderWithProviders(<ErrorBox />);
+    expect(screen.getByText('Something went wrong. Please try again.')).toBeInTheDocument();
+  });
 
-    it('should not render error message', () => {
-      renderWithProviders(
-        <ErrorBox isError={false} title="Error title" errorMessage="Error message" />
-      );
-      expect(screen.queryByText('Error message')).not.toBeInTheDocument();
-    });
+  it('should render passed in title', () => {
+    renderWithProviders(<ErrorBox title="Error title" />);
+    expect(screen.queryByText('Error title')).toBeInTheDocument();
+  });
+
+  it('should not render passed in error message', () => {
+    renderWithProviders(<ErrorBox errorMessage="Error message" />);
+    expect(screen.queryByText('Error message')).toBeInTheDocument();
   });
 });
