@@ -26,7 +26,7 @@ function HomePage() {
           </p>
         </section>
         <section className="mx-auto md:mx-0">
-          <Button as={Link} to="/products">
+          <Button renderAs={Link} to="/products">
             Shop now
           </Button>
         </section>

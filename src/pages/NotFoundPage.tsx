@@ -10,10 +10,10 @@ function NotFoundPage() {
         <p className="text-lg font-light text-gray-500">Sorry, we can't find that page.</p>
       </div>
       <div className="flex flex-col items-center justify-center gap-4 md:flex-row">
-        <Button as={Link} to="/products">
+        <Button renderAs={Link} to="/products">
           Go to shop
         </Button>
-        <Button as={Link} variant="neutral" to="/">
+        <Button renderAs={Link} to="/" variant="neutral">
           Go to home page
         </Button>
       </div>

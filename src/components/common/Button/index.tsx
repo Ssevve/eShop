@@ -1,11 +1,19 @@
 import cx from 'classnames';
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode;
+interface AsLinkProps extends React.PropsWithChildren {
+  renderAs: React.ElementType;
+  to: string;
+}
+
+interface AsButtonProps extends Omit<React.ComponentPropsWithoutRef<'button'>, 'type'> {
+  renderAs?: never | 'button';
+  to?: never;
+}
+
+export type ButtonProps = {
   variant?: 'primary' | 'neutral';
   evenPadding?: boolean;
   fullWidth?: boolean;
-  as?: React.ElementType;
   textSize?:
     | 'xs'
     | 'sm'
@@ -20,16 +28,15 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
     | '7xl'
     | '8xl'
     | '9xl';
-  to?: string;
-}
+} & (AsLinkProps | AsButtonProps);
 
 function Button({
   children,
-  as: Component = 'button',
   variant = 'primary',
   fullWidth = false,
   evenPadding = false,
   textSize = 'base',
+  renderAs: Component = 'button',
   to,
   ...rest
 }: ButtonProps) {
@@ -38,9 +45,10 @@ function Button({
     neutral: 'bg-gray-200 text-gray-700 hover:bg-gray-300',
   };
 
+  const type = Component === 'button' ? 'button' : undefined;
+
   return (
     <Component
-      to={to}
       className={cx(
         'flex items-center justify-center gap-4 rounded-sm uppercase',
         `text-${textSize}`,
@@ -48,7 +56,8 @@ function Button({
         evenPadding ? 'p-3' : 'px-6 py-3',
         variants[variant]
       )}
-      type="button"
+      type={type}
+      to={to}
       {...rest}
     >
       {children}
