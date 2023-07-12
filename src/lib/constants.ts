@@ -7,7 +7,7 @@ type RatingConstraints = ConstraintRecord<MaxKey>;
 interface ProductConstraints { 
   quantity: QuantityConstraints;
   rating: RatingConstraints;
-};
+}
 
 export const productConstraints: ProductConstraints = {
   quantity: {
@@ -16,7 +16,7 @@ export const productConstraints: ProductConstraints = {
   },
   rating: {
     max: 5,
-  }
+  },
 };
 
 type PasswordConstraints = ConstraintRecord<MinKey>;
@@ -25,7 +25,7 @@ interface UserConstraints {
   password: PasswordConstraints; 
   firstName: NameConstraints;
   lastName: NameConstraints;
-};
+}
 
 export const userConstraints: UserConstraints = {
   password: {
