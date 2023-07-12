@@ -9,7 +9,7 @@ interface CartProductListProps {
 
 function CartProductList({ products }: CartProductListProps) {
   const windowWidth = useWindowWidth();
-  const smallBreakpoint = useBreakpointValue('sm');
+  const smallBreakpoint = useBreakpointValue('xs');
   const isSmallWindowSize = windowWidth < smallBreakpoint;
 
   return (
