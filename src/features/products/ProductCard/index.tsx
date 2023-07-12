@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { addCartProduct } from 'features/cart/cartSlice';
 import { productConstraints } from 'lib/constants';
 import { Product } from 'app/services/products';
+import theme from 'lib/theme';
 import PriceGroup from 'components/common/PriceGroup';
 import Button from 'components/common/Button';
 import StarRating from 'components/common/StarRating';
@@ -23,7 +24,12 @@ function ProductCard({ product }: ProductCardProps) {
   return (
     <div className="h-full w-full rounded-sm border border-gray-200 bg-white shadow lg:max-w-xs">
       <Link to={`/products/${product._id}`}>
-        <img className="w-full rounded-sm pt-6" src={product.imageUrl} alt={product.name} />
+        <img
+          className="mx-auto h-80 rounded-sm object-scale-down"
+          height={theme.spacing['80']}
+          src={product.imageUrl}
+          alt={product.name}
+        />
         <div className="px-6 pb-6">
           <h2 className="mt-3 text-xl font-semibold tracking-tight">{product.name}</h2>
 
