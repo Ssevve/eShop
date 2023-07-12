@@ -81,7 +81,7 @@ describe('Button component', () => {
   it("should render as link if 'as' prop is provided with 'Link' value", () => {
     renderWithProviders(
       <BrowserRouter>
-        <Button as={Link} to="/test">
+        <Button renderAs={Link} to="/test">
           text
         </Button>
       </BrowserRouter>
