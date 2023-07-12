@@ -1,13 +1,16 @@
 import cx from 'classnames';
 
-interface AsLinkProps extends React.PropsWithChildren {
+interface AsLinkProps extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> {
   renderAs: React.ElementType;
   to: string;
+  type?: never;
+  disabled?: never;
 }
 
-interface AsButtonProps extends Omit<React.ComponentPropsWithoutRef<'button'>, 'type'> {
-  renderAs?: never | 'button';
+interface AsButtonProps extends React.ComponentPropsWithoutRef<'button'> {
+  renderAs?: never;
   to?: never;
+  type?: 'submit' | 'button';
 }
 
 export type ButtonProps = {
@@ -36,6 +39,7 @@ function Button({
   fullWidth = false,
   evenPadding = false,
   textSize = 'base',
+  type = 'button',
   renderAs: Component = 'button',
   to,
   ...rest
@@ -45,7 +49,7 @@ function Button({
     neutral: 'bg-gray-200 text-gray-700 hover:bg-gray-300',
   };
 
-  const type = Component === 'button' ? 'button' : undefined;
+  const buttonType = Component === 'button' ? type : undefined;
 
   return (
     <Component
@@ -56,7 +60,7 @@ function Button({
         evenPadding ? 'p-3' : 'px-6 py-3',
         variants[variant]
       )}
-      type={type}
+      type={buttonType}
       to={to}
       {...rest}
     >
