@@ -1,13 +1,13 @@
 import cx from 'classnames';
 
-interface AsLinkProps extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> {
+export interface AsLinkProps extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> {
   renderAs: React.ElementType;
   to: string;
   type?: never;
   disabled?: never;
 }
 
-interface AsButtonProps extends React.ComponentPropsWithoutRef<'button'> {
+interface AsButtonProps extends React.ComponentProps<'button'> {
   renderAs?: never;
   to?: never;
   type?: 'submit' | 'button';
@@ -15,6 +15,7 @@ interface AsButtonProps extends React.ComponentPropsWithoutRef<'button'> {
 
 export type ButtonProps = {
   variant?: 'primary' | 'neutral';
+  disabled?: boolean;
   evenPadding?: boolean;
   fullWidth?: boolean;
   textSize?:
@@ -41,8 +42,9 @@ function Button({
   textSize = 'base',
   type = 'button',
   renderAs: Component = 'button',
+  className,
   to,
-  ...rest
+  ...props
 }: ButtonProps) {
   const variants = {
     primary: 'bg-primary text-white hover:bg-primary-hover',
@@ -58,11 +60,12 @@ function Button({
         `text-${textSize}`,
         fullWidth ? 'w-full' : 'w-max',
         evenPadding ? 'p-3' : 'px-6 py-3',
-        variants[variant]
+        variants[variant],
+        className
       )}
       type={buttonType}
       to={to}
-      {...rest}
+      {...props}
     >
       {children}
     </Component>

@@ -1,17 +1,17 @@
 import { ThreeDots } from 'react-loader-spinner';
-import Button, { ButtonProps } from '../Button';
+import Button, { AsLinkProps, ButtonProps } from '../Button';
 
 type SubmitButtonProps = {
   isLoading: boolean;
-} & ButtonProps;
+} & Exclude<ButtonProps, AsLinkProps>;
 
-function SubmitButton({ children, isLoading, fullWidth }: SubmitButtonProps) {
+function SubmitButton({ children, isLoading, ...props }: SubmitButtonProps) {
   return (
     <Button
-      fullWidth={fullWidth}
       type="submit"
       aria-label={isLoading ? 'Loading' : undefined}
       disabled={isLoading}
+      {...props}
     >
       {isLoading ? <ThreeDots height={24} width={30} color="#fff" /> : children}
     </Button>
