@@ -1,4 +1,5 @@
 import api from './api'
+import { Product } from './products';
 
 export interface Review {
   _id: string;
@@ -9,18 +10,33 @@ export interface Review {
   rating: number;
 }
 
-type GetReviewsByProductIdReqParams = string | undefined;
-
-interface CreateReviewReqBody {
+interface CreateReviewArgs {
   productId: string;
   rating: number;
   message?: string;
 }
 
-interface EditReviewReqBody {
-  _id: string;
+interface CreateReviewResBody {
+  created: {
+    review: Review;
+  },
+  updated: {
+    product: Product;
+  }
+}
+
+interface EditReviewArgs {
+  reviewId: string;
+  productId: string;
   rating: number;
   message?: string;
+}
+
+interface EditReviewResBody {
+  updated: {
+    review: Review;
+    product: Product
+  }
 };
 
 interface ReviewsErrorResBody {
@@ -32,11 +48,11 @@ interface ReviewsErrorResBody {
 
 const reviewsApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getReviewsByProductId: builder.query<Review[], GetReviewsByProductIdReqParams>({
+    getReviewsByProductId: builder.query<Review[], string | undefined>({
       query: (productId) => `reviews/${productId}`,
       providesTags: [{ type: 'Reviews', id: 'LIST' }],
     }),
-    createReview: builder.mutation<Review, CreateReviewReqBody>({
+    createReview: builder.mutation<CreateReviewResBody, CreateReviewArgs>({
       query: (body) => {
         return ({
         url: 'reviews',
@@ -53,14 +69,17 @@ const reviewsApi = api.injectEndpoints({
         console.log(result);
         return result ? [
         { type: 'Reviews', id: 'LIST' },
-        { type: 'Products', id: result.productId }
+        { type: 'Products', id: result.updated.product._id }
       ] : []},
     }),
-    editReview: builder.mutation<Review, EditReviewReqBody>({
-      query: (body) => ({
-        url: `reviews/${body._id}`,
+    editReview: builder.mutation<EditReviewResBody, EditReviewArgs>({
+      query: ({ reviewId, productId, rating, message}) => ({
+        url: `reviews/${reviewId}/${productId}`,
         method: 'PUT',
-        body,
+        headers: {
+          'Content-Type':'application/json',
+        },
+        body: JSON.stringify({ rating, message }),
       }),
       transformErrorResponse: (
         response: ReviewsErrorResBody
@@ -70,7 +89,7 @@ const reviewsApi = api.injectEndpoints({
         }),
       invalidatesTags: (result) => result ? [     
         { type: 'Reviews', id: 'LIST' },
-        { type: 'Products', id: result.productId }
+        { type: 'Products', id: result.updated.product._id }
       ] : [],
     }),
   }),

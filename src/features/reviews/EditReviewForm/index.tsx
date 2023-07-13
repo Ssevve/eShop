@@ -26,7 +26,8 @@ function EditReviewForm({ review, setIsEditing }: EditReviewFormProps) {
 
   const onSubmit: SubmitHandler<ReviewSchema> = ({ rating, message }) => {
     editReview({
-      _id: review._id,
+      reviewId: review._id,
+      productId: review.productId,
       message: message?.trim(),
       rating: Number(rating),
     });
