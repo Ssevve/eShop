@@ -16,11 +16,11 @@ function Header() {
   const currentUser = useAppSelector(selectCurrentUser);
   const cartProductCount = useAppSelector(selectCartProductCount);
   const windowWidth = useWindowWidth();
-  const mobileBreakpoint = useBreakpointValue('lg');
+  const largeBreakpoint = useBreakpointValue('lg');
   const [isScrollLocked, setIsScrollLocked] = useScrollLock();
   const [shouldShowMenu, setShouldShowMenu] = useState(false);
 
-  const isMobile = windowWidth < mobileBreakpoint;
+  const isMobile = windowWidth < largeBreakpoint;
 
   useEffect(() => {
     toggleMenu(false);
