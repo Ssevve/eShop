@@ -14,7 +14,7 @@ interface AsButtonProps extends React.ComponentProps<'button'> {
 }
 
 export type ButtonProps = {
-  variant?: 'primary' | 'neutral';
+  variant?: 'primary' | 'neutral' | 'danger';
   disabled?: boolean;
   evenPadding?: boolean;
   fullWidth?: boolean;
@@ -49,6 +49,7 @@ function Button({
   const variants = {
     primary: 'bg-primary text-white hover:bg-primary-hover',
     neutral: 'bg-gray-200 text-gray-700 hover:bg-gray-300',
+    danger: 'bg-danger text-white hover:bg-red-600',
   };
 
   const buttonType = Component === 'button' ? type : undefined;

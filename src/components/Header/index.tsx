@@ -64,11 +64,11 @@ function Header() {
           <div className="mr-6 flex justify-end gap-6">
             <Link
               className="grid justify-items-center text-sm"
-              title={currentUser ? 'Account' : 'Log in'}
-              to={currentUser ? '/account' : '/login'}
+              title={currentUser ? 'Dashboard' : 'Log in'}
+              to={currentUser ? '/dashboard' : '/login'}
             >
               <FiUser className="h-5 w-5" aria-hidden="true" />
-              {currentUser ? 'Account' : 'Log in'}
+              {currentUser ? currentUser.firstName : 'Log in'}
             </Link>
             <Link
               className="grid justify-items-center text-sm"
