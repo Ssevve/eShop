@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import TabType from 'types/Tab';
 
 interface TabsProps {
@@ -10,7 +10,7 @@ function Tabs({ tabs }: TabsProps) {
     <div className="border-b border-gray-200 text-center text-sm font-medium text-gray-500">
       <ul className="-mb-px flex">
         {tabs.map((tab) => (
-          <Tab isActive={location.pathname === tab.path} tab={tab} />
+          <Tab key={tab.id} tab={tab} />
         ))}
       </ul>
     </div>
@@ -18,7 +18,6 @@ function Tabs({ tabs }: TabsProps) {
 }
 
 interface TabProps {
-  isActive: boolean;
   tab: TabType;
 }
 
