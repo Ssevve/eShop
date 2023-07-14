@@ -4,12 +4,12 @@ import CreateReviewForm from '../CreateReviewForm';
 import EditReviewForm from '../EditReviewForm';
 import Review from '../Review';
 
-interface CurrentUserReviewProps {
+interface EditableUserReviewProps {
   productId: string;
   currentUserId: string;
 }
 
-function CurrentUserReview({ productId, currentUserId }: CurrentUserReviewProps) {
+function EditableUserReview({ productId, currentUserId }: EditableUserReviewProps) {
   const [isEditing, setIsEditing] = useState(false);
   const { review } = useGetReviewsByProductIdQuery(productId, {
     selectFromResult: ({ data }) => ({
@@ -32,4 +32,4 @@ function CurrentUserReview({ productId, currentUserId }: CurrentUserReviewProps)
   );
 }
 
-export default CurrentUserReview;
+export default EditableUserReview;
