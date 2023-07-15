@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useGetReviewsByProductIdQuery } from 'app/services/reviews';
-import CreateReviewForm from '../CreateReviewForm';
-import EditReviewForm from '../EditReviewForm';
-import Review from '../Review';
+import CreateReviewForm from '../../CreateReviewForm';
+import EditReviewForm from '../../EditReviewForm';
+import Review from '../../Review';
 
 interface EditableUserReviewProps {
   productId: string;

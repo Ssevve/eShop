@@ -2,8 +2,8 @@ import { useGetReviewsByProductIdQuery } from 'app/services/reviews';
 import { useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import Loader from 'components/common/Loader';
-import ProductReviewList from '../ProductReviewList';
-import EditableUserReview from '../EditableUserReview';
+import ProductReviewList from './ProductReviewList';
+import EditableUserReview from './EditableUserReview';
 
 interface ReviewsProps {
   productId: string;
