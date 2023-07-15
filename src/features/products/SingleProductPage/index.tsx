@@ -12,7 +12,7 @@ import NotFoundPage from 'pages/NotFoundPage';
 import Loader from 'components/common/Loader';
 import ErrorPage from 'pages/ErrorPage';
 import QuantityInput from 'components/common/QuantityInput';
-import Reviews from 'features/reviews/Reviews';
+import Reviews from 'features/reviews/ProductReviews';
 
 function SingleProductPage() {
   const dispatch = useAppDispatch();
