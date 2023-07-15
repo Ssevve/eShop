@@ -5,7 +5,7 @@ function ProductReviewList({ reviews }: { reviews: ReviewType[] | undefined }) {
   return reviews?.length ? (
     <ul>
       {reviews.map((review) => (
-        <li>
+        <li key={review._id}>
           <Review showAuthor key={review._id} review={review} />
         </li>
       ))}
