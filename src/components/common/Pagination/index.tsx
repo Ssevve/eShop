@@ -1,6 +1,22 @@
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import PaginationLink from './PaginationLink';
-import { useMemo } from 'react';
+
+const paginate = (current: number, last: number, delta: number) => {
+  const leftSibling = current - delta;
+  const rightSibling = current + delta + 1;
+  const pageNumbers = [];
+
+  for (let i = 2; i < last; i += 1) {
+    if (i >= leftSibling && i < rightSibling) {
+      pageNumbers.push(i);
+    }
+  }
+
+  if (current === 3 + delta) pageNumbers.unshift(2);
+  if (current === last - 2 - delta) pageNumbers.push(last - 1);
+
+  return pageNumbers;
+};
 
 interface PaginationProps {
   currentPage: number;
@@ -15,27 +31,7 @@ function Pagination({
   itemsPerPage,
   siblingDelta = 1,
 }: PaginationProps) {
-  const totalPageCount = useMemo(
-    () => Math.ceil(totalResults / itemsPerPage),
-    [totalResults, itemsPerPage]
-  );
-
-  const paginate = (current: number, last: number, delta: number) => {
-    const leftSibling = current - delta;
-    const rightSibling = current + delta + 1;
-    const pageNumbers = [];
-
-    for (let i = 2; i < last; i += 1) {
-      if (i >= leftSibling && i < rightSibling) {
-        pageNumbers.push(i);
-      }
-    }
-
-    if (current === 3 + delta) pageNumbers.unshift(2);
-    if (current === last - 2 - delta) pageNumbers.push(last - 1);
-
-    return pageNumbers;
-  };
+  const totalPageCount = Math.ceil(totalResults / itemsPerPage);
 
   const pageNumbers = paginate(currentPage, totalPageCount, siblingDelta);
 
