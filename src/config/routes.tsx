@@ -6,12 +6,12 @@ import UserProfile from 'features/users/UserProfile';
 import DashboardReviews from 'features/reviews/DashboardReviews';
 import CartPage from 'features/cart/CartPage';
 import HomePage from 'pages/HomePage';
-import LoginPage from 'features/auth/LoginPage';
+import LoginPage from 'features/auth/LoginPage/LoginPage';
+import RegisterPage from 'features/auth/RegisterPage/RegisterPage';
 import NotFoundPage from 'pages/NotFoundPage';
 import ErrorPage from 'pages/ErrorPage';
 import SingleProductPage from 'features/products/SingleProductPage';
 import ProductsPage from 'features/products/ProductsPage/ProductsPage';
-import RegisterPage from 'features/auth/RegisterPage';
 
 const routes = [
   {
