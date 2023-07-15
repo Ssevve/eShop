@@ -9,13 +9,15 @@ interface InputProps extends React.PropsWithoutRef<JSX.IntrinsicElements['input'
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, type, error = undefined, ...rest }, ref) => {
+  ({ label, type, error = undefined, className, ...rest }, ref) => {
     return (
       <label className="grid gap-1">
         {label}
         <input
           aria-invalid={error ? 'true' : 'false'}
-          className={`w-0 min-w-full rounded-sm border p-3 ${error ? 'border-danger' : ''}`}
+          className={`w-0 min-w-full rounded-sm border p-3 ${
+            error ? 'border-danger' : ''
+          } ${className}`}
           type={type}
           ref={ref}
           {...rest}
