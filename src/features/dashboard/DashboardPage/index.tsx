@@ -1,18 +1,18 @@
 import { Outlet } from 'react-router-dom';
 import Tab from 'types/Tab';
-import Tabs from 'components/common/Tabs';
+import Tabs from './Tabs';
 
 function DashboardPage() {
   const tabs: Tab[] = [
     {
       id: 0,
       label: 'My profile',
-      path: `/`,
+      default: true,
     },
     {
       id: 1,
       label: 'My reviews',
-      path: `/reviews`,
+      path: `reviews`,
     },
   ];
 

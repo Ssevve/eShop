@@ -6,8 +6,8 @@ import UserProfile from 'features/dashboard/DashboardPage/UserProfile';
 import DashboardReviews from 'features/reviews/DashboardReviews';
 import CartPage from 'features/cart/CartPage';
 import HomePage from 'pages/HomePage';
-import LoginPage from 'features/auth/LoginPage/LoginPage';
-import RegisterPage from 'features/auth/RegisterPage/RegisterPage';
+import LoginPage from 'features/auth/LoginPage';
+import RegisterPage from 'features/auth/RegisterPage';
 import NotFoundPage from 'pages/NotFoundPage';
 import ErrorPage from 'pages/ErrorPage';
 import SingleProductPage from 'features/products/SingleProductPage';
@@ -20,30 +20,30 @@ const routes = [
     errorElement: <ErrorPage />,
     children: [
       {
-        path: '/',
+        index: true,
         element: <HomePage />,
       },
       {
-        path: '/products',
+        path: 'products',
         element: <ProductsPage />,
       },
       {
-        path: '/products/:productId',
+        path: 'products/:productId',
         element: <SingleProductPage />,
       },
       {
-        path: '/cart',
+        path: 'cart',
         element: <CartPage />,
       },
       {
         element: <GuestRoutes />,
         children: [
           {
-            path: '/login',
+            path: 'login',
             element: <LoginPage />,
           },
           {
-            path: '/register',
+            path: 'register',
             element: <RegisterPage />,
           },
         ],
@@ -53,7 +53,7 @@ const routes = [
         element: <AuthRoutes />,
         children: [
           {
-            path: '/dashboard',
+            path: 'dashboard',
             element: <DashboardPage />,
             children: [
               {

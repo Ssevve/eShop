@@ -28,7 +28,7 @@ function UserDropdown({ isMobile }: UserDropdownProps) {
       <Link
         className="grid justify-items-center text-sm"
         title={currentUser ? 'Dashboard' : 'Log in'}
-        to={currentUser ? '/dashboard/' : '/login'}
+        to={currentUser ? '/dashboard' : '/login'}
       >
         <FiUser className="h-5 w-5" aria-hidden="true" />
         <span>{currentUser ? 'Profile' : 'Account'}</span>

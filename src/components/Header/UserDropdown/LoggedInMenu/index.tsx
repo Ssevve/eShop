@@ -28,7 +28,7 @@ function LoggedInMenu({ currentUser, toggleMenu }: LoggedInMenuProps) {
         <li>
           <Link
             onClick={() => toggleMenu(false)}
-            to="/dashboard/"
+            to="/dashboard"
             className="block p-3 hover:bg-gray-100"
           >
             Profile
