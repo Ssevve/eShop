@@ -8,7 +8,7 @@ import {
 } from 'features/cart/cartSlice';
 import formatPriceString from 'utils/formatPriceString';
 import Button from 'components/common/Button';
-import CartProductList from '../CartProductList';
+import CartProductList from './CartProductList';
 
 function CartPage() {
   const dispatch = useAppDispatch();
