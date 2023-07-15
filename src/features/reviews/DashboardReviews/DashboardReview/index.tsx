@@ -1,13 +1,15 @@
-import { Review as ReviewType, useGetReviewsByUserIdQuery } from 'app/services/reviews';
 import { useGetProductByIdQuery } from 'app/services/products';
+import { Review as ReviewType } from 'app/services/reviews';
 import { Link } from 'react-router-dom';
-import { selectCurrentUser } from 'features/auth/authSlice';
-import { useAppSelector } from 'app/hooks';
 import theme from 'lib/theme';
 import Loader from 'components/common/Loader';
-import Review from '../Review';
+import Review from 'features/reviews/Review';
 
-function DashboardReview({ review }: { review: ReviewType }) {
+interface DashboardReviewProps {
+  review: ReviewType;
+}
+
+function DashboardReview({ review }: DashboardReviewProps) {
   const { data: product, isFetching, isError } = useGetProductByIdQuery(review.productId);
 
   const imageSize = theme.spacing[20];
@@ -18,7 +20,7 @@ function DashboardReview({ review }: { review: ReviewType }) {
       ) : (
         <div className="items-center sm:grid sm:grid-cols-2">
           {isError ? (
-            <span>Product not available.</span>
+            <span>Product not available</span>
           ) : (
             <Link
               className="flex h-full w-max items-center gap-6 hover:underline"
@@ -41,21 +43,4 @@ function DashboardReview({ review }: { review: ReviewType }) {
   );
 }
 
-function DashboardReviewList() {
-  const currentUser = useAppSelector(selectCurrentUser);
-  const { data: reviews, isFetching, isError } = useGetReviewsByUserIdQuery(currentUser?._id);
-
-  return isFetching ? (
-    <Loader />
-  ) : reviews?.length ? (
-    <ul>
-      {reviews?.map((review) => (
-        <DashboardReview review={review} />
-      ))}
-    </ul>
-  ) : (
-    <p className="my-6">You have no reviews yet!</p>
-  );
-}
-
-export default DashboardReviewList;
+export default DashboardReview;

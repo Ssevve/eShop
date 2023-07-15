@@ -3,7 +3,7 @@ import GuestRoutes from 'features/auth/GuestRoutes';
 import RootLayout from 'components/RootLayout';
 import DashboardPage from 'pages/DashboardPage';
 import UserProfile from 'features/users/UserProfile';
-import DashboardReviewList from 'features/reviews/DashboardReviewList';
+import DashboardReviews from 'features/reviews/DashboardReviews';
 import CartPage from 'features/cart/CartPage';
 import HomePage from 'pages/HomePage';
 import LoginPage from 'features/auth/LoginPage';
@@ -57,12 +57,12 @@ const routes = [
             element: <DashboardPage />,
             children: [
               {
-                path: '/dashboard/',
+                index: true,
                 element: <UserProfile />,
               },
               {
-                path: '/dashboard/reviews',
-                element: <DashboardReviewList />,
+                path: 'reviews',
+                element: <DashboardReviews />,
               },
             ],
           },
