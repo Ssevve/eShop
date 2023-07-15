@@ -1,19 +1,18 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { FiUser, FiMenu, FiShoppingCart } from 'react-icons/fi';
+import { FiMenu, FiShoppingCart } from 'react-icons/fi';
 import { useAppSelector } from 'app/hooks';
-import { selectCurrentUser } from 'features/auth/authSlice';
-import Logo from 'components/common/Logo/Logo';
 import useWindowWidth from 'hooks/useWindowWidth';
 import useBreakpointValue from 'hooks/useBreakpointValue';
 import useScrollLock from './hooks/useScrollLock';
 import { selectCartProductCount } from 'features/cart/cartSlice';
+import Logo from 'components/common/Logo/Logo';
 import MobileMenu from './components/MobileMenu';
 import DesktopMenu from './components/DesktopMenu';
+import UserDropdown from 'features/users/UserDropdown';
 
 function Header() {
-  const currentUser = useAppSelector(selectCurrentUser);
   const cartProductCount = useAppSelector(selectCartProductCount);
   const windowWidth = useWindowWidth();
   const largeBreakpoint = useBreakpointValue('lg');
@@ -62,14 +61,7 @@ function Header() {
             <DesktopMenu shouldShowCategories={shouldShowMenu} toggleCategories={toggleMenu} />
           )}
           <div className="mr-6 flex justify-end gap-6">
-            <Link
-              className="grid justify-items-center text-sm"
-              title={currentUser ? 'Dashboard' : 'Log in'}
-              to={currentUser ? '/dashboard' : '/login'}
-            >
-              <FiUser className="h-5 w-5" aria-hidden="true" />
-              {currentUser ? currentUser.firstName : 'Log in'}
-            </Link>
+            <UserDropdown isMobile={isMobile} />
             <Link
               className="grid justify-items-center text-sm"
               aria-label="Cart"
