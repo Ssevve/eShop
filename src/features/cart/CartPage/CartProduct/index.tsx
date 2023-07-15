@@ -24,9 +24,8 @@ function CartProduct({ initialQuantity, product, compactInput }: CartProductProp
     dispatch(setCartProductQuantity({ productId: product._id, quantity }));
   };
 
-  const handleRemove = () => dispatch(removeCartProduct(product._id));
   return (
-    <div className="grid grid-cols-2 place-items-center gap-3 border-b py-3 sm:grid-cols-3">
+    <div className="grid grid-cols-2 place-items-center gap-3 py-3 sm:grid-cols-3">
       <Link
         className="col-span-2 grid w-full grid-cols-2 place-items-center gap-3 hover:underline sm:col-span-1 sm:justify-items-start"
         to={`/products/${product._id}`}
@@ -48,8 +47,8 @@ function CartProduct({ initialQuantity, product, compactInput }: CartProductProp
           evenPadding
           variant="neutral"
           textSize="lg"
-          onClick={handleRemove}
-          aria-label="Remove product from cart"
+          onClick={() => dispatch(removeCartProduct(product._id))}
+          aria-label="Remove"
         >
           <FiTrash />
         </Button>

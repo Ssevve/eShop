@@ -13,7 +13,7 @@ function CartProductList({ products }: CartProductListProps) {
   const isSmallWindowSize = windowWidth < smallBreakpoint;
 
   return (
-    <ul>
+    <ul className="divide-y pt-3">
       {products.map(({ quantity, product }) => (
         <li key={product._id}>
           <CartProduct
