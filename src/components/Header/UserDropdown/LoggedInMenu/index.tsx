@@ -18,7 +18,7 @@ function LoggedInMenu({ currentUser, toggleMenu }: LoggedInMenuProps) {
 
   return (
     <>
-      <div className="px-4 py-3 text-sm text-gray-900">
+      <div className="px-4 py-3 text-sm">
         <div>
           {currentUser.firstName} {currentUser.lastName}
         </div>

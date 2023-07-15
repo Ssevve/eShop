@@ -3,7 +3,7 @@ import cx from 'classnames';
 const variants = {
   primary: 'bg-primary text-white hover:bg-primary-hover',
   'primary-outline': 'bg-white hover:bg-green-50 border border-primary text-primary',
-  neutral: 'bg-gray-200 text-gray-700 hover:bg-gray-300',
+  neutral: 'bg-gray-100 hover:bg-gray-200',
   danger: 'bg-danger text-white hover:bg-red-600',
   'danger-outline': 'bg-white hover:bg-red-50 border border-danger text-danger',
 };

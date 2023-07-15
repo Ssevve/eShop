@@ -36,7 +36,7 @@ function CartPage() {
           <p className="mt-3 text-lg">Your cart is empty!</p>
         )}
       </section>
-      <section className="flex h-max w-full flex-col gap-3 justify-self-start bg-gray-200 p-3 lg:mt-3 lg:w-1/4">
+      <section className="flex h-max w-full flex-col gap-3 justify-self-start bg-gray-100 p-3 lg:mt-3 lg:w-1/4">
         <div>
           <div className="flex justify-between">
             <span>Original price:</span>
