@@ -1,5 +1,5 @@
-import { Link, NavLink } from 'react-router-dom';
 import TabType from 'types/Tab';
+import Tab from './Tab';
 
 interface TabsProps {
   tabs: TabType[];
@@ -14,27 +14,6 @@ function Tabs({ tabs }: TabsProps) {
         ))}
       </ul>
     </div>
-  );
-}
-
-interface TabProps {
-  tab: TabType;
-}
-
-function Tab({ tab }: TabProps) {
-  return (
-    <li className="mr-1.5">
-      <NavLink
-        to={`.${tab.path}`}
-        className={({ isActive }) =>
-          `inline-block border-b-2 p-3 hover:border-gray-300 hover:text-gray-600 ${
-            isActive ? 'border-primary text-primary' : 'border-transparent'
-          }`
-        }
-      >
-        {tab.label}
-      </NavLink>
-    </li>
   );
 }
 
