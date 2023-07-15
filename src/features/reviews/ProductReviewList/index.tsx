@@ -2,7 +2,7 @@ import { Review as ReviewType } from 'app/services/reviews';
 import Review from 'features/reviews/Review';
 
 function ProductReviewList({ reviews }: { reviews: ReviewType[] | undefined }) {
-  return reviews && reviews.length ? (
+  return reviews?.length ? (
     <ul>
       {reviews.map((review) => (
         <li>
