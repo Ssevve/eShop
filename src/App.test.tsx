@@ -52,9 +52,9 @@ it("should render register page if path is '/register'", () => {
   expect(screen.getByRole('button', { name: /register/i })).toBeInTheDocument();
 });
 
-it("should redirect to log in page if path is '/account' and user is not logged in", async () => {
+it("should redirect to log in page if path is '/dashboard' and user is not logged in", async () => {
   const router = createMemoryRouter(routesConfig, {
-    initialEntries: ['/account'],
+    initialEntries: ['/dashboard'],
   });
   renderWithProviders(<RouterProvider router={router} />);
 
@@ -63,7 +63,7 @@ it("should redirect to log in page if path is '/account' and user is not logged 
   });
 });
 
-it("should render account page if path is '/account' and user is logged in", async () => {
+it("should render dashboard page if path is '/dashboard' and user is logged in", async () => {
   const status: AuthStatus = 'IDLE';
   const preloadedState = {
     auth: {

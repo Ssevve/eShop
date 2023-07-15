@@ -1,7 +1,9 @@
 import AuthRoutes from 'features/auth/AuthRoutes';
 import GuestRoutes from 'features/auth/GuestRoutes';
 import RootLayout from 'components/RootLayout';
-import AccountPage from 'features/auth/AccountPage';
+import DashboardPage from 'pages/DashboardPage';
+import UserProfile from 'features/users/UserProfile';
+import DashboardReviews from 'features/reviews/DashboardReviews';
 import CartPage from 'features/cart/CartPage';
 import HomePage from 'pages/HomePage';
 import LoginPage from 'features/auth/LoginPage';
@@ -51,8 +53,18 @@ const routes = [
         element: <AuthRoutes />,
         children: [
           {
-            path: '/account',
-            element: <AccountPage />,
+            path: '/dashboard',
+            element: <DashboardPage />,
+            children: [
+              {
+                index: true,
+                element: <UserProfile />,
+              },
+              {
+                path: 'reviews',
+                element: <DashboardReviews />,
+              },
+            ],
           },
         ],
       },

@@ -59,8 +59,8 @@ describe('Header component', () => {
       expect(screen.getByRole('navigation')).toBeInTheDocument();
     });
 
-    it('should render account page link', () => {
-      expect(screen.getByRole('link', { name: /account/i })).toBeInTheDocument();
+    it('should render dashboard page link', () => {
+      expect(screen.getByRole('link', { name: /dashboard/i })).toBeInTheDocument();
     });
 
     it('should enders cart page link', () => {

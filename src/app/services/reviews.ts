@@ -48,9 +48,27 @@ interface ReviewsErrorResBody {
 
 const reviewsApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getReviewsByProductId: builder.query<Review[], string | undefined>({
-      query: (productId) => `reviews/${productId}`,
-      providesTags: [{ type: 'Reviews', id: 'LIST' }],
+    getReviewsByProductId: builder.query<Review[] | undefined, string | undefined>({
+      query: (productId) => `reviews/product/${productId}`,
+      // @ts-ignore
+      providesTags: (reviews) => 
+      reviews
+        ? [
+            ...reviews.map(( { _id } ) => ({ type: 'Reviews', id: _id })),
+            { type: 'Reviews', id: 'LIST' },
+          ]
+        : [{ type: 'Reviews', id: 'LIST' }],
+    }),
+    getReviewsByUserId: builder.query<Review[] | undefined, string | undefined>({
+      query: (userId) => `reviews/user/${userId}`,
+      // @ts-ignore
+      providesTags: (reviews) => 
+      reviews
+        ? [
+            ...reviews.map(( { _id } ) => ({ type: 'Reviews', id: _id })),
+            { type: 'Reviews', id: 'LIST' },
+          ]
+        : [{ type: 'Reviews', id: 'LIST' }],
     }),
     createReview: builder.mutation<CreateReviewResBody, CreateReviewArgs>({
       query: (body) => {
@@ -96,4 +114,4 @@ const reviewsApi = api.injectEndpoints({
   overrideExisting: false,
 })
 
-export const { useGetReviewsByProductIdQuery, useCreateReviewMutation, useEditReviewMutation } = reviewsApi;
+export const { useGetReviewsByProductIdQuery, useGetReviewsByUserIdQuery, useCreateReviewMutation, useEditReviewMutation } = reviewsApi;

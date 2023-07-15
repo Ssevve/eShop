@@ -17,9 +17,10 @@ interface NotEditableReviewProps {
 
 type ReviewProps = {
   review: ReviewType;
+  showAuthor?: boolean;
 } & (EditableReviewProps | NotEditableReviewProps);
 
-function Review({ review, editable, setIsEditing }: ReviewProps) {
+function Review({ review, editable, showAuthor, setIsEditing }: ReviewProps) {
   const currentUser = useAppSelector(selectCurrentUser);
 
   const isOwnReview = currentUser?._id === review.userId;
@@ -28,16 +29,18 @@ function Review({ review, editable, setIsEditing }: ReviewProps) {
   return (
     <article className="mt-12 first-of-type:mt-6">
       <div className="flex">
-        <img
-          className="h-10 w-10 rounded-full"
-          width={avatarSize}
-          height={avatarSize}
-          src={cherryAvatar}
-          alt=""
-        />
-        <div className="ml-3">
+        {showAuthor && (
+          <img
+            className="h-10 w-10 rounded-full"
+            width={avatarSize}
+            height={avatarSize}
+            src={cherryAvatar}
+            alt=""
+          />
+        )}
+        <div className={`${showAuthor && 'ml-3'}`}>
           <div className="mb-3 flex gap-3">
-            <p className="font-medium">{review.userFirstName}</p>
+            {showAuthor && <p className="font-medium">{review.userFirstName}</p>}
             <StarRating rating={review.rating} />
           </div>
           <p className="mt-3 max-w-2xl">{review.message}</p>

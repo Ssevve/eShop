@@ -2,20 +2,8 @@ import { useGetReviewsByProductIdQuery } from 'app/services/reviews';
 import { useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import Loader from 'components/common/Loader';
-import Review from '../Review';
-import CurrentUserReview from '../CurrentUserReview';
-
-interface NoReviewsMessageProps {
-  isError: boolean;
-}
-
-const NoReviewsMessage = ({ isError }: NoReviewsMessageProps) => {
-  return isError ? (
-    <p className="my-6">There was a problem loading reviews. We are working on it!</p>
-  ) : (
-    <p className="my-6">There are no reviews for this product yet!</p>
-  );
-};
+import ProductReviewList from '../ProductReviewList';
+import EditableUserReview from '../EditableUserReview';
 
 interface ReviewsProps {
   productId: string;
@@ -35,17 +23,19 @@ function Reviews({ productId }: ReviewsProps) {
           <section>
             <h3 className="my-6 text-lg font-bold">Your review</h3>
             {currentUser ? (
-              <CurrentUserReview productId={productId} currentUserId={currentUser._id} />
+              <EditableUserReview productId={productId} currentUserId={currentUser._id} />
             ) : (
               <p className="my-6">You need to log in to be able to write a review!</p>
             )}
           </section>
           <section>
             <h3 className="mt-12 text-lg font-bold">All reviews</h3>
-            {reviews?.length ? (
-              reviews.map((review) => <Review key={review._id} review={review} />)
+            {isError ? (
+              <p className="py-6">
+                There was a problem getting reviews for this product. Try again.
+              </p>
             ) : (
-              <NoReviewsMessage isError={isError} />
+              <ProductReviewList reviews={reviews} />
             )}
           </section>
         </>

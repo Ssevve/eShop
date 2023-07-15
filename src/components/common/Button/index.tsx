@@ -1,5 +1,13 @@
 import cx from 'classnames';
 
+const variants = {
+  primary: 'bg-primary text-white hover:bg-primary-hover',
+  'primary-outline': 'bg-white hover:bg-green-50 border border-primary text-primary',
+  neutral: 'bg-gray-200 text-gray-700 hover:bg-gray-300',
+  danger: 'bg-danger text-white hover:bg-red-600',
+  'danger-outline': 'bg-white hover:bg-red-50 border border-danger text-danger',
+};
+
 export interface AsLinkProps extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> {
   renderAs: React.ElementType;
   to: string;
@@ -14,7 +22,7 @@ interface AsButtonProps extends React.ComponentProps<'button'> {
 }
 
 export type ButtonProps = {
-  variant?: 'primary' | 'neutral';
+  variant?: keyof typeof variants;
   disabled?: boolean;
   evenPadding?: boolean;
   fullWidth?: boolean;
@@ -46,11 +54,6 @@ function Button({
   to,
   ...props
 }: ButtonProps) {
-  const variants = {
-    primary: 'bg-primary text-white hover:bg-primary-hover',
-    neutral: 'bg-gray-200 text-gray-700 hover:bg-gray-300',
-  };
-
   const buttonType = Component === 'button' ? type : undefined;
 
   return (
