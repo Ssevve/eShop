@@ -58,7 +58,9 @@ export const cartSlice = createSlice({
 
 export const { addCartProduct, removeCartProduct, setCartProductQuantity, clearCart } = cartSlice.actions;
 
-const selectCartProducts = (state: RootState) => state.cart.products;
+const selectSelf = (state: RootState) => state.cart;
+
+export const selectCartProducts = createSelector(selectSelf, cart => cart.products);
 
 export const selectCartProductCount = createSelector(selectCartProducts, products =>
   products.reduce((count, entry) => count + entry.quantity, 0)
