@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import Price from './Price';
 
 interface PriceGroupProps {
@@ -16,4 +17,4 @@ function PriceGroup({ price, discountPrice }: PriceGroupProps) {
   );
 }
 
-export default PriceGroup;
+export default memo(PriceGroup);

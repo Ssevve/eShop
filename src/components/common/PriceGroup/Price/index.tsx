@@ -8,7 +8,7 @@ interface PriceProps {
 function Price({ price, isOld }: PriceProps) {
   return (
     <span
-      className={`font-bold ${isOld ? 'text-base text-gray-400 line-through' : 'ml-2 text-xl'}`}
+      className={`font-bold ${isOld ? 'mr-2 text-base text-gray-400 line-through' : 'text-xl'}`}
     >
       {formatPriceString(price)}
     </span>
