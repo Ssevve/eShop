@@ -1,11 +1,11 @@
 import Button from 'components/common/Button';
 import { Link } from 'react-router-dom';
 
-interface LoggedOutDropdownMenuProps {
+interface LoggedOutMenuProps {
   toggleMenu: (bool: boolean) => void;
 }
 
-function LoggedOutDropdownMenu({ toggleMenu }: LoggedOutDropdownMenuProps) {
+function LoggedOutMenu({ toggleMenu }: LoggedOutMenuProps) {
   return (
     <ul className="p-3">
       <li>
@@ -33,4 +33,4 @@ function LoggedOutDropdownMenu({ toggleMenu }: LoggedOutDropdownMenuProps) {
   );
 }
 
-export default LoggedOutDropdownMenu;
+export default LoggedOutMenu;

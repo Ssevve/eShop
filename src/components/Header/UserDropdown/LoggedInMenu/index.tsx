@@ -3,12 +3,12 @@ import { logoutUser } from 'features/auth/authSlice';
 import { Link } from 'react-router-dom';
 import User from 'types/User';
 
-interface LoggedInDropdownMenuProps {
+interface LoggedInMenuProps {
   currentUser: User;
   toggleMenu: (bool: boolean) => void;
 }
 
-function LoggedInDropdownMenu({ currentUser, toggleMenu }: LoggedInDropdownMenuProps) {
+function LoggedInMenu({ currentUser, toggleMenu }: LoggedInMenuProps) {
   const dispatch = useAppDispatch();
 
   const logout = () => {
@@ -53,4 +53,4 @@ function LoggedInDropdownMenu({ currentUser, toggleMenu }: LoggedInDropdownMenuP
   );
 }
 
-export default LoggedInDropdownMenu;
+export default LoggedInMenu;

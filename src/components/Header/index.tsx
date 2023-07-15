@@ -5,12 +5,12 @@ import { FiMenu, FiShoppingCart } from 'react-icons/fi';
 import { useAppSelector } from 'app/hooks';
 import useWindowWidth from 'hooks/useWindowWidth';
 import useBreakpointValue from 'hooks/useBreakpointValue';
-import useScrollLock from './hooks/useScrollLock';
+import useScrollLock from './useScrollLock';
 import { selectCartProductCount } from 'features/cart/cartSlice';
 import Logo from 'components/common/Logo/Logo';
-import MobileMenu from './components/MobileMenu';
-import DesktopMenu from './components/DesktopMenu';
-import UserDropdown from 'features/users/UserDropdown';
+import MobileMenu from './MobileMenu';
+import DesktopMenu from './DesktopMenu';
+import UserDropdown from './UserDropdown';
 
 function Header() {
   const cartProductCount = useAppSelector(selectCartProductCount);

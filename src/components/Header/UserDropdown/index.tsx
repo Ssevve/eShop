@@ -3,10 +3,14 @@ import { useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { FiUser } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import LoggedInDropdownMenu from './LoggedInDropdownMenu';
-import LoggedOutDropdownMenu from './LoggedOutDropdownMenu';
+import LoggedInMenu from './LoggedInMenu';
+import LoggedOutMenu from './LoggedOutMenu';
 
-function UserDropdown({ isMobile }: { isMobile: boolean }) {
+interface UserDropdownProps {
+  isMobile: boolean;
+}
+
+function UserDropdown({ isMobile }: UserDropdownProps) {
   const currentUser = useAppSelector(selectCurrentUser);
   const [shouldShowMenu, setShouldShowMenu] = useState(false);
 
@@ -33,9 +37,9 @@ function UserDropdown({ isMobile }: { isMobile: boolean }) {
       {shouldShowMenu && (
         <div className="absolute -right-3 z-50 w-44 divide-y divide-gray-100 rounded-sm bg-white shadow">
           {currentUser ? (
-            <LoggedInDropdownMenu currentUser={currentUser} toggleMenu={toggleMenu} />
+            <LoggedInMenu currentUser={currentUser} toggleMenu={toggleMenu} />
           ) : (
-            <LoggedOutDropdownMenu toggleMenu={toggleMenu} />
+            <LoggedOutMenu toggleMenu={toggleMenu} />
           )}
         </div>
       )}
