@@ -12,7 +12,7 @@ import theme from 'lib/theme';
 interface CartProductProps {
   initialQuantity: number;
   product: Product;
-  compactInput: boolean;
+  compactInput?: boolean;
 }
 
 function CartProduct({ initialQuantity, product, compactInput }: CartProductProps) {
