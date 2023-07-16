@@ -13,7 +13,7 @@ const handlers = [
     const { email } = await req.json();
     if (email === mockUser.email) return res(ctx.status(409));
   }),
-  rest.get(`${import.meta.env.VITE_API_URL}/reviews/:id`, (req, res, ctx) => {
+  rest.get(`${import.meta.env.VITE_API_URL}/reviews/product/:id`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(mockReviews));
   }),
 ];
