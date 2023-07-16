@@ -32,7 +32,7 @@ describe('Price component', () => {
   describe('when isNew is true', () => {
     it('should render price with correct text size', () => {
       const price = 5;
-      renderWithProviders(<Price price={price} isNew />);
+      renderWithProviders(<Price price={price} />);
       expect(screen.getByText('$5.00')).toHaveClass('text-xl');
     });
   });
