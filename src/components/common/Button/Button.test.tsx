@@ -46,7 +46,7 @@ describe('Button component', () => {
         text
       </Button>
     );
-    expect(screen.getByRole('button')).toHaveClass('bg-gray-200');
+    expect(screen.getByRole('button')).toHaveClass('bg-gray-100');
   });
 
   it('should render a primary variant by default', () => {
