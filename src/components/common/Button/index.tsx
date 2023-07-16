@@ -4,11 +4,25 @@ const variants = {
   primary: 'bg-primary text-white hover:bg-primary-hover',
   'primary-outline': 'bg-white hover:bg-green-50 border border-primary text-primary',
   neutral: 'bg-gray-100 hover:bg-gray-200',
+  'neutral-outline': 'bg-white hover:bg-gray-50 border border-gray-200',
   danger: 'bg-danger text-white hover:bg-red-600',
   'danger-outline': 'bg-white hover:bg-red-50 border border-danger text-danger',
 };
 
-export interface AsLinkProps extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> {
+const sizes = {
+  sm: {
+    paddingX: 3,
+    paddingY: 1.5,
+    textSize: 'xs',
+  },
+  base: {
+    paddingX: 6,
+    paddingY: 3,
+    textSize: 'base',
+  },
+};
+
+export interface AsLinkProps extends Omit<React.ComponentProps<'a'>, 'href'> {
   renderAs: React.ElementType;
   to: string;
   type?: never;
@@ -26,6 +40,7 @@ export type ButtonProps = {
   disabled?: boolean;
   evenPadding?: boolean;
   fullWidth?: boolean;
+  size?: keyof typeof sizes;
   textSize?:
     | 'xs'
     | 'sm'
@@ -47,7 +62,8 @@ function Button({
   variant = 'primary',
   fullWidth = false,
   evenPadding = false,
-  textSize = 'base',
+  size = 'base',
+  textSize,
   type = 'button',
   renderAs: Component = 'button',
   className,
@@ -60,9 +76,11 @@ function Button({
     <Component
       className={cx(
         'flex items-center justify-center gap-4 rounded-sm uppercase',
-        `text-${textSize}`,
+        textSize ? `text-${textSize}` : `text-${sizes[size].textSize}`,
         fullWidth ? 'w-full' : 'w-max',
-        evenPadding ? 'p-3' : 'px-6 py-3',
+        evenPadding
+          ? `p-${sizes[size].paddingY}`
+          : `px-${sizes[size].paddingX} py-${sizes[size].paddingY}`,
         variants[variant],
         className
       )}
