@@ -13,7 +13,9 @@ interface ProductControlsProps {
 function ProductControls({ product }: ProductControlsProps) {
   const dispatch = useAppDispatch();
   const [quantity, setQuantity] = useState(productConstraints.quantity.min);
+
   const addToCart = () => dispatch(addCartProduct({ quantity, product }));
+
   return (
     <div className="flex gap-6 xs:w-max">
       <QuantityInput count={quantity} setCount={setQuantity} />
