@@ -1,6 +1,6 @@
 interface ListProps<T> extends React.ComponentPropsWithoutRef<'ul'> {
   renderItem: (item: T) => JSX.Element;
-  getKey: (item: T) => React.Key;
+  getKey?: (item: T) => React.Key;
   noItemsMessage: string;
   items: T[] | undefined;
 }
@@ -8,8 +8,8 @@ interface ListProps<T> extends React.ComponentPropsWithoutRef<'ul'> {
 function List<T>({ renderItem, getKey, noItemsMessage, items, className, ...props }: ListProps<T>) {
   return items?.length ? (
     <ul className={className} {...props}>
-      {items.map((item) => (
-        <li key={getKey(item)}>{renderItem(item)}</li>
+      {items.map((item, index) => (
+        <li key={getKey ? getKey(item) : index}>{renderItem(item)}</li>
       ))}
     </ul>
   ) : (
