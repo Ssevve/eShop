@@ -1,36 +1,37 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { Review, useCreateReviewMutation, useEditReviewMutation } from 'app/services/reviews';
 import { ReviewSchema } from 'features/reviews/lib/reviewSchema';
 import ErrorBox from 'components/common/ErrorBox';
 import RatingInputGroup from 'features/reviews/RatingInputGroup';
 import SubmitButton from 'components/common/SubmitButton';
 import Button from 'components/common/Button';
-import { Review, useCreateReviewMutation, useEditReviewMutation } from 'app/services/reviews';
 
-interface EditReviewFormProps {
+interface EditFormProps {
   isEditForm: true;
-  setIsEditing: (bool: boolean) => void;
+  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
   review: Review;
   productId?: never;
 }
 
-interface CreateReviewFormProps {
+interface CreateFormProps {
   isEditForm?: never;
   setIsEditing?: never;
-  rating?: never;
-  message?: never;
-  reviewId?: never;
   review?: never;
   productId: string;
 }
 
-type ReviewFormProps = React.ComponentPropsWithoutRef<'form'> &
-  (EditReviewFormProps | CreateReviewFormProps);
+type ReviewFormProps = EditFormProps | CreateFormProps;
 
 function ReviewForm({ isEditForm, setIsEditing, review, productId }: ReviewFormProps) {
-  const [editReview, { isLoading: isLoadingEdit, isSuccess, isError: isErrorEdit }] =
+  const [editReview, { isLoading: isLoadingEdit, isError: isErrorEdit, isSuccess: isSuccessEdit }] =
     useEditReviewMutation();
   const [createReview, { isLoading: isLoadingCreate, isError: isErrorCreate }] =
     useCreateReviewMutation();
+
+  useEffect(() => {
+    if (isEditForm && isSuccessEdit) setIsEditing(false);
+  }, [isSuccessEdit]);
 
   const {
     register,
@@ -43,18 +44,20 @@ function ReviewForm({ isEditForm, setIsEditing, review, productId }: ReviewFormP
     },
   });
 
-  const onSubmit = (data: ReviewSchema) => {
+  const onSubmit = async (data: ReviewSchema) => {
     const rating = Number(data.rating);
     const message = data.message;
 
-    return isEditForm
-      ? editReview({
-          productId: review.productId,
-          rating,
-          message,
-          reviewId: review._id,
-        })
-      : createReview({ productId, rating, message });
+    if (isEditForm) {
+      editReview({
+        productId: review.productId,
+        rating,
+        message,
+        reviewId: review._id,
+      });
+    } else {
+      createReview({ productId, rating, message });
+    }
   };
 
   const isLoading = isLoadingEdit || isLoadingCreate;

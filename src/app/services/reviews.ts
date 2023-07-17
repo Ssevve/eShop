@@ -99,12 +99,6 @@ const reviewsApi = api.injectEndpoints({
         },
         body: JSON.stringify({ rating, message }),
       }),
-      transformErrorResponse: (
-        response: ReviewsErrorResBody
-        ) => ({
-          status: response.status,
-          data: response.data.message,
-        }),
       invalidatesTags: (result) => result ? [     
         { type: 'Reviews', id: 'LIST' },
         { type: 'Products', id: result.updated.product._id }

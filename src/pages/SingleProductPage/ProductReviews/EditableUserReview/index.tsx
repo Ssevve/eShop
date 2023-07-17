@@ -9,12 +9,12 @@ interface EditableUserReviewProps {
 }
 
 function EditableUserReview({ userId, productId }: EditableUserReviewProps) {
+  const [isEditing, setIsEditing] = useState(false);
   const { review } = useGetReviewsByProductIdQuery(productId, {
     selectFromResult: ({ data }) => ({
       review: data?.find((review) => review.userId === userId),
     }),
   });
-  const [isEditing, setIsEditing] = useState(false);
 
   return (
     <>
