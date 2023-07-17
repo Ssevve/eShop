@@ -10,7 +10,7 @@ import LoginPage from 'features/auth/LoginPage';
 import RegisterPage from 'features/auth/RegisterPage';
 import NotFoundPage from 'pages/NotFoundPage';
 import ErrorPage from 'pages/ErrorPage';
-import SingleProductPage from 'features/products/SingleProductPage';
+import SingleProductPage from 'pages/SingleProductPage';
 import ProductsPage from 'features/products/ProductsPage/ProductsPage';
 
 const routes = [
