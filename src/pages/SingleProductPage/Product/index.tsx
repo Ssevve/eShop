@@ -1,8 +1,8 @@
+import { Product as ProductType } from 'app/services/products';
+import theme from 'lib/theme';
 import PriceGroup from 'components/common/PriceGroup';
 import StarRating from 'components/common/StarRating';
-import theme from 'lib/theme';
 import ProductControls from './ProductControls';
-import { Product as ProductType } from 'app/services/products';
 
 interface ProductProps {
   product: ProductType;
