@@ -62,10 +62,14 @@ function ReviewForm({ isEditForm, setIsEditing, review, productId }: ReviewFormP
 
   const isLoading = isLoadingEdit || isLoadingCreate;
   const isError = isErrorEdit || isErrorCreate;
-  const submitButtonText = isEditForm ? 'Edit review' : 'Create review';
+  const accessibleName = isEditForm ? 'Edit review' : 'Create review';
 
   return (
-    <form className="mt-6 flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      aria-label={accessibleName}
+      className="mt-6 flex flex-col gap-6"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       {isError && <ErrorBox />}
       <h4 className="font-semibold">Rating</h4>
       <RatingInputGroup
@@ -81,7 +85,7 @@ function ReviewForm({ isEditForm, setIsEditing, review, productId }: ReviewFormP
         />
       </label>
       <div className="flex gap-3">
-        <SubmitButton isLoading={isLoading}>{submitButtonText}</SubmitButton>
+        <SubmitButton isLoading={isLoading}>{accessibleName}</SubmitButton>
         {isEditForm && (
           <Button onClick={() => setIsEditing(false)} variant="neutral">
             Cancel

@@ -1,4 +1,4 @@
-import { Review as ReviewType, useGetReviewsByProductIdQuery } from 'app/services/reviews';
+import { Review as ReviewType } from 'app/services/reviews';
 import { useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import EditableUserReview from './EditableUserReview';
@@ -7,8 +7,8 @@ import Review from 'features/reviews/Review';
 
 interface ProductReviewsProps {
   reviews: ReviewType[] | undefined;
-  productId: string;
   isError: boolean;
+  productId: string;
 }
 
 function ProductReviews({ reviews, productId, isError }: ProductReviewsProps) {
