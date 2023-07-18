@@ -1,10 +1,10 @@
-import 'mocks/firebase';
+import 'mocks/firebaseMock';
 import { BrowserRouter } from 'react-router-dom';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithProviders from 'utils/renderWithProviders';
 import { userConstraints } from 'lib/constants';
-import mockUser from 'mocks/user';
+import { userWithoutReviewMock as mockUser } from 'mocks/userMock';
 import LoginForm from '.';
 
 describe('LoginForm component', () => {

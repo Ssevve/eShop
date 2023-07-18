@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import renderWithProviders from 'utils/renderWithProviders';
-import loggedInUserStateMock from 'mocks/loggedInUserState';
+import { loggedInUserWithoutReviewsStateMock as stateMock } from 'mocks/stateMock';
 import Header from '.';
 
 describe('Header component', () => {
@@ -37,7 +37,7 @@ describe('Header component', () => {
         <BrowserRouter>
           <Header />
         </BrowserRouter>,
-        { preloadedState: loggedInUserStateMock }
+        { preloadedState: stateMock }
       );
     });
 

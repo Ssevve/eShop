@@ -3,13 +3,13 @@ import { MemoryRouter, RouterProvider, createMemoryRouter } from 'react-router-d
 import { rest } from 'msw';
 import renderWithProviders from 'utils/renderWithProviders';
 import server from 'mocks/api/server';
-import products from 'mocks/products';
+import productsMock from 'mocks/productsMock';
 import routesConfig from 'config/routes';
 import SingleProductPage from '.';
 
 describe('SingleProductPage', () => {
   it('should render page loader when fetching data', () => {
-    const expectedProduct = products[0];
+    const expectedProduct = productsMock[0];
     renderWithProviders(
       <MemoryRouter initialEntries={[`/products/${expectedProduct._id}`]}>
         <SingleProductPage />
@@ -19,7 +19,7 @@ describe('SingleProductPage', () => {
   });
 
   it('should not render page loader when not fetching data', async () => {
-    const expectedProduct = products[0];
+    const expectedProduct = productsMock[0];
     const router = createMemoryRouter(routesConfig, {
       initialEntries: [`/products/${expectedProduct._id}`],
     });
@@ -43,7 +43,7 @@ describe('SingleProductPage', () => {
       })
     );
 
-    const expectedProduct = products[0];
+    const expectedProduct = productsMock[0];
     const router = createMemoryRouter(routesConfig, {
       initialEntries: [`/products/${expectedProduct._id}`],
     });
@@ -53,7 +53,7 @@ describe('SingleProductPage', () => {
 
   describe('when api successfully responds with product data', () => {
     it('should render <Product /> component', async () => {
-      const expectedProduct = products[0];
+      const expectedProduct = productsMock[0];
       const router = createMemoryRouter(routesConfig, {
         initialEntries: [`/products/${expectedProduct._id}`],
       });
@@ -64,7 +64,7 @@ describe('SingleProductPage', () => {
     });
 
     it('should render <ProductReviews /> component', async () => {
-      const expectedProduct = products[0];
+      const expectedProduct = productsMock[0];
       const router = createMemoryRouter(routesConfig, {
         initialEntries: [`/products/${expectedProduct._id}`],
       });

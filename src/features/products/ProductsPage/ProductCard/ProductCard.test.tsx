@@ -2,12 +2,12 @@ import { screen } from '@testing-library/react';
 import { productConstraints } from 'lib/constants';
 import { BrowserRouter } from 'react-router-dom';
 import renderWithProviders from 'utils/renderWithProviders';
-import products from 'mocks/products';
+import productsMock from 'mocks/productsMock';
 import ProductCard from '.';
 
 describe('ProductCard component', () => {
   it('should render product image with correct src attribute', async () => {
-    const expectedProduct = products[0];
+    const expectedProduct = productsMock[0];
     renderWithProviders(
       <BrowserRouter>
         <ProductCard product={expectedProduct} />
@@ -20,7 +20,7 @@ describe('ProductCard component', () => {
   });
 
   it('should render product name', () => {
-    const expectedProduct = products[0];
+    const expectedProduct = productsMock[0];
     renderWithProviders(
       <BrowserRouter>
         <ProductCard product={expectedProduct} />
@@ -30,7 +30,7 @@ describe('ProductCard component', () => {
   });
 
   it('should render StarRating component', () => {
-    const expectedProduct = products[0];
+    const expectedProduct = productsMock[0];
     renderWithProviders(
       <BrowserRouter>
         <ProductCard product={expectedProduct} />
@@ -44,7 +44,7 @@ describe('ProductCard component', () => {
   });
 
   it('should render product quantity', () => {
-    const expectedProduct = products[0];
+    const expectedProduct = productsMock[0];
     renderWithProviders(
       <BrowserRouter>
         <ProductCard product={expectedProduct} />
@@ -54,7 +54,7 @@ describe('ProductCard component', () => {
   });
 
   it('should render product brand', () => {
-    const expectedProduct = products[0];
+    const expectedProduct = productsMock[0];
     renderWithProviders(
       <BrowserRouter>
         <ProductCard product={expectedProduct} />
@@ -64,7 +64,7 @@ describe('ProductCard component', () => {
   });
 
   it('should render PriceGroup component', () => {
-    const expectedProduct = products[0];
+    const expectedProduct = productsMock[0];
     renderWithProviders(
       <BrowserRouter>
         <ProductCard product={expectedProduct} />
@@ -74,7 +74,7 @@ describe('ProductCard component', () => {
   });
 
   it("should render 'add to cart' button", () => {
-    const expectedProduct = products[0];
+    const expectedProduct = productsMock[0];
     renderWithProviders(
       <BrowserRouter>
         <ProductCard product={expectedProduct} />
