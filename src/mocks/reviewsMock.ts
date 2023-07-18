@@ -1,6 +1,6 @@
 import { Review } from 'app/services/reviews';
 
-const reviews: Review[] = [
+const reviewsMock: Review[] = [
   {
     rating: 1,
     userFirstName: 'testUserFirstName1',
@@ -27,4 +27,4 @@ const reviews: Review[] = [
   },
 ];
 
-export default reviews;
+export default reviewsMock;

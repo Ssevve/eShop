@@ -1,6 +1,6 @@
 import { Product } from 'app/services/products';
 
-const products: Product[] = [
+const productsMock: Product[] = [
   {
     brand: 'Test brand 1',
     category: 'Test category 1',
@@ -42,4 +42,4 @@ const products: Product[] = [
   },
 ];
 
-export default products;
+export default productsMock;

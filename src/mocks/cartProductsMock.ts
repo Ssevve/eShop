@@ -1,6 +1,6 @@
 import { CartProduct } from "features/cart/cartSlice";
 
-const cartProducts: CartProduct[] = [
+const cartProductsMock: CartProduct[] = [
   {
     quantity: 1,
     product: {
@@ -51,4 +51,4 @@ const cartProducts: CartProduct[] = [
   },
 ];
 
-export default cartProducts;
+export default cartProductsMock;
