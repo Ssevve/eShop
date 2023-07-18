@@ -26,7 +26,7 @@ function StarRating({ rating, ratingsCount, size = 16, ...rest }: StarRatingProp
       className="flex flex-wrap items-center gap-1"
       aria-label={`Rating: ${flatRating} out of ${productConstraints.rating.max} stars`}
     >
-      <div className="flex">
+      <div className="flex items-center">
         {stars}
         <span className="ml-3 mr-3 rounded-sm bg-green-100 px-3 py-0.5 text-xs font-semibold text-primary">
           {rating}
