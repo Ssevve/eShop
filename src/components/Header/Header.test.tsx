@@ -1,8 +1,7 @@
 import { screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import mockUser from 'mocks/user';
-import { AuthStatus } from 'features/auth/authSlice';
 import renderWithProviders from 'utils/renderWithProviders';
+import { loggedInUserWithoutReviewsStateMock as stateMock } from 'mocks/stateMock';
 import Header from '.';
 
 describe('Header component', () => {
@@ -33,21 +32,12 @@ describe('Header component', () => {
   });
 
   describe('when user is logged in', () => {
-    const status: AuthStatus = 'IDLE';
-    const preloadedState = {
-      auth: {
-        user: mockUser,
-        status,
-        error: null,
-      },
-    };
-
     beforeEach(() => {
       renderWithProviders(
         <BrowserRouter>
           <Header />
         </BrowserRouter>,
-        { preloadedState }
+        { preloadedState: stateMock }
       );
     });
 

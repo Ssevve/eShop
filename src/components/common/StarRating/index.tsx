@@ -5,16 +5,8 @@ import theme from 'lib/theme';
 type StarRatingProps = {
   rating: number;
   size?: number;
-} & (
-  | {
-      ratingsCount: number;
-      showRatingsCount: true;
-    }
-  | {
-      ratingsCount?: never;
-      showRatingsCount?: never;
-    }
-);
+  ratingsCount?: number;
+};
 
 function StarRating({ rating, ratingsCount, size = 16, ...rest }: StarRatingProps) {
   const flatRating = Math.floor(rating);
@@ -31,18 +23,20 @@ function StarRating({ rating, ratingsCount, size = 16, ...rest }: StarRatingProp
 
   return (
     <div
-      className="flex items-center gap-1"
+      className="flex flex-wrap items-center gap-1"
       aria-label={`Rating: ${flatRating} out of ${productConstraints.rating.max} stars`}
     >
-      {stars}
-      <span className="ml-3 mr-3 rounded-sm bg-green-100 px-3 py-0.5 text-xs font-semibold text-primary">
-        {rating}
-      </span>
-      {rest.showRatingsCount && (
+      <div className="flex">
+        {stars}
+        <span className="ml-3 mr-3 rounded-sm bg-green-100 px-3 py-0.5 text-xs font-semibold text-primary">
+          {rating}
+        </span>
+      </div>
+      {ratingsCount !== undefined ? (
         <span className="text-sm">
           {`(${ratingsCount} ${ratingsCount === 1 ? 'rating' : 'ratings'})`}
         </span>
-      )}
+      ) : null}
     </div>
   );
 }

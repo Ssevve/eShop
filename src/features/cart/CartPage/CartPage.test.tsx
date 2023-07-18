@@ -4,7 +4,7 @@ import renderWithProviders from 'utils/renderWithProviders';
 import formatPriceString from 'utils/formatPriceString';
 import calculateOriginalPrice from 'utils/calculateOriginalPrice';
 import calculateCartTotal from 'utils/calculateCartTotal';
-import products from 'mocks/cartProducts';
+import products from 'mocks/cartProductsMock';
 import Cart from '.';
 
 describe('Cart page', () => {

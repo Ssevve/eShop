@@ -1,10 +1,10 @@
-import 'mocks/firebase';
+import 'mocks/firebaseMock';
 import { BrowserRouter } from 'react-router-dom';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithProviders from 'utils/renderWithProviders';
 import { userConstraints } from 'lib/constants';
-import mockUser from 'mocks/user';
+import { userWithoutReviewMock as userMock } from 'mocks/userMock';
 import RegisterForm from '.';
 
 describe('RegisterForm component', () => {
@@ -112,11 +112,11 @@ describe('RegisterForm component', () => {
 
   it('should show error message if email is already taken', async () => {
     const user = userEvent.setup();
-    await user.type(screen.getByRole('textbox', { name: 'Email' }), mockUser.email);
-    await user.type(screen.getByRole('textbox', { name: 'First Name' }), mockUser.firstName);
-    await user.type(screen.getByRole('textbox', { name: 'Last Name' }), mockUser.lastName);
-    await user.type(screen.getByLabelText('Password'), mockUser.password);
-    await user.type(screen.getByLabelText('Repeat Password'), mockUser.password);
+    await user.type(screen.getByRole('textbox', { name: 'Email' }), userMock.email);
+    await user.type(screen.getByRole('textbox', { name: 'First Name' }), userMock.firstName);
+    await user.type(screen.getByRole('textbox', { name: 'Last Name' }), userMock.lastName);
+    await user.type(screen.getByLabelText('Password'), userMock.password);
+    await user.type(screen.getByLabelText('Repeat Password'), userMock.password);
     await user.click(screen.getByRole('button', { name: 'Register' }));
 
     expect(await screen.findByText('Email already taken')).toBeInTheDocument();

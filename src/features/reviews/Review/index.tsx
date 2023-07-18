@@ -1,18 +1,18 @@
 import { useAppSelector } from 'app/hooks';
-import cherryAvatar from 'assets/avatar-cherry.svg';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { Review as ReviewType } from 'app/services/reviews';
-import theme from 'lib/theme';
 import StarRating from 'components/common/StarRating';
+import ReviewAuthor from './ReviewAuthor';
+import Button from 'components/common/Button';
 
 interface EditableReviewProps {
-  editable: true;
+  isEditable: true;
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface NotEditableReviewProps {
   setIsEditing?: never;
-  editable?: never;
+  isEditable?: never;
 }
 
 type ReviewProps = {
@@ -20,40 +20,29 @@ type ReviewProps = {
   showAuthor?: boolean;
 } & (EditableReviewProps | NotEditableReviewProps);
 
-function Review({ review, editable, showAuthor, setIsEditing }: ReviewProps) {
+function Review({ review, isEditable, showAuthor, setIsEditing }: ReviewProps) {
   const currentUser = useAppSelector(selectCurrentUser);
 
   const isOwnReview = currentUser?._id === review.userId;
+  const canBeEdited = isOwnReview && isEditable && setIsEditing;
 
-  const avatarSize = theme.spacing[10];
   return (
     <article className="mt-12 first-of-type:mt-6">
-      <div className="flex">
-        {showAuthor && (
-          <img
-            className="h-10 w-10 rounded-full"
-            width={avatarSize}
-            height={avatarSize}
-            src={cherryAvatar}
-            alt=""
-          />
-        )}
-        <div className={`${showAuthor && 'ml-3'}`}>
-          <div className="mb-3 flex gap-3">
-            {showAuthor && <p className="font-medium">{review.userFirstName}</p>}
-            <StarRating rating={review.rating} />
-          </div>
-          <p className="mt-3 max-w-2xl">{review.message}</p>
-          {isOwnReview && editable && (
-            <button
-              onClick={() => setIsEditing(true)}
-              className="mt-3 inline-block rounded-sm border bg-white px-3 py-1.5 text-xs font-medium hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200"
-            >
-              Edit
-            </button>
-          )}
-        </div>
+      <div className="flex flex-wrap items-center gap-4">
+        {showAuthor && <ReviewAuthor name={review.userFirstName} />}
+        <StarRating rating={review.rating} />
       </div>
+      <p className="mt-3 max-w-2xl">{review.message}</p>
+      {canBeEdited && (
+        <Button
+          size="sm"
+          className="mt-3"
+          variant="neutral-outline"
+          onClick={() => setIsEditing(true)}
+        >
+          Edit
+        </Button>
+      )}
     </article>
   );
 }

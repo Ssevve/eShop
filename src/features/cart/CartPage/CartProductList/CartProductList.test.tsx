@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import renderWithProviders from 'utils/renderWithProviders';
-import products from 'mocks/cartProducts';
+import products from 'mocks/cartProductsMock';
 import CartProductList from '.';
 
 describe('CartProductList component', () => {

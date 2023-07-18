@@ -1,7 +1,7 @@
 import { screen, waitFor } from '@testing-library/react';
 import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 import renderWithProviders from 'utils/renderWithProviders';
-import mockUser from 'mocks/user';
+import { userWithoutReviewMock as userMock } from 'mocks/userMock';
 import { AuthStatus } from 'features/auth/authSlice';
 import App from './App';
 import routesConfig from 'config/routes';
@@ -67,7 +67,7 @@ it("should render dashboard page if path is '/dashboard' and user is logged in",
   const status: AuthStatus = 'IDLE';
   const preloadedState = {
     auth: {
-      user: mockUser,
+      user: userMock,
       status,
       error: null,
     },

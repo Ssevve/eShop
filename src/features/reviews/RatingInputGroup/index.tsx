@@ -11,7 +11,11 @@ const RatingInputGroup = forwardRef<HTMLInputElement, RatingInputGroupProps>(
   ({ error, ...rest }, ref) => {
     return (
       <div>
-        <ul className="mb-3 rounded-sm border bg-white font-medium sm:flex">
+        <ul
+          className={`mb-3 rounded-sm border bg-white font-medium sm:flex ${
+            error && 'border-danger'
+          }`}
+        >
           <li className="w-full border-b sm:border-b-0 sm:border-r">
             <RatingInput rating={1} ref={ref} {...rest} />
           </li>
