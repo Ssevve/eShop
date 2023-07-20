@@ -4,24 +4,14 @@ import {
   createSlice,
   PayloadAction,
 } from '@reduxjs/toolkit';
-import { RootState } from 'app/store';
-import { productConstraints } from 'lib/constants';
-import calculateCartTotal from 'utils/calculateCartTotal';
-import calculateOriginalPrice from 'utils/calculateOriginalPrice';
-import { Product } from 'app/services/products';
-
-
-export interface CartProduct {
-  quantity: number;
-  product: Product;
-}
-
-interface CartState {
-  products: CartProduct[];
-}
+import { RootState } from '@/app/store';
+import { productConstraints } from '@/lib/constants';
+import calculateCartTotal from '@/utils/calculateCartTotal';
+import calculateOriginalPrice from '@/utils/calculateOriginalPrice';
+import { CartState, CartProduct } from './types';
 
 const initialState: CartState = {
-  products: localStorage['cart'] ? JSON.parse(localStorage['cart']) : [],
+  products: [],
 };
 
 export const cartSlice = createSlice({

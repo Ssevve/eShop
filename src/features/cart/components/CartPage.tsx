@@ -1,13 +1,12 @@
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { clearCart, selectCartProductCount, selectCartProducts } from 'features/cart/cartSlice';
-import Button from 'components/common/Button';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import { clearCart, selectCartProductCount } from '../cartSlice';
+import Button from '@/components/common/Button';
 import CartProductList from './CartProductList';
-import OrderDetails from './OrderDetails';
+import CartSummary from './CartSummary';
 
-function CartPage() {
+export function CartPage() {
   const dispatch = useAppDispatch();
   const productCount = useAppSelector(selectCartProductCount);
-  const products = useAppSelector(selectCartProducts);
 
   return (
     <section className="mx-auto mb-auto flex w-full flex-col justify-center gap-4 self-start lg:flex-row">
@@ -18,17 +17,9 @@ function CartPage() {
             Clear cart
           </Button>
         </header>
-        {products.length ? (
-          <CartProductList products={products} />
-        ) : (
-          <p className="w-full py-12 text-center text-5xl font-bold text-gray-200 md:text-6xl">
-            Your cart is empty!
-          </p>
-        )}
+        <CartProductList />
       </section>
-      <OrderDetails />
+      <CartSummary />
     </section>
   );
 }
-
-export default CartPage;

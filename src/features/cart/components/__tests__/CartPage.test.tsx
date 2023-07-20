@@ -1,13 +1,13 @@
 import { screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import renderWithProviders from 'utils/renderWithProviders';
-import formatPriceString from 'utils/formatPriceString';
-import calculateOriginalPrice from 'utils/calculateOriginalPrice';
-import calculateCartTotal from 'utils/calculateCartTotal';
-import products from 'mocks/cartProductsMock';
-import Cart from '.';
+import renderWithProviders from '@/utils/renderWithProviders';
+import calculateOriginalPrice from '@/utils/calculateOriginalPrice';
+import calculateCartTotal from '@/utils/calculateCartTotal';
+import products from '@/mocks/cartProductsMock';
+import { formatPrice } from '../../utils/format';
+import { CartPage } from '../CartPage';
 
-describe('Cart page', () => {
+describe('CartPage', () => {
   it('should render heading element', () => {
     const preloadedState = {
       cart: {
@@ -17,7 +17,7 @@ describe('Cart page', () => {
     const productCount = products.reduce((count, curr) => count + curr.quantity, 0);
     renderWithProviders(
       <BrowserRouter>
-        <Cart />
+        <CartPage />
       </BrowserRouter>,
       { preloadedState }
     );
@@ -27,7 +27,7 @@ describe('Cart page', () => {
   it("should render 'clear cart' button", () => {
     renderWithProviders(
       <BrowserRouter>
-        <Cart />
+        <CartPage />
       </BrowserRouter>
     );
     expect(screen.getByRole('button', { name: /clear cart/i })).toBeInTheDocument();
@@ -41,7 +41,7 @@ describe('Cart page', () => {
     };
     renderWithProviders(
       <BrowserRouter>
-        <Cart />
+        <CartPage />
       </BrowserRouter>,
       { preloadedState }
     );
@@ -51,7 +51,7 @@ describe('Cart page', () => {
   it("should render 'empty cart' message if there are no products in the cart", () => {
     renderWithProviders(
       <BrowserRouter>
-        <Cart />
+        <CartPage />
       </BrowserRouter>
     );
     expect(screen.queryByRole('list')).not.toBeInTheDocument();
@@ -67,11 +67,11 @@ describe('Cart page', () => {
     const originalPrice = calculateOriginalPrice(products);
     renderWithProviders(
       <BrowserRouter>
-        <Cart />
+        <CartPage />
       </BrowserRouter>,
       { preloadedState }
     );
-    expect(screen.getByText(formatPriceString(originalPrice))).toBeInTheDocument();
+    expect(screen.getByText(formatPrice(originalPrice))).toBeInTheDocument();
   });
 
   it('should render total order price', () => {
@@ -83,11 +83,11 @@ describe('Cart page', () => {
     const totalPrice = calculateCartTotal(products);
     renderWithProviders(
       <BrowserRouter>
-        <Cart />
+        <CartPage />
       </BrowserRouter>,
       { preloadedState }
     );
-    expect(screen.getByText(formatPriceString(totalPrice))).toBeInTheDocument();
+    expect(screen.getByText(formatPrice(totalPrice))).toBeInTheDocument();
   });
 
   it('should render total discount value', () => {
@@ -101,17 +101,17 @@ describe('Cart page', () => {
     const discount = originalPrice - totalPrice;
     renderWithProviders(
       <BrowserRouter>
-        <Cart />
+        <CartPage />
       </BrowserRouter>,
       { preloadedState }
     );
-    expect(screen.getByText(formatPriceString(discount))).toBeInTheDocument();
+    expect(screen.getByText(formatPrice(discount))).toBeInTheDocument();
   });
 
   it("should render 'checkout' button", () => {
     renderWithProviders(
       <BrowserRouter>
-        <Cart />
+        <CartPage />
       </BrowserRouter>
     );
     expect(screen.getByRole('button', { name: /checkout/i })).toBeInTheDocument();

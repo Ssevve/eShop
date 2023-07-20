@@ -1,13 +1,9 @@
-import { useAppSelector } from 'app/hooks';
-import Button from 'components/common/Button';
-import {
-  selectCartDiscount,
-  selectCartOriginalPrice,
-  selectCartTotal,
-} from 'features/cart/cartSlice';
-import formatPriceString from 'utils/formatPriceString';
+import { useAppSelector } from '@/app/hooks';
+import Button from '@/components/common/Button';
+import { selectCartDiscount, selectCartOriginalPrice, selectCartTotal } from '../cartSlice';
+import { formatPrice } from '../utils/format';
 
-function OrderDetails() {
+function CartSummary() {
   const originalPrice = useAppSelector(selectCartOriginalPrice);
   const orderTotal = useAppSelector(selectCartTotal);
   const discount = useAppSelector(selectCartDiscount);
@@ -16,20 +12,20 @@ function OrderDetails() {
       <div>
         <div className="flex justify-between">
           <span>Original price:</span>
-          <span>{formatPriceString(originalPrice)}</span>
+          {/* <span>{formatPrice(originalPrice)}</span> */}
         </div>
         <div className="flex justify-between text-danger">
           <span>Saved:</span>
-          <span>{formatPriceString(discount)}</span>
+          {/* <span>{formatPrice(discount)}</span> */}
         </div>
       </div>
       <div className="flex justify-between text-lg font-semibold">
         <span>Order total:</span>
-        <span>{formatPriceString(orderTotal)}</span>
+        {/* <span>{formatPrice(orderTotal)}</span> */}
       </div>
       <Button fullWidth>Checkout</Button>
     </section>
   );
 }
 
-export default OrderDetails;
+export default CartSummary;

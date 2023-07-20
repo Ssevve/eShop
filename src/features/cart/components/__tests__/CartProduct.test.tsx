@@ -1,8 +1,8 @@
 import { screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import renderWithProviders from 'utils/renderWithProviders';
-import products from 'mocks/cartProductsMock';
-import CartProduct from '.';
+import renderWithProviders from '@/utils/renderWithProviders';
+import products from '@/mocks/cartProductsMock';
+import { CartProduct } from '../CartProduct';
 
 describe('CartProduct component', () => {
   it('should render product image with correct src attribute', async () => {

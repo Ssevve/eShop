@@ -1,13 +1,13 @@
-import { useAppDispatch } from 'app/hooks';
 import { FiShoppingCart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import { addCartProduct } from 'features/cart/cartSlice';
-import { productConstraints } from 'lib/constants';
-import { Product } from 'app/services/products';
-import theme from 'lib/theme';
-import PriceGroup from 'components/common/PriceGroup';
-import Button from 'components/common/Button';
-import StarRating from 'components/common/StarRating';
+import { useAppDispatch } from '@/app/hooks';
+import { addCartProduct } from '@/features/cart/cartSlice';
+import { productConstraints } from '@/lib/constants';
+import { Product } from '@/app/services/products';
+import theme from '@/lib/theme';
+import PriceGroup from '@/components/common/PriceGroup';
+import Button from '@/components/common/Button';
+import StarRating from '@/components/common/StarRating';
 
 interface ProductCardProps {
   product: Product;
@@ -15,8 +15,6 @@ interface ProductCardProps {
 
 function ProductCard({ product }: ProductCardProps) {
   const dispatch = useAppDispatch();
-
-  if (!product) return null;
 
   const handleAddToCartClick = () =>
     dispatch(addCartProduct({ quantity: productConstraints.quantity.min, product }));

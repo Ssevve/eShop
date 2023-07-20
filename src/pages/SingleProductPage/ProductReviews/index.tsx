@@ -1,9 +1,9 @@
-import { Review as ReviewType } from 'app/services/reviews';
-import { useAppSelector } from 'app/hooks';
-import { selectCurrentUser } from 'features/auth/authSlice';
+import { Review as ReviewType } from '@/app/services/reviews';
+import { useAppSelector } from '@/app/hooks';
+import { selectCurrentUser } from '@/features/auth/authSlice';
 import EditableUserReview from './EditableUserReview';
-import List from 'components/common/List';
-import Review from 'features/reviews/Review';
+import List from '@/components/common/List';
+import Review from '@/features/reviews/Review';
 
 interface ProductReviewsProps {
   reviews: ReviewType[] | undefined;
@@ -35,7 +35,7 @@ function ProductReviews({ reviews, productId, isError }: ProductReviewsProps) {
               items={reviews}
               getKey={({ _id }) => _id}
               renderItem={(review) => <Review showAuthor review={review} />}
-              noItemsMessage="There are no reviews for this product yet!"
+              emptyItemsMessage="There are no reviews for this product yet!"
             />
           </>
         )}
