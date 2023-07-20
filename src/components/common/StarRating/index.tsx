@@ -1,6 +1,6 @@
+import { productConstraints } from '@/lib/constants';
+import theme from '@/lib/theme';
 import { FiStar } from 'react-icons/fi';
-import { productConstraints } from 'lib/constants';
-import theme from 'lib/theme';
 
 type StarRatingProps = {
   rating: number;

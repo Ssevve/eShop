@@ -1,9 +1,9 @@
+import renderWithProviders from '@/utils/renderWithProviders';
 import { screen } from '@testing-library/react';
-import { vi } from 'vitest';
-import renderWithProviders from 'utils/renderWithProviders';
-import { BrowserRouter, Link } from 'react-router-dom';
-import Button from '.';
 import userEvent from '@testing-library/user-event';
+import { BrowserRouter, Link } from 'react-router-dom';
+import { vi } from 'vitest';
+import Button from '.';
 
 describe('Button component', () => {
   it('should render with correct text size if textSize prop is provided', () => {

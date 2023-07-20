@@ -1,9 +1,9 @@
-import { Review as ReviewType } from '@/app/services/reviews';
 import { useAppSelector } from '@/app/hooks';
-import { selectCurrentUser } from '@/features/auth/authSlice';
-import EditableUserReview from './EditableUserReview';
+import { Review as ReviewType } from '@/app/services/reviews';
 import List from '@/components/common/List';
+import { selectCurrentUser } from '@/features/auth/authSlice';
 import Review from '@/features/reviews/Review';
+import EditableUserReview from './EditableUserReview';
 
 interface ProductReviewsProps {
   reviews: ReviewType[] | undefined;

@@ -1,6 +1,6 @@
+import { useGetReviewsByProductIdQuery } from '@/app/services/reviews';
+import Review from '@/features/reviews/Review';
 import { useState } from 'react';
-import { useGetReviewsByProductIdQuery } from 'app/services/reviews';
-import Review from 'features/reviews/Review';
 import ReviewForm from '../ReviewForm';
 
 interface EditableUserReviewProps {

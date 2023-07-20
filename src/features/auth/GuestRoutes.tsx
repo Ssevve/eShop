@@ -1,6 +1,6 @@
-import { Outlet, Navigate } from 'react-router-dom';
+import { selectCurrentUser } from '@/features/auth/authSlice';
 import { useSelector } from 'react-redux';
-import { selectCurrentUser } from 'features/auth/authSlice';
+import { Navigate, Outlet } from 'react-router-dom';
 
 function GuestRoutes() {
   const loggedInUser = useSelector(selectCurrentUser);

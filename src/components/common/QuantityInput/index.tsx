@@ -1,5 +1,5 @@
-import { productConstraints } from 'lib/constants';
-import { FiPlus, FiMinus } from 'react-icons/fi';
+import { productConstraints } from '@/lib/constants';
+import { FiMinus, FiPlus } from 'react-icons/fi';
 
 interface QuantityInputProps {
   count: number;

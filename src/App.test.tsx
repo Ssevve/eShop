@@ -1,10 +1,10 @@
+import { AuthStatus } from '@/features/auth/authSlice';
+import { userWithoutReviewMock as userMock } from '@/mocks/userMock';
+import routes from '@/routes';
+import renderWithProviders from '@/utils/renderWithProviders';
 import { screen, waitFor } from '@testing-library/react';
 import { RouterProvider, createMemoryRouter } from 'react-router-dom';
-import renderWithProviders from 'utils/renderWithProviders';
-import { userWithoutReviewMock as userMock } from 'mocks/userMock';
-import { AuthStatus } from 'features/auth/authSlice';
 import App from './App';
-import routesConfig from 'config/routes';
 
 describe('App component', () => {
   it('should render page header', () => {
@@ -19,7 +19,7 @@ describe('App component', () => {
 });
 
 it("should render home page if path is '/'", () => {
-  const router = createMemoryRouter(routesConfig, {
+  const router = createMemoryRouter(routes, {
     initialEntries: ['/'],
   });
   renderWithProviders(<RouterProvider router={router} />);
@@ -29,7 +29,7 @@ it("should render home page if path is '/'", () => {
 });
 
 it('should render not found page if invalid path', () => {
-  const router = createMemoryRouter(routesConfig, {
+  const router = createMemoryRouter(routes, {
     initialEntries: ['/bad-route'],
   });
   renderWithProviders(<RouterProvider router={router} />);
@@ -37,7 +37,7 @@ it('should render not found page if invalid path', () => {
 });
 
 it("should render log in page if path is '/login'", () => {
-  const router = createMemoryRouter(routesConfig, {
+  const router = createMemoryRouter(routes, {
     initialEntries: ['/login'],
   });
   renderWithProviders(<RouterProvider router={router} />);
@@ -45,7 +45,7 @@ it("should render log in page if path is '/login'", () => {
 });
 
 it("should render register page if path is '/register'", () => {
-  const router = createMemoryRouter(routesConfig, {
+  const router = createMemoryRouter(routes, {
     initialEntries: ['/register'],
   });
   renderWithProviders(<RouterProvider router={router} />);
@@ -53,7 +53,7 @@ it("should render register page if path is '/register'", () => {
 });
 
 it("should redirect to log in page if path is '/dashboard' and user is not logged in", async () => {
-  const router = createMemoryRouter(routesConfig, {
+  const router = createMemoryRouter(routes, {
     initialEntries: ['/dashboard'],
   });
   renderWithProviders(<RouterProvider router={router} />);
@@ -72,7 +72,7 @@ it("should render dashboard page if path is '/dashboard' and user is logged in",
       error: null,
     },
   };
-  const router = createMemoryRouter(routesConfig, {
+  const router = createMemoryRouter(routes, {
     initialEntries: ['/login'],
   });
   renderWithProviders(<RouterProvider router={router} />, { preloadedState });

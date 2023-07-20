@@ -1,13 +1,13 @@
-import { Link } from 'react-router-dom';
 import { FiChevronDown } from 'react-icons/fi';
-import CategoryList from '../CategoryList';
+import { Link } from 'react-router-dom';
+import { CategoryList } from './CategoryList';
 
 interface DesktopMenuProps {
   shouldShowCategories: boolean;
   toggleCategories: (bool?: boolean) => void;
 }
 
-function DesktopMenu({ shouldShowCategories, toggleCategories }: DesktopMenuProps) {
+export function DesktopMenu({ shouldShowCategories, toggleCategories }: DesktopMenuProps) {
   return (
     <div className="flex h-full gap-6">
       <Link className="flex items-center hover:underline" to="/">
@@ -32,5 +32,3 @@ function DesktopMenu({ shouldShowCategories, toggleCategories }: DesktopMenuProp
     </div>
   );
 }
-
-export default DesktopMenu;

@@ -1,7 +1,7 @@
+import FormInputErrorMessage from '@/components/common/FormInputErrorMessage';
 import { forwardRef } from 'react';
 import { FieldError } from 'react-hook-form';
 import RatingInput from './RatingInput';
-import FormInputErrorMessage from 'components/common/FormInputErrorMessage';
 
 interface RatingInputGroupProps extends React.PropsWithoutRef<JSX.IntrinsicElements['input']> {
   error?: FieldError;

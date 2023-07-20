@@ -1,4 +1,4 @@
-import { Product } from 'app/services/products';
+import { Product } from '@/features/products';
 
 const productsMock: Product[] = [
   {

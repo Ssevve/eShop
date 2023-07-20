@@ -1,8 +1,8 @@
-import { vi } from 'vitest';
+import { productConstraints } from '@/lib/constants';
+import renderWithProviders from '@/utils/renderWithProviders';
 import { fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { productConstraints } from 'lib/constants';
-import renderWithProviders from 'utils/renderWithProviders';
+import { vi } from 'vitest';
 import QuantityInput from '.';
 
 describe('QuantityInput component', () => {

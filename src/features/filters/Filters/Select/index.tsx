@@ -1,6 +1,6 @@
+import SortOption from '@/types/SortOption';
 import { useRef, useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
-import SortOption from 'types/SortOption';
 
 interface SelectProps {
   options: SortOption[];

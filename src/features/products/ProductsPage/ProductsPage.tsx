@@ -1,8 +1,8 @@
-import Filters from 'features/filters/Filters';
+import { useGetProductsQuery } from '@/app/services/products';
+import Loader from '@/components/common/Loader';
+import Filters from '@/features/filters/Filters';
+import ErrorPage from '@/pages/ErrorPage';
 import { useSearchParams } from 'react-router-dom';
-import { useGetProductsQuery } from 'app/services/products';
-import ErrorPage from 'pages/ErrorPage';
-import Loader from 'components/common/Loader';
 import PaginatedProducts from './PaginatedProducts';
 
 function ProductsPage() {

@@ -1,5 +1,5 @@
-import Logo from '../common/Logo/Logo';
-import SocialLinks from 'components/common/SocialLinks';
+import { Logo } from '@/components/common/Logo';
+import SocialLinks from '@/components/common/SocialLinks';
 
 function Footer() {
   return (

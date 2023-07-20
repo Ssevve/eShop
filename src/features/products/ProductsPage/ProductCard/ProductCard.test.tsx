@@ -1,8 +1,8 @@
+import { productConstraints } from '@/lib/constants';
+import productsMock from '@/mocks/productsMock';
+import renderWithProviders from '@/utils/renderWithProviders';
 import { screen } from '@testing-library/react';
-import { productConstraints } from 'lib/constants';
 import { BrowserRouter } from 'react-router-dom';
-import renderWithProviders from 'utils/renderWithProviders';
-import productsMock from 'mocks/productsMock';
 import ProductCard from '.';
 
 describe('ProductCard component', () => {

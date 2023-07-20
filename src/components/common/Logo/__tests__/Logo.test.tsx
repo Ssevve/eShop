@@ -1,7 +1,6 @@
+import renderWithProviders from '@/utils/renderWithProviders';
 import { screen } from '@testing-library/react';
-import renderWithProviders from 'utils/renderWithProviders';
-
-import Logo from './Logo';
+import { Logo } from '../Logo';
 
 describe('Logo component', () => {
   it('should render logo image', () => {

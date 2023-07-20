@@ -1,7 +1,7 @@
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { logoutUser, selectCurrentUser } from 'features/auth/authSlice';
-import Input from 'components/common/Input';
-import Button from 'components/common/Button';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import Button from '@/components/common/Button';
+import Input from '@/components/common/Input';
+import { logoutUser, selectCurrentUser } from '@/features/auth/authSlice';
 
 function UserProfile() {
   const dispatch = useAppDispatch();

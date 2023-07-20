@@ -1,4 +1,4 @@
-import formatPriceString from 'utils/formatPriceString';
+import { formatPrice } from '@/utils/format';
 
 interface PriceProps {
   price: number;
@@ -10,7 +10,7 @@ function Price({ price, isOld }: PriceProps) {
     <span
       className={`font-bold ${isOld ? 'mr-2 text-base text-gray-400 line-through' : 'text-xl'}`}
     >
-      {formatPriceString(price)}
+      {formatPrice(price)}
     </span>
   );
 }

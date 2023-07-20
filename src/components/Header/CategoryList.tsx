@@ -1,11 +1,11 @@
-import CategoryLink from '../CategoryLink';
-import categories from 'features/categories/categories';
+import categories from '@/features/categories/categories';
+import { CategoryLink } from './CategoryLink';
 
 interface CategoryListProps {
   toggleClose: () => void;
 }
 
-function CategoryList({ toggleClose }: CategoryListProps) {
+export function CategoryList({ toggleClose }: CategoryListProps) {
   return (
     <ul className="ml-3 grid gap-3 space-y-1.5 overflow-hidden bg-white py-1.5 lg:ml-0 lg:grid-cols-2 lg:space-y-0 lg:rounded-sm lg:p-6">
       <li className="ml-1.5 rounded-sm p-1.5 hover:bg-gray-200 lg:m-0 lg:p-0 lg:hover:bg-white lg:hover:underline">
@@ -22,5 +22,3 @@ function CategoryList({ toggleClose }: CategoryListProps) {
     </ul>
   );
 }
-
-export default CategoryList;

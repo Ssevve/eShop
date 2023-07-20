@@ -1,4 +1,4 @@
-import { AuthStatus } from 'features/auth/authSlice';
+import { AuthStatus } from '@/features/auth/authSlice';
 import { userWithoutReviewMock, userWithReviewMock } from './userMock';
 
 const status: AuthStatus = 'IDLE';

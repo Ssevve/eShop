@@ -1,6 +1,5 @@
+import renderWithProviders from '@/utils/renderWithProviders';
 import { screen } from '@testing-library/react';
-
-import renderWithProviders from 'utils/renderWithProviders';
 import Input from '.';
 
 describe('Input component', () => {

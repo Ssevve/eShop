@@ -1,8 +1,8 @@
+import renderWithProviders from '@/utils/renderWithProviders';
 import { screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import renderWithProviders from 'utils/renderWithProviders';
 import { vi } from 'vitest';
-import MobileMenu from '.';
+import { MobileMenu } from '../MobileMenu';
 
 describe('MobileMenu component', () => {
   it('should not render if isOpen is false', () => {

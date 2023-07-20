@@ -1,8 +1,8 @@
-import { BrowserRouter } from 'react-router-dom';
+import sortOptionsMock from '@/mocks/sortOptionsMock';
+import renderWithProviders from '@/utils/renderWithProviders';
 import { fireEvent, screen } from '@testing-library/react';
-import renderWithProviders from 'utils/renderWithProviders';
 import userEvent from '@testing-library/user-event';
-import sortOptionsMock from 'mocks/sortOptionsMock';
+import { BrowserRouter } from 'react-router-dom';
 import { vi } from 'vitest';
 import SortSelect from '.';
 

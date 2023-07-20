@@ -1,8 +1,8 @@
-import { vi } from 'vitest';
+import productsMock from '@/mocks/productsMock';
+import reviewsMock from '@/mocks/reviewsMock';
+import renderWithProviders from '@/utils/renderWithProviders';
 import { screen } from '@testing-library/react';
-import renderWithProviders from 'utils/renderWithProviders';
-import reviewsMock from 'mocks/reviewsMock';
-import productsMock from 'mocks/productsMock';
+import { vi } from 'vitest';
 import ReviewForm from '.';
 
 describe('ReviewForm', () => {

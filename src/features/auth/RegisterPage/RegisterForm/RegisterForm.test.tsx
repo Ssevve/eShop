@@ -1,10 +1,10 @@
-import 'mocks/firebaseMock';
-import { BrowserRouter } from 'react-router-dom';
+import { userConstraints } from '@/lib/constants';
+import '@/mocks/firebaseMock';
+import { userWithoutReviewMock as userMock } from '@/mocks/userMock';
+import renderWithProviders from '@/utils/renderWithProviders';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import renderWithProviders from 'utils/renderWithProviders';
-import { userConstraints } from 'lib/constants';
-import { userWithoutReviewMock as userMock } from 'mocks/userMock';
+import { BrowserRouter } from 'react-router-dom';
 import RegisterForm from '.';
 
 describe('RegisterForm component', () => {

@@ -1,11 +1,20 @@
 interface ListProps<T> extends React.ComponentPropsWithoutRef<'ul'> {
   renderItem: (item: T) => JSX.Element;
   getKey?: (item: T) => React.Key;
-  noItemsMessage: string;
+  emptyItemsMessage: string;
+  emptyItemsMessageClass?: string;
   items: T[] | undefined;
 }
 
-function List<T>({ renderItem, getKey, noItemsMessage, items, className, ...props }: ListProps<T>) {
+function List<T>({
+  renderItem,
+  getKey,
+  emptyItemsMessage,
+  emptyItemsMessageClass,
+  items,
+  className,
+  ...props
+}: ListProps<T>) {
   return items?.length ? (
     <ul className={className} {...props}>
       {items.map((item, index) => (
@@ -13,7 +22,7 @@ function List<T>({ renderItem, getKey, noItemsMessage, items, className, ...prop
       ))}
     </ul>
   ) : (
-    <p className="py-6">{noItemsMessage}</p>
+    <p className={emptyItemsMessageClass || 'py-6'}>{emptyItemsMessage}</p>
   );
 }
 

@@ -1,6 +1,6 @@
+import { productConstraints } from '@/lib/constants';
+import renderWithProviders from '@/utils/renderWithProviders';
 import { screen } from '@testing-library/react';
-import renderWithProviders from 'utils/renderWithProviders';
-import { productConstraints } from 'lib/constants';
 import StarRating from '.';
 
 describe('StarRating component', () => {

@@ -1,2 +1,3 @@
+export * from './routes/CartPage';
 export * from './types';
-export * from './components/CartPage';
+

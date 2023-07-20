@@ -1,17 +1,17 @@
-import AuthRoutes from 'features/auth/AuthRoutes';
-import GuestRoutes from 'features/auth/GuestRoutes';
-import RootLayout from 'components/RootLayout';
-import DashboardPage from 'features/dashboard/DashboardPage';
-import UserProfile from 'features/dashboard/DashboardPage/UserProfile';
-import DashboardReviews from 'features/reviews/DashboardReviews';
-import CartPage from 'features/cart/CartPage';
-import HomePage from 'pages/HomePage';
-import LoginPage from 'features/auth/LoginPage';
-import RegisterPage from 'features/auth/RegisterPage';
-import NotFoundPage from 'pages/NotFoundPage';
-import ErrorPage from 'pages/ErrorPage';
-import SingleProductPage from 'pages/SingleProductPage';
-import ProductsPage from 'features/products/ProductsPage/ProductsPage';
+import { RootLayout } from '@/components/RootLayout';
+import AuthRoutes from '@/features/auth/AuthRoutes';
+import GuestRoutes from '@/features/auth/GuestRoutes';
+import LoginPage from '@/features/auth/LoginPage';
+import RegisterPage from '@/features/auth/RegisterPage';
+import { CartPage } from '@/features/cart';
+import DashboardPage from '@/features/dashboard/DashboardPage';
+import UserProfile from '@/features/dashboard/DashboardPage/UserProfile';
+import ProductsPage from '@/features/products/ProductsPage/ProductsPage';
+import DashboardReviews from '@/features/reviews/DashboardReviews';
+import ErrorPage from '@/pages/ErrorPage';
+import HomePage from '@/pages/HomePage';
+import NotFoundPage from '@/pages/NotFoundPage';
+import SingleProductPage from '@/pages/SingleProductPage';
 
 const routes = [
   {

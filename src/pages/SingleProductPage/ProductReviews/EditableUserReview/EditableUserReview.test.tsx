@@ -1,13 +1,13 @@
-import { screen } from '@testing-library/react';
-import renderWithProviders from 'utils/renderWithProviders';
-import userEvent from '@testing-library/user-event';
+import productsMock from '@/mocks/productsMock';
+import reviewsMock from '@/mocks/reviewsMock';
 import {
   loggedInUserWithoutReviewsStateMock,
   loggedInUserWithReviewsStateMock,
-} from 'mocks/stateMock';
-import { userWithoutReviewMock, userWithReviewMock } from 'mocks/userMock';
-import reviewsMock from 'mocks/reviewsMock';
-import productsMock from 'mocks/productsMock';
+} from '@/mocks/stateMock';
+import { userWithoutReviewMock, userWithReviewMock } from '@/mocks/userMock';
+import renderWithProviders from '@/utils/renderWithProviders';
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import EditableUserReview from '.';
 
 describe('EditableUserReview', () => {

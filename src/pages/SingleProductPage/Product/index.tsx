@@ -1,7 +1,7 @@
-import { Product as ProductType } from 'app/services/products';
-import theme from 'lib/theme';
-import PriceGroup from 'components/common/PriceGroup';
-import StarRating from 'components/common/StarRating';
+import PriceGroup from '@/components/common/PriceGroup';
+import StarRating from '@/components/common/StarRating';
+import { Product as ProductType } from '@/features/products';
+import theme from '@/lib/theme';
 import ProductControls from './ProductControls';
 
 interface ProductProps {

@@ -1,5 +1,5 @@
+import Tab from '@/types/Tab';
 import { Outlet } from 'react-router-dom';
-import Tab from 'types/Tab';
 import Tabs from './Tabs';
 
 function DashboardPage() {

@@ -1,8 +1,8 @@
 import { useAppSelector } from '@/app/hooks';
-import { selectCartProducts } from '@/features/cart/cartSlice';
-import useWindowWidth from '@/hooks/useWindowWidth';
-import useBreakpointValue from '@/hooks/useBreakpointValue';
 import List from '@/components/common/List';
+import { selectCartProducts } from '@/features/cart/cartSlice';
+import useBreakpointValue from '@/hooks/useBreakpointValue';
+import useWindowWidth from '@/hooks/useWindowWidth';
 import { CartProduct } from './CartProduct';
 
 function CartProductList() {

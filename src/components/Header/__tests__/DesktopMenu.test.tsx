@@ -1,8 +1,8 @@
+import renderWithProviders from '@/utils/renderWithProviders';
 import { screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import renderWithProviders from 'utils/renderWithProviders';
 import { vi } from 'vitest';
-import DesktopMenu from '.';
+import { DesktopMenu } from '../DesktopMenu';
 
 describe('DesktopMenu component', () => {
   it('should render home link', () => {

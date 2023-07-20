@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
-import { useAppDispatch } from 'app/hooks';
+import { useAppDispatch } from '@/app/hooks';
+import auth from '@/config/firebase';
 import { beforeAuthStateChanged } from 'firebase/auth';
+import { useEffect } from 'react';
 import { setServerError, setUser } from '../features/auth/authSlice';
-import auth from 'config/firebase';
 
 function useAuth() {
   const dispatch = useAppDispatch();

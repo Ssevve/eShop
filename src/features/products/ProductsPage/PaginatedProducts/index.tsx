@@ -1,6 +1,6 @@
-import { Product } from 'app/services/products';
+import Pagination from '@/components/common/Pagination';
+import { Product } from '@/features/products';
 import ProductList from '../ProductList';
-import Pagination from 'components/common/Pagination';
 
 interface PaginatedProductsProps {
   products: Product[];

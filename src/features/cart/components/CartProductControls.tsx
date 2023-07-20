@@ -1,9 +1,9 @@
+import { useAppDispatch } from '@/app/hooks';
+import Button from '@/components/common/Button';
+import QuantityInput from '@/components/common/QuantityInput';
 import { useState } from 'react';
 import { FiTrash } from 'react-icons/fi';
-import { useAppDispatch } from '@/app/hooks';
 import { removeCartProduct, setCartProductQuantity } from '../cartSlice';
-import QuantityInput from '@/components/common/QuantityInput';
-import Button from '@/components/common/Button';
 
 interface CartProductControls {
   compactInput?: boolean;

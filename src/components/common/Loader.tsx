@@ -1,5 +1,5 @@
-import { ThreeDots } from 'react-loader-spinner';
 import theme from '@/lib/theme';
+import { ThreeDots } from 'react-loader-spinner';
 
 interface LoaderProps {
   height?: number;

@@ -1,9 +1,9 @@
-import { useAppDispatch } from 'app/hooks';
-import { Product } from 'app/services/products';
-import Button from 'components/common/Button';
-import QuantityInput from 'components/common/QuantityInput';
-import { addCartProduct } from 'features/cart/cartSlice';
-import { productConstraints } from 'lib/constants';
+import { useAppDispatch } from '@/app/hooks';
+import Button from '@/components/common/Button';
+import QuantityInput from '@/components/common/QuantityInput';
+import { addCartProduct } from '@/features/cart/cartSlice';
+import { Product } from '@/features/products';
+import { productConstraints } from '@/lib/constants';
 import { useState } from 'react';
 
 interface ProductControlsProps {

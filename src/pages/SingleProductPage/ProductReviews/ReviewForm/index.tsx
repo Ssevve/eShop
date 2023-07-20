@@ -1,11 +1,11 @@
+import { Review, useCreateReviewMutation, useEditReviewMutation } from '@/app/services/reviews';
+import Button from '@/components/common/Button';
+import ErrorBox from '@/components/common/ErrorBox';
+import SubmitButton from '@/components/common/SubmitButton';
+import RatingInputGroup from '@/features/reviews/RatingInputGroup';
+import { ReviewSchema } from '@/features/reviews/lib/reviewSchema';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Review, useCreateReviewMutation, useEditReviewMutation } from 'app/services/reviews';
-import { ReviewSchema } from 'features/reviews/lib/reviewSchema';
-import ErrorBox from 'components/common/ErrorBox';
-import RatingInputGroup from 'features/reviews/RatingInputGroup';
-import SubmitButton from 'components/common/SubmitButton';
-import Button from 'components/common/Button';
 
 interface EditFormProps {
   isEditForm: true;

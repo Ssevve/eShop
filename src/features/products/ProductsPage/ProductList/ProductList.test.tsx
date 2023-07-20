@@ -1,7 +1,7 @@
+import productsMock from '@/mocks/productsMock';
+import renderWithProviders from '@/utils/renderWithProviders';
 import { screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import renderWithProviders from 'utils/renderWithProviders';
-import productsMock from 'mocks/productsMock';
 import ProductList from '.';
 
 describe('ProductList component', () => {

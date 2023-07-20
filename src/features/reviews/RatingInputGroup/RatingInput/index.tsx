@@ -1,4 +1,4 @@
-import theme from 'lib/theme';
+import theme from '@/lib/theme';
 import { forwardRef } from 'react';
 import { FiStar } from 'react-icons/fi';
 

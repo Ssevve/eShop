@@ -1,9 +1,9 @@
-import { useGetProductByIdQuery } from 'app/services/products';
-import { Review as ReviewType } from 'app/services/reviews';
+import { useGetProductByIdQuery } from '@/app/services/products';
+import { Review as ReviewType } from '@/app/services/reviews';
+import Loader from '@/components/common/Loader';
+import Review from '@/features/reviews/Review';
+import theme from '@/lib/theme';
 import { Link } from 'react-router-dom';
-import theme from 'lib/theme';
-import Loader from 'components/common/Loader';
-import Review from 'features/reviews/Review';
 
 interface DashboardReviewProps {
   review: ReviewType;

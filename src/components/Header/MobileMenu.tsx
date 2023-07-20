@@ -1,19 +1,19 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import SocialLinks from '@/components/common/SocialLinks';
+import theme from '@/lib/theme';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
-import { TfiClose } from 'react-icons/tfi';
-import { HiOutlineMail } from 'react-icons/hi';
 import { FiChevronDown, FiPhone } from 'react-icons/fi';
+import { HiOutlineMail } from 'react-icons/hi';
+import { TfiClose } from 'react-icons/tfi';
 import { Link } from 'react-router-dom';
-import theme from 'lib/theme';
-import SocialLinks from 'components/common/SocialLinks';
-import CategoryList from '../CategoryList';
+import { CategoryList } from './CategoryList';
 
 interface MobileMenuProps {
   toggleClose: () => void;
   isOpen: boolean;
 }
 
-function MobileMenu({ toggleClose, isOpen }: MobileMenuProps) {
+export function MobileMenu({ toggleClose, isOpen }: MobileMenuProps) {
   const [shouldShowCategories, setShouldShowCategories] = useState(false);
 
   const toggleCategories = () => setShouldShowCategories((prev) => !prev);
@@ -93,5 +93,3 @@ function MobileMenu({ toggleClose, isOpen }: MobileMenuProps) {
     </AnimatePresence>
   );
 }
-
-export default MobileMenu;

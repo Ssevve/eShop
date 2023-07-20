@@ -1,10 +1,10 @@
+import products from '@/mocks/cartProductsMock';
+import calculateCartTotal from '@/utils/calculateCartTotal';
+import calculateOriginalPrice from '@/utils/calculateOriginalPrice';
+import { formatPrice } from '@/utils/format';
+import renderWithProviders from '@/utils/renderWithProviders';
 import { screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import renderWithProviders from '@/utils/renderWithProviders';
-import calculateOriginalPrice from '@/utils/calculateOriginalPrice';
-import calculateCartTotal from '@/utils/calculateCartTotal';
-import products from '@/mocks/cartProductsMock';
-import { formatPrice } from '../../utils/format';
 import { CartPage } from '../CartPage';
 
 describe('CartPage', () => {

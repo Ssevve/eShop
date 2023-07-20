@@ -1,7 +1,7 @@
-import { useGetReviewsByUserIdQuery } from 'app/services/reviews';
-import { selectCurrentUser } from 'features/auth/authSlice';
-import { useAppSelector } from 'app/hooks';
-import Loader from 'components/common/Loader';
+import { useAppSelector } from '@/app/hooks';
+import { useGetReviewsByUserIdQuery } from '@/app/services/reviews';
+import Loader from '@/components/common/Loader';
+import { selectCurrentUser } from '@/features/auth/authSlice';
 import DashboardReviewList from './DashboardReviewList';
 
 function DashboardReviews() {

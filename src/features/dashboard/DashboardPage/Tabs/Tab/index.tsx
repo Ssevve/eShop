@@ -1,5 +1,5 @@
+import TabType from '@/types/Tab';
 import { NavLink } from 'react-router-dom';
-import TabType from 'types/Tab';
 
 interface TabProps {
   tab: TabType;

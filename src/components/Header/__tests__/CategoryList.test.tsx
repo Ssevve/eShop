@@ -1,9 +1,9 @@
+import categories from '@/features/categories/categories';
+import renderWithProviders from '@/utils/renderWithProviders';
 import { screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import renderWithProviders from 'utils/renderWithProviders';
-import CategoryList from '.';
 import { vi } from 'vitest';
-import categories from 'features/categories/categories';
+import { CategoryList } from '../CategoryList';
 
 describe('CategoryList component', () => {
   it("should render 'all products' link", () => {

@@ -1,8 +1,8 @@
+import { loggedInUserWithoutReviewsStateMock as stateMock } from '@/mocks/stateMock';
+import renderWithProviders from '@/utils/renderWithProviders';
 import { screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import renderWithProviders from 'utils/renderWithProviders';
-import { loggedInUserWithoutReviewsStateMock as stateMock } from 'mocks/stateMock';
-import Header from '.';
+import { Header } from '../Header';
 
 describe('Header component', () => {
   describe('when user is not logged in', () => {

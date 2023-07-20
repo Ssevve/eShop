@@ -1,19 +1,19 @@
+import { RootState } from '@/app/store';
+import auth from '@/config/firebase';
+import User from '@/types/User';
 import {
-  createSlice,
-  createAsyncThunk,
-  Action,
-  PayloadAction,
+    Action,
+    PayloadAction,
+    createAsyncThunk,
+    createSlice,
 } from '@reduxjs/toolkit';
 import {
-  signInWithEmailAndPassword,
-  signOut,
+    signInWithEmailAndPassword,
+    signOut,
 } from 'firebase/auth';
-import { RootState } from 'app/store';
-import auth from 'config/firebase';
+import FirebaseLoginErrors from './lib/firebaseErrors';
 import { LoginSchema } from './lib/loginSchema';
 import { RegisterSchema } from './lib/registerSchema';
-import FirebaseLoginErrors from './lib/firebaseErrors';
-import User from 'types/User';
 
 type AuthError = null | 'server' | 'invalidCredentials' | 'emailTaken';
 export type AuthStatus = 'IDLE' | 'PENDING' | 'ERROR' | 'REGISTER_SUCCESS';

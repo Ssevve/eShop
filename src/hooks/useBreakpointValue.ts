@@ -1,4 +1,4 @@
-import theme from 'lib/theme';
+import theme from '@/lib/theme';
 
 function useBreakpointValue(breakpointValue: string) {
   const breakpoint = theme.screens[breakpointValue];

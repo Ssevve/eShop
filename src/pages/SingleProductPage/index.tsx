@@ -1,11 +1,11 @@
+import { useGetProductByIdQuery } from '@/app/services/products';
+import { useGetReviewsByProductIdQuery } from '@/app/services/reviews';
+import Loader from '@/components/common/Loader';
+import ErrorPage from '@/pages/ErrorPage';
+import NotFoundPage from '@/pages/NotFoundPage';
 import { useParams } from 'react-router-dom';
-import { useGetProductByIdQuery } from 'app/services/products';
-import { useGetReviewsByProductIdQuery } from 'app/services/reviews';
-import Loader from 'components/common/Loader';
-import ErrorPage from 'pages/ErrorPage';
-import ProductReviews from './ProductReviews';
 import Product from './Product';
-import NotFoundPage from 'pages/NotFoundPage';
+import ProductReviews from './ProductReviews';
 
 function SingleProductPage() {
   const { productId } = useParams();

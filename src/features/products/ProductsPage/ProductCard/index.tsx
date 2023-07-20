@@ -1,13 +1,13 @@
+import { useAppDispatch } from '@/app/hooks';
+import Button from '@/components/common/Button';
+import PriceGroup from '@/components/common/PriceGroup';
+import StarRating from '@/components/common/StarRating';
+import { addCartProduct } from '@/features/cart/cartSlice';
+import { Product } from '@/features/products';
+import { productConstraints } from '@/lib/constants';
+import theme from '@/lib/theme';
 import { FiShoppingCart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '@/app/hooks';
-import { addCartProduct } from '@/features/cart/cartSlice';
-import { productConstraints } from '@/lib/constants';
-import { Product } from '@/app/services/products';
-import theme from '@/lib/theme';
-import PriceGroup from '@/components/common/PriceGroup';
-import Button from '@/components/common/Button';
-import StarRating from '@/components/common/StarRating';
 
 interface ProductCardProps {
   product: Product;

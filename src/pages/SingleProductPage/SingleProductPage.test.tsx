@@ -1,10 +1,10 @@
+import server from '@/mocks/api/server';
+import productsMock from '@/mocks/productsMock';
+import routes from '@/routes';
+import renderWithProviders from '@/utils/renderWithProviders';
 import { screen } from '@testing-library/react';
-import { MemoryRouter, RouterProvider, createMemoryRouter } from 'react-router-dom';
 import { rest } from 'msw';
-import renderWithProviders from 'utils/renderWithProviders';
-import server from 'mocks/api/server';
-import productsMock from 'mocks/productsMock';
-import routesConfig from 'config/routes';
+import { MemoryRouter, RouterProvider, createMemoryRouter } from 'react-router-dom';
 import SingleProductPage from '.';
 
 describe('SingleProductPage', () => {
@@ -20,7 +20,7 @@ describe('SingleProductPage', () => {
 
   it('should not render page loader when not fetching data', async () => {
     const expectedProduct = productsMock[0];
-    const router = createMemoryRouter(routesConfig, {
+    const router = createMemoryRouter(routes, {
       initialEntries: [`/products/${expectedProduct._id}`],
     });
     renderWithProviders(<RouterProvider router={router} />);
@@ -28,7 +28,7 @@ describe('SingleProductPage', () => {
   });
 
   it('should render <NotFoundPage /> when product was not found', async () => {
-    const router = createMemoryRouter(routesConfig, {
+    const router = createMemoryRouter(routes, {
       initialEntries: [`/products/bad-id`],
     });
     renderWithProviders(<RouterProvider router={router} />);
@@ -44,7 +44,7 @@ describe('SingleProductPage', () => {
     );
 
     const expectedProduct = productsMock[0];
-    const router = createMemoryRouter(routesConfig, {
+    const router = createMemoryRouter(routes, {
       initialEntries: [`/products/${expectedProduct._id}`],
     });
     renderWithProviders(<RouterProvider router={router} />);
@@ -54,7 +54,7 @@ describe('SingleProductPage', () => {
   describe('when api successfully responds with product data', () => {
     it('should render <Product /> component', async () => {
       const expectedProduct = productsMock[0];
-      const router = createMemoryRouter(routesConfig, {
+      const router = createMemoryRouter(routes, {
         initialEntries: [`/products/${expectedProduct._id}`],
       });
       renderWithProviders(<RouterProvider router={router} />);
@@ -65,7 +65,7 @@ describe('SingleProductPage', () => {
 
     it('should render <ProductReviews /> component', async () => {
       const expectedProduct = productsMock[0];
-      const router = createMemoryRouter(routesConfig, {
+      const router = createMemoryRouter(routes, {
         initialEntries: [`/products/${expectedProduct._id}`],
       });
       renderWithProviders(<RouterProvider router={router} />);

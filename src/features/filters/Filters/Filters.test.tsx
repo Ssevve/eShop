@@ -1,6 +1,6 @@
-import { BrowserRouter } from 'react-router-dom';
+import renderWithProviders from '@/utils/renderWithProviders';
 import { screen } from '@testing-library/react';
-import renderWithProviders from 'utils/renderWithProviders';
+import { BrowserRouter } from 'react-router-dom';
 import Filters from '.';
 
 describe('Filters component', () => {

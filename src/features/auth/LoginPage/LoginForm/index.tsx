@@ -1,19 +1,19 @@
-import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import ErrorBox from '@/components/common/ErrorBox';
+import Input from '@/components/common/Input';
+import { Logo } from '@/components/common/Logo/Logo';
+import SubmitButton from '@/components/common/SubmitButton';
 import {
   loginUser,
-  selectServerError,
   resetAuthStatusAndError,
   selectIsPendingAuth,
-} from 'features/auth/authSlice';
-import { loginSchema, LoginSchema } from 'features/auth/lib/loginSchema';
-import Logo from 'components/common/Logo/Logo';
-import Input from 'components/common/Input';
-import ErrorBox from 'components/common/ErrorBox';
-import SubmitButton from 'components/common/SubmitButton';
+  selectServerError,
+} from '@/features/auth/authSlice';
+import { LoginSchema, loginSchema } from '@/features/auth/lib/loginSchema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useEffect } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 
 function LoginForm() {
   const dispatch = useAppDispatch();

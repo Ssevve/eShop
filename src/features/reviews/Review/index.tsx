@@ -1,9 +1,9 @@
-import { useAppSelector } from 'app/hooks';
-import { selectCurrentUser } from 'features/auth/authSlice';
-import { Review as ReviewType } from 'app/services/reviews';
-import StarRating from 'components/common/StarRating';
+import { useAppSelector } from '@/app/hooks';
+import { Review as ReviewType } from '@/app/services/reviews';
+import Button from '@/components/common/Button';
+import StarRating from '@/components/common/StarRating';
+import { selectCurrentUser } from '@/features/auth/authSlice';
 import ReviewAuthor from './ReviewAuthor';
-import Button from 'components/common/Button';
 
 interface EditableReviewProps {
   isEditable: true;

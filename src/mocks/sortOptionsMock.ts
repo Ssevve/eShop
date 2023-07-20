@@ -1,4 +1,4 @@
-import SortOption from "types/SortOption";
+import SortOption from "@/types/SortOption";
 
 const sortOptionsMock: SortOption[] = [
   {

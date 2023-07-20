@@ -1,7 +1,7 @@
+import reviewsMock from '@/mocks/reviewsMock';
+import { userWithoutReviewMock as userMock } from '@/mocks/userMock';
 import { rest } from 'msw';
 import productsMock from '../productsMock';
-import { userWithoutReviewMock as userMock } from 'mocks/userMock';
-import reviewsMock from 'mocks/reviewsMock';
 
 const handlers = [
   rest.get(`${import.meta.env.VITE_API_URL}/products/:id`, (req, res, ctx) => {

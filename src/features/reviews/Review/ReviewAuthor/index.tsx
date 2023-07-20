@@ -1,5 +1,5 @@
-import theme from 'lib/theme';
-import cherryAvatar from 'assets/avatar-cherry.svg';
+import theme from '@/lib/theme';
+import cherryAvatar from '@/assets/avatar-cherry.svg';
 
 interface ReviewAuthorProps {
   name: string;

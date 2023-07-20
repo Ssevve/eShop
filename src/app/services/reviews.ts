@@ -1,5 +1,5 @@
-import api from './api'
-import { Product } from './products';
+import { Product } from '@/features/products';
+import api from './api';
 
 export interface Review {
   _id: string;

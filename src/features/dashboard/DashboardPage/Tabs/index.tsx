@@ -1,4 +1,4 @@
-import TabType from 'types/Tab';
+import TabType from '@/types/Tab';
 import Tab from './Tab';
 
 interface TabsProps {

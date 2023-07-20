@@ -1,4 +1,4 @@
-import { Review } from 'app/services/reviews';
+import { Review } from '@/app/services/reviews';
 import DashboardReview from '../DashboardReview';
 
 interface DashboardReviewListProps {

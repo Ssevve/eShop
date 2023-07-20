@@ -1,20 +1,7 @@
-import { Sort, Order } from 'types/SortOption';
-import api from './api'
-import Category from 'types/Category';
-
-export interface Product {
-  _id: string;
-  name: string;
-  brand: string;
-  price: number;
-  discountPrice: number;
-  imageUrl: string;
-  quantity: string;
-  category: string;
-  rating: number;
-  ratingsCount: number;
-  description: string;
-}
+import { Product } from '@/features/products';
+import Category from '@/types/Category';
+import { Order, Sort } from '@/types/SortOption';
+import api from './api';
 
 interface GetProductsQueryParams {
   page: number;

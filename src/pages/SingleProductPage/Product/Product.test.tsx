@@ -1,6 +1,6 @@
+import productsMock from '@/mocks/productsMock';
+import renderWithProviders from '@/utils/renderWithProviders';
 import { screen } from '@testing-library/react';
-import renderWithProviders from 'utils/renderWithProviders';
-import productsMock from 'mocks/productsMock';
 import Product from '.';
 
 describe('Product', () => {

@@ -1,7 +1,7 @@
+import renderWithProviders from '@/utils/renderWithProviders';
 import { screen } from '@testing-library/react';
-import renderWithProviders from 'utils/renderWithProviders';
-import Pagination from '.';
 import { BrowserRouter } from 'react-router-dom';
+import Pagination from '.';
 
 describe('Pagination component', () => {
   it('should not render anything if total page count is 1', () => {
