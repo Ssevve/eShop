@@ -1,12 +1,11 @@
 import {
-  createSlice,
-  createAsyncThunk,
-  Action,
-  PayloadAction,
+    createAsyncThunk,
+    createSlice,
 } from '@reduxjs/toolkit';
 import {
-  signInWithEmailAndPassword,
-  signOut,
+  UserCredential,
+    signInWithEmailAndPassword,
+    signOut,
 } from 'firebase/auth';
 import { RootState } from 'app/store';
 import auth from 'config/firebase';
@@ -30,12 +29,8 @@ const initialState: AuthState = {
   error: null,
 };
 
-function isPendingAction(action: Action) {
-  return action.type.endsWith('pending');
-}
-
-export const registerUser = createAsyncThunk(
-  'auth/registerUser', async ({ email, password, firstName, lastName }: RegisterSchema, { rejectWithValue }) => {
+export const registerUser = createAsyncThunk<User, RegisterSchema>(
+  'auth/registerUser', async ({ email, password, firstName, lastName }, { rejectWithValue }) => {
       const url = `${import.meta.env.VITE_API_URL}/users/register`;
       const res = await fetch(url, {
         method: 'POST',
@@ -50,7 +45,7 @@ export const registerUser = createAsyncThunk(
   }
 );
 
-export const loginUser = createAsyncThunk(
+export const loginUser = createAsyncThunk<UserCredential, LoginSchema>(
   'auth/loginUser', async ({ email, password }: LoginSchema) => 
     signInWithEmailAndPassword(auth, email, password));
 
@@ -60,7 +55,7 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setUser(state, action: PayloadAction<User | undefined>) {
+    setUser(state, action) {
       if (action.payload) state.user = action.payload;
       else state.user = undefined;
     },
