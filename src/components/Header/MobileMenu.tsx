@@ -1,4 +1,4 @@
-import SocialLinks from '@/components/common/SocialLinks';
+import { SocialLinks } from '@/components/common/SocialLinks';
 import theme from '@/lib/theme';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';

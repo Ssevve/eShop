@@ -1,4 +1,4 @@
-import products from '@/mocks/cartProductsMock';
+import { cartProductsMock } from '@/mocks';
 import renderWithProviders from '@/utils/renderWithProviders';
 import { screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
@@ -6,7 +6,7 @@ import { CartProduct } from '../CartProduct';
 
 describe('CartProduct component', () => {
   it('should render product image with correct src attribute', async () => {
-    const expectedProduct = products[0];
+    const expectedProduct = cartProductsMock[0];
     renderWithProviders(
       <BrowserRouter>
         <CartProduct initialQuantity={expectedProduct.quantity} product={expectedProduct.product} />
@@ -19,7 +19,7 @@ describe('CartProduct component', () => {
   });
 
   it('should render product name', () => {
-    const expectedProduct = products[0];
+    const expectedProduct = cartProductsMock[0];
     renderWithProviders(
       <BrowserRouter>
         <CartProduct initialQuantity={expectedProduct.quantity} product={expectedProduct.product} />
@@ -29,7 +29,7 @@ describe('CartProduct component', () => {
   });
 
   it('should render PriceGroup component', () => {
-    const expectedProduct = products[0];
+    const expectedProduct = cartProductsMock[0];
     renderWithProviders(
       <BrowserRouter>
         <CartProduct initialQuantity={expectedProduct.quantity} product={expectedProduct.product} />
@@ -39,7 +39,7 @@ describe('CartProduct component', () => {
   });
 
   it('should render QuantityInput component', async () => {
-    const expectedProduct = products[0];
+    const expectedProduct = cartProductsMock[0];
     renderWithProviders(
       <BrowserRouter>
         <CartProduct initialQuantity={expectedProduct.quantity} product={expectedProduct.product} />
@@ -49,7 +49,7 @@ describe('CartProduct component', () => {
   });
 
   it("should render 'remove from cart' button", async () => {
-    const expectedProduct = products[0];
+    const expectedProduct = cartProductsMock[0];
     renderWithProviders(
       <BrowserRouter>
         <CartProduct initialQuantity={expectedProduct.quantity} product={expectedProduct.product} />

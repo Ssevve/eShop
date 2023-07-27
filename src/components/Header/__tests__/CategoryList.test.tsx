@@ -1,4 +1,4 @@
-import categories from '@/features/categories/categories';
+import { categories } from '@/features/categories/categories';
 import renderWithProviders from '@/utils/renderWithProviders';
 import { screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';

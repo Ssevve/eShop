@@ -1,10 +1,10 @@
-import { AuthStatus } from '@/features/auth/authSlice';
+import routes from '@/config/routes';
+import { AuthStatus } from '@/features/auth';
 import { userWithoutReviewMock as userMock } from '@/mocks/userMock';
-import routes from '@/routes';
 import renderWithProviders from '@/utils/renderWithProviders';
 import { screen, waitFor } from '@testing-library/react';
 import { RouterProvider, createMemoryRouter } from 'react-router-dom';
-import App from './App';
+import { App } from './App';
 
 describe('App component', () => {
   it('should render page header', () => {

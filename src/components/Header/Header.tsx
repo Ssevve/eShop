@@ -1,5 +1,5 @@
 import { useAppSelector } from '@/app/hooks';
-import { Logo } from '@/components/common/Logo/Logo';
+import { Logo } from '@/components/common/Logo';
 import { selectCartProductCount } from '@/features/cart/cartSlice';
 import useBreakpointValue from '@/hooks/useBreakpointValue';
 import useWindowWidth from '@/hooks/useWindowWidth';

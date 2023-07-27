@@ -1,4 +1,4 @@
-import categories from '@/features/categories/categories';
+import { categories } from '@/features/categories/categories';
 import { CategoryLink } from './CategoryLink';
 
 interface CategoryListProps {

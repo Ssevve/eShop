@@ -1,7 +1,8 @@
-import PriceGroup from '@/components/common/PriceGroup';
+import { PriceGroup } from '@/components/common/PriceGroup';
 import { Product } from '@/features/products';
 import theme from '@/lib/theme';
 import { Link } from 'react-router-dom';
+import { CartProductControls } from './CartProductControls';
 
 interface CartProductProps {
   initialQuantity: number;

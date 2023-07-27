@@ -1,4 +1,4 @@
-import App from '@/App';
+import { App } from '@/App';
 import { setupStore } from '@/app/store';
 import '@/index.css';
 import React from 'react';

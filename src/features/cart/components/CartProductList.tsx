@@ -1,11 +1,11 @@
 import { useAppSelector } from '@/app/hooks';
-import List from '@/components/common/List';
+import { List } from '@/components/common/List';
 import { selectCartProducts } from '@/features/cart/cartSlice';
 import useBreakpointValue from '@/hooks/useBreakpointValue';
 import useWindowWidth from '@/hooks/useWindowWidth';
 import { CartProduct } from './CartProduct';
 
-function CartProductList() {
+export function CartProductList() {
   const products = useAppSelector(selectCartProducts);
   const windowWidth = useWindowWidth();
   const smallBreakpoint = useBreakpointValue('xs');
@@ -28,5 +28,3 @@ function CartProductList() {
     />
   );
 }
-
-export default CartProductList;

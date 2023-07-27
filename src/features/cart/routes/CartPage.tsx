@@ -1,8 +1,7 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
-import Button from '@/components/common/Button';
-import { clearCart, selectCartProductCount } from '../cartSlice';
-import CartProductList from '../components/CartProductList';
-import CartSummary from '../components/CartSummary';
+import { Button } from '@/components/common/Button';
+import { CartProductList, CartSummary } from '@/features/cart';
+import { clearCart, selectCartProductCount } from '@/features/cart/cartSlice';
 
 export function CartPage() {
   const dispatch = useAppDispatch();

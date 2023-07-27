@@ -1,6 +1,6 @@
-import { Review } from '@/app/services/reviews';
+import { Review } from '@/features/reviews';
 
-const reviewsMock: Review[] = [
+export const reviewsMock: Review[] = [
   {
     rating: 1,
     userFirstName: 'testUserFirstName1',
@@ -26,5 +26,3 @@ const reviewsMock: Review[] = [
     _id: 'testReviewId3',
   },
 ];
-
-export default reviewsMock;

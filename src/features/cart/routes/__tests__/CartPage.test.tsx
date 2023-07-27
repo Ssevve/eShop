@@ -1,6 +1,5 @@
-import products from '@/mocks/cartProductsMock';
-import calculateCartTotal from '@/utils/calculateCartTotal';
-import calculateOriginalPrice from '@/utils/calculateOriginalPrice';
+import { cartProductsMock } from '@/mocks';
+import { calculateCartTotal, calculateOriginalPrice } from '@/utils/calculate';
 import { formatPrice } from '@/utils/format';
 import renderWithProviders from '@/utils/renderWithProviders';
 import { screen } from '@testing-library/react';
@@ -11,10 +10,10 @@ describe('CartPage', () => {
   it('should render heading element', () => {
     const preloadedState = {
       cart: {
-        products,
+        products: cartProductsMock,
       },
     };
-    const productCount = products.reduce((count, curr) => count + curr.quantity, 0);
+    const productCount = cartProductsMock.reduce((count, curr) => count + curr.quantity, 0);
     renderWithProviders(
       <BrowserRouter>
         <CartPage />
@@ -36,7 +35,7 @@ describe('CartPage', () => {
   it('should render CartProductList component if there are products in the cart', () => {
     const preloadedState = {
       cart: {
-        products,
+        products: cartProductsMock,
       },
     };
     renderWithProviders(
@@ -61,10 +60,10 @@ describe('CartPage', () => {
   it('should render original order price', () => {
     const preloadedState = {
       cart: {
-        products,
+        products: cartProductsMock,
       },
     };
-    const originalPrice = calculateOriginalPrice(products);
+    const originalPrice = calculateOriginalPrice(cartProductsMock);
     renderWithProviders(
       <BrowserRouter>
         <CartPage />
@@ -77,10 +76,10 @@ describe('CartPage', () => {
   it('should render total order price', () => {
     const preloadedState = {
       cart: {
-        products,
+        products: cartProductsMock,
       },
     };
-    const totalPrice = calculateCartTotal(products);
+    const totalPrice = calculateCartTotal(cartProductsMock);
     renderWithProviders(
       <BrowserRouter>
         <CartPage />
@@ -93,11 +92,11 @@ describe('CartPage', () => {
   it('should render total discount value', () => {
     const preloadedState = {
       cart: {
-        products,
+        products: cartProductsMock,
       },
     };
-    const originalPrice = calculateOriginalPrice(products);
-    const totalPrice = calculateCartTotal(products);
+    const originalPrice = calculateOriginalPrice(cartProductsMock);
+    const totalPrice = calculateCartTotal(cartProductsMock);
     const discount = originalPrice - totalPrice;
     renderWithProviders(
       <BrowserRouter>

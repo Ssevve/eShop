@@ -1,9 +1,9 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import { Button } from '@/components/common/Button';
 import { logoutUser, selectCurrentUser } from '@/features/auth/authSlice';
 import { useState } from 'react';
 import { FiUser } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import Button from '../common/Button';
 
 interface UserDropdownProps {
   isMobile: boolean;

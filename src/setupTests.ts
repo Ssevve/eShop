@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import server from '@/mocks/api/server';
+import { server } from '@/mocks';
 import '@testing-library/jest-dom';
 import matchers from '@testing-library/jest-dom/matchers';
 import { expect, vi } from 'vitest';

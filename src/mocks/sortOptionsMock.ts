@@ -1,6 +1,6 @@
-import SortOption from "@/types/SortOption";
+import { SortOption } from "@/types";
 
-const sortOptionsMock: SortOption[] = [
+export const sortOptionsMock: SortOption[] = [
   {
     id: 1,
     label: 'Test option 1',
@@ -34,5 +34,3 @@ const sortOptionsMock: SortOption[] = [
     },
   },
 ];
-
-export default sortOptionsMock;

@@ -1,12 +1,11 @@
 /* eslint-disable no-param-reassign */
 import { RootState } from '@/app/store';
 import { productConstraints } from '@/lib/constants';
-import calculateCartTotal from '@/utils/calculateCartTotal';
-import calculateOriginalPrice from '@/utils/calculateOriginalPrice';
+import { calculateCartTotal, calculateOriginalPrice } from '@/utils/calculate';
 import {
-    createSelector,
-    createSlice,
-    PayloadAction,
+  PayloadAction,
+  createSelector,
+  createSlice,
 } from '@reduxjs/toolkit';
 import { CartProduct, CartState } from './types';
 

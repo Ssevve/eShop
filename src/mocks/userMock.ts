@@ -1,4 +1,4 @@
-import User from '@/types/User';
+import { User } from '@/types';
 
 interface UserWithPassword extends User {
   password: string; 
