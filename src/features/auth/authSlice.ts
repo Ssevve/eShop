@@ -6,8 +6,9 @@ import {
   createSlice,
 } from '@reduxjs/toolkit';
 import {
-  signInWithEmailAndPassword,
-  signOut,
+  UserCredential,
+    signInWithEmailAndPassword,
+    signOut,
 } from 'firebase/auth';
 import FirebaseLoginErrors from './lib/firebaseErrors';
 import { LoginSchema } from './lib/loginSchema';
@@ -44,7 +45,7 @@ export const registerUser = createAsyncThunk<User, RegisterSchema>(
   }
 );
 
-export const loginUser = createAsyncThunk(
+export const loginUser = createAsyncThunk<UserCredential, LoginSchema>(
   'auth/loginUser', async ({ email, password }: LoginSchema) => 
     signInWithEmailAndPassword(auth, email, password));
 
