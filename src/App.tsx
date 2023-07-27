@@ -1,13 +1,11 @@
+import routes from '@/config/routes';
+import useAuth from '@/hooks/useAuth';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import useAuth from 'hooks/useAuth';
-import routesConfig from 'config/routes';
 
-const router = createBrowserRouter(routesConfig);
+const router = createBrowserRouter(routes);
 
 export function App() {
   useAuth();
 
   return <RouterProvider router={router} />;
 }
-
-export default App;

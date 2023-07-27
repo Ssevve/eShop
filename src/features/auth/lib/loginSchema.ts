@@ -1,5 +1,5 @@
+import { userConstraints } from '@/lib/constants';
 import { z } from 'zod';
-import { userConstraints } from 'lib/constants';
 
 export const loginSchema = z.object({
   email: z.string().email('Invalid email'),

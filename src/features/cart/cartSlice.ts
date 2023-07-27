@@ -1,27 +1,16 @@
 /* eslint-disable no-param-reassign */
+import { RootState } from '@/app/store';
+import { productConstraints } from '@/lib/constants';
+import { calculateCartTotal, calculateOriginalPrice } from '@/utils/calculate';
 import {
+  PayloadAction,
   createSelector,
   createSlice,
-  PayloadAction,
 } from '@reduxjs/toolkit';
-import { RootState } from 'app/store';
-import { productConstraints } from 'lib/constants';
-import calculateCartTotal from 'utils/calculateCartTotal';
-import calculateOriginalPrice from 'utils/calculateOriginalPrice';
-import { Product } from 'app/services/products';
-
-
-export interface CartProduct {
-  quantity: number;
-  product: Product;
-}
-
-interface CartState {
-  products: CartProduct[];
-}
+import { CartProduct, CartState } from './types';
 
 const initialState: CartState = {
-  products: localStorage['cart'] ? JSON.parse(localStorage['cart']) : [],
+  products: [],
 };
 
 export const cartSlice = createSlice({

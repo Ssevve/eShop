@@ -1,6 +1,6 @@
 import { FiShoppingBag } from 'react-icons/fi';
 
-function Logo() {
+export function Logo() {
   return (
     <div className="flex items-center gap-2 text-lg font-bold">
       <FiShoppingBag
@@ -14,5 +14,3 @@ function Logo() {
     </div>
   );
 }
-
-export default Logo;

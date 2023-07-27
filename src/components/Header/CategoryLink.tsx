@@ -6,7 +6,7 @@ interface CategoryLinkProps {
   onClick?: () => void;
 }
 
-function CategoryLink({ category, label, onClick }: CategoryLinkProps) {
+export function CategoryLink({ category, label, onClick }: CategoryLinkProps) {
   return (
     <Link
       className="block h-full min-w-max"
@@ -17,5 +17,3 @@ function CategoryLink({ category, label, onClick }: CategoryLinkProps) {
     </Link>
   );
 }
-
-export default CategoryLink;
