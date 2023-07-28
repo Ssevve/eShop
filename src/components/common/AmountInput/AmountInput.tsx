@@ -1,21 +1,21 @@
 import { productConstraints } from '@/lib/constants';
 import { FiMinus, FiPlus } from 'react-icons/fi';
 
-interface QuantityInputProps {
+interface AmountInputProps {
   count: number;
-  setCount: (quantity: number) => void;
+  setCount: (amount: number) => void;
   minCount?: number;
   maxCount?: number;
   compact?: boolean;
 }
 
-export function QuantityInput({
+export function AmountInput({
   count,
   setCount,
-  minCount = productConstraints.quantity.min,
-  maxCount = productConstraints.quantity.max,
+  minCount = productConstraints.amount.min,
+  maxCount = productConstraints.amount.max,
   compact = false,
-}: QuantityInputProps) {
+}: AmountInputProps) {
   const isMinimumQuantity = count <= minCount;
   const isMaximumQuantity = count >= maxCount;
 
@@ -37,14 +37,14 @@ export function QuantityInput({
   };
 
   const handleBlur = () => {
-    if (!count) setCount(productConstraints.quantity.min);
+    if (!count) setCount(productConstraints.amount.min);
   };
 
   return (
     <div className="flex w-min border py-2">
       {!compact && (
         <button
-          aria-label="Decrease quantity"
+          aria-label="Decrease amount"
           className={`items-center border-r px-2 ${isMinimumQuantity && 'text-gray-400'}`}
           type="button"
           onClick={handleDecrement}
@@ -64,7 +64,7 @@ export function QuantityInput({
       />
       {!compact && (
         <button
-          aria-label="Increase quantity"
+          aria-label="Increase amount"
           className={`items-center border-l px-2 ${isMaximumQuantity && 'text-gray-400'}`}
           type="button"
           onClick={handleIncrement}

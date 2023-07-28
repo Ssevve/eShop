@@ -4,10 +4,10 @@ import { screen } from '@testing-library/react';
 import { ProductControls } from '../ProductControls';
 
 describe('ProductControls', () => {
-  it('should render <QuantityInput /> component', () => {
+  it('should render <AmountInput /> component', () => {
     const expectedProduct = productsMock[0];
     renderWithProviders(<ProductControls product={expectedProduct} />);
-    expect(screen.getByRole('button', { name: 'Decrease quantity' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Decrease amount' })).toBeInTheDocument();
   });
 
   it("should render 'Add to cart' button", () => {

@@ -9,7 +9,7 @@ describe('CartProduct component', () => {
     const expectedProduct = cartProductsMock[0];
     renderWithProviders(
       <BrowserRouter>
-        <CartProduct initialQuantity={expectedProduct.quantity} product={expectedProduct.product} />
+        <CartProduct initialAmount={expectedProduct.amount} product={expectedProduct.product} />
       </BrowserRouter>
     );
     expect(await screen.findByAltText(expectedProduct.product.name)).toHaveAttribute(
@@ -22,7 +22,7 @@ describe('CartProduct component', () => {
     const expectedProduct = cartProductsMock[0];
     renderWithProviders(
       <BrowserRouter>
-        <CartProduct initialQuantity={expectedProduct.quantity} product={expectedProduct.product} />
+        <CartProduct initialAmount={expectedProduct.amount} product={expectedProduct.product} />
       </BrowserRouter>
     );
     expect(screen.getByText(expectedProduct.product.name)).toBeInTheDocument();
@@ -32,27 +32,27 @@ describe('CartProduct component', () => {
     const expectedProduct = cartProductsMock[0];
     renderWithProviders(
       <BrowserRouter>
-        <CartProduct initialQuantity={expectedProduct.quantity} product={expectedProduct.product} />
+        <CartProduct initialAmount={expectedProduct.amount} product={expectedProduct.product} />
       </BrowserRouter>
     );
     expect(screen.getByText(`$${expectedProduct.product.price}`)).toBeInTheDocument();
   });
 
-  it('should render QuantityInput component', async () => {
+  it('should render <AmountInput /> component', async () => {
     const expectedProduct = cartProductsMock[0];
     renderWithProviders(
       <BrowserRouter>
-        <CartProduct initialQuantity={expectedProduct.quantity} product={expectedProduct.product} />
+        <CartProduct initialAmount={expectedProduct.amount} product={expectedProduct.product} />
       </BrowserRouter>
     );
-    expect(await screen.findByRole('button', { name: 'Decrease quantity' })).toBeInTheDocument();
+    expect(await screen.findByRole('button', { name: 'Decrease amount' })).toBeInTheDocument();
   });
 
   it("should render 'remove from cart' button", async () => {
     const expectedProduct = cartProductsMock[0];
     renderWithProviders(
       <BrowserRouter>
-        <CartProduct initialQuantity={expectedProduct.quantity} product={expectedProduct.product} />
+        <CartProduct initialAmount={expectedProduct.amount} product={expectedProduct.product} />
       </BrowserRouter>
     );
     expect(await screen.findByRole('button', { name: /remove/i })).toBeInTheDocument();

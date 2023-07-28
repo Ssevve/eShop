@@ -20,8 +20,8 @@ export const cartSlice = createSlice({
     addCartProduct(state, action: PayloadAction<CartProduct>) {
       const duplicate = state.products.find((entry) => entry.product._id === action.payload.product._id);
       if (duplicate) {
-        const newQuantity = duplicate.quantity + action.payload.quantity;
-        duplicate.quantity = newQuantity < productConstraints.quantity.max ? newQuantity : productConstraints.quantity.max;   
+        const newQuantity = duplicate.amount + action.payload.amount;
+        duplicate.amount = newQuantity < productConstraints.amount.max ? newQuantity : productConstraints.amount.max;   
       } else {
         state.products.push(action.payload);
       }
@@ -29,13 +29,13 @@ export const cartSlice = createSlice({
     removeCartProduct(state, action: PayloadAction<string>) {
       state.products = state.products.filter((entry) => entry.product._id !== action.payload);
     },
-    setCartProductQuantity(state, action: PayloadAction<{ productId: string; quantity: number; }>) {
+    setCartProductQuantity(state, action: PayloadAction<{ productId: string; amount: number; }>) {
       const product = state.products.find((entry) => entry.product._id === action.payload.productId);
       if (product) {
-        if (action.payload.quantity < productConstraints.quantity.min || !action.payload.quantity) {
-          product.quantity = productConstraints.quantity.min;
+        if (action.payload.amount < productConstraints.amount.min || !action.payload.amount) {
+          product.amount = productConstraints.amount.min;
         } else {
-          product.quantity = action.payload.quantity;
+          product.amount = action.payload.amount;
         }
       }
     },
@@ -52,7 +52,7 @@ const selectSelf = (state: RootState) => state.cart;
 export const selectCartProducts = createSelector(selectSelf, cart => cart.products);
 
 export const selectCartProductCount = createSelector(selectCartProducts, products =>
-  products.reduce((count, entry) => count + entry.quantity, 0)
+  products.reduce((count, entry) => count + entry.amount, 0)
 );
 
 export const selectCartOriginalPrice = createSelector(selectCartProducts, products => calculateOriginalPrice(products));

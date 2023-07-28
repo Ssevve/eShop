@@ -58,6 +58,6 @@ describe('ProductDetails', () => {
   it('should render <ProductControls /> component', () => {
     const expectedProduct = productsMock[0];
     renderWithProviders(<ProductDetails product={expectedProduct} />);
-    expect(screen.getByRole('button', { name: 'Decrease quantity' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Decrease amount' })).toBeInTheDocument();
   });
 });

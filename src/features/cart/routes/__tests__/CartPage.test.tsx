@@ -13,7 +13,7 @@ describe('CartPage', () => {
         products: cartProductsMock,
       },
     };
-    const productCount = cartProductsMock.reduce((count, curr) => count + curr.quantity, 0);
+    const productCount = cartProductsMock.reduce((count, curr) => count + curr.amount, 0);
     renderWithProviders(
       <BrowserRouter>
         <CartPage />

@@ -17,7 +17,7 @@ export function ProductCard({ product }: ProductCardProps) {
   const dispatch = useAppDispatch();
 
   const handleAddToCartClick = () =>
-    dispatch(addCartProduct({ quantity: productConstraints.quantity.min, product }));
+    dispatch(addCartProduct({ amount: productConstraints.amount.min, product }));
 
   return (
     <div className="h-full w-full rounded-sm border border-gray-200 bg-white shadow lg:max-w-xs">

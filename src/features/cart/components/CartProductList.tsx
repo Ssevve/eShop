@@ -15,12 +15,8 @@ export function CartProductList() {
     <List
       items={products}
       getKey={({ product }) => product._id}
-      renderItem={({ quantity, product }) => (
-        <CartProduct
-          product={product}
-          initialQuantity={quantity}
-          compactInput={isSmallWindowSize}
-        />
+      renderItem={({ amount, product }) => (
+        <CartProduct product={product} initialAmount={amount} compactInput={isSmallWindowSize} />
       )}
       className="divide-y"
       emptyItemsMessage="Your cart is empty!"

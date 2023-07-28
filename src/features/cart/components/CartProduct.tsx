@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom';
 import { CartProductControls } from './CartProductControls';
 
 interface CartProductProps {
-  initialQuantity: number;
+  initialAmount: number;
   product: Product;
   compactInput?: boolean;
 }
 
-export function CartProduct({ initialQuantity, product, compactInput }: CartProductProps) {
+export function CartProduct({ initialAmount, product, compactInput }: CartProductProps) {
   const imageHeight = theme.spacing[40];
 
   return (
@@ -34,7 +34,7 @@ export function CartProduct({ initialQuantity, product, compactInput }: CartProd
       <CartProductControls
         compactInput={compactInput}
         productId={product._id}
-        initialQuantity={initialQuantity}
+        initialAmount={initialAmount}
       />
     </div>
   );
