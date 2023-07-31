@@ -1,7 +1,6 @@
 import { useAppDispatch } from '@/app/hooks';
 import { AmountInput } from '@/components/common/AmountInput';
 import { Button } from '@/components/common/Button';
-import { addCartProduct } from '@/features/cart/cartSlice';
 import { Product } from '@/features/products';
 import { productConstraints } from '@/lib/constants';
 import { useState } from 'react';
@@ -11,10 +10,9 @@ interface ProductControlsProps {
 }
 
 export function ProductControls({ product }: ProductControlsProps) {
-  const dispatch = useAppDispatch();
   const [amount, setAmount] = useState(productConstraints.amount.min);
 
-  const addToCart = () => dispatch(addCartProduct({ amount: amount, product }));
+  const addToCart = () => {};
 
   return (
     <div className="flex gap-6 xs:w-max">

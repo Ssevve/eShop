@@ -3,7 +3,6 @@ import { AmountInput } from '@/components/common/AmountInput';
 import { Button } from '@/components/common/Button';
 import { useState } from 'react';
 import { FiTrash } from 'react-icons/fi';
-import { removeCartProduct, setCartProductQuantity } from '../cartSlice';
 
 interface CartProductControls {
   compactInput?: boolean;
@@ -21,19 +20,13 @@ export function CartProductControls({
 
   const handleAmountChange = (amount: number) => {
     setAmount(amount);
-    dispatch(setCartProductQuantity({ productId, amount }));
+    // dispatch(setCartProductQuantity({ productId, amount }));
   };
 
   return (
     <div className="col-start-2 flex items-end gap-3 sm:col-start-3 sm:justify-self-end">
       <AmountInput compact={compactInput} count={amount} setCount={handleAmountChange} />
-      <Button
-        evenPadding
-        variant="neutral"
-        textSize="lg"
-        onClick={() => dispatch(removeCartProduct(productId))}
-        aria-label="Remove"
-      >
+      <Button evenPadding variant="neutral" textSize="lg" onClick={() => {}} aria-label="Remove">
         <FiTrash />
       </Button>
     </div>

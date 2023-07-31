@@ -2,7 +2,6 @@ import { useAppDispatch } from '@/app/hooks';
 import { Button } from '@/components/common/Button';
 import { PriceGroup } from '@/components/common/PriceGroup';
 import { StarRating } from '@/components/common/StarRating';
-import { addCartProduct } from '@/features/cart/cartSlice';
 import { Product } from '@/features/products';
 import { productConstraints } from '@/lib/constants';
 import theme from '@/lib/theme';
@@ -14,10 +13,7 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const dispatch = useAppDispatch();
-
-  const handleAddToCartClick = () =>
-    dispatch(addCartProduct({ amount: productConstraints.amount.min, product }));
+  const handleAddToCartClick = () => {};
 
   return (
     <div className="h-full w-full rounded-sm border border-gray-200 bg-white shadow lg:max-w-xs">

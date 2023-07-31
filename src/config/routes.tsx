@@ -1,6 +1,6 @@
 import { DashboardLayout, RootLayout } from '@/components/Layout';
 import { LoginPage, RegisterPage } from '@/features/auth';
-import { CartPage } from '@/features/cart';
+import { CartPage } from '@/features/carts';
 import { DashboardReviews, UserProfile } from '@/features/dashboard';
 import { ProductsPage, SingleProductPage } from '@/features/products';
 import { AuthRoutes, ErrorPage, GuestRoutes, HomePage, NotFoundPage } from '@/routes';

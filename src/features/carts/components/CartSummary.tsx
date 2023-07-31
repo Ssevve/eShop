@@ -1,6 +1,5 @@
 // import { useAppSelector } from '@/app/hooks';
 import { Button } from '@/components/common/Button';
-// import { selectCartDiscount, selectCartOriginalPrice, selectCartTotal } from '../cartSlice';
 
 export function CartSummary() {
   // const originalPrice = useAppSelector(selectCartOriginalPrice);

@@ -1,4 +1,4 @@
-import { CartProduct } from "@/features/cart";
+import { CartProduct } from "@/features/carts";
 
 export function calculateOriginalPrice(products: CartProduct[]) {
   return products.reduce((total, entry) => total + entry.amount * entry.product.price, 0);

@@ -1,12 +1,10 @@
 import authReducer from '@/features/auth/authSlice';
-import cartReducer from '@/features/cart/cartSlice';
 import { userLocalStorageMiddleware } from "@/middleware";
 import { PreloadedState, combineReducers, configureStore } from '@reduxjs/toolkit';
 import api from './services/api';
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  cart: cartReducer,
   [api.reducerPath]: api.reducer,
 });
 

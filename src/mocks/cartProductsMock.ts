@@ -1,4 +1,4 @@
-import { CartProduct } from "@/features/cart";
+import { CartProduct } from "@/features/carts";
 import { productsMock } from "./productsMock";
 
 export const cartProductsMock: CartProduct[] = [
