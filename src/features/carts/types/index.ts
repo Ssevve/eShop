@@ -1,8 +1,13 @@
-import { Product } from '@/features/products';
-
 export interface CartProduct {
   amount: number;
-  product: Product;
+  product: {
+    _id: string;
+    name: string;
+    discountPrice: number;
+    price: number;
+    imageUrl: string;
+    quantity: string;
+  }
 }
 
 export interface CartState {

@@ -1,28 +1,17 @@
 import api from '@/app/services/api';
+import { CartProduct } from '../types';
 
-interface ResponseCartProduct {
-  amount: number;
-  product: {
-    _id: string;
-    name: string;
-    discountPrice: number;
-    price: number;
-    imageUrl: string;
-    quantity: string;
-  }
-}
-
-export type ResponseCart = {
+export type CartResponse = {
   _id: string;
   userId: string | null;
-  products: ResponseCartProduct[];
+  products: CartProduct[];
   createdAt: Date;
   updatedAt?: Date;
 };
 
 export const cartsApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getCart: builder.query<ResponseCart, void>({
+    getCart: builder.query<CartResponse, void>({
       query: () => 'carts',
       providesTags: ['Cart'],
     }),
