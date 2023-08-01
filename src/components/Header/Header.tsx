@@ -70,7 +70,7 @@ export function Header() {
               <div className="relative w-min">
                 <FiShoppingCart className="pointer-events-none h-5 w-5" aria-hidden="true" />
                 <span className="min-w-4 absolute bottom-3 left-3 flex h-4 items-center justify-center rounded-full bg-primary p-1 text-xs text-white">
-                  {cart?.products.length || 0}
+                  {cart?.totalProductAmount || 0}
                 </span>
               </div>
               Cart

@@ -7,7 +7,9 @@ export type CartResponse = {
   products: CartProduct[];
   createdAt: Date;
   updatedAt?: Date;
+  totalProductAmount: number;
 };
+
 
 export const cartsApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -15,6 +17,7 @@ export const cartsApi = api.injectEndpoints({
       query: () => 'carts',
       providesTags: ['Cart'],
     }),
+
   }),
   overrideExisting: false,
 })

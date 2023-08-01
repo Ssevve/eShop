@@ -12,7 +12,7 @@ export function CartPage() {
     <section className="mx-auto mb-auto flex w-full flex-col justify-center gap-4 self-start lg:flex-row">
       <section className="w-full lg:w-3/4">
         <header className="flex items-center justify-between border-b pb-6 pt-3">
-          <h1 className="text-2xl font-bold">{`Cart (${cart?.products.length || 0})`}</h1>
+          <h1 className="text-2xl font-bold">{`Cart (${cart?.totalProductAmount || 0})`}</h1>
           <Button variant="neutral" disabled={isLoading}>
             Clear cart
           </Button>
