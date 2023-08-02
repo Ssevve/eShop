@@ -1,4 +1,4 @@
-import cx from 'classnames';
+import { twMerge } from 'tailwind-merge';
 
 const variants = {
   primary: 'bg-primary text-white hover:bg-primary-hover',
@@ -74,10 +74,10 @@ export function Button({
 
   return (
     <Component
-      className={cx(
-        'flex items-center justify-center gap-4 rounded-sm uppercase',
+      className={twMerge(
+        'flex w-max items-center justify-center gap-4 rounded-sm uppercase',
         textSize ? `text-${textSize}` : `text-${sizes[size].textSize}`,
-        fullWidth ? 'w-full' : 'w-max',
+        fullWidth && 'w-full',
         evenPadding
           ? `p-${sizes[size].paddingY}`
           : `px-${sizes[size].paddingX} py-${sizes[size].paddingY}`,
