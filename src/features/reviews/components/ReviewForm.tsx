@@ -1,6 +1,6 @@
 import { Button } from '@/components/common/Button';
 import { ErrorBox } from '@/components/common/ErrorBox';
-import { SubmitButton } from '@/components/common/SubmitButton';
+import { LoaderButton } from '@/components/common/LoaderButton';
 import { RatingInputGroup } from '@/features/reviews/components/RatingInputGroup';
 import { ReviewSchema } from '@/features/reviews/lib/reviewSchema';
 import { useEffect } from 'react';
@@ -86,7 +86,9 @@ export function ReviewForm({ isEditForm, setIsEditing, review, productId }: Revi
         />
       </label>
       <div className="flex gap-3">
-        <SubmitButton isLoading={isLoading}>{accessibleName}</SubmitButton>
+        <LoaderButton type="submit" isLoading={isLoading}>
+          {accessibleName}
+        </LoaderButton>
         {isEditForm && (
           <Button onClick={() => setIsEditing(false)} variant="neutral">
             Cancel

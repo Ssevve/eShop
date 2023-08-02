@@ -1,7 +1,7 @@
-import { useAppDispatch } from '@/app/hooks';
-import { Button } from '@/components/common/Button';
+import { LoaderButton } from '@/components/common/LoaderButton';
 import { PriceGroup } from '@/components/common/PriceGroup';
 import { StarRating } from '@/components/common/StarRating';
+import { cartsApi, useAddCartProductMutation } from '@/features/carts';
 import { Product } from '@/features/products';
 import { productConstraints } from '@/lib/constants';
 import theme from '@/lib/theme';
@@ -13,7 +13,15 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const handleAddToCartClick = () => {};
+  const { data: cart } = cartsApi.endpoints.getCart.useQueryState();
+  const [addToCart, { isLoading }] = useAddCartProductMutation();
+  const handleAddToCartClick = (productId: string) => {
+    addToCart({
+      cartId: cart?._id || '',
+      productId,
+      amount: productConstraints.amount.min,
+    });
+  };
 
   return (
     <div className="h-full w-full rounded-sm border border-gray-200 bg-white shadow lg:max-w-xs">
@@ -38,9 +46,15 @@ export function ProductCard({ product }: ProductCardProps) {
       </Link>
       <footer className="mx-3 flex justify-between gap-1 self-end border-t border-gray-200 py-3">
         <PriceGroup price={product.price} discountPrice={product.discountPrice} />
-        <Button aria-label="Add to cart" textSize="lg" onClick={handleAddToCartClick}>
-          <FiShoppingCart />
-        </Button>
+        <LoaderButton
+          aria-label="Add to cart"
+          textSize="lg"
+          onClick={() => handleAddToCartClick(product._id)}
+          disabled={isLoading}
+          isLoading={isLoading}
+        >
+          <FiShoppingCart size={24} />
+        </LoaderButton>
       </footer>
     </div>
   );
