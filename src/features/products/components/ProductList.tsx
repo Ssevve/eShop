@@ -10,7 +10,7 @@ export function ProductList({ products }: ProductListProps) {
     <section className="w-full">
       {products.length ? (
         <ul
-          className={`grid gap-3 lg:grid-cols-4 xl:grid-cols-5 ${
+          className={`grid gap-4 lg:grid-cols-4 xl:grid-cols-5 ${
             products.length > 1 && 'xs:grid-cols-2'
           }`}
         >

@@ -35,7 +35,7 @@ export const cartsApi = api.injectEndpoints({
         },
         body: JSON.stringify({ productId, amount }),
       })},
-      invalidatesTags: ['Cart'],
+      invalidatesTags: (result) => result ? ['Cart'] : [],
     }),
   }),
   overrideExisting: false,

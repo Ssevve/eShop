@@ -1,6 +1,8 @@
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { Outlet, ScrollRestoration } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export function RootLayout() {
   return (
@@ -11,6 +13,7 @@ export function RootLayout() {
         <ScrollRestoration />
       </main>
       <Footer />
+      <ToastContainer autoClose={2000} position="bottom-right" pauseOnHover={false} />
     </>
   );
 }

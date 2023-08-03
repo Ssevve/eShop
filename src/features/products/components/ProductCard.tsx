@@ -5,19 +5,45 @@ import { cartsApi, useAddCartProductMutation } from '@/features/carts';
 import { Product } from '@/features/products';
 import { productConstraints } from '@/lib/constants';
 import theme from '@/lib/theme';
+import { useEffect, useState } from 'react';
 import { FiShoppingCart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 interface ProductCardProps {
   product: Product;
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const { data: cart } = cartsApi.endpoints.getCart.useQueryState();
-  const [addToCart, { isLoading }] = useAddCartProductMutation();
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [addToCart, { isLoading: isLoadingMutation, isSuccess, isError, originalArgs }] =
+    useAddCartProductMutation();
+  const {
+    cartId,
+    cartProduct,
+    isFetching: isFetchingCart,
+  } = cartsApi.endpoints.getCart.useQueryState(undefined, {
+    selectFromResult: ({ data, isFetching }) => ({
+      cartId: data?._id || '',
+      cartProduct: data?.products.find((cartProduct) => cartProduct.product._id === product._id),
+      isFetching,
+    }),
+  });
+
+  useEffect(() => {
+    if (originalArgs?.productId === product._id) {
+      setIsProcessing(isLoadingMutation || isFetchingCart);
+    }
+  }, [isLoadingMutation, originalArgs]);
+
+  useEffect(() => {
+    if (isSuccess) toast.success(`${product.name} added!`);
+    if (isError) toast.error(`Could not add ${product.name}!`);
+  }, [isSuccess, isError]);
+
   const handleAddToCartClick = (productId: string) => {
     addToCart({
-      cartId: cart?._id || '',
+      cartId,
       productId,
       amount: productConstraints.amount.min,
     });
@@ -32,10 +58,10 @@ export function ProductCard({ product }: ProductCardProps) {
           src={product.imageUrl}
           alt={product.name}
         />
-        <div className="px-6 pb-6">
-          <h2 className="mt-3 text-xl font-semibold tracking-tight">{product.name}</h2>
+        <div className="px-4 pb-8">
+          <h2 className="mt-4 text-xl font-semibold tracking-tight">{product.name}</h2>
 
-          <div className="mb-6 mt-3 flex items-center">
+          <div className="mb-8 mt-4 flex items-center">
             <StarRating rating={product.rating} size={16} />
           </div>
           <div>
@@ -44,17 +70,27 @@ export function ProductCard({ product }: ProductCardProps) {
           </div>
         </div>
       </Link>
-      <footer className="mx-3 flex justify-between gap-1 self-end border-t border-gray-200 py-3">
+      <footer className="mx-4 flex h-20 items-center justify-between gap-2 self-end border-t border-gray-200 py-4">
         <PriceGroup price={product.price} discountPrice={product.discountPrice} />
-        <LoaderButton
-          aria-label="Add to cart"
-          textSize="lg"
-          onClick={() => handleAddToCartClick(product._id)}
-          disabled={isLoading}
-          isLoading={isLoading}
-        >
-          <FiShoppingCart size={24} />
-        </LoaderButton>
+        {cartProduct ? (
+          <div className="flex flex-col text-center sm:flex-row sm:text-lg">
+            <span>In cart:</span>
+            <span className="font-semibold sm:ml-2">{cartProduct.amount}</span>
+          </div>
+        ) : (
+          <LoaderButton
+            aria-label="Add to cart"
+            textSize="lg"
+            onClick={() => handleAddToCartClick(product._id)}
+            disabled={isProcessing}
+            isLoading={isProcessing}
+            loaderHeight={28}
+            loaderWidth={28}
+            className="h-11 w-16 p-2"
+          >
+            <FiShoppingCart size={20} />
+          </LoaderButton>
+        )}
       </footer>
     </div>
   );
