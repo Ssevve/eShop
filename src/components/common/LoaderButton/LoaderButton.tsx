@@ -4,11 +4,15 @@ import { ThreeDots } from 'react-loader-spinner';
 type LoaderButtonProps = {
   isLoading: boolean;
   type?: 'submit' | 'button';
+  loaderHeight?: number;
+  loaderWidth?: number;
 } & Exclude<ButtonProps, AsLinkProps>;
 
 export function LoaderButton({
   children,
   isLoading,
+  loaderHeight = 24,
+  loaderWidth = 30,
   type = 'button',
   ...props
 }: LoaderButtonProps) {
@@ -19,7 +23,7 @@ export function LoaderButton({
       disabled={isLoading}
       {...props}
     >
-      {isLoading ? <ThreeDots height={24} width={30} color="#fff" /> : children}
+      {isLoading ? <ThreeDots height={loaderHeight} width={loaderWidth} color="#fff" /> : children}
     </Button>
   );
 }
