@@ -8,7 +8,6 @@ import theme from '@/lib/theme';
 import { useEffect, useState } from 'react';
 import { FiShoppingCart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
 
 interface ProductCardProps {
   product: Product;
@@ -16,8 +15,7 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   const [isProcessing, setIsProcessing] = useState(false);
-  const [addToCart, { isLoading: isLoadingMutation, isSuccess, isError, originalArgs }] =
-    useAddCartProductMutation();
+  const [addToCart, { isLoading: isLoadingMutation, originalArgs }] = useAddCartProductMutation();
   const {
     cartId,
     cartProduct,
@@ -31,23 +29,10 @@ export function ProductCard({ product }: ProductCardProps) {
   });
 
   useEffect(() => {
-    if (originalArgs?.productId === product._id) {
+    if (originalArgs?.product._id === product._id) {
       setIsProcessing(isLoadingMutation || isFetchingCart);
     }
   }, [isLoadingMutation, originalArgs]);
-
-  useEffect(() => {
-    if (isSuccess) toast.success(`${product.name} added!`);
-    if (isError) toast.error(`Could not add ${product.name}!`);
-  }, [isSuccess, isError]);
-
-  const handleAddToCartClick = (productId: string) => {
-    addToCart({
-      cartId,
-      productId,
-      amount: productConstraints.amount.min,
-    });
-  };
 
   return (
     <div className="h-full w-full rounded-sm border border-gray-200 bg-white shadow lg:max-w-xs">
@@ -81,7 +66,13 @@ export function ProductCard({ product }: ProductCardProps) {
           <LoaderButton
             aria-label="Add to cart"
             textSize="lg"
-            onClick={() => handleAddToCartClick(product._id)}
+            onClick={() =>
+              addToCart({
+                cartId,
+                product,
+                amount: productConstraints.amount.min,
+              })
+            }
             disabled={isProcessing}
             isLoading={isProcessing}
             loaderHeight={28}

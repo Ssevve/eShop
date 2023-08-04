@@ -1,4 +1,5 @@
 import api from '@/app/services/api';
+import { Product } from '@/features/products';
 import { CartProduct } from '../types';
 
 export type CartResponse = {
@@ -15,7 +16,7 @@ export type CartResponse = {
 
 interface AddCartProductArgs {
   cartId: string;
-  productId: string;
+  product: Product;
   amount: number;
 }
 
@@ -26,14 +27,14 @@ export const cartsApi = api.injectEndpoints({
       providesTags: ['Cart'],
     }),
     addCartProduct: builder.mutation<CartResponse, AddCartProductArgs>({
-      query: ({ cartId, productId, amount }) => {
+      query: ({ cartId, product, amount }) => {
         return ({
         url: `carts/${cartId}/products`,
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ productId, amount }),
+        body: JSON.stringify({ productId: product._id, amount }),
       })},
       invalidatesTags: (result) => result ? ['Cart'] : [],
     }),
