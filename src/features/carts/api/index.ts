@@ -1,5 +1,4 @@
 import api from '@/app/services/api';
-import { Product } from '@/features/products';
 import { CartProduct } from '../types';
 
 export type CartResponse = {
@@ -14,9 +13,10 @@ export type CartResponse = {
   finalPrice: number;
 };
 
-interface AddCartProductArgs {
+interface CartMutationArgs {
   cartId: string;
-  product: Product;
+  productId: string;
+  productName: string;
   amount: number;
 }
 
@@ -26,15 +26,27 @@ export const cartsApi = api.injectEndpoints({
       query: () => 'carts',
       providesTags: ['Cart'],
     }),
-    addCartProduct: builder.mutation<CartResponse, AddCartProductArgs>({
-      query: ({ cartId, product, amount }) => {
+    addCartProduct: builder.mutation<CartResponse, CartMutationArgs>({
+      query: ({ cartId, productId, amount }) => {
         return ({
         url: `carts/${cartId}/products`,
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ productId: product._id, amount }),
+        body: JSON.stringify({ productId, amount }),
+      })},
+      invalidatesTags: (result) => result ? ['Cart'] : [],
+    }),
+    updateCartProductAmount: builder.mutation<CartResponse, CartMutationArgs>({
+      query: ({ cartId, productId, amount }) => {
+        return ({
+        url: `carts/${cartId}/products/${productId}`,
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ amount }),
       })},
       invalidatesTags: (result) => result ? ['Cart'] : [],
     }),
@@ -42,4 +54,4 @@ export const cartsApi = api.injectEndpoints({
   overrideExisting: false,
 })
 
-export const { useLazyGetCartQuery, useAddCartProductMutation } = cartsApi;
+export const { useLazyGetCartQuery, useAddCartProductMutation, useUpdateCartProductAmountMutation } = cartsApi;

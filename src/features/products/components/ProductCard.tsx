@@ -29,7 +29,7 @@ export function ProductCard({ product }: ProductCardProps) {
   });
 
   useEffect(() => {
-    if (originalArgs?.product._id === product._id) {
+    if (originalArgs?.productId === product._id) {
       setIsProcessing(isLoadingMutation || isFetchingCart);
     }
   }, [isLoadingMutation, originalArgs]);
@@ -69,7 +69,8 @@ export function ProductCard({ product }: ProductCardProps) {
             onClick={() =>
               addToCart({
                 cartId,
-                product,
+                productId: product._id,
+                productName: product.name,
                 amount: productConstraints.amount.min,
               })
             }

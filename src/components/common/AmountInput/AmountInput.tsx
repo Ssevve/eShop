@@ -7,6 +7,7 @@ interface AmountInputProps {
   minCount?: number;
   maxCount?: number;
   compact?: boolean;
+  disabled?: boolean;
 }
 
 export function AmountInput({
@@ -15,6 +16,7 @@ export function AmountInput({
   minCount = productConstraints.amount.min,
   maxCount = productConstraints.amount.max,
   compact = false,
+  disabled,
 }: AmountInputProps) {
   const isMinimumQuantity = count <= minCount;
   const isMaximumQuantity = count >= maxCount;
@@ -41,26 +43,27 @@ export function AmountInput({
   };
 
   return (
-    <div className="flex h-full w-min border py-2">
+    <div className={`flex h-full w-min border py-2 ${disabled && 'opacity-50'}`}>
       {!compact && (
         <button
           aria-label="Decrease amount"
           className={`items-center border-r px-2 ${isMinimumQuantity && 'text-gray-400'}`}
           type="button"
           onClick={handleDecrement}
-          disabled={isMinimumQuantity}
+          disabled={isMinimumQuantity || disabled}
         >
           <FiMinus />
         </button>
       )}
       <input
-        className="w-10 text-center"
+        className="w-10 text-center disabled:bg-inherit"
         type="number"
         value={count}
         onChange={handleChange}
         onBlur={handleBlur}
         min={minCount}
         max={maxCount}
+        disabled={disabled}
       />
       {!compact && (
         <button
@@ -68,7 +71,7 @@ export function AmountInput({
           className={`items-center border-l px-2 ${isMaximumQuantity && 'text-gray-400'}`}
           type="button"
           onClick={handleIncrement}
-          disabled={isMaximumQuantity}
+          disabled={isMaximumQuantity || disabled}
         >
           <FiPlus />
         </button>

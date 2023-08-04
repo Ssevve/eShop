@@ -5,6 +5,7 @@ import { ErrorPage, NotFoundPage } from '@/routes';
 import { useParams } from 'react-router-dom';
 import { ProductDetails } from '../components/ProductDetails';
 import { ProductReviews } from '../components/ProductReviews';
+import { cartsApi } from '@/features/carts';
 
 export function SingleProductPage() {
   const { productId } = useParams();
@@ -18,11 +19,13 @@ export function SingleProductPage() {
     isLoading: isLoadingReviews,
     isError: isErrorGetReviews,
   } = useGetReviewsByProductIdQuery(productId);
+  const { isUninitialized: isUninitializedCart, isLoading: isLoadingCart } =
+    cartsApi.endpoints.getCart.useQueryState();
 
   const isFetchBaseQueryError = getProductError && 'status' in getProductError;
   if (isFetchBaseQueryError && getProductError.status !== 404) return <ErrorPage />;
 
-  const isLoading = isLoadingProduct || isLoadingReviews;
+  const isLoading = isLoadingProduct || isLoadingReviews || isUninitializedCart || isLoadingCart;
 
   return isLoading ? (
     <Loader />
