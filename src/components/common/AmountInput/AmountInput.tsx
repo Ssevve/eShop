@@ -1,81 +1,72 @@
 import { productConstraints } from '@/lib/constants';
 import { FiMinus, FiPlus } from 'react-icons/fi';
+import { twMerge } from 'tailwind-merge';
 
 interface AmountInputProps {
-  count: number;
-  setCount: (amount: number) => void;
-  minCount?: number;
-  maxCount?: number;
-  compact?: boolean;
+  amount: number;
+  setAmount: (amount: number) => void;
+  minAmount?: number;
+  maxAmount?: number;
+  vertical?: boolean;
   disabled?: boolean;
 }
 
 export function AmountInput({
-  count,
-  setCount,
-  minCount = productConstraints.amount.min,
-  maxCount = productConstraints.amount.max,
-  compact = false,
+  amount,
+  setAmount,
+  minAmount = productConstraints.amount.min,
+  maxAmount: maxAmount = productConstraints.amount.max,
+  vertical = false,
   disabled,
 }: AmountInputProps) {
-  const isMinimumQuantity = count <= minCount;
-  const isMaximumQuantity = count >= maxCount;
+  const isMinimumQuantity = amount <= minAmount;
+  const isMaximumQuantity = amount >= maxAmount;
 
   const handleDecrement = () => {
-    const newCount = count - 1;
-    if (newCount >= minCount) setCount(newCount);
+    const newAmount = amount - 1;
+    if (newAmount <= maxAmount) setAmount(newAmount);
   };
 
   const handleIncrement = () => {
-    const newCount = count + 1;
-    if (newCount <= maxCount) setCount(newCount);
-  };
-
-  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    const newCount = e.currentTarget.valueAsNumber;
-    if (newCount > maxCount) setCount(maxCount);
-    else if (newCount < minCount) setCount(minCount);
-    else setCount(newCount);
-  };
-
-  const handleBlur = () => {
-    if (!count) setCount(productConstraints.amount.min);
+    const newCount = amount + 1;
+    if (newCount <= maxAmount) setAmount(newCount);
   };
 
   return (
-    <div className={`flex h-full w-min border py-2 ${disabled && 'opacity-50'}`}>
-      {!compact && (
-        <button
-          aria-label="Decrease amount"
-          className={`items-center border-r px-2 ${isMinimumQuantity && 'text-gray-400'}`}
-          type="button"
-          onClick={handleDecrement}
-          disabled={isMinimumQuantity || disabled}
-        >
-          <FiMinus />
-        </button>
+    <div
+      className={twMerge(
+        'flex h-full w-min border',
+        disabled && 'opacity-50',
+        vertical ? 'flex-col-reverse' : 'py-2'
       )}
-      <input
-        className="w-10 text-center disabled:bg-inherit"
-        type="number"
-        value={count}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        min={minCount}
-        max={maxCount}
-        disabled={disabled}
-      />
-      {!compact && (
-        <button
-          aria-label="Increase amount"
-          className={`items-center border-l px-2 ${isMaximumQuantity && 'text-gray-400'}`}
-          type="button"
-          onClick={handleIncrement}
-          disabled={isMaximumQuantity || disabled}
-        >
-          <FiPlus />
-        </button>
-      )}
+    >
+      <button
+        aria-label="Decrease amount"
+        className={twMerge(
+          'mx-auto items-center',
+          vertical ? 'border-t py-2' : 'border-r px-2',
+          isMinimumQuantity && 'text-gray-400'
+        )}
+        type="button"
+        onClick={handleDecrement}
+        disabled={isMinimumQuantity || disabled}
+      >
+        <FiMinus />
+      </button>
+      <span className={`my-auto w-10 text-center ${vertical ? 'py-2' : 'px-2'}`}>{amount}</span>
+      <button
+        aria-label="Increase amount"
+        className={twMerge(
+          'mx-auto items-center',
+          vertical ? 'border-b py-2' : 'border-l px-2',
+          isMaximumQuantity && 'text-gray-400'
+        )}
+        type="button"
+        onClick={handleIncrement}
+        disabled={isMaximumQuantity || disabled}
+      >
+        <FiPlus />
+      </button>
     </div>
   );
 }
