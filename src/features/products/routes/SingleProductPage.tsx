@@ -8,15 +8,19 @@ import { ProductReviews } from '../components/ProductReviews';
 
 export function SingleProductPage() {
   const { productId } = useParams();
-  const { data: product, isLoading: isLoadingProduct, error } = useGetProductByIdQuery(productId);
+  const {
+    data: product,
+    isLoading: isLoadingProduct,
+    error: getProductError,
+  } = useGetProductByIdQuery(productId);
   const {
     data: reviews,
     isLoading: isLoadingReviews,
-    isError,
+    isError: isErrorGetReviews,
   } = useGetReviewsByProductIdQuery(productId);
 
-  const isFetchBaseQueryError = error && 'status' in error;
-  if (isFetchBaseQueryError && error.status !== 404) return <ErrorPage />;
+  const isFetchBaseQueryError = getProductError && 'status' in getProductError;
+  if (isFetchBaseQueryError && getProductError.status !== 404) return <ErrorPage />;
 
   const isLoading = isLoadingProduct || isLoadingReviews;
 
@@ -27,7 +31,7 @@ export function SingleProductPage() {
       {product ? (
         <>
           <ProductDetails product={product} />
-          <ProductReviews reviews={reviews} productId={product._id} isError={isError} />
+          <ProductReviews reviews={reviews} productId={product._id} isError={isErrorGetReviews} />
         </>
       ) : (
         <NotFoundPage />

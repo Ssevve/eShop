@@ -41,7 +41,7 @@ export function AmountInput({
   };
 
   return (
-    <div className="flex w-min border py-2">
+    <div className="flex h-full w-min border py-2">
       {!compact && (
         <button
           aria-label="Decrease amount"
