@@ -42,6 +42,7 @@ export function AmountInput({
     >
       <button
         aria-label="Decrease amount"
+        title="Decrease amount"
         className={twMerge(
           'mx-auto items-center',
           vertical ? 'border-t py-2' : 'border-r px-2',
@@ -56,6 +57,7 @@ export function AmountInput({
       <span className={`my-auto w-10 text-center ${vertical ? 'py-2' : 'px-2'}`}>{amount}</span>
       <button
         aria-label="Increase amount"
+        title="Increase amount"
         className={twMerge(
           'mx-auto items-center',
           vertical ? 'border-b py-2' : 'border-l px-2',
