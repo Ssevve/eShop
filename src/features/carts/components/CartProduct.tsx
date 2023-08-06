@@ -9,7 +9,11 @@ interface CartProductProps {
 }
 
 export function CartProduct({ productId }: CartProductProps) {
-  const { cartId, cartProduct, isFetching } = cartsApi.endpoints.getCart.useQueryState(undefined, {
+  const {
+    cartId,
+    cartProduct,
+    isFetching: isFetchingCart,
+  } = cartsApi.endpoints.getCart.useQueryState(undefined, {
     selectFromResult: ({ data, isFetching }) => ({
       cartId: data?._id || '',
       cartProduct: data?.products.find((cartProduct) => cartProduct.product._id === productId),
@@ -44,7 +48,7 @@ export function CartProduct({ productId }: CartProductProps) {
           productId={cartProduct.product._id}
           productName={cartProduct.product.name}
           productAmount={cartProduct.amount}
-          isFetchingCart={isFetching}
+          isFetchingCart={isFetchingCart}
         />
       </section>
     </div>

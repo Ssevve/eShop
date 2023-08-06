@@ -18,15 +18,15 @@ export function AddToCartButton({
   productName,
   amount,
 }: AddToCartButtonProps) {
-  const [shouldBeDisabled, setShouldBeDisabled] = useState(false);
-  const [addToCart, { isError }] = useAddCartProductMutation();
+  const [isAdding, setIsAdding] = useState(false);
+  const [addToCart, { isError, isLoading }] = useAddCartProductMutation({ fixedCacheKey: 'add' });
 
   useEffect(() => {
-    setShouldBeDisabled(false);
+    setIsAdding(false);
   }, [isFetchingCart, isError]);
 
   const handleAddToCart = () => {
-    setShouldBeDisabled(true);
+    setIsAdding(true);
     addToCart({ cartId, productId, productName, amount });
   };
 
@@ -35,8 +35,8 @@ export function AddToCartButton({
       aria-label="Add to cart"
       textSize="lg"
       onClick={handleAddToCart}
-      disabled={shouldBeDisabled}
-      isLoading={shouldBeDisabled}
+      disabled={isLoading}
+      isLoading={isAdding}
       variant="primary"
       className="w-16 p-2"
     >

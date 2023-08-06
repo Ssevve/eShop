@@ -11,7 +11,9 @@ toastMiddleware.startListening({
     cartsApi.endpoints.updateCartProductAmount.matchFulfilled,
     cartsApi.endpoints.updateCartProductAmount.matchRejected,
     cartsApi.endpoints.removeCartProduct.matchFulfilled,
-    cartsApi.endpoints.removeCartProduct.matchRejected
+    cartsApi.endpoints.removeCartProduct.matchRejected,
+    cartsApi.endpoints.clearCart.matchFulfilled,
+    cartsApi.endpoints.clearCart.matchRejected
     ),
   effect: async () => {
     toast.dismiss();
@@ -57,5 +59,19 @@ toastMiddleware.startListening({
   matcher: cartsApi.endpoints.removeCartProduct.matchRejected,
   effect: async({ meta }) => {
     toast.error(`Could not remove ${meta.arg.originalArgs.productName}!`);
+  }
+});
+
+toastMiddleware.startListening({
+  matcher: cartsApi.endpoints.clearCart.matchFulfilled,
+  effect: async() => {
+    toast.success('Cart cleared!');
+  }
+});
+
+toastMiddleware.startListening({
+  matcher: cartsApi.endpoints.clearCart.matchRejected,
+  effect: async() => {
+    toast.error('Could not clear the cart!');
   }
 });

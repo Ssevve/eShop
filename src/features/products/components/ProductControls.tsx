@@ -1,7 +1,7 @@
 import { AddToCartButton } from '@/components/common/AddToCartButton';
 import { AmountInput } from '@/components/common/AmountInput';
 import { CartProductControls } from '@/components/common/CartProductControls';
-import { cartsApi } from '@/features/carts';
+import { cartsApi, useAddCartProductMutation } from '@/features/carts';
 import { productConstraints } from '@/lib/constants';
 import { useState } from 'react';
 import { Product } from '../types';
@@ -12,6 +12,9 @@ interface ProductControlsProps {
 
 export function ProductControls({ product }: ProductControlsProps) {
   const [amount, setAmount] = useState(productConstraints.amount.min);
+  const [addToCart, { isLoading: isLoadingAdd }] = useAddCartProductMutation({
+    fixedCacheKey: 'add',
+  });
   const { cartId, cartProduct, isFetching } = cartsApi.endpoints.getCart.useQueryState(undefined, {
     selectFromResult: ({ data, isFetching }) => ({
       cartId: data?._id || '',
@@ -32,7 +35,7 @@ export function ProductControls({ product }: ProductControlsProps) {
         />
       ) : (
         <>
-          <AmountInput amount={amount} setAmount={setAmount} />
+          <AmountInput amount={amount} setAmount={setAmount} disabled={isLoadingAdd} />
           <AddToCartButton
             cartId={cartId}
             isFetchingCart={isFetching}

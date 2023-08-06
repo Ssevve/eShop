@@ -18,7 +18,7 @@ export function LoaderButton({
   ...props
 }: LoaderButtonProps) {
   return (
-    <Button type={type} disabled={isLoading} {...props}>
+    <Button type={type} {...props}>
       {isLoading ? <Loader height={loaderHeight} width={loaderWidth} color={current} /> : children}
     </Button>
   );

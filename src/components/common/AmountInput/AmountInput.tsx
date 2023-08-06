@@ -33,20 +33,13 @@ export function AmountInput({
   };
 
   return (
-    <div
-      className={twMerge(
-        'flex h-full w-min border',
-        disabled && 'opacity-50',
-        vertical ? 'flex-col-reverse' : 'py-2'
-      )}
-    >
+    <div className={twMerge('flex h-full w-min border', vertical ? 'flex-col-reverse' : 'py-2')}>
       <button
         aria-label="Decrease amount"
         title="Decrease amount"
         className={twMerge(
-          'mx-auto items-center',
-          vertical ? 'border-t py-2' : 'border-r px-2',
-          isMinimumQuantity && 'text-gray-400'
+          'mx-auto items-center disabled:text-gray-400',
+          vertical ? 'border-t py-2' : 'border-r px-2'
         )}
         type="button"
         onClick={handleDecrement}
@@ -59,9 +52,8 @@ export function AmountInput({
         aria-label="Increase amount"
         title="Increase amount"
         className={twMerge(
-          'mx-auto items-center',
-          vertical ? 'border-b py-2' : 'border-l px-2',
-          isMaximumQuantity && 'text-gray-400'
+          'mx-auto items-center disabled:text-gray-400',
+          vertical ? 'border-b py-2' : 'border-l px-2'
         )}
         type="button"
         onClick={handleIncrement}
