@@ -5,19 +5,19 @@ import { twMerge } from 'tailwind-merge';
 interface LoaderProps {
   height?: number;
   width?: number;
-  className?: string;
   color?: string;
+  className?: string;
 }
 
-export function Loader({ height = 48, width = 60, color, className }: LoaderProps) {
+export function Loader({
+  height = 48,
+  width = 60,
+  color = theme.colors.primary,
+  className,
+}: LoaderProps) {
   return (
     <div className={twMerge(`mx-auto flex w-full flex-col items-center justify-center`, className)}>
-      <ThreeDots
-        ariaLabel="Loading"
-        height={height}
-        width={width}
-        color={color || theme.colors['primary']}
-      />
+      <ThreeDots ariaLabel="Loading" height={height} width={width} color={color} />
     </div>
   );
 }

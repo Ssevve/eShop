@@ -1,5 +1,6 @@
 import { AsLinkProps, Button, ButtonProps } from '@/components/common/Button';
-import { ThreeDots } from 'react-loader-spinner';
+import { Loader } from '@/components/common/Loader';
+import { current } from 'tailwindcss/colors';
 
 type LoaderButtonProps = {
   isLoading: boolean;
@@ -11,19 +12,14 @@ type LoaderButtonProps = {
 export function LoaderButton({
   children,
   isLoading,
-  loaderHeight = 24,
-  loaderWidth = 30,
+  loaderHeight = 26,
+  loaderWidth = 28,
   type = 'button',
   ...props
 }: LoaderButtonProps) {
   return (
-    <Button
-      type={type}
-      aria-label={isLoading ? 'Loading' : undefined}
-      disabled={isLoading}
-      {...props}
-    >
-      {isLoading ? <ThreeDots height={loaderHeight} width={loaderWidth} color="#fff" /> : children}
+    <Button type={type} disabled={isLoading} {...props}>
+      {isLoading ? <Loader height={loaderHeight} width={loaderWidth} color={current} /> : children}
     </Button>
   );
 }

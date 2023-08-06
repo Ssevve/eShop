@@ -50,8 +50,16 @@ export const cartsApi = api.injectEndpoints({
       })},
       invalidatesTags: (result) => result ? ['Cart'] : [],
     }),
+    removeCartProduct: builder.mutation<CartResponse, Omit<CartMutationArgs, 'amount'>>({
+      query: ({ cartId, productId }) => {
+        return ({
+        url: `carts/${cartId}/products/${productId}`,
+        method: 'DELETE',
+      })},
+      invalidatesTags: (result) => result ? ['Cart'] : [],
+    }),
   }),
   overrideExisting: false,
 })
 
-export const { useLazyGetCartQuery, useAddCartProductMutation, useUpdateCartProductAmountMutation } = cartsApi;
+export const { useLazyGetCartQuery, useAddCartProductMutation, useUpdateCartProductAmountMutation, useRemoveCartProductMutation } = cartsApi;

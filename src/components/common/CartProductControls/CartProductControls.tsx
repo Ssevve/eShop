@@ -1,10 +1,10 @@
 import { AmountInput } from '@/components/common/AmountInput';
-import { Button } from '@/components/common/Button';
-import { useUpdateCartProductAmountMutation } from '@/features/carts';
+import { useRemoveCartProductMutation, useUpdateCartProductAmountMutation } from '@/features/carts';
 import { useEffect, useState } from 'react';
 import { FiTrash } from 'react-icons/fi';
 import { twMerge } from 'tailwind-merge';
 import { useDebounce, useUpdateEffect } from 'usehooks-ts';
+import { LoaderButton } from '../LoaderButton';
 
 interface CartProductControlsProps {
   cartId: string;
@@ -24,16 +24,17 @@ export function CartProductControls({
   className,
 }: CartProductControlsProps) {
   const [shouldBeDisabled, setShouldBeDisabled] = useState(false);
-  const [updateAmount, { isError, reset }] = useUpdateCartProductAmountMutation();
+  const [updateAmount, { isError: isErrorUpdate, reset }] = useUpdateCartProductAmountMutation();
+  const [removeFromCart, { isError: isErrorRemove }] = useRemoveCartProductMutation();
   const [amount, setAmount] = useState(productAmount);
   const debouncedAmount = useDebounce(amount, 300);
 
   useEffect(() => {
     setShouldBeDisabled(false);
-  }, [isFetchingCart, isError]);
+  }, [isFetchingCart, isErrorUpdate, isErrorRemove]);
 
   useUpdateEffect(() => {
-    if (isError) {
+    if (isErrorUpdate) {
       reset();
     } else {
       setShouldBeDisabled(true);
@@ -46,23 +47,28 @@ export function CartProductControls({
     }
   }, [debouncedAmount]);
 
+  const handleRemoveFromCart = () => {
+    setShouldBeDisabled(true);
+    removeFromCart({ cartId, productId, productName });
+  };
+
   useEffect(() => {
-    if (isError) setAmount(productAmount);
-  }, [isError]);
+    if (isErrorUpdate) setAmount(productAmount);
+  }, [isErrorUpdate]);
 
   return (
     <div className={twMerge('flex flex-col gap-4 sm:flex-row', className)}>
       <AmountInput amount={amount} setAmount={setAmount} disabled={shouldBeDisabled} />
-      <Button
-        evenPadding
+      <LoaderButton
         variant="neutral"
         textSize="lg"
-        fullWidth
-        onClick={() => {}}
+        onClick={handleRemoveFromCart}
         aria-label="Remove from cart"
+        isLoading={shouldBeDisabled}
+        className="w-16 p-2"
       >
-        <FiTrash />
-      </Button>
+        <FiTrash size={20} />
+      </LoaderButton>
     </div>
   );
 }

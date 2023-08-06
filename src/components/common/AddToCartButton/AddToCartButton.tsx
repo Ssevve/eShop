@@ -37,8 +37,7 @@ export function AddToCartButton({
       onClick={handleAddToCart}
       disabled={shouldBeDisabled}
       isLoading={shouldBeDisabled}
-      loaderHeight={26}
-      loaderWidth={28}
+      variant="primary"
       className="w-16 p-2"
     >
       <FiShoppingCart size={20} />
