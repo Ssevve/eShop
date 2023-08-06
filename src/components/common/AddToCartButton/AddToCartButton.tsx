@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { FiShoppingCart } from 'react-icons/fi';
 
 interface AddToCartButtonProps {
-  isLoading: boolean;
+  isFetchingCart: boolean;
   cartId: string;
   productId: string;
   productName: string;
@@ -12,31 +12,34 @@ interface AddToCartButtonProps {
 }
 
 export function AddToCartButton({
-  isLoading,
+  isFetchingCart,
   cartId,
   productId,
   productName,
   amount,
 }: AddToCartButtonProps) {
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [addToCart, { isLoading: isLoadingAddToCart, originalArgs }] = useAddCartProductMutation();
+  const [shouldBeDisabled, setShouldBeDisabled] = useState(false);
+  const [addToCart, { isError }] = useAddCartProductMutation();
 
   useEffect(() => {
-    if (originalArgs?.productId === productId) {
-      setIsProcessing(isLoadingAddToCart || isLoading);
-    }
-  }, [isLoadingAddToCart, originalArgs]);
+    setShouldBeDisabled(false);
+  }, [isFetchingCart, isError]);
+
+  const handleAddToCart = () => {
+    setShouldBeDisabled(true);
+    addToCart({ cartId, productId, productName, amount });
+  };
 
   return (
     <LoaderButton
       aria-label="Add to cart"
       textSize="lg"
-      onClick={() => addToCart({ cartId, productId, productName, amount })}
-      disabled={isProcessing}
-      isLoading={isProcessing}
+      onClick={handleAddToCart}
+      disabled={shouldBeDisabled}
+      isLoading={shouldBeDisabled}
       loaderHeight={26}
       loaderWidth={28}
-      className="h- w-16 p-2"
+      className="w-16 p-2"
     >
       <FiShoppingCart size={20} />
     </LoaderButton>

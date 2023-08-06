@@ -1,10 +1,10 @@
 import { AddToCartButton } from '@/components/common/AddToCartButton';
 import { AmountInput } from '@/components/common/AmountInput';
+import { CartProductControls } from '@/components/common/CartProductControls';
 import { cartsApi } from '@/features/carts';
 import { productConstraints } from '@/lib/constants';
 import { useState } from 'react';
 import { Product } from '../types';
-import { UpdateAmountControls } from './UpdateAmountControls';
 
 interface ProductControlsProps {
   product: Product;
@@ -23,9 +23,11 @@ export function ProductControls({ product }: ProductControlsProps) {
   return (
     <div className="flex gap-4">
       {cartProduct ? (
-        <UpdateAmountControls
+        <CartProductControls
           cartId={cartId}
-          cartProduct={cartProduct}
+          productId={cartProduct.product._id}
+          productName={cartProduct.product.name}
+          productAmount={cartProduct.amount}
           isFetchingCart={isFetching}
         />
       ) : (
@@ -33,7 +35,7 @@ export function ProductControls({ product }: ProductControlsProps) {
           <AmountInput amount={amount} setAmount={setAmount} />
           <AddToCartButton
             cartId={cartId}
-            isLoading={isFetching}
+            isFetchingCart={isFetching}
             productId={product._id}
             productName={product.name}
             amount={amount}
