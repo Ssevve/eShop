@@ -25,7 +25,7 @@ export function ProductsPage() {
   const isFetchingData = isFetchingProducts || isUninitializedCart || isLoadingCart;
 
   return (
-    <section className="mx-auto flex h-full w-full flex-col gap-6">
+    <section className="mx-auto flex h-full w-full flex-col gap-8 py-8">
       {isErrorProducts ? (
         <ErrorPage />
       ) : (

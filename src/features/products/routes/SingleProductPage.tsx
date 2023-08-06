@@ -30,7 +30,7 @@ export function SingleProductPage() {
   return isLoading ? (
     <Loader />
   ) : (
-    <section className="mx-auto flex w-full max-w-4xl grow flex-col justify-center gap-12">
+    <section className="mx-auto flex w-full max-w-4xl grow flex-col justify-center gap-12 py-4">
       {product ? (
         <>
           <ProductDetails product={product} />

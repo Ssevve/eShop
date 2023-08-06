@@ -1,6 +1,4 @@
 import { List } from '@/components/common/List';
-// import useBreakpointValue from '@/hooks/useBreakpointValue';
-// import useWindowWidth from '@/hooks/useWindowWidth';
 import { CartProduct as CartProductType } from '../types';
 import { CartProduct } from './CartProduct';
 
@@ -9,10 +7,6 @@ interface CartProductListProps {
 }
 
 export function CartProductList({ products }: CartProductListProps) {
-  // const windowWidth = useWindowWidth();
-  // const smallBreakpoint = useBreakpointValue('xs');
-  // const isSmallWindowSize = windowWidth < smallBreakpoint;
-
   return (
     <List
       items={products}

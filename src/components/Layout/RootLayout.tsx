@@ -8,7 +8,7 @@ export function RootLayout() {
   return (
     <>
       <Header />
-      <main className="mx-auto flex w-full max-w-screen-2xl grow flex-col px-3 py-6">
+      <main className="mx-auto flex w-full max-w-screen-2xl grow flex-col px-4">
         <Outlet />
         <ScrollRestoration />
       </main>

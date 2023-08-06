@@ -23,9 +23,9 @@ export function CartProduct({ productId }: CartProductProps) {
   const imageHeight = theme.spacing[40];
 
   return cartProduct ? (
-    <div className="grid grid-cols-2 place-items-center gap-3 py-3 sm:grid-cols-3">
+    <div className="grid grid-cols-2 place-items-center gap-4 py-4 sm:grid-cols-3">
       <Link
-        className="col-span-2 grid w-full grid-cols-2 place-items-center gap-3 hover:underline sm:col-span-1 sm:justify-items-start"
+        className="col-span-2 grid w-full grid-cols-2 place-items-center gap-4 hover:underline sm:col-span-1 sm:justify-items-start"
         to={`/products/${cartProduct.product._id}`}
       >
         <img

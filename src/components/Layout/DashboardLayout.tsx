@@ -16,7 +16,7 @@ export function DashboardLayout() {
   ];
 
   return (
-    <section className="mx-auto w-full">
+    <section className="mx-auto w-full py-8">
       <header className="w-full">
         <Tabs tabs={tabs} />
       </header>
