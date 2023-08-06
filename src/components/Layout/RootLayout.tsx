@@ -13,7 +13,15 @@ export function RootLayout() {
         <ScrollRestoration />
       </main>
       <Footer />
-      <ToastContainer autoClose={2000} position="bottom-right" pauseOnHover={false} />
+      <ToastContainer
+        hideProgressBar={true}
+        autoClose={1000}
+        position="bottom-right"
+        pauseOnHover={false}
+        closeButton={false}
+        newestOnTop={true}
+        toastClassName="rounded-sm shadow font-sans text-gray-800"
+      />
     </>
   );
 }
