@@ -51,7 +51,7 @@ export function ProductCard({ product }: ProductCardProps) {
         ) : (
           <AddToCartButton
             cartId={cartId}
-            isLoading={isFetching}
+            isFetchingCart={isFetching}
             productId={product._id}
             productName={product.name}
             amount={productConstraints.amount.min}
