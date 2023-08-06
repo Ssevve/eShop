@@ -33,7 +33,7 @@ export function MobileMenu({ toggleClose, isOpen }: MobileMenuProps) {
               <button
                 aria-label="Close menu"
                 type="button"
-                className="rounded-sm p-1.5 text-gray-400 hover:bg-gray-200 hover:text-gray-800"
+                className="rounded-sm p-1.5 text-gray-400 hover:bg-gray-200 hover:text-dark"
                 onClick={toggleClose}
               >
                 <TfiClose size={16} strokeWidth={2} />

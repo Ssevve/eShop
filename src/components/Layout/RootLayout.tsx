@@ -20,7 +20,7 @@ export function RootLayout() {
         pauseOnHover={false}
         closeButton={false}
         newestOnTop={true}
-        toastClassName="rounded-sm shadow font-sans text-gray-800"
+        toastClassName="rounded-sm shadow font-sans text-dark"
       />
     </>
   );

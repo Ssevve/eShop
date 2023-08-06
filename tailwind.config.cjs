@@ -15,6 +15,7 @@ module.exports = {
         danger: colors.red[700],
         primary: colors.green[600],
         'primary-hover': colors.green[700],
+        dark: colors.gray[800],
       },
     },
   },
