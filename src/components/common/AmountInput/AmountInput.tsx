@@ -1,63 +1,78 @@
 import { productConstraints } from '@/lib/constants';
+import { useEffect, useState } from 'react';
 import { FiMinus, FiPlus } from 'react-icons/fi';
-import { twMerge } from 'tailwind-merge';
 
 interface AmountInputProps {
+  initialAmount: number;
+  minCount: number;
+  maxCount: number;
+  isError?: boolean;
   amount: number;
-  setAmount: (amount: number) => void;
-  minAmount?: number;
-  maxAmount?: number;
-  vertical?: boolean;
+  setAmount: React.Dispatch<React.SetStateAction<number>>;
+  shouldReset?: boolean;
   disabled?: boolean;
 }
 
 export function AmountInput({
+  initialAmount,
+  minCount,
+  maxCount,
   amount,
   setAmount,
-  minAmount = productConstraints.amount.min,
-  maxAmount: maxAmount = productConstraints.amount.max,
-  vertical = false,
+  shouldReset,
   disabled,
 }: AmountInputProps) {
-  const isMinimumQuantity = amount <= minAmount;
-  const isMaximumQuantity = amount >= maxAmount;
+  const [count, setCount] = useState(initialAmount);
 
-  const handleDecrement = () => {
-    const newAmount = amount - 1;
-    if (newAmount <= maxAmount) setAmount(newAmount);
+  const setCountAndAmount = (count: number) => {
+    setCount(count);
+    setAmount(count);
   };
 
-  const handleIncrement = () => {
-    const newCount = amount + 1;
-    if (newCount <= maxAmount) setAmount(newCount);
+  useEffect(() => {
+    if (shouldReset) setCountAndAmount(initialAmount);
+  }, [shouldReset]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newCount = e.target.valueAsNumber;
+    if (newCount < productConstraints.amount.min) {
+      setCount(productConstraints.amount.min);
+    } else if (newCount > productConstraints.amount.max) {
+      setCount(productConstraints.amount.max);
+    } else {
+      setCount(newCount);
+    }
   };
+
+  const isMinimumAmount = amount <= minCount;
+  const isMaximumAmount = amount >= maxCount;
 
   return (
-    <div className={twMerge('flex h-full w-min border', vertical ? 'flex-col-reverse' : 'py-2')}>
+    <div className="flex h-full w-min border py-2">
       <button
         aria-label="Decrease amount"
         title="Decrease amount"
-        className={twMerge(
-          'mx-auto items-center disabled:text-gray-400',
-          vertical ? 'border-t py-2' : 'border-r px-2'
-        )}
+        className="mx-auto items-center border-r px-2 disabled:text-gray-400"
         type="button"
-        onClick={handleDecrement}
-        disabled={isMinimumQuantity || disabled}
+        onClick={() => setCountAndAmount(count - 1)}
+        disabled={isMinimumAmount || disabled}
       >
         <FiMinus />
       </button>
-      <span className={`my-auto w-10 text-center ${vertical ? 'py-2' : 'px-2'}`}>{amount}</span>
+      <input
+        type="number"
+        className="my-auto w-10 text-center"
+        value={count.toString()}
+        onChange={handleChange}
+        onBlur={() => setAmount(count)}
+      />
       <button
         aria-label="Increase amount"
         title="Increase amount"
-        className={twMerge(
-          'mx-auto items-center disabled:text-gray-400',
-          vertical ? 'border-b py-2' : 'border-l px-2'
-        )}
+        className="mx-auto items-center border-l px-2 disabled:text-gray-400"
         type="button"
-        onClick={handleIncrement}
-        disabled={isMaximumQuantity || disabled}
+        onClick={() => setCountAndAmount(count + 1)}
+        disabled={isMaximumAmount || disabled}
       >
         <FiPlus />
       </button>

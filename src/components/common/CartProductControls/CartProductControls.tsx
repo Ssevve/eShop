@@ -7,8 +7,8 @@ import {
 import { useEffect, useState } from 'react';
 import { FiTrash } from 'react-icons/fi';
 import { twMerge } from 'tailwind-merge';
-import { useDebounce, useUpdateEffect } from 'usehooks-ts';
 import { LoaderButton } from '../LoaderButton';
+import { productConstraints } from '@/lib/constants';
 
 interface CartProductControlsProps {
   cartId: string;
@@ -27,35 +27,21 @@ export function CartProductControls({
   isFetchingCart,
   className,
 }: CartProductControlsProps) {
+  const [amount, setAmount] = useState(productAmount);
   const [isRemoving, setIsRemoving] = useState(false);
-  const [updateAmount, { isError: isErrorUpdate, isLoading: isLoadingUpdate, reset: resetUpdate }] =
+  const [updateAmount, { isError: isErrorUpdate, isLoading: isLoadingUpdate }] =
     useUpdateCartProductAmountMutation({ fixedCacheKey: 'update' });
-  const [clearCart, { isLoading: isLoadingClear }] = useClearCartMutation({
+  const [_, { isLoading: isLoadingClear }] = useClearCartMutation({
     fixedCacheKey: 'clear',
   });
   const [removeFromCart, { isLoading: isLoadingRemove, isError: isErrorRemove }] =
     useRemoveCartProductMutation({
       fixedCacheKey: 'remove',
     });
-  const [amount, setAmount] = useState(productAmount);
-  const debouncedAmount = useDebounce(amount, 300);
 
   useEffect(() => {
     setIsRemoving(false);
   }, [isFetchingCart, isErrorRemove]);
-
-  useUpdateEffect(() => {
-    if (isErrorUpdate) {
-      resetUpdate();
-    } else {
-      updateAmount({
-        cartId,
-        productId,
-        productName,
-        amount: debouncedAmount,
-      });
-    }
-  }, [debouncedAmount]);
 
   const handleRemove = () => {
     setIsRemoving(true);
@@ -70,7 +56,33 @@ export function CartProductControls({
 
   return (
     <div className={twMerge('flex flex-col gap-4 sm:flex-row', className)}>
-      <AmountInput amount={amount} setAmount={setAmount} disabled={shouldDisableButtons} />
+      <div className="relative">
+        {amount !== productAmount && (
+          <button
+            disabled={shouldDisableButtons}
+            onClick={() =>
+              updateAmount({
+                cartId,
+                productId,
+                productName,
+                amount,
+              })
+            }
+            className="absolute bottom-full mb-1 w-full text-center text-xs uppercase text-primary hover:underline"
+          >
+            Update
+          </button>
+        )}
+        <AmountInput
+          initialAmount={productAmount}
+          minCount={productConstraints.amount.min}
+          maxCount={productConstraints.amount.max}
+          amount={amount}
+          setAmount={setAmount}
+          shouldReset={isErrorUpdate}
+          disabled={shouldDisableButtons}
+        />
+      </div>
       <LoaderButton
         variant="neutral"
         textSize="lg"

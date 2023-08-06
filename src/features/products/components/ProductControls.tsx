@@ -35,7 +35,14 @@ export function ProductControls({ product }: ProductControlsProps) {
         />
       ) : (
         <>
-          <AmountInput amount={amount} setAmount={setAmount} disabled={isLoadingAdd} />
+          <AmountInput
+            initialAmount={amount}
+            minCount={productConstraints.amount.min}
+            maxCount={productConstraints.amount.max}
+            amount={amount}
+            setAmount={setAmount}
+            disabled={isLoadingAdd}
+          />
           <AddToCartButton
             cartId={cartId}
             isFetchingCart={isFetching}
