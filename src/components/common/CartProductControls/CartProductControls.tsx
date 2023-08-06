@@ -24,18 +24,19 @@ export function CartProductControls({
   className,
 }: CartProductControlsProps) {
   const [shouldBeDisabled, setShouldBeDisabled] = useState(false);
-  const [updateAmount, { isError: isErrorUpdate, reset }] = useUpdateCartProductAmountMutation();
+  const [updateAmount, { isError: isErrorUpdate, reset: resetUpdate }] =
+    useUpdateCartProductAmountMutation();
   const [removeFromCart, { isError: isErrorRemove }] = useRemoveCartProductMutation();
   const [amount, setAmount] = useState(productAmount);
   const debouncedAmount = useDebounce(amount, 300);
 
   useEffect(() => {
     setShouldBeDisabled(false);
-  }, [isFetchingCart, isErrorUpdate, isErrorRemove]);
+  }, [isFetchingCart, isErrorRemove]);
 
   useUpdateEffect(() => {
     if (isErrorUpdate) {
-      reset();
+      resetUpdate();
     } else {
       setShouldBeDisabled(true);
       updateAmount({
@@ -54,6 +55,7 @@ export function CartProductControls({
 
   useEffect(() => {
     if (isErrorUpdate) setAmount(productAmount);
+    setShouldBeDisabled(false);
   }, [isErrorUpdate]);
 
   return (
