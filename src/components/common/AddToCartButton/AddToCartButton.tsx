@@ -18,11 +18,11 @@ export function AddToCartButton({
   productName,
   amount,
 }: AddToCartButtonProps) {
-  const [isAdding, setIsAdding] = useState(false);
+  const [isAdding, setIsAdding] = useState(isFetchingCart);
   const [addToCart, { isError, isLoading }] = useAddCartProductMutation({ fixedCacheKey: 'add' });
 
   useEffect(() => {
-    setIsAdding(false);
+    if (!isFetchingCart || isError) setIsAdding(false);
   }, [isFetchingCart, isError]);
 
   const handleAddToCart = () => {
