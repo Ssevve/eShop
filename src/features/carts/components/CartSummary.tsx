@@ -1,7 +1,7 @@
 import { Button } from '@/components/common/Button';
-import { cartsApi } from '../api';
-import { Link } from 'react-router-dom';
 import { formatPrice } from '@/utils/format';
+import { Link } from 'react-router-dom';
+import { cartsApi } from '../api';
 
 export function CartSummary() {
   const { originalPrice, totalDiscount, finalPrice } = cartsApi.endpoints.getCart.useQueryState(
@@ -19,16 +19,16 @@ export function CartSummary() {
       <div>
         <div className="flex justify-between">
           <span>Original price:</span>
-          <span>{formatPrice(originalPrice || 0)}</span>
+          <span>{originalPrice ? formatPrice(originalPrice) : 'N/A'}</span>
         </div>
         <div className="flex justify-between text-danger">
           <span>Saved:</span>
-          <span>{formatPrice(totalDiscount || 0)}</span>
+          <span>{totalDiscount ? formatPrice(totalDiscount) : 'N/A'}</span>
         </div>
       </div>
       <div className="my-4 flex justify-between text-lg font-semibold">
-        <span>Order total:</span>
-        <span>{formatPrice(finalPrice || 0)}</span>
+        <span>Final price:</span>
+        <span>{finalPrice ? formatPrice(finalPrice) : 'N/A'}</span>
       </div>
       <Button renderAs={Link} to="/checkout" fullWidth>
         Checkout

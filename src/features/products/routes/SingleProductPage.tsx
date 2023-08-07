@@ -1,11 +1,11 @@
 import { Loader } from '@/components/common/Loader';
+import { cartsApi } from '@/features/carts';
 import { useGetProductByIdQuery } from '@/features/products';
 import { useGetReviewsByProductIdQuery } from '@/features/reviews';
 import { ErrorPage, NotFoundPage } from '@/routes';
 import { useParams } from 'react-router-dom';
 import { ProductDetails } from '../components/ProductDetails';
 import { ProductReviews } from '../components/ProductReviews';
-import { cartsApi } from '@/features/carts';
 
 export function SingleProductPage() {
   const { productId } = useParams();

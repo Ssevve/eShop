@@ -10,16 +10,28 @@ import {
 
 export function CartPage() {
   const {
-    data: cart,
+    cartId,
+    products,
+    totalProductAmount,
     isLoading: isLoadingCart,
     isUninitialized: isUninitializedCart,
-  } = cartsApi.endpoints.getCart.useQueryState();
-  const [removeFromCart, { isLoading: isLoadingRemove }] = useRemoveCartProductMutation({
+  } = cartsApi.endpoints.getCart.useQueryState(undefined, {
+    selectFromResult: ({ data, isLoading, isUninitialized }) => ({
+      cartId: data?._id || '',
+      products: data?.products || [],
+      totalProductAmount: data?.totalProductAmount || 0,
+      isLoading,
+      isUninitialized,
+    }),
+  });
+  const [, { isLoading: isLoadingRemove }] = useRemoveCartProductMutation({
     fixedCacheKey: 'remove',
   });
-  const [updateAmount, { isLoading: isLoadingUpdate }] = useUpdateCartProductAmountMutation({
+
+  const [, { isLoading: isLoadingUpdate }] = useUpdateCartProductAmountMutation({
     fixedCacheKey: 'update',
   });
+
   const [clearCart, { isLoading: isLoadingClear }] = useClearCartMutation({
     fixedCacheKey: 'clear',
   });
@@ -32,12 +44,12 @@ export function CartPage() {
     <section className="mx-auto mb-auto flex w-full flex-col justify-center gap-8 self-start lg:flex-row">
       <section className="w-full lg:w-3/4">
         <header className="sticky top-16 flex items-center justify-between border-b bg-white py-8">
-          <h1 className="text-2xl font-bold">{`Cart (${cart?.totalProductAmount || 0})`}</h1>
+          <h1 className="text-2xl font-bold">{`Cart (${totalProductAmount})`}</h1>
           <LoaderButton
             variant="neutral"
             isLoading={isLoadingClear}
             disabled={shouldDisableClearButton}
-            onClick={() => clearCart({ cartId: cart?._id || '' })}
+            onClick={() => clearCart({ cartId })}
             loaderHeight={24}
             loaderWidth={40}
             className="w-36"
@@ -46,7 +58,7 @@ export function CartPage() {
           </LoaderButton>
         </header>
         <div className="mt-4">
-          {isLoadingCartData ? <Loader /> : <CartProductList products={cart?.products} />}
+          {isLoadingCartData ? <Loader /> : <CartProductList products={products} />}
         </div>
       </section>
       <CartSummary />

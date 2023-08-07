@@ -12,7 +12,7 @@ interface ProductControlsProps {
 
 export function ProductControls({ product }: ProductControlsProps) {
   const [amount, setAmount] = useState(productConstraints.amount.min);
-  const [addToCart, { isLoading: isLoadingAdd }] = useAddCartProductMutation({
+  const [, { isLoading: isLoadingAdd }] = useAddCartProductMutation({
     fixedCacheKey: 'add',
   });
   const { cartId, cartProduct, isFetching } = cartsApi.endpoints.getCart.useQueryState(undefined, {

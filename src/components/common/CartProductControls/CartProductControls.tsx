@@ -32,7 +32,7 @@ export function CartProductControls({
   const [isRemoving, setIsRemoving] = useState(false);
   const [updateAmount, { isError: isErrorUpdate, isLoading: isLoadingUpdate }] =
     useUpdateCartProductAmountMutation({ fixedCacheKey: 'update' });
-  const [_, { isLoading: isLoadingClear }] = useClearCartMutation({
+  const [, { isLoading: isLoadingClear }] = useClearCartMutation({
     fixedCacheKey: 'clear',
   });
   const [removeFromCart, { isLoading: isLoadingRemove, isError: isErrorRemove }] =
@@ -54,7 +54,6 @@ export function CartProductControls({
   }, [isErrorUpdate]);
 
   const shouldDisableButtons = isLoadingUpdate || isLoadingRemove || isLoadingClear;
-
   const hasAmountChanged = amount !== productAmount;
 
   return (
