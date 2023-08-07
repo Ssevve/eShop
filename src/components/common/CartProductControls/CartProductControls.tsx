@@ -4,11 +4,12 @@ import {
   useRemoveCartProductMutation,
   useUpdateCartProductAmountMutation,
 } from '@/features/carts';
+import { productConstraints } from '@/lib/constants';
 import { useEffect, useState } from 'react';
 import { FiTrash } from 'react-icons/fi';
 import { twMerge } from 'tailwind-merge';
 import { LoaderButton } from '../LoaderButton';
-import { productConstraints } from '@/lib/constants';
+import { UpdateAmountTrigger } from './UpdateAmountTrigger';
 
 interface CartProductControlsProps {
   cartId: string;
@@ -54,25 +55,23 @@ export function CartProductControls({
 
   const shouldDisableButtons = isLoadingUpdate || isLoadingRemove || isLoadingClear;
 
+  const hasAmountChanged = amount !== productAmount;
+
   return (
     <div className={twMerge('flex flex-col gap-4 sm:flex-row', className)}>
       <div className="relative">
-        {amount !== productAmount && (
-          <button
-            disabled={shouldDisableButtons}
-            onClick={() =>
-              updateAmount({
-                cartId,
-                productId,
-                productName,
-                amount,
-              })
-            }
-            className="absolute bottom-full mb-1 w-full text-center text-xs uppercase text-primary hover:underline"
-          >
-            Update
-          </button>
-        )}
+        <UpdateAmountTrigger
+          shouldRender={hasAmountChanged}
+          disabled={shouldDisableButtons}
+          onClick={() =>
+            updateAmount({
+              cartId,
+              productId,
+              productName,
+              amount,
+            })
+          }
+        />
         <AmountInput
           initialAmount={productAmount}
           minAmount={productConstraints.amount.min}
