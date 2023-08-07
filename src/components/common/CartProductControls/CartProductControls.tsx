@@ -75,8 +75,8 @@ export function CartProductControls({
         )}
         <AmountInput
           initialAmount={productAmount}
-          minCount={productConstraints.amount.min}
-          maxCount={productConstraints.amount.max}
+          minAmount={productConstraints.amount.min}
+          maxAmount={productConstraints.amount.max}
           amount={amount}
           setAmount={setAmount}
           shouldReset={isErrorUpdate}

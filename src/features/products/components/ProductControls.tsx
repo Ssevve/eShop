@@ -37,8 +37,8 @@ export function ProductControls({ product }: ProductControlsProps) {
         <>
           <AmountInput
             initialAmount={amount}
-            minCount={productConstraints.amount.min}
-            maxCount={productConstraints.amount.max}
+            minAmount={productConstraints.amount.min}
+            maxAmount={productConstraints.amount.max}
             amount={amount}
             setAmount={setAmount}
             disabled={isLoadingAdd}

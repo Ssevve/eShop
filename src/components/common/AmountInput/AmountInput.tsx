@@ -4,8 +4,8 @@ import { FiMinus, FiPlus } from 'react-icons/fi';
 
 interface AmountInputProps {
   initialAmount: number;
-  minCount: number;
-  maxCount: number;
+  minAmount: number;
+  maxAmount: number;
   isError?: boolean;
   amount: number;
   setAmount: React.Dispatch<React.SetStateAction<number>>;
@@ -15,8 +15,8 @@ interface AmountInputProps {
 
 export function AmountInput({
   initialAmount,
-  minCount,
-  maxCount,
+  minAmount,
+  maxAmount,
   amount,
   setAmount,
   shouldReset,
@@ -44,8 +44,8 @@ export function AmountInput({
     }
   };
 
-  const isMinimumAmount = amount <= minCount;
-  const isMaximumAmount = amount >= maxCount;
+  const isMinimumAmount = amount <= minAmount;
+  const isMaximumAmount = amount >= maxAmount;
 
   return (
     <div className="flex h-full w-min border py-2">
