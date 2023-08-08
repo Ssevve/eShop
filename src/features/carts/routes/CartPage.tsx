@@ -10,7 +10,7 @@ import {
   useRemoveCartProductMutation,
   useUpdateCartProductAmountMutation,
 } from '../api';
-import { CartProduct } from '../components';
+import { CartProductEntity } from '../components';
 
 export function CartPage() {
   const {
@@ -58,7 +58,18 @@ export function CartPage() {
             <List
               items={cart?.products}
               getKey={({ product }) => product._id}
-              renderItem={(product) => <CartProduct productId={product.product._id} />}
+              renderItem={({ product, amount }) => (
+                <CartProductEntity
+                  id={product._id}
+                  name={product.name}
+                  price={product.price}
+                  discountPrice={product.discountPrice}
+                  imageUrl={product.imageUrl}
+                  amount={amount}
+                  cartId={cart?._id || ''}
+                  isFetchingCart={isLoadingCart}
+                />
+              )}
               className="divide-y"
               emptyItemsMessage="Your cart is empty!"
               emptyItemsMessageClass="w-full py-12 text-center text-5xl font-bold text-gray-200 md:text-6xl"
