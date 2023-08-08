@@ -5,19 +5,18 @@ import { LoaderButton } from '@/components/common/LoaderButton';
 import { formatPrice } from '@/utils/format';
 import { Link } from 'react-router-dom';
 import {
-  cartsApi,
   useClearCartMutation,
+  useLazyGetCartQuery,
   useRemoveCartProductMutation,
   useUpdateCartProductAmountMutation,
 } from '../api';
 import { CartProductEntity } from '../components';
 
 export function CartPage() {
-  const {
-    data: cart,
-    isLoading: isLoadingCart,
-    isUninitialized: isUninitializedCart,
-  } = cartsApi.endpoints.getCart.useQueryState();
+  const [
+    fetchCart,
+    { data: cart, isLoading: isLoadingCart, isUninitialized: isUninitializedCart },
+  ] = useLazyGetCartQuery();
   const [, { isLoading: isLoadingRemove }] = useRemoveCartProductMutation({
     fixedCacheKey: 'remove',
   });
@@ -29,6 +28,8 @@ export function CartPage() {
   const [clearCart, { isLoading: isLoadingClear }] = useClearCartMutation({
     fixedCacheKey: 'clear',
   });
+
+  if (isUninitializedCart) fetchCart();
 
   const isLoadingCartData = isLoadingCart || isUninitializedCart;
   const shouldDisableClearButton =
