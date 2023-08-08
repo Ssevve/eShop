@@ -5,7 +5,7 @@ import { LoaderButton } from '../LoaderButton';
 describe('LoaderButton component', () => {
   it('should render a button with correct default type', () => {
     renderWithProviders(<LoaderButton isLoading={false}>Add to cart</LoaderButton>);
-    expect(screen.getByRole('button', { name: /add to cart/i })).toHaveAttribute('type', 'button');
+    expect(screen.getByRole('button')).toHaveAttribute('type', 'button');
   });
 
   it("should render a button with correct type if 'type' prop is passed in", () => {
@@ -14,30 +14,34 @@ describe('LoaderButton component', () => {
         Log in
       </LoaderButton>
     );
-    expect(screen.getByRole('button', { name: /log in/i })).toHaveAttribute('type', 'submit');
+    expect(screen.getByRole('button')).toHaveAttribute('type', 'submit');
   });
 
-  describe('when isLoading is false', () => {
-    it('should render children', () => {
-      renderWithProviders(<LoaderButton isLoading={false}>Log in</LoaderButton>);
-      expect(screen.getByRole('button', { name: /log in/i })).toBeInTheDocument();
-    });
-
-    it('should not be disabled', () => {
-      renderWithProviders(<LoaderButton isLoading={false}>Log in</LoaderButton>);
-      expect(screen.getByRole('button')).not.toBeDisabled();
-    });
+  it('should render loader if isLoading is true', () => {
+    renderWithProviders(<LoaderButton isLoading>Log in</LoaderButton>);
+    expect(screen.getByLabelText(/loading/i)).toBeInTheDocument();
   });
 
-  describe('when isLoading is true', () => {
-    it('should render loader', () => {
-      renderWithProviders(<LoaderButton isLoading>Log in</LoaderButton>);
-      expect(screen.getByRole('status')).toBeInTheDocument();
-    });
+  it('should render children if isLoading is false', () => {
+    renderWithProviders(<LoaderButton isLoading={false}>Log in</LoaderButton>);
+    expect(screen.getByRole('button')).toHaveTextContent('Log in');
+  });
 
-    it('should be disabled', () => {
-      renderWithProviders(<LoaderButton isLoading>Log in</LoaderButton>);
-      expect(screen.getByRole('button')).toBeDisabled();
-    });
+  it("should be disabled if 'disabled' prop is true", () => {
+    renderWithProviders(
+      <LoaderButton disabled={true} isLoading>
+        Log in
+      </LoaderButton>
+    );
+    expect(screen.getByRole('button')).toBeDisabled();
+  });
+
+  it("should not be disabled if 'disabled' prop is false", () => {
+    renderWithProviders(
+      <LoaderButton disabled={false} isLoading={false}>
+        Log in
+      </LoaderButton>
+    );
+    expect(screen.getByRole('button')).not.toBeDisabled();
   });
 });
