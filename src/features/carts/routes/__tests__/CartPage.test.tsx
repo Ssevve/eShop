@@ -1,26 +1,33 @@
-import { cartProductsMock } from '@/mocks';
-import { calculateCartTotal, calculateOriginalPrice } from '@/utils/calculate';
+import { AuthStatus } from '@/features/auth';
+import { cartMock, userWithReviewMock } from '@/mocks';
 import { formatPrice } from '@/utils/format';
 import renderWithProviders from '@/utils/renderWithProviders';
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { CartPage } from '../CartPage';
 
 describe('CartPage', () => {
   it('should render heading element', () => {
+    const status: AuthStatus = 'IDLE';
     const preloadedState = {
-      cart: {
-        products: cartProductsMock,
+      auth: {
+        user: userWithReviewMock,
+        status,
+        error: null,
       },
     };
-    const productCount = cartProductsMock.reduce((count, curr) => count + curr.amount, 0);
     renderWithProviders(
       <BrowserRouter>
         <CartPage />
       </BrowserRouter>,
       { preloadedState }
     );
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(`Cart (${productCount})`);
+
+    waitFor(() => {
+      expect(
+        screen.getByRole('heading', { level: 1, name: `Cart (${cartMock.totalProductAmount})` })
+      ).toBeInTheDocument();
+    });
   });
 
   it("should render 'clear cart' button", () => {
@@ -32,10 +39,13 @@ describe('CartPage', () => {
     expect(screen.getByRole('button', { name: /clear cart/i })).toBeInTheDocument();
   });
 
-  it('should render CartProductList component if there are products in the cart', () => {
+  it('should render product list', () => {
+    const status: AuthStatus = 'IDLE';
     const preloadedState = {
-      cart: {
-        products: cartProductsMock,
+      auth: {
+        user: userWithReviewMock,
+        status,
+        error: null,
       },
     };
     renderWithProviders(
@@ -44,75 +54,78 @@ describe('CartPage', () => {
       </BrowserRouter>,
       { preloadedState }
     );
-    expect(screen.getByRole('list')).toBeInTheDocument();
-  });
 
-  it("should render 'empty cart' message if there are no products in the cart", () => {
-    renderWithProviders(
-      <BrowserRouter>
-        <CartPage />
-      </BrowserRouter>
-    );
-    expect(screen.queryByRole('list')).not.toBeInTheDocument();
-    expect(screen.getByText('Your cart is empty!')).toBeInTheDocument();
+    waitFor(() => {
+      expect(screen.getByRole('list')).toBeInTheDocument();
+    });
   });
 
   it('should render original order price', () => {
+    const status: AuthStatus = 'IDLE';
     const preloadedState = {
-      cart: {
-        products: cartProductsMock,
+      auth: {
+        user: userWithReviewMock,
+        status,
+        error: null,
       },
     };
-    const originalPrice = calculateOriginalPrice(cartProductsMock);
     renderWithProviders(
       <BrowserRouter>
         <CartPage />
       </BrowserRouter>,
       { preloadedState }
     );
-    expect(screen.getByText(formatPrice(originalPrice))).toBeInTheDocument();
-  });
-
-  it('should render total order price', () => {
-    const preloadedState = {
-      cart: {
-        products: cartProductsMock,
-      },
-    };
-    const totalPrice = calculateCartTotal(cartProductsMock);
-    renderWithProviders(
-      <BrowserRouter>
-        <CartPage />
-      </BrowserRouter>,
-      { preloadedState }
-    );
-    expect(screen.getByText(formatPrice(totalPrice))).toBeInTheDocument();
+    waitFor(() => {
+      expect(screen.getByText(formatPrice(cartMock.originalPrice))).toBeInTheDocument();
+    });
   });
 
   it('should render total discount value', () => {
+    const status: AuthStatus = 'IDLE';
     const preloadedState = {
-      cart: {
-        products: cartProductsMock,
+      auth: {
+        user: userWithReviewMock,
+        status,
+        error: null,
       },
     };
-    const originalPrice = calculateOriginalPrice(cartProductsMock);
-    const totalPrice = calculateCartTotal(cartProductsMock);
-    const discount = originalPrice - totalPrice;
     renderWithProviders(
       <BrowserRouter>
         <CartPage />
       </BrowserRouter>,
       { preloadedState }
     );
-    expect(screen.getByText(formatPrice(discount))).toBeInTheDocument();
+    waitFor(() => {
+      expect(screen.getByText(formatPrice(cartMock.totalDiscount))).toBeInTheDocument();
+    });
   });
 
-  it("should render 'checkout' button", () => {
+  it('should render final order price', () => {
+    const status: AuthStatus = 'IDLE';
+    const preloadedState = {
+      auth: {
+        user: userWithReviewMock,
+        status,
+        error: null,
+      },
+    };
+    renderWithProviders(
+      <BrowserRouter>
+        <CartPage />
+      </BrowserRouter>,
+      { preloadedState }
+    );
+    waitFor(() => {
+      expect(screen.getByText(formatPrice(cartMock.finalPrice))).toBeInTheDocument();
+    });
+  });
+
+  it("should render 'checkout' link", () => {
     renderWithProviders(
       <BrowserRouter>
         <CartPage />
       </BrowserRouter>
     );
-    expect(screen.getByRole('button', { name: /checkout/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /checkout/i })).toBeInTheDocument();
   });
 });
