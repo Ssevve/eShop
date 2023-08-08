@@ -1,2 +1,1 @@
-export * from './CartProductList';
-export * from './CartSummary';
+export * from './CartProduct';
