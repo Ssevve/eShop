@@ -75,6 +75,7 @@ describe('CartPage', () => {
       </BrowserRouter>,
       { preloadedState }
     );
+
     await waitFor(() => {
       expect(screen.getByText(formatPrice(cartMock.originalPrice))).toBeInTheDocument();
     });
@@ -95,6 +96,7 @@ describe('CartPage', () => {
       </BrowserRouter>,
       { preloadedState }
     );
+
     await waitFor(() => {
       expect(screen.getByText(formatPrice(cartMock.totalDiscount))).toBeInTheDocument();
     });
@@ -115,6 +117,7 @@ describe('CartPage', () => {
       </BrowserRouter>,
       { preloadedState }
     );
+
     await waitFor(() => {
       expect(screen.getByText(formatPrice(cartMock.finalPrice))).toBeInTheDocument();
     });
@@ -126,6 +129,7 @@ describe('CartPage', () => {
         <CartPage />
       </BrowserRouter>
     );
+
     expect(screen.getByRole('link', { name: /checkout/i })).toBeInTheDocument();
   });
 });

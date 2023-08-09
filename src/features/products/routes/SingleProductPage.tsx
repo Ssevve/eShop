@@ -1,5 +1,5 @@
 import { Loader } from '@/components/common/Loader';
-import { cartsApi } from '@/features/carts';
+import { useGetCartQuery } from '@/features/carts';
 import { useGetProductByIdQuery } from '@/features/products';
 import { useGetReviewsByProductIdQuery } from '@/features/reviews';
 import { ErrorPage, NotFoundPage } from '@/routes';
@@ -19,13 +19,12 @@ export function SingleProductPage() {
     isLoading: isLoadingReviews,
     isError: isErrorGetReviews,
   } = useGetReviewsByProductIdQuery(productId);
-  const { isUninitialized: isUninitializedCart, isLoading: isLoadingCart } =
-    cartsApi.endpoints.getCart.useQueryState();
+  const { isLoading: isLoadingCart, isUninitialized: isUninitializedCart } = useGetCartQuery();
 
   const isFetchBaseQueryError = getProductError && 'status' in getProductError;
   if (isFetchBaseQueryError && getProductError.status !== 404) return <ErrorPage />;
 
-  const isLoading = isLoadingProduct || isLoadingReviews || isUninitializedCart || isLoadingCart;
+  const isLoading = isLoadingProduct || isLoadingReviews || isLoadingCart || isUninitializedCart;
 
   return isLoading ? (
     <Loader />

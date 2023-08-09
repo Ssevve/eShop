@@ -6,17 +6,14 @@ import { formatPrice } from '@/utils/format';
 import { Link } from 'react-router-dom';
 import {
   useClearCartMutation,
-  useLazyGetCartQuery,
+  useGetCartQuery,
   useRemoveCartProductMutation,
   useUpdateCartProductAmountMutation,
 } from '../api';
 import { CartProductEntity } from '../components';
 
 export function CartPage() {
-  const [
-    fetchCart,
-    { data: cart, isLoading: isLoadingCart, isUninitialized: isUninitializedCart },
-  ] = useLazyGetCartQuery();
+  const { data: cart, isLoading: isLoadingCart } = useGetCartQuery();
   const [, { isLoading: isLoadingRemove }] = useRemoveCartProductMutation({
     fixedCacheKey: 'remove',
   });
@@ -29,11 +26,8 @@ export function CartPage() {
     fixedCacheKey: 'clear',
   });
 
-  if (isUninitializedCart) fetchCart();
-
-  const isLoadingCartData = isLoadingCart || isUninitializedCart;
   const shouldDisableClearButton =
-    isLoadingCartData || isLoadingClear || isLoadingUpdate || isLoadingRemove;
+    isLoadingCart || isLoadingClear || isLoadingUpdate || isLoadingRemove;
 
   return (
     <section className="mx-auto mb-auto flex w-full flex-col justify-center gap-8 self-start lg:flex-row">
@@ -53,7 +47,7 @@ export function CartPage() {
           </LoaderButton>
         </header>
         <div className="mt-4">
-          {isLoadingCartData ? (
+          {isLoadingCart ? (
             <Loader />
           ) : (
             <List

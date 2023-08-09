@@ -70,4 +70,4 @@ export const cartsApi = api.injectEndpoints({
   overrideExisting: false,
 })
 
-export const { useLazyGetCartQuery, useAddCartProductMutation, useUpdateCartProductAmountMutation, useRemoveCartProductMutation, useClearCartMutation } = cartsApi;
+export const { useLazyGetCartQuery, useGetCartQuery, useAddCartProductMutation, useUpdateCartProductAmountMutation, useRemoveCartProductMutation, useClearCartMutation } = cartsApi;
