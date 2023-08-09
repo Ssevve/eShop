@@ -1,4 +1,4 @@
-import api from '@/app/services/api';
+import api from '@/app/api';
 import { CartProduct } from '../types';
 
 export type CartResponse = {

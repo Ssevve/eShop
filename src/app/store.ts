@@ -1,7 +1,7 @@
 import authReducer from '@/features/auth/authSlice';
 import { toastMiddleware, userLocalStorageMiddleware } from "@/middleware";
 import { PreloadedState, combineReducers, configureStore } from '@reduxjs/toolkit';
-import api from './services/api';
+import api from './api';
 
 const rootReducer = combineReducers({
   auth: authReducer,

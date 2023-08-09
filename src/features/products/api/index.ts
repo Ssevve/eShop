@@ -1,4 +1,4 @@
-import api from '@/app/services/api';
+import api from '@/app/api';
 import { Category } from '@/features/categories';
 import { Product } from '@/features/products';
 import { Order, Sort } from '@/types';
