@@ -41,7 +41,7 @@ export function CartProductControls({
     });
 
   useEffect(() => {
-    setIsRemoving(false);
+    if (!isFetchingCart || isErrorRemove) setIsRemoving(false);
   }, [isFetchingCart, isErrorRemove]);
 
   const handleRemove = () => {
