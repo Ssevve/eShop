@@ -1,78 +1,81 @@
 import { productConstraints } from '@/lib/constants';
+import { useEffect, useState } from 'react';
 import { FiMinus, FiPlus } from 'react-icons/fi';
 
 interface AmountInputProps {
-  count: number;
-  setCount: (amount: number) => void;
-  minCount?: number;
-  maxCount?: number;
-  compact?: boolean;
+  initialAmount: number;
+  minAmount: number;
+  maxAmount: number;
+  isError?: boolean;
+  amount: number;
+  setAmount: React.Dispatch<React.SetStateAction<number>>;
+  shouldReset?: boolean;
+  disabled?: boolean;
 }
 
 export function AmountInput({
-  count,
-  setCount,
-  minCount = productConstraints.amount.min,
-  maxCount = productConstraints.amount.max,
-  compact = false,
+  initialAmount,
+  minAmount,
+  maxAmount,
+  amount,
+  setAmount,
+  shouldReset,
+  disabled,
 }: AmountInputProps) {
-  const isMinimumQuantity = count <= minCount;
-  const isMaximumQuantity = count >= maxCount;
+  const [count, setCount] = useState(initialAmount);
 
-  const handleDecrement = () => {
-    const newCount = count - 1;
-    if (newCount >= minCount) setCount(newCount);
+  const setCountAndAmount = (count: number) => {
+    setCount(count);
+    setAmount(count);
   };
 
-  const handleIncrement = () => {
-    const newCount = count + 1;
-    if (newCount <= maxCount) setCount(newCount);
+  useEffect(() => {
+    if (shouldReset) setCountAndAmount(initialAmount);
+  }, [shouldReset]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newCount = e.target.valueAsNumber;
+    if (newCount < productConstraints.amount.min) {
+      setCount(productConstraints.amount.min);
+    } else if (newCount > productConstraints.amount.max) {
+      setCount(productConstraints.amount.max);
+    } else {
+      setCount(newCount);
+    }
   };
 
-  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    const newCount = e.currentTarget.valueAsNumber;
-    if (newCount > maxCount) setCount(maxCount);
-    else if (newCount < minCount) setCount(minCount);
-    else setCount(newCount);
-  };
-
-  const handleBlur = () => {
-    if (!count) setCount(productConstraints.amount.min);
-  };
+  const isMinimumAmount = amount <= minAmount;
+  const isMaximumAmount = amount >= maxAmount;
 
   return (
-    <div className="flex w-min border py-2">
-      {!compact && (
-        <button
-          aria-label="Decrease amount"
-          className={`items-center border-r px-2 ${isMinimumQuantity && 'text-gray-400'}`}
-          type="button"
-          onClick={handleDecrement}
-          disabled={isMinimumQuantity}
-        >
-          <FiMinus />
-        </button>
-      )}
+    <div className="flex h-full w-min border py-2">
+      <button
+        aria-label="Decrease amount"
+        title="Decrease amount"
+        className="mx-auto items-center border-r px-2 disabled:text-gray-400"
+        type="button"
+        onClick={() => setCountAndAmount(count - 1)}
+        disabled={isMinimumAmount || disabled}
+      >
+        <FiMinus />
+      </button>
       <input
-        className="w-10 text-center"
         type="number"
-        value={count}
+        className="my-auto w-10 text-center"
+        value={count.toString()}
         onChange={handleChange}
-        onBlur={handleBlur}
-        min={minCount}
-        max={maxCount}
+        onBlur={() => setAmount(count)}
       />
-      {!compact && (
-        <button
-          aria-label="Increase amount"
-          className={`items-center border-l px-2 ${isMaximumQuantity && 'text-gray-400'}`}
-          type="button"
-          onClick={handleIncrement}
-          disabled={isMaximumQuantity}
-        >
-          <FiPlus />
-        </button>
-      )}
+      <button
+        aria-label="Increase amount"
+        title="Increase amount"
+        className="mx-auto items-center border-l px-2 disabled:text-gray-400"
+        type="button"
+        onClick={() => setCountAndAmount(count + 1)}
+        disabled={isMaximumAmount || disabled}
+      >
+        <FiPlus />
+      </button>
     </div>
   );
 }

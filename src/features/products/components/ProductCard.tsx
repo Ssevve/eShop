@@ -1,12 +1,10 @@
-import { useAppDispatch } from '@/app/hooks';
-import { Button } from '@/components/common/Button';
+import { AddToCartButton } from '@/components/common/AddToCartButton';
 import { PriceGroup } from '@/components/common/PriceGroup';
 import { StarRating } from '@/components/common/StarRating';
-import { addCartProduct } from '@/features/cart/cartSlice';
+import { cartsApi } from '@/features/carts';
 import { Product } from '@/features/products';
 import { productConstraints } from '@/lib/constants';
 import theme from '@/lib/theme';
-import { FiShoppingCart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 interface ProductCardProps {
@@ -14,10 +12,13 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const dispatch = useAppDispatch();
-
-  const handleAddToCartClick = () =>
-    dispatch(addCartProduct({ amount: productConstraints.amount.min, product }));
+  const { cartId, cartProduct, isFetching } = cartsApi.endpoints.getCart.useQueryState(undefined, {
+    selectFromResult: ({ data, isFetching }) => ({
+      cartId: data?._id || '',
+      cartProduct: data?.products.find((cartProduct) => cartProduct.product._id === product._id),
+      isFetching,
+    }),
+  });
 
   return (
     <div className="h-full w-full rounded-sm border border-gray-200 bg-white shadow lg:max-w-xs">
@@ -28,10 +29,10 @@ export function ProductCard({ product }: ProductCardProps) {
           src={product.imageUrl}
           alt={product.name}
         />
-        <div className="px-6 pb-6">
-          <h2 className="mt-3 text-xl font-semibold tracking-tight">{product.name}</h2>
+        <div className="px-4 pb-8">
+          <h2 className="mt-4 text-xl font-semibold tracking-tight">{product.name}</h2>
 
-          <div className="mb-6 mt-3 flex items-center">
+          <div className="mb-8 mt-4 flex items-center">
             <StarRating rating={product.rating} size={16} />
           </div>
           <div>
@@ -40,11 +41,22 @@ export function ProductCard({ product }: ProductCardProps) {
           </div>
         </div>
       </Link>
-      <footer className="mx-3 flex justify-between gap-1 self-end border-t border-gray-200 py-3">
+      <footer className="mx-4 flex h-20 justify-between gap-2 self-end border-t border-gray-200 py-4">
         <PriceGroup price={product.price} discountPrice={product.discountPrice} />
-        <Button aria-label="Add to cart" textSize="lg" onClick={handleAddToCartClick}>
-          <FiShoppingCart />
-        </Button>
+        {cartProduct ? (
+          <div className="my-auto flex flex-col text-center sm:flex-row sm:text-lg">
+            <span>In cart:</span>
+            <span className="font-semibold sm:ml-2">{cartProduct.amount}</span>
+          </div>
+        ) : (
+          <AddToCartButton
+            cartId={cartId}
+            isFetchingCart={isFetching}
+            productId={product._id}
+            productName={product.name}
+            amount={productConstraints.amount.min}
+          />
+        )}
       </footer>
     </div>
   );

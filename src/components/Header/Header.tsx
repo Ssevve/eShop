@@ -1,6 +1,5 @@
-import { useAppSelector } from '@/app/hooks';
 import { Logo } from '@/components/common/Logo';
-import { selectCartProductCount } from '@/features/cart/cartSlice';
+import { cartsApi } from '@/features/carts';
 import useBreakpointValue from '@/hooks/useBreakpointValue';
 import useWindowWidth from '@/hooks/useWindowWidth';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -13,10 +12,14 @@ import { UserDropdown } from './UserDropdown';
 import useScrollLock from './hooks/useScrollLock';
 
 export function Header() {
-  const cartProductCount = useAppSelector(selectCartProductCount);
+  const { totalProductAmount } = cartsApi.endpoints.getCart.useQueryState(undefined, {
+    selectFromResult: ({ data }) => ({
+      totalProductAmount: data?.totalProductAmount,
+    }),
+  });
   const windowWidth = useWindowWidth();
   const largeBreakpoint = useBreakpointValue('lg');
-  const [isScrollLocked, setIsScrollLocked] = useScrollLock();
+  const [, setIsScrollLocked] = useScrollLock();
   const [shouldShowMenu, setShouldShowMenu] = useState(false);
 
   const isMobile = windowWidth < largeBreakpoint;
@@ -71,7 +74,7 @@ export function Header() {
               <div className="relative w-min">
                 <FiShoppingCart className="pointer-events-none h-5 w-5" aria-hidden="true" />
                 <span className="min-w-4 absolute bottom-3 left-3 flex h-4 items-center justify-center rounded-full bg-primary p-1 text-xs text-white">
-                  {cartProductCount}
+                  {totalProductAmount || 0}
                 </span>
               </div>
               Cart

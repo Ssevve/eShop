@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { ErrorBox } from '@/components/common/ErrorBox';
 import { Input } from '@/components/common/Input';
+import { LoaderButton } from '@/components/common/LoaderButton';
 import { Logo } from '@/components/common/Logo';
-import { SubmitButton } from '@/components/common/SubmitButton';
 import {
   registerUser,
   resetAuthStatusAndError,
@@ -109,9 +109,9 @@ export function RegisterForm() {
         {...register('repeatPassword')}
         required
       />
-      <SubmitButton fullWidth isLoading={isPendingAuth}>
+      <LoaderButton type="submit" fullWidth isLoading={isPendingAuth}>
         Register
-      </SubmitButton>
+      </LoaderButton>
       <footer>
         <p className="text-md mt-4 flex justify-center gap-2 text-sm">
           Have an account?

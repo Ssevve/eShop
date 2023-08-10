@@ -4,86 +4,173 @@ import { fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
 import { AmountInput } from '../AmountInput';
+import { cartProductsMock } from '@/mocks';
 
 describe('AmountInput component', () => {
-  describe('when input element is rendered', () => {
-    const setCountMock = vi.fn();
-    renderWithProviders(<AmountInput count={4} setCount={setCountMock} />);
-    it('should have correct initial value', () => {
-      expect(screen.getByRole('spinbutton')).toHaveValue(4);
-    });
+  it('should have correct initial value', () => {
+    const expectedProduct = cartProductsMock[0];
+    const setAmountMock = vi.fn();
+    renderWithProviders(
+      <AmountInput
+        initialAmount={expectedProduct.amount}
+        minAmount={productConstraints.amount.min}
+        maxAmount={productConstraints.amount.max}
+        amount={expectedProduct.amount}
+        setAmount={setAmountMock}
+      />
+    );
+    expect(screen.getByRole('spinbutton')).toHaveValue(expectedProduct.amount);
   });
 
-  describe('when decrement button is clicked', () => {
-    it('should be disabled if count equals minCount', () => {
-      const setCountMock = vi.fn();
-      renderWithProviders(<AmountInput count={2} minCount={2} setCount={setCountMock} />);
-      expect(screen.getByLabelText('Decrease amount')).toBeDisabled();
-    });
-
-    it('should decrement if count is greater than minCount', async () => {
-      const setCountMock = vi.fn();
-      const user = userEvent.setup();
-      renderWithProviders(<AmountInput count={3} minCount={2} setCount={setCountMock} />);
-      await user.click(screen.getByLabelText('Decrease amount'));
-      expect(setCountMock).toHaveBeenCalledTimes(1);
-      expect(setCountMock).toHaveBeenCalledWith(2);
-    });
-
-    it('should not decrement if count equals minCount', async () => {
-      const setCountMock = vi.fn();
-      const user = userEvent.setup();
-      renderWithProviders(<AmountInput count={2} minCount={2} setCount={setCountMock} />);
-      await user.click(screen.getByLabelText('Decrease amount'));
-      expect(setCountMock).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('when increment button is clicked', () => {
-    it('should increment if count is less than maxCount', async () => {
-      const setCountMock = vi.fn();
-      const user = userEvent.setup();
-      renderWithProviders(<AmountInput count={3} maxCount={5} setCount={setCountMock} />);
-      await user.click(screen.getByLabelText('Increase amount'));
-      expect(setCountMock).toHaveBeenCalledTimes(1);
-      expect(setCountMock).toHaveBeenCalledWith(4);
-    });
-
-    it('should not increment if count equals maxCount', async () => {
-      const setCountMock = vi.fn();
-      const user = userEvent.setup();
-      renderWithProviders(<AmountInput count={2} maxCount={2} setCount={setCountMock} />);
-      await user.click(screen.getByLabelText('Increase amount'));
-      expect(setCountMock).not.toHaveBeenCalled();
-    });
-  });
-
-  describe("when input's value change", () => {
-    it('should set count to a given value if it is between minCount and maxCount', async () => {
-      const setCountMock = vi.fn();
+  describe('decrement button', () => {
+    it('should be disabled if amount equals minAmount', () => {
+      const setAmountMock = vi.fn();
       renderWithProviders(
-        <AmountInput count={1} minCount={2} maxCount={5} setCount={setCountMock} />
+        <AmountInput
+          amount={productConstraints.amount.min}
+          minAmount={productConstraints.amount.min}
+          maxAmount={productConstraints.amount.max}
+          setAmount={setAmountMock}
+          initialAmount={productConstraints.amount.min}
+        />
       );
-      fireEvent.change(screen.getByRole('spinbutton'), { target: { value: 4 } });
-      expect(setCountMock).toHaveBeenCalledWith(4);
+      expect(screen.getByLabelText(/decrease amount/i)).toBeDisabled();
     });
 
-    it('should set count to minCount if value is less than minCount', async () => {
-      const setCountMock = vi.fn();
-      renderWithProviders(<AmountInput count={1} setCount={setCountMock} />);
-      fireEvent.change(screen.getByRole('spinbutton'), {
-        target: { value: productConstraints.amount.min - 1 },
-      });
-      expect(setCountMock).toHaveBeenCalledWith(productConstraints.amount.min);
+    it('should not decrement if amount equals minAmount', async () => {
+      const setAmountMock = vi.fn();
+      const user = userEvent.setup();
+      renderWithProviders(
+        <AmountInput
+          amount={productConstraints.amount.min}
+          minAmount={productConstraints.amount.min}
+          maxAmount={productConstraints.amount.max}
+          setAmount={setAmountMock}
+          initialAmount={productConstraints.amount.min}
+        />
+      );
+      await user.click(screen.getByLabelText(/decrease amount/i));
+      expect(screen.getByRole('spinbutton')).toHaveValue(productConstraints.amount.min);
+    });
+  });
+
+  it('should decrement if amount is greater than minAmount', async () => {
+    const setAmountMock = vi.fn();
+    const user = userEvent.setup();
+    renderWithProviders(
+      <AmountInput
+        amount={productConstraints.amount.max}
+        minAmount={productConstraints.amount.min}
+        maxAmount={productConstraints.amount.max}
+        setAmount={setAmountMock}
+        initialAmount={productConstraints.amount.max}
+      />
+    );
+    await user.click(screen.getByLabelText(/decrease amount/i));
+    expect(screen.getByRole('spinbutton')).toHaveValue(productConstraints.amount.max - 1);
+  });
+
+  describe('increment button', () => {
+    it('should be disabled if amount equals maxAmount', () => {
+      const setAmountMock = vi.fn();
+      renderWithProviders(
+        <AmountInput
+          amount={productConstraints.amount.max}
+          minAmount={productConstraints.amount.min}
+          maxAmount={productConstraints.amount.max}
+          setAmount={setAmountMock}
+          initialAmount={productConstraints.amount.max}
+        />
+      );
+      expect(screen.getByLabelText(/increase amount/i)).toBeDisabled();
     });
 
-    it('should set count to maxCount if value is greater than maxCount', async () => {
-      const setCountMock = vi.fn();
-      renderWithProviders(<AmountInput count={1} setCount={setCountMock} />);
-      fireEvent.change(screen.getByRole('spinbutton'), {
-        target: { value: productConstraints.amount.max + 1 },
-      });
-      expect(setCountMock).toHaveBeenCalledWith(productConstraints.amount.max);
+    it('should not increment if amount equals maxAmount', async () => {
+      const setAmountMock = vi.fn();
+      const user = userEvent.setup();
+      renderWithProviders(
+        <AmountInput
+          amount={productConstraints.amount.max}
+          minAmount={productConstraints.amount.min}
+          maxAmount={productConstraints.amount.max}
+          setAmount={setAmountMock}
+          initialAmount={productConstraints.amount.max}
+        />
+      );
+      await user.click(screen.getByLabelText(/decrease amount/i));
+      expect(screen.getByRole('spinbutton')).toHaveValue(productConstraints.amount.max - 1);
+    });
+  });
+
+  it('should increment if amount is less than maxAmount', async () => {
+    const expectedProduct = cartProductsMock[0];
+    const setAmountMock = vi.fn();
+    const user = userEvent.setup();
+    renderWithProviders(
+      <AmountInput
+        amount={productConstraints.amount.min}
+        minAmount={productConstraints.amount.min}
+        maxAmount={productConstraints.amount.max}
+        setAmount={setAmountMock}
+        initialAmount={productConstraints.amount.min}
+      />
+    );
+    await user.click(screen.getByLabelText(/increase amount/i));
+    expect(setAmountMock).toHaveBeenCalledTimes(1);
+    expect(setAmountMock).toHaveBeenCalledWith(productConstraints.amount.min + 1);
+  });
+
+  describe('number input', () => {
+    it('should allow user to change value', async () => {
+      const setAmountMock = vi.fn();
+      renderWithProviders(
+        <AmountInput
+          amount={productConstraints.amount.min}
+          minAmount={productConstraints.amount.min}
+          maxAmount={productConstraints.amount.max}
+          setAmount={setAmountMock}
+          initialAmount={productConstraints.amount.min}
+        />
+      );
+
+      const numberInput = screen.getByRole('spinbutton');
+      fireEvent.change(numberInput, { target: { value: 4 } });
+      expect(numberInput).toHaveValue(4);
+    });
+
+    it('should set value to maxAmount if input is greater than maxAmount', async () => {
+      const setAmountMock = vi.fn();
+      renderWithProviders(
+        <AmountInput
+          amount={productConstraints.amount.min}
+          minAmount={productConstraints.amount.min}
+          maxAmount={productConstraints.amount.max}
+          setAmount={setAmountMock}
+          initialAmount={productConstraints.amount.min}
+        />
+      );
+
+      const numberInput = screen.getByRole('spinbutton');
+      fireEvent.change(numberInput, { target: { value: productConstraints.amount.max + 1 } });
+      expect(numberInput).toHaveValue(productConstraints.amount.max);
+    });
+
+    it('should set value to minAmount if input is less than minAmount', async () => {
+      const expectedProduct = cartProductsMock[0];
+      const setAmountMock = vi.fn();
+      renderWithProviders(
+        <AmountInput
+          amount={productConstraints.amount.min}
+          minAmount={productConstraints.amount.min}
+          maxAmount={productConstraints.amount.max}
+          setAmount={setAmountMock}
+          initialAmount={expectedProduct.amount}
+        />
+      );
+
+      const numberInput = screen.getByRole('spinbutton');
+      fireEvent.change(numberInput, { target: { value: productConstraints.amount.min - 1 } });
+      expect(numberInput).toHaveValue(productConstraints.amount.min);
     });
   });
 });

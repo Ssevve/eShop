@@ -1,25 +1,57 @@
-import { useAppDispatch } from '@/app/hooks';
+import { AddToCartButton } from '@/components/common/AddToCartButton';
 import { AmountInput } from '@/components/common/AmountInput';
-import { Button } from '@/components/common/Button';
-import { addCartProduct } from '@/features/cart/cartSlice';
-import { Product } from '@/features/products';
+import { CartProductControls } from '@/components/common/CartProductControls';
+import { cartsApi, useAddCartProductMutation } from '@/features/carts';
 import { productConstraints } from '@/lib/constants';
 import { useState } from 'react';
+import { Product } from '../types';
 
 interface ProductControlsProps {
   product: Product;
 }
 
 export function ProductControls({ product }: ProductControlsProps) {
-  const dispatch = useAppDispatch();
   const [amount, setAmount] = useState(productConstraints.amount.min);
-
-  const addToCart = () => dispatch(addCartProduct({ amount: amount, product }));
+  const [, { isLoading: isLoadingAdd }] = useAddCartProductMutation({
+    fixedCacheKey: 'add',
+  });
+  const { cartId, cartProduct, isFetching } = cartsApi.endpoints.getCart.useQueryState(undefined, {
+    selectFromResult: ({ data, isFetching }) => ({
+      cartId: data?._id || '',
+      cartProduct: data?.products.find((cartProduct) => cartProduct.product._id === product._id),
+      isFetching,
+    }),
+  });
 
   return (
-    <div className="flex gap-6 xs:w-max">
-      <AmountInput count={amount} setCount={setAmount} />
-      <Button onClick={addToCart}>Add to cart</Button>
+    <div className="flex gap-4">
+      {cartProduct ? (
+        <CartProductControls
+          cartId={cartId}
+          productId={cartProduct.product._id}
+          productName={cartProduct.product.name}
+          productAmount={cartProduct.amount}
+          isFetchingCart={isFetching}
+        />
+      ) : (
+        <>
+          <AmountInput
+            initialAmount={amount}
+            minAmount={productConstraints.amount.min}
+            maxAmount={productConstraints.amount.max}
+            amount={amount}
+            setAmount={setAmount}
+            disabled={isLoadingAdd}
+          />
+          <AddToCartButton
+            cartId={cartId}
+            isFetchingCart={isFetching}
+            productId={product._id}
+            productName={product.name}
+            amount={amount}
+          />
+        </>
+      )}
     </div>
   );
 }

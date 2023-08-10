@@ -1,5 +1,6 @@
 import { userWithoutReviewMock as userMock } from '@/mocks/userMock';
 import { rest } from 'msw';
+import { cartMock } from '../cartMock';
 import { productsMock } from '../productsMock';
 import { reviewsMock } from '../reviewsMock';
 
@@ -16,5 +17,8 @@ export const handlers = [
   rest.get(`${import.meta.env.VITE_API_URL}/reviews/product/:id`, (req, res, ctx) => {
     const responseReviews = reviewsMock.filter((review) => review.productId === req.params.id);
     return res(ctx.status(200), ctx.json(responseReviews));
+  }),
+  rest.get(`${import.meta.env.VITE_API_URL}/carts`, (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(cartMock));
   }),
 ];
