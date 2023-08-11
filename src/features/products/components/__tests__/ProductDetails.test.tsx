@@ -3,7 +3,7 @@ import renderWithProviders from '@/utils/renderWithProviders';
 import { screen } from '@testing-library/react';
 import { ProductDetails } from '../ProductDetails';
 
-describe('ProductDetails', () => {
+describe('ProductDetails component', () => {
   it('should render product image with correct src attribute', () => {
     const expectedProduct = productsMock[0];
     renderWithProviders(<ProductDetails product={expectedProduct} />);
