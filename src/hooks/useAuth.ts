@@ -21,7 +21,7 @@ function useAuth() {
         dispatch(setUser(user));
       } else {
         dispatch(setUser(undefined));
-        if (location.pathname === '/login') dispatch(setServerError());
+        if (window.location.pathname === '/login') dispatch(setServerError());
       }
     });
     return unsubscribe;

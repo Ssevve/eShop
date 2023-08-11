@@ -14,7 +14,7 @@ export function PaginationLink({ label, currentPage, page, ...rest }: Pagination
 
   return (
     <Link
-      to={`${location.pathname}?${searchParams.toString()}`}
+      to={`${window.location.pathname}?${searchParams.toString()}`}
       className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-md hover:bg-gray-400 hover:text-white ${
         isCurrentPage && 'bg-primary text-white hover:bg-primary'
       }`}
