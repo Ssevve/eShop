@@ -30,7 +30,7 @@ describe('CategoryLink component', () => {
     );
   });
 
-  it('should call onClick prop when clicked', async () => {
+  it("should call 'onClick' prop when clicked", async () => {
     const onClickMock = vi.fn();
     const expectedCategory = 'test-category';
     const user = userEvent.setup();

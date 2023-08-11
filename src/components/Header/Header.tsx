@@ -1,4 +1,6 @@
+import { useAppDispatch } from '@/app/hooks';
 import { Logo } from '@/components/common/Logo';
+import { logoutUser } from '@/features/auth';
 import { cartsApi } from '@/features/carts';
 import useBreakpointValue from '@/hooks/useBreakpointValue';
 import useWindowWidth from '@/hooks/useWindowWidth';
@@ -12,6 +14,7 @@ import { UserDropdown } from './UserDropdown';
 import useScrollLock from './hooks/useScrollLock';
 
 export function Header() {
+  const dispatch = useAppDispatch();
   const { totalProductAmount } = cartsApi.endpoints.getCart.useQueryState(undefined, {
     selectFromResult: ({ data }) => ({
       totalProductAmount: data?.totalProductAmount,
@@ -21,12 +24,23 @@ export function Header() {
   const largeBreakpoint = useBreakpointValue('lg');
   const [, setIsScrollLocked] = useScrollLock();
   const [shouldShowMenu, setShouldShowMenu] = useState(false);
+  const [shouldShowUserDropdown, setShouldShowUserDropdown] = useState(false);
 
   const isMobile = windowWidth < largeBreakpoint;
 
   useEffect(() => {
     toggleMenu(false);
   }, [isMobile]);
+
+  const logout = () => {
+    dispatch(logoutUser());
+    setShouldShowUserDropdown(false);
+  };
+
+  const toggleUserDropdown = (bool: boolean) => {
+    if (isMobile) return setShouldShowUserDropdown(false);
+    setShouldShowUserDropdown(bool);
+  };
 
   const toggleMenu = (bool?: boolean) => {
     if (bool !== undefined) {
@@ -64,7 +78,12 @@ export function Header() {
             <DesktopMenu shouldShowCategories={shouldShowMenu} toggleCategories={toggleMenu} />
           )}
           <div className="mr-6 flex justify-end gap-6">
-            <UserDropdown isMobile={isMobile} />
+            <UserDropdown
+              logout={logout}
+              isOpen={shouldShowUserDropdown}
+              open={() => toggleUserDropdown(true)}
+              close={() => toggleUserDropdown(false)}
+            />
             <Link
               className="grid justify-items-center text-sm"
               aria-label="Cart"

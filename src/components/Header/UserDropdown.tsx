@@ -1,45 +1,31 @@
-import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import { useAppSelector } from '@/app/hooks';
 import { Button } from '@/components/common/Button';
-import { logoutUser, selectCurrentUser } from '@/features/auth/authSlice';
-import { useState } from 'react';
+import { selectCurrentUser } from '@/features/auth/authSlice';
 import { FiUser } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 interface UserDropdownProps {
-  isMobile: boolean;
+  logout: () => void;
+  isOpen: boolean;
+  open: () => void;
+  close: () => void;
 }
 
-export function UserDropdown({ isMobile }: UserDropdownProps) {
-  const dispatch = useAppDispatch();
+export function UserDropdown({ logout, isOpen, open, close }: UserDropdownProps) {
   const currentUser = useAppSelector(selectCurrentUser);
-  const [shouldShowMenu, setShouldShowMenu] = useState(false);
-
-  const logout = () => {
-    dispatch(logoutUser());
-    toggleMenu(false);
-  };
-
-  const toggleMenu = (bool: boolean) => {
-    if (isMobile) return setShouldShowMenu(false);
-    setShouldShowMenu(bool);
-  };
 
   return (
-    <div
-      className="relative"
-      onMouseEnter={() => toggleMenu(true)}
-      onMouseLeave={() => toggleMenu(false)}
-    >
+    <div className="relative" onMouseEnter={open} onMouseLeave={close}>
       <Link
         className="grid justify-items-center text-sm"
-        title={currentUser ? 'Dashboard' : 'Log in'}
+        title={currentUser ? 'Account' : 'Log in'}
         to={currentUser ? '/dashboard' : '/login'}
       >
         <FiUser className="h-5 w-5" aria-hidden="true" />
-        <span>{currentUser ? 'Profile' : 'Account'}</span>
+        <span>{currentUser ? 'Account' : 'Log in'}</span>
       </Link>
 
-      {shouldShowMenu && (
+      {isOpen && (
         <div className="absolute -right-3 z-50 w-44 divide-y divide-gray-100 rounded-sm bg-white shadow">
           {currentUser ? (
             <>
@@ -51,17 +37,13 @@ export function UserDropdown({ isMobile }: UserDropdownProps) {
               </div>
               <ul className="py-3 text-sm">
                 <li>
-                  <Link
-                    onClick={() => toggleMenu(false)}
-                    to="/dashboard"
-                    className="block p-3 hover:bg-gray-100"
-                  >
+                  <Link onClick={close} to="/dashboard" className="block p-3 hover:bg-gray-100">
                     Profile
                   </Link>
                 </li>
                 <li>
                   <Link
-                    onClick={() => toggleMenu(false)}
+                    onClick={close}
                     to="/dashboard/reviews"
                     className="block p-3 hover:bg-gray-100"
                   >
@@ -78,7 +60,7 @@ export function UserDropdown({ isMobile }: UserDropdownProps) {
           ) : (
             <ul className="p-3">
               <li>
-                <Button renderAs={Link} onClick={() => toggleMenu(false)} to="/login" fullWidth>
+                <Button renderAs={Link} onClick={close} to="/login" fullWidth>
                   Log in
                 </Button>
               </li>
@@ -91,7 +73,7 @@ export function UserDropdown({ isMobile }: UserDropdownProps) {
                 <Button
                   renderAs={Link}
                   variant="primary-outline"
-                  onClick={() => toggleMenu(false)}
+                  onClick={close}
                   to="/register"
                   fullWidth
                 >

@@ -13,15 +13,7 @@ import {
 import FirebaseLoginErrors from './lib/firebaseErrors';
 import { LoginSchema } from './lib/loginSchema';
 import { RegisterSchema } from './lib/registerSchema';
-import { AuthStatus } from './types';
-
-type AuthError = null | 'server' | 'invalidCredentials' | 'emailTaken';
-
-interface AuthState {
-  user: User | undefined;
-  status: AuthStatus;
-  error: AuthError;
-}
+import { AuthState } from './types';
 
 const initialState: AuthState = {
   user: localStorage['user'] ? JSON.parse(localStorage['user']) : undefined,
