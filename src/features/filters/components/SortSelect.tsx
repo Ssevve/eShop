@@ -9,7 +9,7 @@ interface SelectProps {
   initialValue?: SortOption;
 }
 
-export function SortSelect({ options, initialValue = undefined, label, onChange }: SelectProps) {
+export function SortSelect({ options, initialValue, label, onChange }: SelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(initialValue);
   const selectMenuRef = useRef<HTMLUListElement>(null);
@@ -38,22 +38,19 @@ export function SortSelect({ options, initialValue = undefined, label, onChange 
       </button>
       {isOpen && (
         <ul ref={selectMenuRef} className="absolute w-full rounded-sm border border-t-0 bg-white">
-          {options.map(
-            (option) =>
-              isOpen && (
-                <li key={option.id}>
-                  <button
-                    className={`w-full p-3 text-left hover:bg-primary hover:text-white ${
-                      option === selectedOption && 'bg-primary text-white'
-                    }`}
-                    type="button"
-                    onClick={() => handleChange(option)}
-                  >
-                    {option.label}
-                  </button>
-                </li>
-              )
-          )}
+          {options.map((option) => (
+            <li key={option.id}>
+              <button
+                className={`w-full p-3 text-left hover:bg-primary hover:text-white ${
+                  option === selectedOption && 'bg-primary text-white'
+                }`}
+                type="button"
+                onClick={() => handleChange(option)}
+              >
+                {option.label}
+              </button>
+            </li>
+          ))}
         </ul>
       )}
     </div>
