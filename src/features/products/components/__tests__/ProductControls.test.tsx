@@ -3,7 +3,7 @@ import renderWithProviders from '@/utils/renderWithProviders';
 import { screen } from '@testing-library/react';
 import { ProductControls } from '../ProductControls';
 
-describe('ProductControls', () => {
+describe('ProductControls component', () => {
   it('should render <AmountInput /> component', () => {
     const expectedProduct = productsMock[0];
     renderWithProviders(<ProductControls product={expectedProduct} />);

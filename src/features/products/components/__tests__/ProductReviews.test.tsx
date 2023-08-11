@@ -4,7 +4,7 @@ import renderWithProviders from '@/utils/renderWithProviders';
 import { screen } from '@testing-library/react';
 import { ProductReviews } from '../ProductReviews';
 
-describe('ProductReviews', () => {
+describe('ProductReviews component', () => {
   it("should render 'Reviews' heading", () => {
     renderWithProviders(
       <ProductReviews reviews={reviewsMock} isError={false} productId={reviewsMock[0].productId} />
