@@ -22,30 +22,12 @@ describe('Footer component', () => {
     expect(screen.getByText('© 2023 eShop. All Rights Reserved.')).toBeInTheDocument();
   });
 
-  it('should render facebook page link', () => {
+  it('should render <SocialLinks /> component', () => {
     renderWithProviders(
       <BrowserRouter>
         <Footer />
       </BrowserRouter>
     );
     expect(screen.getByRole('link', { name: /facebook page/i })).toBeInTheDocument();
-  });
-
-  it('should render instagram page link', () => {
-    renderWithProviders(
-      <BrowserRouter>
-        <Footer />
-      </BrowserRouter>
-    );
-    expect(screen.getByRole('link', { name: /instagram page/i })).toBeInTheDocument();
-  });
-
-  it('should render twitter page link', () => {
-    renderWithProviders(
-      <BrowserRouter>
-        <Footer />
-      </BrowserRouter>
-    );
-    expect(screen.getByRole('link', { name: /twitter page/i })).toBeInTheDocument();
   });
 });
