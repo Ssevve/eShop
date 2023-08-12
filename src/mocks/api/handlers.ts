@@ -5,6 +5,16 @@ import { productsMock } from '../productsMock';
 import { reviewsMock } from '../reviewsMock';
 
 export const handlers = [
+  rest.get(`${import.meta.env.VITE_API_URL}/products`, (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        products: productsMock,
+        totalResults: productsMock.length,
+        productsPerPage: 5
+      })
+    );
+  }),
   rest.get(`${import.meta.env.VITE_API_URL}/products/:id`, (req, res, ctx) => {
     const responseProduct = productsMock.find((product) => product._id === req.params.id);
     if (!responseProduct) return res(ctx.status(404), ctx.json(null));

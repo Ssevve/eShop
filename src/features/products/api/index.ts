@@ -24,11 +24,10 @@ const productsApi = api.injectEndpoints({
       query: ({ page, category, sort, order }) => {
         return `products?page=${page}&category=${category}&sort=${sort}&order=${order}`;
       },
-      // @ts-ignore
-      providesTags: ({ products }: GetProductsResponse) => 
-      products
+      providesTags: (result) =>
+      result
         ? [
-            ...products.map(( { _id } ) => ({ type: 'Products', id: _id })),
+            ...result.products.map(( { _id } ) => ({ type: 'Products' as const, id: _id })),
             { type: 'Products', id: 'LIST' },
           ]
         : [{ type: 'Products', id: 'LIST' }],

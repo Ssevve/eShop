@@ -1,5 +1,5 @@
 import { Loader } from '@/components/common/Loader';
-import { cartsApi } from '@/features/carts';
+import { useGetCartQuery } from '@/features/carts';
 import { Filters } from '@/features/filters';
 import { PaginatedProducts, useGetProductsQuery } from '@/features/products';
 import { ErrorPage } from '@/routes';
@@ -9,8 +9,7 @@ export function ProductsPage() {
   const [searchParams] = useSearchParams();
   const page = Number(searchParams.get('page')) || 1;
 
-  const { isUninitialized: isUninitializedCart, isLoading: isLoadingCart } =
-    cartsApi.endpoints.getCart.useQueryState();
+  const { isLoading: isLoadingCart, isUninitialized: isUninitializedCart } = useGetCartQuery();
   const {
     data,
     isError: isErrorProducts,
