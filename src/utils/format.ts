@@ -3,5 +3,14 @@ export const formatPrice = (price: number) => {
 }
 
 export const formatDate = (date: string) => {
-  return new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).format(new Date(date));
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+  }
+
+  return new Intl.DateTimeFormat('en-US', options).format(new Date(date));
 }
