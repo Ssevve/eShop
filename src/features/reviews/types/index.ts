@@ -5,4 +5,6 @@ export interface Review {
   userId: string;
   message?: string;
   rating: number;
+  createdAt: string;
+  updatedAt?: string;
 }

@@ -3,6 +3,7 @@ import { Button } from '@/components/common/Button';
 import { StarRating } from '@/components/common/StarRating';
 import { selectCurrentUser } from '@/features/auth/authSlice';
 import { Review } from '@/features/reviews';
+import { formatDate } from '@/utils/format';
 import { ReviewAuthor } from './ReviewAuthor';
 
 interface EditableReviewProps {
@@ -32,7 +33,13 @@ export function UserReview({ review, isEditable, showAuthor, setIsEditing }: Use
         {showAuthor && <ReviewAuthor name={review.userFirstName} />}
         <StarRating rating={review.rating} />
       </div>
-      <p className="mt-3 max-w-2xl">{review.message}</p>
+      <p className="my-4 max-w-2xl">{review.message}</p>
+      <div className="flex max-w-max flex-wrap gap-2 text-xs text-gray-400">
+        <span className="shrink-0">Created: {formatDate(review.createdAt)}</span>
+        {review.updatedAt && (
+          <span className="shrink-0">Edited: {formatDate(review.updatedAt)}</span>
+        )}
+      </div>
       {canBeEdited && (
         <Button
           size="sm"
