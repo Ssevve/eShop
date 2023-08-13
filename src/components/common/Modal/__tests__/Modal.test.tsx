@@ -26,7 +26,7 @@ describe('Modal component', () => {
     expect(screen.getByRole('button', { name: /close/i })).toBeInTheDocument();
   });
 
-  it("should call 'close' on <CloseMenuButton /> click", async () => {
+  it("should call 'close' prop on <CloseMenuButton /> click", async () => {
     const closeMock = vi.fn();
     const user = userEvent.setup();
     renderWithProviders(
