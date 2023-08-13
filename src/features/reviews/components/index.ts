@@ -1,2 +1,2 @@
-export * from './EditableUserReview';
+export * from './CreateReviewForm';
 export * from './UserReview';

@@ -63,7 +63,7 @@ export const reviewsApi = api.injectEndpoints({
     createReview: builder.mutation<CreateReviewResBody, CreateReviewArgs>({
       query: (body) => {
         return ({
-        url: 'reviewss',
+        url: 'reviews',
         method: 'POST',
         body,
       })},
@@ -81,7 +81,7 @@ export const reviewsApi = api.injectEndpoints({
     }),
     editReview: builder.mutation<EditReviewResBody, EditReviewArgs>({
       query: ({ reviewId, productId, rating, message}) => ({
-        url: `reviesws/${reviewId}/${productId}`,
+        url: `reviews/${reviewId}/${productId}`,
         method: 'PUT',
         headers: {
           'Content-Type':'application/json',
