@@ -33,7 +33,7 @@ export function SingleProductPage() {
       {product ? (
         <>
           <ProductDetails product={product} />
-          <ProductReviews reviews={reviews} productId={product._id} isError={isErrorGetReviews} />
+          <ProductReviews reviews={reviews} product={product} isError={isErrorGetReviews} />
         </>
       ) : (
         <NotFoundPage />

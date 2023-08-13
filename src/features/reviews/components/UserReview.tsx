@@ -4,31 +4,25 @@ import { StarRating } from '@/components/common/StarRating';
 import { selectCurrentUser } from '@/features/auth/authSlice';
 import { Review } from '@/features/reviews';
 import { formatDate } from '@/utils/format';
+import { useState } from 'react';
+import { EditReviewForm } from './EditReviewForm';
 import { ReviewAuthor } from './ReviewAuthor';
-
-interface EditableReviewProps {
-  isEditable: true;
-  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-interface NotEditableReviewProps {
-  setIsEditing?: never;
-  isEditable?: never;
-}
+import { Product } from '@/features/products';
 
 type UserReviewProps = {
+  product: Product;
   review: Review;
   showAuthor?: boolean;
-} & (EditableReviewProps | NotEditableReviewProps);
+};
 
-export function UserReview({ review, isEditable, showAuthor, setIsEditing }: UserReviewProps) {
+export function UserReview({ review, product, showAuthor }: UserReviewProps) {
   const currentUser = useAppSelector(selectCurrentUser);
+  const [isEditing, setIsEditing] = useState(false);
 
   const isOwnReview = currentUser?._id === review.userId;
-  const canBeEdited = isOwnReview && isEditable && setIsEditing;
 
   return (
-    <article className="mt-12 first-of-type:mt-6">
+    <article>
       <div className="flex flex-wrap items-center gap-4">
         {showAuthor && <ReviewAuthor name={review.userFirstName} />}
         <StarRating rating={review.rating} />
@@ -40,7 +34,7 @@ export function UserReview({ review, isEditable, showAuthor, setIsEditing }: Use
           <span className="shrink-0">Edited: {formatDate(review.updatedAt)}</span>
         )}
       </div>
-      {canBeEdited && (
+      {isOwnReview && (
         <Button
           size="sm"
           className="mt-3"
@@ -49,6 +43,9 @@ export function UserReview({ review, isEditable, showAuthor, setIsEditing }: Use
         >
           Edit
         </Button>
+      )}
+      {isEditing && (
+        <EditReviewForm product={product} review={review} close={() => setIsEditing(false)} />
       )}
     </article>
   );
