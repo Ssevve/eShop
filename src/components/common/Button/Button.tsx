@@ -9,6 +9,8 @@ const variants = {
   'danger-outline': 'bg-white hover:bg-red-50 border border-danger text-danger',
 };
 
+export type ButtonVariant = keyof typeof variants;
+
 const sizes = {
   sm: {
     paddingX: 3,
@@ -21,6 +23,26 @@ const sizes = {
     textSize: 'base',
   },
 };
+
+type ButtonSize = keyof typeof sizes;
+
+const textSizes = [
+  'xs',
+  'sm',
+  'base',
+  'lg',
+  'xl',
+  '2xl',
+  '3xl',
+  '4xl',
+  '5xl',
+  '6xl',
+  '7xl',
+  '8xl',
+  '9xl',
+] as const;
+
+type ButtonTextSize = (typeof textSizes)[number];
 
 export interface AsLinkProps extends Omit<React.ComponentProps<'a'>, 'href'> {
   renderAs: React.ElementType;
@@ -36,25 +58,12 @@ interface AsButtonProps extends React.ComponentProps<'button'> {
 }
 
 export type ButtonProps = {
-  variant?: keyof typeof variants;
+  variant?: ButtonVariant;
   disabled?: boolean;
   evenPadding?: boolean;
   fullWidth?: boolean;
-  size?: keyof typeof sizes;
-  textSize?:
-    | 'xs'
-    | 'sm'
-    | 'base'
-    | 'lg'
-    | 'xl'
-    | '2xl'
-    | '3xl'
-    | '4xl'
-    | '5xl'
-    | '6xl'
-    | '7xl'
-    | '8xl'
-    | '9xl';
+  size?: ButtonSize;
+  textSize?: ButtonTextSize;
 } & (AsLinkProps | AsButtonProps);
 
 export function Button({

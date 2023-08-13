@@ -1,13 +1,13 @@
-import { Modal, ModalProps } from '@/components/common/Modal';
-import { useEditReviewMutation } from '../api';
-import { RatingInputGroup } from './RatingInputGroup';
-import { ReviewSchema } from '../lib/reviewSchema';
-import { LoaderButton } from '@/components/common/LoaderButton';
 import { Button } from '@/components/common/Button';
-import { useForm } from 'react-hook-form';
+import { LoaderButton } from '@/components/common/LoaderButton';
+import { Modal, ModalProps } from '@/components/common/Modal';
 import { Product } from '@/features/products';
-import { Review } from '../types';
+import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { useEditReviewMutation } from '../api';
+import { ReviewSchema } from '../lib/reviewSchema';
+import { Review } from '../types';
+import { RatingInputGroup } from './RatingInputGroup';
 
 interface EditReviewFormProps extends Omit<ModalProps, 'children'> {
   product: Product;
@@ -66,7 +66,7 @@ export function EditReviewForm({ product, review, close }: EditReviewFormProps) 
         <label>
           <span className="font-semibold">Message</span> <span>(optional)</span>
           <textarea
-            rows={8}
+            rows={4}
             {...register('message')}
             className="mt-4 w-0 min-w-full rounded-sm border p-4 font-normal"
           />

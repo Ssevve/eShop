@@ -1,8 +1,10 @@
 import { Button } from '@/components/common/Button';
+import { ConfirmationModal } from '@/components/common/ConfirmationModal/ConfirmationModal';
 import { List } from '@/components/common/List';
 import { Loader } from '@/components/common/Loader';
 import { LoaderButton } from '@/components/common/LoaderButton';
 import { formatPrice } from '@/utils/format';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   useClearCartMutation,
@@ -13,6 +15,7 @@ import {
 import { CartProductEntity } from '../components';
 
 export function CartPage() {
+  const [shouldShowClearCartModal, setShouldShowClearCartModal] = useState(false);
   const { data: cart, isLoading: isLoadingCart } = useGetCartQuery();
   const [, { isLoading: isLoadingRemove }] = useRemoveCartProductMutation({
     fixedCacheKey: 'remove',
@@ -38,7 +41,7 @@ export function CartPage() {
             variant="neutral"
             isLoading={isLoadingClear}
             disabled={shouldDisableClearButton}
-            onClick={() => clearCart({ cartId: cart?._id || '' })}
+            onClick={() => setShouldShowClearCartModal(true)}
             loaderHeight={24}
             loaderWidth={40}
             className="w-36"
@@ -95,6 +98,18 @@ export function CartPage() {
           Checkout
         </Button>
       </section>
+      {shouldShowClearCartModal && (
+        <ConfirmationModal
+          confirmVariant="danger"
+          confirmText="Clear cart"
+          confirmCallback={() => clearCart({ cartId: cart?._id || '' })}
+          close={() => setShouldShowClearCartModal(false)}
+        >
+          <p className="text-center text-2xl text-gray-500">
+            Are you sure you want to clear the cart?
+          </p>
+        </ConfirmationModal>
+      )}
     </section>
   );
 }

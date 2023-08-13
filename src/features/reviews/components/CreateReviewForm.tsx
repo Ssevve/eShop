@@ -1,12 +1,12 @@
 import { Button } from '@/components/common/Button';
 import { LoaderButton } from '@/components/common/LoaderButton';
+import { Modal, ModalProps } from '@/components/common/Modal';
+import { Product } from '@/features/products';
 import { RatingInputGroup } from '@/features/reviews/components/RatingInputGroup';
 import { ReviewSchema } from '@/features/reviews/lib/reviewSchema';
 import { useForm } from 'react-hook-form';
-import { useCreateReviewMutation } from '../api';
-import { Modal, ModalProps } from '@/components/common/Modal';
-import { Product } from '@/features/products';
 import { Link } from 'react-router-dom';
+import { useCreateReviewMutation } from '../api';
 
 interface CreateReviewFormProps extends Omit<ModalProps, 'children'> {
   product: Product;
@@ -58,7 +58,7 @@ export function CreateReviewForm({ product, close }: CreateReviewFormProps) {
         <label>
           <span className="font-semibold">Message</span> <span>(optional)</span>
           <textarea
-            rows={8}
+            rows={4}
             {...register('message')}
             className="mt-4 w-0 min-w-full rounded-sm border p-4 font-normal"
           />
