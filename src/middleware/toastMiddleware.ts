@@ -1,4 +1,5 @@
 import { cartsApi } from "@/features/carts";
+import { reviewsApi } from "@/features/reviews";
 import { createListenerMiddleware, isAnyOf } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
@@ -13,13 +14,16 @@ toastMiddleware.startListening({
     cartsApi.endpoints.removeCartProduct.matchFulfilled,
     cartsApi.endpoints.removeCartProduct.matchRejected,
     cartsApi.endpoints.clearCart.matchFulfilled,
-    cartsApi.endpoints.clearCart.matchRejected
+    cartsApi.endpoints.clearCart.matchRejected,
+    reviewsApi.endpoints.createReview.matchFulfilled,
+    reviewsApi.endpoints.createReview.matchRejected,
     ),
   effect: async () => {
     toast.dismiss();
   }
 });
 
+// CART 
 toastMiddleware.startListening({
   matcher: cartsApi.endpoints.addCartProduct.matchFulfilled,
   effect: async ({ meta }) => {
@@ -73,5 +77,34 @@ toastMiddleware.startListening({
   matcher: cartsApi.endpoints.clearCart.matchRejected,
   effect: async() => {
     toast.error('Could not clear the cart!');
+  }
+});
+
+// REVIEWS
+toastMiddleware.startListening({
+  matcher: reviewsApi.endpoints.createReview.matchFulfilled,
+  effect: async () => {
+    toast.success('Review created!');
+  }
+});
+
+toastMiddleware.startListening({
+  matcher: reviewsApi.endpoints.createReview.matchRejected,
+  effect: async () => {
+    toast.error('Could not create review. Try again.');
+  }
+});
+
+toastMiddleware.startListening({
+  matcher: reviewsApi.endpoints.editReview.matchFulfilled,
+  effect: async () => {
+    toast.success('Review edited!');
+  }
+});
+
+toastMiddleware.startListening({
+  matcher: reviewsApi.endpoints.editReview.matchRejected,
+  effect: async () => {
+    toast.error('Could not edit the review. Try again.');
   }
 });

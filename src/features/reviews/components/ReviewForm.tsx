@@ -1,5 +1,4 @@
 import { Button } from '@/components/common/Button';
-import { ErrorBox } from '@/components/common/ErrorBox';
 import { LoaderButton } from '@/components/common/LoaderButton';
 import { RatingInputGroup } from '@/features/reviews/components/RatingInputGroup';
 import { ReviewSchema } from '@/features/reviews/lib/reviewSchema';
@@ -62,7 +61,6 @@ export function ReviewForm({ isEditForm, setIsEditing, review, productId }: Revi
   };
 
   const isLoading = isLoadingEdit || isLoadingCreate;
-  const isError = isErrorEdit || isErrorCreate;
   const accessibleName = isEditForm ? 'Edit review' : 'Create review';
 
   return (
@@ -71,7 +69,6 @@ export function ReviewForm({ isEditForm, setIsEditing, review, productId }: Revi
       className="mt-6 flex flex-col gap-6"
       onSubmit={handleSubmit(onSubmit)}
     >
-      {isError && <ErrorBox />}
       <h4 className="font-semibold">Rating</h4>
       <RatingInputGroup
         error={errors.rating}

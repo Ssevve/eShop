@@ -38,34 +38,32 @@ interface ReviewsErrorResBody {
   }
 }
 
-const reviewsApi = api.injectEndpoints({
+export const reviewsApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getReviewsByProductId: builder.query<Review[] | undefined, string | undefined>({
       query: (productId) => `reviews/product/${productId}`,
-      // @ts-ignore
       providesTags: (reviews) => 
       reviews
         ? [
-            ...reviews.map(( { _id } ) => ({ type: 'Reviews', id: _id })),
+            ...reviews.map(( { _id } ) => ({ type: 'Reviews' as const, id: _id })),
             { type: 'Reviews', id: 'LIST' },
           ]
         : [{ type: 'Reviews', id: 'LIST' }],
     }),
     getReviewsByUserId: builder.query<Review[] | undefined, string | undefined>({
       query: (userId) => `reviews/user/${userId}`,
-      // @ts-ignore
       providesTags: (reviews) => 
       reviews
         ? [
-            ...reviews.map(( { _id } ) => ({ type: 'Reviews', id: _id })),
-            { type: 'Reviews', id: 'LIST' },
+            ...reviews.map(( { _id } ) => ({ type: 'Reviews' as const, id: _id })),
+            { type: 'Reviews' as const, id: 'LIST' },
           ]
-        : [{ type: 'Reviews', id: 'LIST' }],
+        : [{ type: 'Reviews' as const, id: 'LIST' }],
     }),
     createReview: builder.mutation<CreateReviewResBody, CreateReviewArgs>({
       query: (body) => {
         return ({
-        url: 'reviews',
+        url: 'reviewss',
         method: 'POST',
         body,
       })},
@@ -77,13 +75,13 @@ const reviewsApi = api.injectEndpoints({
         }),
       invalidatesTags: (result) => {
         return result ? [
-        { type: 'Reviews', id: 'LIST' },
-        { type: 'Products', id: result.updated.product._id }
+        { type: 'Reviews' as const, id: 'LIST' },
+        { type: 'Products' as const, id: result.updated.product._id }
       ] : []},
     }),
     editReview: builder.mutation<EditReviewResBody, EditReviewArgs>({
       query: ({ reviewId, productId, rating, message}) => ({
-        url: `reviews/${reviewId}/${productId}`,
+        url: `reviesws/${reviewId}/${productId}`,
         method: 'PUT',
         headers: {
           'Content-Type':'application/json',
@@ -91,8 +89,8 @@ const reviewsApi = api.injectEndpoints({
         body: JSON.stringify({ rating, message }),
       }),
       invalidatesTags: (result) => result ? [     
-        { type: 'Reviews', id: 'LIST' },
-        { type: 'Products', id: result.updated.product._id }
+        { type: 'Reviews' as const, id: 'LIST' },
+        { type: 'Products' as const, id: result.updated.product._id }
       ] : [],
     }),
   }),
