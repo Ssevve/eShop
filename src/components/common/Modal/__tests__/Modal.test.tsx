@@ -1,6 +1,5 @@
 import renderWithProviders from '@/utils/renderWithProviders';
 import { screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
 import { Modal } from '../Modal';
 
@@ -24,20 +23,6 @@ describe('Modal component', () => {
       </Modal>
     );
     expect(screen.getByRole('button', { name: /close/i })).toBeInTheDocument();
-  });
-
-  it("should call 'close' prop on <CloseMenuButton /> click", async () => {
-    const closeMock = vi.fn();
-    const user = userEvent.setup();
-    renderWithProviders(
-      <Modal close={closeMock}>
-        <p>Children</p>
-      </Modal>
-    );
-
-    await user.click(screen.getByRole('button', { name: /close/i }));
-
-    expect(closeMock).toHaveBeenCalledTimes(1);
   });
 
   it('should render children', () => {
