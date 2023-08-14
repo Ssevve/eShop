@@ -68,4 +68,21 @@ describe('ConfirmationModal component', () => {
     );
     expect(screen.getByText(expectedMessage)).toBeInTheDocument();
   });
+
+  it('should cose on cancel button click', async () => {
+    const expectedMessage = 'Test message';
+    const closeMock = vi.fn();
+    const confirmCallbackMock = vi.fn();
+    const user = userEvent.setup();
+    renderWithProviders(
+      <ConfirmationModal
+        close={closeMock}
+        confirmText="confirm text"
+        confirmCallback={confirmCallbackMock}
+        message="Test message"
+      />
+    );
+    await user.click(screen.getByRole('button', { name: /cancel/i }));
+    expect(closeMock).toHaveBeenCalledTimes(1);
+  });
 });
