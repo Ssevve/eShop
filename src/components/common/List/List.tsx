@@ -1,3 +1,5 @@
+import { twMerge } from 'tailwind-merge';
+
 interface ListProps<T> extends React.ComponentPropsWithoutRef<'ul'> {
   renderItem: (item: T) => JSX.Element;
   getKey?: (item: T) => React.Key;
@@ -22,6 +24,6 @@ export function List<T>({
       ))}
     </ul>
   ) : (
-    <p className={emptyItemsMessageClass || 'py-4'}>{emptyItemsMessage}</p>
+    <p className={twMerge('py-4', emptyItemsMessageClass)}>{emptyItemsMessage}</p>
   );
 }
