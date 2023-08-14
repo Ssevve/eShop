@@ -1,4 +1,6 @@
 import { AmountInput } from '@/components/common/AmountInput';
+import { ConfirmationModal } from '@/components/common/ConfirmationModal';
+import { LoaderButton } from '@/components/common/LoaderButton';
 import {
   useClearCartMutation,
   useRemoveCartProductMutation,
@@ -8,8 +10,6 @@ import { productConstraints } from '@/lib/constants';
 import { useEffect, useState } from 'react';
 import { FiTrash } from 'react-icons/fi';
 import { twMerge } from 'tailwind-merge';
-import { ConfirmationModal } from '../ConfirmationModal/ConfirmationModal';
-import { LoaderButton } from '../LoaderButton';
 import { UpdateAmountTrigger } from './UpdateAmountTrigger';
 
 interface CartProductControlsProps {

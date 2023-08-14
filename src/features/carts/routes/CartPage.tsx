@@ -1,5 +1,5 @@
 import { Button } from '@/components/common/Button';
-import { ConfirmationModal } from '@/components/common/ConfirmationModal/ConfirmationModal';
+import { ConfirmationModal } from '@/components/common/ConfirmationModal';
 import { List } from '@/components/common/List';
 import { Loader } from '@/components/common/Loader';
 import { LoaderButton } from '@/components/common/LoaderButton';
