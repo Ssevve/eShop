@@ -22,6 +22,6 @@ export function List<T>({
       ))}
     </ul>
   ) : (
-    <p className={emptyItemsMessageClass || 'py-6'}>{emptyItemsMessage}</p>
+    <p className={emptyItemsMessageClass || 'py-4'}>{emptyItemsMessage}</p>
   );
 }

@@ -38,14 +38,14 @@ export function ProductReviews({ reviews, product, isError }: ProductReviewsProp
                 <UserReview product={product} review={review} />
               ) : (
                 <>
-                  <p className="py-6">We are still waiting for your review!</p>
+                  <p className="mb-8">You have not reviewed this product yet!</p>
                   <Button onClick={() => setShouldShowCreateForm(true)}>
                     <span>Create Review</span>
                   </Button>
                 </>
               )
             ) : (
-              <p className="py-6">You need to log in to be able to create a review!</p>
+              <p className="mb-8">You need to log in to be able to create a review!</p>
             )}
             <h3 className="mt-12 text-lg font-bold">All reviews</h3>
             <List
