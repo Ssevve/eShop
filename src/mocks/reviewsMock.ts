@@ -8,6 +8,8 @@ export const reviewsMock: Review[] = [
     productId: 'testProductId',
     userId: 'testUserId1',
     _id: 'testReviewId1',
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   {
     rating: 2,
@@ -16,6 +18,7 @@ export const reviewsMock: Review[] = [
     productId: 'testProductId',
     userId: 'testUserId2',
     _id: 'testReviewId2',
+    createdAt: new Date(),
   },
   {
     rating: 3,
@@ -24,5 +27,6 @@ export const reviewsMock: Review[] = [
     productId: 'testProductId',
     userId: 'testUserId3',
     _id: 'testReviewId3',
+    createdAt: new Date(),
   },
 ];
