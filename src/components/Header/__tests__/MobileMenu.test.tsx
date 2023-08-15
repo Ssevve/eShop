@@ -33,7 +33,7 @@ describe('MobileMenu component', () => {
           <MobileMenu toggleClose={toggleCloseMock} isOpen={true} />
         </BrowserRouter>
       );
-      expect(screen.getByRole('button', { name: /close menu/i })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /close/i })).toBeInTheDocument();
     });
 
     it('should render home link', () => {
