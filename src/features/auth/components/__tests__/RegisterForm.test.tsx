@@ -1,5 +1,4 @@
 import { userConstraints } from '@/lib/constants';
-import '@/mocks/services/firebaseMock';
 import { userWithoutReviewMock as userMock } from '@/mocks';
 import renderWithProviders from '@/utils/renderWithProviders';
 import { screen } from '@testing-library/react';

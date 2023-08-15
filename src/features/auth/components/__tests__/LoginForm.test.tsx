@@ -3,7 +3,6 @@ import { userWithoutReviewMock as mockUser } from '@/mocks/userMock';
 import renderWithProviders from '@/utils/renderWithProviders';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import '@/mocks/services/firebaseMock';
 import { BrowserRouter } from 'react-router-dom';
 import { LoginForm } from '../LoginForm';
 
