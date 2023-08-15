@@ -8,6 +8,7 @@ import { useEditReviewMutation } from '../api';
 import { ReviewSchema } from '../lib/reviewSchema';
 import { Review } from '../types';
 import { RatingInputGroup } from './RatingInputGroup';
+import { useEffect } from 'react';
 
 interface EditReviewFormProps extends Omit<ModalProps, 'children'> {
   product: Product;
@@ -27,7 +28,9 @@ export function EditReviewForm({ product, review, close }: EditReviewFormProps) 
     },
   });
 
-  if (isSuccess) close();
+  useEffect(() => {
+    if (isSuccess) close();
+  }, [isSuccess]);
 
   const onSubmit = async (data: ReviewSchema) => {
     const rating = Number(data.rating);
