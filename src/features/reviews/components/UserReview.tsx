@@ -1,36 +1,42 @@
 import { useAppSelector } from '@/app/hooks';
+import cherryAvatar from '@/assets/avatar-cherry.svg';
 import { Button } from '@/components/common/Button';
 import { StarRating } from '@/components/common/StarRating';
 import { selectCurrentUser } from '@/features/auth/authSlice';
+import { Product } from '@/features/products';
 import { Review } from '@/features/reviews';
+import theme from '@/lib/theme';
 import { formatDate } from '@/utils/format';
-import { ReviewAuthor } from './ReviewAuthor';
-
-interface EditableReviewProps {
-  isEditable: true;
-  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-interface NotEditableReviewProps {
-  setIsEditing?: never;
-  isEditable?: never;
-}
+import { useState } from 'react';
+import { EditReviewForm } from './EditReviewForm';
 
 type UserReviewProps = {
+  product: Product;
   review: Review;
   showAuthor?: boolean;
-} & (EditableReviewProps | NotEditableReviewProps);
+};
 
-export function UserReview({ review, isEditable, showAuthor, setIsEditing }: UserReviewProps) {
+export function UserReview({ review, product, showAuthor = false }: UserReviewProps) {
   const currentUser = useAppSelector(selectCurrentUser);
+  const [isEditing, setIsEditing] = useState(false);
 
   const isOwnReview = currentUser?._id === review.userId;
-  const canBeEdited = isOwnReview && isEditable && setIsEditing;
 
   return (
-    <article className="mt-12 first-of-type:mt-6">
+    <article>
       <div className="flex flex-wrap items-center gap-4">
-        {showAuthor && <ReviewAuthor name={review.userFirstName} />}
+        {showAuthor && (
+          <>
+            <img
+              className="h-10 w-10 rounded-full"
+              width={theme.spacing[10]}
+              height={theme.spacing[10]}
+              src={cherryAvatar}
+              alt=""
+            />
+            <p className="font-medium">{review.userFirstName}</p>
+          </>
+        )}
         <StarRating rating={review.rating} />
       </div>
       <p className="my-4 max-w-2xl">{review.message}</p>
@@ -40,7 +46,7 @@ export function UserReview({ review, isEditable, showAuthor, setIsEditing }: Use
           <span className="shrink-0">Edited: {formatDate(review.updatedAt)}</span>
         )}
       </div>
-      {canBeEdited && (
+      {isOwnReview && (
         <Button
           size="sm"
           className="mt-3"
@@ -49,6 +55,9 @@ export function UserReview({ review, isEditable, showAuthor, setIsEditing }: Use
         >
           Edit
         </Button>
+      )}
+      {isEditing && (
+        <EditReviewForm product={product} review={review} close={() => setIsEditing(false)} />
       )}
     </article>
   );

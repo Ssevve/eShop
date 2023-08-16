@@ -35,7 +35,7 @@ export function DashboardReview({ review }: DashboardReviewProps) {
               <span>{product?.name}</span>
             </Link>
           )}
-          <UserReview review={review} />
+          {product && <UserReview product={product} review={review} />}
         </div>
       )}
     </li>

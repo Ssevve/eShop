@@ -1,5 +1,8 @@
 import { Review } from '@/features/reviews';
 
+const mockCreatedAtDate = new Date('1995-12-17T03:24:00');
+const mockUpdatedAtDate = new Date('1995-12-18T03:24:00');
+
 export const reviewsMock: Review[] = [
   {
     rating: 1,
@@ -8,6 +11,8 @@ export const reviewsMock: Review[] = [
     productId: 'testProductId',
     userId: 'testUserId1',
     _id: 'testReviewId1',
+    createdAt: mockCreatedAtDate,
+    updatedAt: mockUpdatedAtDate,
   },
   {
     rating: 2,
@@ -16,6 +21,7 @@ export const reviewsMock: Review[] = [
     productId: 'testProductId',
     userId: 'testUserId2',
     _id: 'testReviewId2',
+    createdAt: mockCreatedAtDate,
   },
   {
     rating: 3,
@@ -24,5 +30,6 @@ export const reviewsMock: Review[] = [
     productId: 'testProductId',
     userId: 'testUserId3',
     _id: 'testReviewId3',
+    createdAt: mockCreatedAtDate,
   },
 ];

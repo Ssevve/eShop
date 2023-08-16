@@ -23,7 +23,7 @@ describe('Header component', () => {
     });
 
     it('should render log in page link', () => {
-      expect(screen.getByRole('link', { name: /account/i })).toBeInTheDocument();
+      expect(screen.getByRole('link', { name: /log in/i })).toBeInTheDocument();
     });
 
     it('should render cart page link', () => {
@@ -49,8 +49,8 @@ describe('Header component', () => {
       expect(screen.getByRole('navigation')).toBeInTheDocument();
     });
 
-    it('should render profile page link', () => {
-      expect(screen.getByRole('link', { name: /profile/i })).toBeInTheDocument();
+    it('should render dashboard page link', () => {
+      expect(screen.getByRole('link', { name: /account/i })).toBeInTheDocument();
     });
 
     it('should enders cart page link', () => {

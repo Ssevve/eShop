@@ -2,7 +2,7 @@ export const formatPrice = (price: number) => {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(price);
 }
 
-export const formatDate = (date: string) => {
+export const formatDate = (date: Date) => {
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "short",

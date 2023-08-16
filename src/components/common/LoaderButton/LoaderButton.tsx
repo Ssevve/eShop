@@ -12,8 +12,8 @@ type LoaderButtonProps = {
 export function LoaderButton({
   children,
   isLoading,
-  loaderHeight = 26,
-  loaderWidth = 28,
+  loaderHeight = 24,
+  loaderWidth = 32,
   type = 'button',
   ...props
 }: LoaderButtonProps) {

@@ -17,6 +17,8 @@ toastMiddleware.startListening({
     cartsApi.endpoints.clearCart.matchRejected,
     reviewsApi.endpoints.createReview.matchFulfilled,
     reviewsApi.endpoints.createReview.matchRejected,
+    reviewsApi.endpoints.editReview.matchFulfilled,
+    reviewsApi.endpoints.editReview.matchRejected,
     ),
   effect: async () => {
     toast.dismiss();

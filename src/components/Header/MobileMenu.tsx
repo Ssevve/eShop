@@ -1,11 +1,12 @@
+import { CloseMenuButton } from '@/components/common/CloseMenuButton';
 import { SocialLinks } from '@/components/common/SocialLinks';
 import theme from '@/lib/theme';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { FiChevronDown, FiPhone } from 'react-icons/fi';
 import { HiOutlineMail } from 'react-icons/hi';
-import { TfiClose } from 'react-icons/tfi';
 import { Link } from 'react-router-dom';
+import { useOnClickOutside } from 'usehooks-ts';
 import { CategoryList } from './CategoryList';
 
 interface MobileMenuProps {
@@ -15,6 +16,8 @@ interface MobileMenuProps {
 
 export function MobileMenu({ toggleClose, isOpen }: MobileMenuProps) {
   const [shouldShowCategories, setShouldShowCategories] = useState(false);
+  const mobileMenuRef = useRef(null);
+  useOnClickOutside(mobileMenuRef, toggleClose);
 
   const toggleCategories = () => setShouldShowCategories((prev) => !prev);
 
@@ -22,6 +25,7 @@ export function MobileMenu({ toggleClose, isOpen }: MobileMenuProps) {
     <AnimatePresence>
       {isOpen && (
         <motion.div
+          ref={mobileMenuRef}
           initial={{ width: 0 }}
           animate={{ width: theme.width[80] }}
           exit={{ width: 0 }}
@@ -30,14 +34,7 @@ export function MobileMenu({ toggleClose, isOpen }: MobileMenuProps) {
           <div className="p-3">
             <section className="flex items-center justify-between">
               <h2 className="font-semibold uppercase text-gray-400">Menu</h2>
-              <button
-                aria-label="Close menu"
-                type="button"
-                className="rounded-sm p-1.5 text-gray-400 hover:bg-gray-200 hover:text-dark"
-                onClick={toggleClose}
-              >
-                <TfiClose size={16} strokeWidth={2} />
-              </button>
+              <CloseMenuButton close={toggleClose} />
             </section>
             <section className="overflow-y-auto py-6">
               <ul className="space-y-3 overflow-x-hidden font-medium">

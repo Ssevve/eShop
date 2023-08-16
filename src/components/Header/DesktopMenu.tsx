@@ -4,7 +4,7 @@ import { CategoryList } from './CategoryList';
 
 interface DesktopMenuProps {
   shouldShowCategories: boolean;
-  toggleCategories: (bool?: boolean) => void;
+  toggleCategories: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export function DesktopMenu({ shouldShowCategories, toggleCategories }: DesktopMenuProps) {
