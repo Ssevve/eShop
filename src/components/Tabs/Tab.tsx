@@ -6,7 +6,6 @@ interface TabProps {
 }
 
 export function Tab({ tab }: TabProps) {
-  console.log(location.pathname);
   return (
     <li className="mr-1.5">
       <NavLink
