@@ -34,7 +34,7 @@ const productsApi = api.injectEndpoints({
     }),
     getProductById: builder.query<Product, GetProductByIdReqParams>({
       query: (id) => `products/${id}`,
-      providesTags: (result, err, arg) => [{ type: 'Products', id: arg }],
+      providesTags: (result, err, arg) => [{ type: 'Products' as const, id: arg }],
     }),
   }),
   overrideExisting: false,
