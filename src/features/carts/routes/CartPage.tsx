@@ -3,9 +3,9 @@ import { ConfirmationModal } from '@/components/common/ConfirmationModal';
 import { List } from '@/components/common/List';
 import { Loader } from '@/components/common/Loader';
 import { LoaderButton } from '@/components/common/LoaderButton';
+import { useCreateCheckoutSessionMutation } from '@/features/checkout/api';
 import { formatPrice } from '@/utils/format';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import {
   useClearCartMutation,
   useGetCartQuery,
@@ -29,8 +29,18 @@ export function CartPage() {
     fixedCacheKey: 'clear',
   });
 
+  const [createCheckoutSession] = useCreateCheckoutSessionMutation();
+
   const shouldDisableClearButton =
     isLoadingCart || isLoadingClear || isLoadingUpdate || isLoadingRemove;
+
+  const checkout = async () => {
+    const createSessionResult = await createCheckoutSession(cart?._id || '');
+    if ('data' in createSessionResult) {
+      const redirectUrl = createSessionResult.data.url;
+      if (redirectUrl) window.location.replace(redirectUrl);
+    }
+  };
 
   return (
     <>
@@ -95,7 +105,7 @@ export function CartPage() {
             <span>Final price:</span>
             <span>{cart?.finalPrice !== undefined ? formatPrice(cart?.finalPrice) : 'N/A'}</span>
           </div>
-          <Button renderAs={Link} to="/checkout" fullWidth>
+          <Button onClick={checkout} fullWidth>
             Checkout
           </Button>
         </section>
