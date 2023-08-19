@@ -123,13 +123,13 @@ describe('CartPage', () => {
     });
   });
 
-  it("should render 'checkout' link", () => {
+  it("should render 'checkout' button", () => {
     renderWithProviders(
       <BrowserRouter>
         <CartPage />
       </BrowserRouter>
     );
 
-    expect(screen.getByRole('link', { name: /checkout/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /checkout/i })).toBeInTheDocument();
   });
 });
