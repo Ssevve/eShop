@@ -1,11 +1,10 @@
 interface UpdateAmountTriggerProps {
   disabled: boolean;
-  shouldRender: boolean;
   onClick: () => void;
 }
 
-export function UpdateAmountTrigger({ disabled, shouldRender, onClick }: UpdateAmountTriggerProps) {
-  return shouldRender ? (
+export function UpdateAmountTrigger({ disabled, onClick }: UpdateAmountTriggerProps) {
+  return (
     <button
       disabled={disabled}
       onClick={onClick}
@@ -13,5 +12,5 @@ export function UpdateAmountTrigger({ disabled, shouldRender, onClick }: UpdateA
     >
       Update
     </button>
-  ) : null;
+  );
 }

@@ -1,11 +1,9 @@
+import FixedCacheKeys from '@/lib/fixedCacheKeys';
 import { AmountInput } from '@/components/common/AmountInput';
 import { ConfirmationModal } from '@/components/common/ConfirmationModal';
 import { LoaderButton } from '@/components/common/LoaderButton';
-import {
-  useClearCartMutation,
-  useRemoveCartProductMutation,
-  useUpdateCartProductAmountMutation,
-} from '@/features/carts';
+import { useRemoveCartProductMutation, useUpdateCartProductAmountMutation } from '@/features/carts';
+import useLoadingStates from '@/hooks/useLoadingStates';
 import { productConstraints } from '@/lib/constants';
 import { useEffect, useState } from 'react';
 import { FiTrash } from 'react-icons/fi';
@@ -17,7 +15,6 @@ interface CartProductControlsProps {
   productId: string;
   productName: string;
   productAmount: number;
-  isFetchingCart: boolean;
   className?: string;
 }
 
@@ -26,54 +23,51 @@ export function CartProductControls({
   productId,
   productName,
   productAmount,
-  isFetchingCart,
   className,
 }: CartProductControlsProps) {
   const [amount, setAmount] = useState(productAmount);
   const [shouldShowRemoveModal, setShouldShowRemoveModal] = useState(false);
   const [isRemoving, setIsRemoving] = useState(false);
-  const [updateAmount, { isError: isErrorUpdate, isLoading: isLoadingUpdate }] =
-    useUpdateCartProductAmountMutation({ fixedCacheKey: 'update' });
-  const [, { isLoading: isLoadingClear }] = useClearCartMutation({
-    fixedCacheKey: 'clear',
+  const { isLoadingAny, isFetchingCart } = useLoadingStates();
+  const [updateAmount, { isError: isErrorUpdate }] = useUpdateCartProductAmountMutation({
+    fixedCacheKey: FixedCacheKeys.updateCartProduct,
   });
-  const [removeFromCart, { isLoading: isLoadingRemove, isError: isErrorRemove }] =
-    useRemoveCartProductMutation({
-      fixedCacheKey: 'remove',
-    });
+  const [removeFromCart, { isError: isErrorRemove }] = useRemoveCartProductMutation({
+    fixedCacheKey: FixedCacheKeys.removeCartProduct,
+  });
 
   useEffect(() => {
     if (!isFetchingCart || isErrorRemove) setIsRemoving(false);
   }, [isFetchingCart, isErrorRemove]);
+
+  useEffect(() => {
+    if (isErrorUpdate) setAmount(productAmount);
+  }, [isErrorUpdate]);
 
   const handleRemove = () => {
     setIsRemoving(true);
     removeFromCart({ cartId, productId, productName });
   };
 
-  useEffect(() => {
-    if (isErrorUpdate) setAmount(productAmount);
-  }, [isErrorUpdate]);
-
-  const shouldDisableButtons = isLoadingUpdate || isLoadingRemove || isLoadingClear;
-  const hasAmountChanged = amount !== productAmount;
+  const amountChanged = amount !== productAmount;
 
   return (
     <>
       <div className={twMerge('flex flex-col gap-4 sm:flex-row', className)}>
         <div className="relative">
-          <UpdateAmountTrigger
-            shouldRender={hasAmountChanged}
-            disabled={shouldDisableButtons}
-            onClick={() =>
-              updateAmount({
-                cartId,
-                productId,
-                productName,
-                amount,
-              })
-            }
-          />
+          {amountChanged && (
+            <UpdateAmountTrigger
+              disabled={isLoadingAny}
+              onClick={() =>
+                updateAmount({
+                  cartId,
+                  productId,
+                  productName,
+                  amount,
+                })
+              }
+            />
+          )}
           <AmountInput
             initialAmount={productAmount}
             minAmount={productConstraints.amount.min}
@@ -81,7 +75,7 @@ export function CartProductControls({
             amount={amount}
             setAmount={setAmount}
             shouldReset={isErrorUpdate}
-            disabled={shouldDisableButtons}
+            disabled={isLoadingAny}
           />
         </div>
         <LoaderButton
@@ -91,7 +85,7 @@ export function CartProductControls({
           title="Remove from cart"
           aria-label="Remove from cart"
           isLoading={isRemoving}
-          disabled={shouldDisableButtons}
+          disabled={isLoadingAny}
           className="w-full p-2 sm:w-16"
         >
           <FiTrash size={20} />

@@ -1,36 +1,34 @@
-import { Button } from '@/components/common/Button';
 import { ConfirmationModal } from '@/components/common/ConfirmationModal';
 import { List } from '@/components/common/List';
 import { Loader } from '@/components/common/Loader';
 import { LoaderButton } from '@/components/common/LoaderButton';
+import { useCreateCheckoutSessionMutation } from '@/features/checkout/api';
+import useLoadingStates from '@/hooks/useLoadingStates';
 import { formatPrice } from '@/utils/format';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import {
-  useClearCartMutation,
-  useGetCartQuery,
-  useRemoveCartProductMutation,
-  useUpdateCartProductAmountMutation,
-} from '../api';
+import { toast } from 'react-toastify';
+import { useClearCartMutation, useGetCartQuery } from '../api';
 import { CartProductEntity } from '../components';
 
 export function CartPage() {
   const [shouldShowClearCartModal, setShouldShowClearCartModal] = useState(false);
+  const { isLoadingAny } = useLoadingStates();
   const { data: cart, isLoading: isLoadingCart } = useGetCartQuery();
-  const [, { isLoading: isLoadingRemove }] = useRemoveCartProductMutation({
-    fixedCacheKey: 'remove',
-  });
+  const [clearCart, { isLoading: isClearingCart }] = useClearCartMutation();
+  const [createCheckoutSession, { isLoading: isCheckingOut }] = useCreateCheckoutSessionMutation();
 
-  const [, { isLoading: isLoadingUpdate }] = useUpdateCartProductAmountMutation({
-    fixedCacheKey: 'update',
-  });
+  const shouldDisableButtons = isLoadingAny || isCheckingOut;
 
-  const [clearCart, { isLoading: isLoadingClear }] = useClearCartMutation({
-    fixedCacheKey: 'clear',
-  });
-
-  const shouldDisableClearButton =
-    isLoadingCart || isLoadingClear || isLoadingUpdate || isLoadingRemove;
+  const checkout = async () => {
+    if (!cart?.products.length) {
+      return toast.error('Cannot checkout with an empty cart!');
+    }
+    const createSessionResult = await createCheckoutSession(cart?._id || '');
+    if ('data' in createSessionResult) {
+      const redirectUrl = createSessionResult.data.url;
+      if (redirectUrl) window.location.replace(redirectUrl);
+    }
+  };
 
   return (
     <>
@@ -40,8 +38,8 @@ export function CartPage() {
             <h1 className="text-2xl font-bold">{`Cart (${cart?.totalProductAmount || 0})`}</h1>
             <LoaderButton
               variant="neutral"
-              isLoading={isLoadingClear}
-              disabled={shouldDisableClearButton}
+              isLoading={isClearingCart}
+              disabled={shouldDisableButtons}
               onClick={() => setShouldShowClearCartModal(true)}
               loaderHeight={24}
               loaderWidth={40}
@@ -66,7 +64,6 @@ export function CartPage() {
                     imageUrl={product.imageUrl}
                     amount={amount}
                     cartId={cart?._id || ''}
-                    isFetchingCart={isLoadingCart}
                   />
                 )}
                 className="divide-y"
@@ -95,9 +92,14 @@ export function CartPage() {
             <span>Final price:</span>
             <span>{cart?.finalPrice !== undefined ? formatPrice(cart?.finalPrice) : 'N/A'}</span>
           </div>
-          <Button renderAs={Link} to="/checkout" fullWidth>
+          <LoaderButton
+            isLoading={isCheckingOut}
+            disabled={shouldDisableButtons}
+            onClick={checkout}
+            fullWidth
+          >
             Checkout
-          </Button>
+          </LoaderButton>
         </section>
       </section>
       {shouldShowClearCartModal && (

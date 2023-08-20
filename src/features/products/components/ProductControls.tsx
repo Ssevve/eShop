@@ -1,7 +1,8 @@
 import { AddToCartButton } from '@/components/common/AddToCartButton';
 import { AmountInput } from '@/components/common/AmountInput';
 import { CartProductControls } from '@/components/common/CartProductControls';
-import { cartsApi, useAddCartProductMutation } from '@/features/carts';
+import { cartsApi } from '@/features/carts';
+import useLoadingStates from '@/hooks/useLoadingStates';
 import { productConstraints } from '@/lib/constants';
 import { useState } from 'react';
 import { Product } from '../types';
@@ -12,9 +13,7 @@ interface ProductControlsProps {
 
 export function ProductControls({ product }: ProductControlsProps) {
   const [amount, setAmount] = useState(productConstraints.amount.min);
-  const [, { isLoading: isLoadingAdd }] = useAddCartProductMutation({
-    fixedCacheKey: 'add',
-  });
+  const { isAddingCartProduct } = useLoadingStates();
   const { cartId, cartProduct, isFetching } = cartsApi.endpoints.getCart.useQueryState(undefined, {
     selectFromResult: ({ data, isFetching }) => ({
       cartId: data?._id || '',
@@ -31,7 +30,6 @@ export function ProductControls({ product }: ProductControlsProps) {
           productId={cartProduct.product._id}
           productName={cartProduct.product.name}
           productAmount={cartProduct.amount}
-          isFetchingCart={isFetching}
         />
       ) : (
         <>
@@ -41,7 +39,7 @@ export function ProductControls({ product }: ProductControlsProps) {
             maxAmount={productConstraints.amount.max}
             amount={amount}
             setAmount={setAmount}
-            disabled={isLoadingAdd}
+            disabled={isAddingCartProduct}
           />
           <AddToCartButton
             cartId={cartId}
