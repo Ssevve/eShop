@@ -13,6 +13,7 @@ import {
   useUpdateCartProductAmountMutation,
 } from '../api';
 import { CartProductEntity } from '../components';
+import { toast } from 'react-toastify';
 
 export function CartPage() {
   const [shouldShowClearCartModal, setShouldShowClearCartModal] = useState(false);
@@ -29,12 +30,16 @@ export function CartPage() {
     fixedCacheKey: 'clear',
   });
 
-  const [createCheckoutSession] = useCreateCheckoutSessionMutation();
+  const [createCheckoutSession, { isLoading: isLoadingCheckout }] =
+    useCreateCheckoutSessionMutation();
 
   const shouldDisableClearButton =
     isLoadingCart || isLoadingClear || isLoadingUpdate || isLoadingRemove;
 
   const checkout = async () => {
+    if (!cart?.products.length) {
+      return toast.error('Cannot checkout with an empty cart!');
+    }
     const createSessionResult = await createCheckoutSession(cart?._id || '');
     if ('data' in createSessionResult) {
       const redirectUrl = createSessionResult.data.url;
@@ -105,9 +110,9 @@ export function CartPage() {
             <span>Final price:</span>
             <span>{cart?.finalPrice !== undefined ? formatPrice(cart?.finalPrice) : 'N/A'}</span>
           </div>
-          <Button onClick={checkout} fullWidth>
+          <LoaderButton isLoading={isLoadingCheckout} onClick={checkout} fullWidth>
             Checkout
-          </Button>
+          </LoaderButton>
         </section>
       </section>
       {shouldShowClearCartModal && (
