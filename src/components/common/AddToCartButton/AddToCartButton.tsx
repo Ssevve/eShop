@@ -1,3 +1,4 @@
+import FixedCacheKeys from '@/lib/fixedCacheKeys';
 import { LoaderButton } from '@/components/common/LoaderButton';
 import { useAddCartProductMutation } from '@/features/carts';
 import { useEffect, useState } from 'react';
@@ -19,7 +20,9 @@ export function AddToCartButton({
   amount,
 }: AddToCartButtonProps) {
   const [isAdding, setIsAdding] = useState(isFetchingCart);
-  const [addToCart, { isError, isLoading }] = useAddCartProductMutation({ fixedCacheKey: 'add' });
+  const [addToCart, { isError, isLoading }] = useAddCartProductMutation({
+    fixedCacheKey: FixedCacheKeys.addCartProduct,
+  });
 
   useEffect(() => {
     if (!isFetchingCart || isError) setIsAdding(false);

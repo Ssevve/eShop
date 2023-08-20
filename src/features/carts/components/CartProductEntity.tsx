@@ -10,7 +10,6 @@ interface CartProductEntityProps {
   price: number;
   amount: number;
   discountPrice: number;
-  isFetchingCart: boolean;
   cartId: string;
 }
 
@@ -21,7 +20,6 @@ export function CartProductEntity({
   price,
   amount,
   discountPrice,
-  isFetchingCart,
   cartId,
 }: CartProductEntityProps) {
   const imageHeight = theme.spacing[40];
@@ -49,7 +47,6 @@ export function CartProductEntity({
           productId={id}
           productName={name}
           productAmount={amount}
-          isFetchingCart={isFetchingCart}
         />
       </section>
     </div>
