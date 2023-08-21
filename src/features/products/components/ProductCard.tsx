@@ -1,4 +1,5 @@
 import { AddToCartButton } from '@/components/common/AddToCartButton';
+import { Card } from '@/components/common/Card/Card';
 import { PriceGroup } from '@/components/common/PriceGroup';
 import { StarRating } from '@/components/common/StarRating';
 import { cartsApi } from '@/features/carts';
@@ -21,7 +22,7 @@ export function ProductCard({ product }: ProductCardProps) {
   });
 
   return (
-    <div className="h-full w-full rounded-sm border border-gray-200 bg-white shadow lg:max-w-xs">
+    <Card className="h-full w-full lg:max-w-xs">
       <Link to={`/products/${product._id}`}>
         <img
           className="mx-auto h-80 rounded-sm object-scale-down"
@@ -29,10 +30,10 @@ export function ProductCard({ product }: ProductCardProps) {
           src={product.imageUrl}
           alt={product.name}
         />
-        <div className="px-4 pb-8">
-          <h2 className="mt-4 text-xl font-semibold tracking-tight">{product.name}</h2>
+        <div className="py-8">
+          <h2 className="text-xl font-semibold tracking-tight">{product.name}</h2>
 
-          <div className="mb-8 mt-4 flex items-center">
+          <div className="mb-4 mt-4 flex items-center">
             <StarRating rating={product.rating} size={16} />
           </div>
           <div>
@@ -41,7 +42,7 @@ export function ProductCard({ product }: ProductCardProps) {
           </div>
         </div>
       </Link>
-      <footer className="mx-4 flex h-20 justify-between gap-2 self-end border-t border-gray-200 py-4">
+      <footer className="flex h-20 items-center justify-between gap-2 self-end border-t border-gray-200">
         <PriceGroup price={product.price} discountPrice={product.discountPrice} />
         {cartProduct ? (
           <div className="my-auto flex flex-col text-center sm:flex-row sm:text-lg">
@@ -58,6 +59,6 @@ export function ProductCard({ product }: ProductCardProps) {
           />
         )}
       </footer>
-    </div>
+    </Card>
   );
 }
