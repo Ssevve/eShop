@@ -74,7 +74,7 @@ export function RegisterForm() {
         autoComplete="email"
         type="email"
         error={errors.email}
-        {...register('email')}
+        {...register('email', { required: 'Email is required' })}
         required
       />
       <Input
@@ -82,7 +82,7 @@ export function RegisterForm() {
         autoComplete="given-name"
         type="text"
         error={errors.firstName}
-        {...register('firstName')}
+        {...register('firstName', { required: 'First name is required' })}
         required
       />
       <Input
@@ -90,7 +90,7 @@ export function RegisterForm() {
         autoComplete="family-name"
         type="text"
         error={errors.lastName}
-        {...register('lastName')}
+        {...register('lastName', { required: 'Last name is required' })}
         required
       />
       <Input
@@ -98,7 +98,7 @@ export function RegisterForm() {
         autoComplete="new-password"
         type="password"
         error={errors.password}
-        {...register('password')}
+        {...register('password', { required: 'Password is required' })}
         required
       />
       <Input
@@ -106,7 +106,7 @@ export function RegisterForm() {
         autoComplete="new-password"
         type="password"
         error={errors.repeatPassword}
-        {...register('repeatPassword')}
+        {...register('repeatPassword', { required: 'You need to confirm the password' })}
         required
       />
       <LoaderButton type="submit" fullWidth isLoading={isPendingAuth}>

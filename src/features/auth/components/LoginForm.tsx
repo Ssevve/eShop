@@ -66,7 +66,7 @@ export function LoginForm() {
         autoComplete="email"
         type="email"
         error={errors.email}
-        {...register('email')}
+        {...register('email', { required: 'Email is required' })}
         required
       />
       <Input
@@ -74,7 +74,7 @@ export function LoginForm() {
         autoComplete="current-password"
         type="password"
         error={errors.password}
-        {...register('password')}
+        {...register('password', { required: 'Password is required' })}
         required
       />
       <LoaderButton type="submit" fullWidth isLoading={isPendingAuth}>
