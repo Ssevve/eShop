@@ -1,35 +1,9 @@
 import groceriesIllustration from '@/assets/groceries.svg';
 import { Button } from '@/components/common/Button';
-import { Card } from '@/components/common/Card/Card';
-import { List } from '@/components/common/List';
-import { PriceGroup } from '@/components/common/PriceGroup';
-import { StarRating } from '@/components/common/StarRating';
-import { useGetProductsQuery } from '@/features/products';
-import { ProductCard } from '@/features/products/components/ProductCard';
+import { FeaturedProducts } from '@/features/products/components/FeaturedProducts';
 import { Link } from 'react-router-dom';
 
 export function HomePage() {
-  const { data: bestDealsData } = useGetProductsQuery({
-    page: 1,
-    category: 'Discounts',
-    sort: 'discountPrice',
-    order: 'asc',
-  });
-
-  const { data: topRatedData } = useGetProductsQuery({
-    page: 1,
-    category: null,
-    sort: 'rating',
-    order: 'desc',
-  });
-
-  const { data: mostRatedData } = useGetProductsQuery({
-    page: 1,
-    category: null,
-    sort: 'ratingsCount',
-    order: 'desc',
-  });
-
   return (
     <section className="flex flex-col gap-16 py-8">
       <section className="flex grow flex-col items-center justify-evenly gap-8 md:flex-row">
@@ -60,69 +34,7 @@ export function HomePage() {
           </section>
         </section>
       </section>
-      <section className="w-full">
-        <h2 className="text-2xl font-semibold tracking-tight">Best Deals</h2>
-        <List
-          items={bestDealsData?.products}
-          className="flex gap-4 overflow-x-auto py-4"
-          renderItem={(product) => (
-            <Card className="w-48">
-              <Link className="flex flex-col gap-4 divide-y" to={`/products/${product._id}`}>
-                <div className="flex flex-col gap-4">
-                  <img src={product.imageUrl} alt={product.name} />
-                  <h3>{product.name}</h3>
-                  <StarRating ratingsCount={product.ratingsCount} rating={product.rating} />
-                </div>
-                <div className="pt-4">
-                  <PriceGroup price={product.price} discountPrice={product.discountPrice} />
-                </div>
-              </Link>
-            </Card>
-          )}
-        />
-      </section>
-      <section className="w-full">
-        <h2 className="text-2xl font-semibold tracking-tight">Top Rated</h2>
-        <List
-          items={topRatedData?.products}
-          className="flex gap-4 overflow-x-auto py-4"
-          renderItem={(product) => (
-            <Card className="w-48">
-              <Link className="flex flex-col gap-4 divide-y" to={`/products/${product._id}`}>
-                <div className="flex flex-col gap-4">
-                  <img src={product.imageUrl} alt={product.name} />
-                  <h3>{product.name}</h3>
-                  <StarRating ratingsCount={product.ratingsCount} rating={product.rating} />
-                </div>
-                <div className="pt-4">
-                  <PriceGroup price={product.price} discountPrice={product.discountPrice} />
-                </div>
-              </Link>
-            </Card>
-          )}
-        />
-      </section>
-      <section className="w-full">
-        <h2 className="text-2xl font-semibold tracking-tight">Most Rated</h2>
-        <List
-          items={mostRatedData?.products}
-          className="flex gap-4 overflow-x-auto py-4"
-          renderItem={(product) => (
-            <Card className="w-48">
-              <Link className="flex flex-col gap-4 divide-y" to={`/products/${product._id}`}>
-                <div className="flex flex-col gap-4">
-                  <img src={product.imageUrl} alt={product.name} />
-                  <h3>{product.name}</h3>
-                  <StarRating ratingsCount={product.ratingsCount} rating={product.rating} />
-                </div>
-                <div className="pt-4">
-                  <PriceGroup price={product.price} discountPrice={product.discountPrice} />
-                </div>
-              </Link>
-            </Card>
-          )}
-        />
-      </section>
+      <FeaturedProducts />
     </section>
   );
 }
