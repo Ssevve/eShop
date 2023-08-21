@@ -5,6 +5,7 @@ import { List } from '@/components/common/List';
 import { PriceGroup } from '@/components/common/PriceGroup';
 import { StarRating } from '@/components/common/StarRating';
 import { useGetProductsQuery } from '@/features/products';
+import { ProductCard } from '@/features/products/components/ProductCard';
 import { Link } from 'react-router-dom';
 
 export function HomePage() {
@@ -13,6 +14,20 @@ export function HomePage() {
     category: 'Discounts',
     sort: 'discountPrice',
     order: 'asc',
+  });
+
+  const { data: topRatedData } = useGetProductsQuery({
+    page: 1,
+    category: null,
+    sort: 'rating',
+    order: 'desc',
+  });
+
+  const { data: mostRatedData } = useGetProductsQuery({
+    page: 1,
+    category: null,
+    sort: 'ratingsCount',
+    order: 'desc',
   });
 
   return (
@@ -56,7 +71,49 @@ export function HomePage() {
                 <div className="flex flex-col gap-4">
                   <img src={product.imageUrl} alt={product.name} />
                   <h3>{product.name}</h3>
-                  <StarRating rating={product.rating} />
+                  <StarRating ratingsCount={product.ratingsCount} rating={product.rating} />
+                </div>
+                <div className="pt-4">
+                  <PriceGroup price={product.price} discountPrice={product.discountPrice} />
+                </div>
+              </Link>
+            </Card>
+          )}
+        />
+      </section>
+      <section className="w-full">
+        <h2 className="text-2xl font-semibold tracking-tight">Top Rated</h2>
+        <List
+          items={topRatedData?.products}
+          className="flex gap-4 overflow-x-auto py-4"
+          renderItem={(product) => (
+            <Card className="w-48">
+              <Link className="flex flex-col gap-4 divide-y" to={`/products/${product._id}`}>
+                <div className="flex flex-col gap-4">
+                  <img src={product.imageUrl} alt={product.name} />
+                  <h3>{product.name}</h3>
+                  <StarRating ratingsCount={product.ratingsCount} rating={product.rating} />
+                </div>
+                <div className="pt-4">
+                  <PriceGroup price={product.price} discountPrice={product.discountPrice} />
+                </div>
+              </Link>
+            </Card>
+          )}
+        />
+      </section>
+      <section className="w-full">
+        <h2 className="text-2xl font-semibold tracking-tight">Most Rated</h2>
+        <List
+          items={mostRatedData?.products}
+          className="flex gap-4 overflow-x-auto py-4"
+          renderItem={(product) => (
+            <Card className="w-48">
+              <Link className="flex flex-col gap-4 divide-y" to={`/products/${product._id}`}>
+                <div className="flex flex-col gap-4">
+                  <img src={product.imageUrl} alt={product.name} />
+                  <h3>{product.name}</h3>
+                  <StarRating ratingsCount={product.ratingsCount} rating={product.rating} />
                 </div>
                 <div className="pt-4">
                   <PriceGroup price={product.price} discountPrice={product.discountPrice} />
