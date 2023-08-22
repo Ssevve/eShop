@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge';
 interface ListProps<T> extends React.ComponentPropsWithoutRef<'ul'> {
   renderItem: (item: T) => JSX.Element;
   getKey?: (item: T) => React.Key;
-  emptyItemsMessage: string;
+  emptyItemsMessage?: string;
   emptyItemsMessageClass?: string;
   itemClassName?: string;
   items: T[] | undefined;

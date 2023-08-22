@@ -41,7 +41,9 @@ export function AddToCartButton({
       disabled={isLoading}
       isLoading={isAdding}
       variant="primary"
-      className="w-16 p-2"
+      className="w-16 px-4 py-2"
+      loaderHeight={20}
+      loaderWidth={26}
     >
       <FiShoppingCart size={20} />
     </LoaderButton>

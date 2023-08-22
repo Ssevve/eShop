@@ -3,14 +3,14 @@ import { productsMock } from '@/mocks';
 import renderWithProviders from '@/utils/renderWithProviders';
 import { screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import { ProductCard } from '../ProductCard';
+import { FeaturedProductCard } from '../FeaturedProductCard';
 
-describe('ProductCard component', () => {
+describe('FeaturedProductCard component', () => {
   it("should render a link to product's page", () => {
     const expectedProduct = productsMock[0];
     renderWithProviders(
       <BrowserRouter>
-        <ProductCard product={expectedProduct} />
+        <FeaturedProductCard product={expectedProduct} />
       </BrowserRouter>
     );
     expect(screen.getByRole('link')).toHaveAttribute('href', `/products/${expectedProduct._id}`);
@@ -20,7 +20,7 @@ describe('ProductCard component', () => {
     const expectedProduct = productsMock[0];
     renderWithProviders(
       <BrowserRouter>
-        <ProductCard product={expectedProduct} />
+        <FeaturedProductCard product={expectedProduct} />
       </BrowserRouter>
     );
     expect(screen.getByAltText(expectedProduct.name)).toHaveAttribute(
@@ -33,7 +33,7 @@ describe('ProductCard component', () => {
     const expectedProduct = productsMock[0];
     renderWithProviders(
       <BrowserRouter>
-        <ProductCard product={expectedProduct} />
+        <FeaturedProductCard product={expectedProduct} />
       </BrowserRouter>
     );
     expect(screen.getByText(expectedProduct.name)).toBeInTheDocument();
@@ -43,7 +43,7 @@ describe('ProductCard component', () => {
     const expectedProduct = productsMock[0];
     renderWithProviders(
       <BrowserRouter>
-        <ProductCard product={expectedProduct} />
+        <FeaturedProductCard product={expectedProduct} />
       </BrowserRouter>
     );
     expect(
@@ -53,43 +53,13 @@ describe('ProductCard component', () => {
     ).toBeInTheDocument();
   });
 
-  it('should render product quantity', () => {
-    const expectedProduct = productsMock[0];
-    renderWithProviders(
-      <BrowserRouter>
-        <ProductCard product={expectedProduct} />
-      </BrowserRouter>
-    );
-    expect(screen.getByText(`Qty: ${expectedProduct.quantity}`)).toBeInTheDocument();
-  });
-
-  it('should render product brand', () => {
-    const expectedProduct = productsMock[0];
-    renderWithProviders(
-      <BrowserRouter>
-        <ProductCard product={expectedProduct} />
-      </BrowserRouter>
-    );
-    expect(screen.getByText(expectedProduct.brand)).toBeInTheDocument();
-  });
-
   it('should render PriceGroup component', () => {
     const expectedProduct = productsMock[0];
     renderWithProviders(
       <BrowserRouter>
-        <ProductCard product={expectedProduct} />
+        <FeaturedProductCard product={expectedProduct} />
       </BrowserRouter>
     );
     expect(screen.getByText(`$${expectedProduct.price}`)).toBeInTheDocument();
-  });
-
-  it("should render 'add to cart' button", () => {
-    const expectedProduct = productsMock[0];
-    renderWithProviders(
-      <BrowserRouter>
-        <ProductCard product={expectedProduct} />
-      </BrowserRouter>
-    );
-    expect(screen.getByRole('button', { name: /add to cart/i })).toBeInTheDocument();
   });
 });

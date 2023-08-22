@@ -1,8 +1,8 @@
 enum FixedCacheKeys {
-  updateCartProduct,
-  removeCartProduct,
-  addCartProduct,
-  clearCart,
+  updateCartProduct = 'updateCartProduct',
+  removeCartProduct = 'removeCartProduct',
+  addCartProduct = 'addCartProduct',
+  clearCart = 'clearCart',
 };
 
 export default FixedCacheKeys;
