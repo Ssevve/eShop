@@ -27,7 +27,7 @@ export function MobileMenu({ toggleClose, isOpen }: MobileMenuProps) {
         <motion.div
           ref={mobileMenuRef}
           initial={{ width: 0 }}
-          animate={{ width: theme.width[80] }}
+          animate={{ width: theme.spacing[80] }}
           exit={{ width: 0 }}
           className="fixed left-0 top-0 z-50 flex h-screen max-w-full flex-col content-start justify-between overflow-hidden border-r bg-white"
         >

@@ -4,22 +4,21 @@ import { BrowserRouter } from 'react-router-dom';
 import { NotFoundPage } from '../NotFoundPage';
 
 describe('NotFoundPage', () => {
-  it('should render correct heading', () => {
+  it('should render 404 image', () => {
     renderWithProviders(
       <BrowserRouter>
         <NotFoundPage />
       </BrowserRouter>
     );
-    expect(screen.getByRole('heading', { name: '404' })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: /page not found/i })).toBeInTheDocument();
   });
 
-  it('should render correct paragraphs', () => {
+  it('should render correct paragraph', () => {
     renderWithProviders(
       <BrowserRouter>
         <NotFoundPage />
       </BrowserRouter>
     );
-    expect(screen.getByText('Page not found.')).toBeInTheDocument();
     expect(screen.getByText("Sorry, we can't find this page.")).toBeInTheDocument();
   });
 
