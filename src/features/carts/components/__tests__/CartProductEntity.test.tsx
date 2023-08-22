@@ -26,7 +26,6 @@ describe('CartProductEntity component', () => {
           imageUrl={expectedProduct.product.imageUrl}
           amount={expectedProduct.amount}
           cartId={cartMock._id}
-          isFetchingCart={false}
         />
       </BrowserRouter>,
       { preloadedState }
@@ -59,7 +58,6 @@ describe('CartProductEntity component', () => {
           imageUrl={expectedProduct.product.imageUrl}
           amount={expectedProduct.amount}
           cartId={cartMock._id}
-          isFetchingCart={false}
         />
       </BrowserRouter>,
       { preloadedState }
@@ -89,7 +87,6 @@ describe('CartProductEntity component', () => {
           imageUrl={expectedProduct.product.imageUrl}
           amount={expectedProduct.amount}
           cartId={cartMock._id}
-          isFetchingCart={false}
         />
       </BrowserRouter>,
       { preloadedState }
@@ -119,7 +116,6 @@ describe('CartProductEntity component', () => {
           imageUrl={expectedProduct.product.imageUrl}
           amount={expectedProduct.amount}
           cartId={cartMock._id}
-          isFetchingCart={false}
         />
       </BrowserRouter>,
       { preloadedState }
@@ -149,7 +145,6 @@ describe('CartProductEntity component', () => {
           imageUrl={expectedProduct.product.imageUrl}
           amount={expectedProduct.amount}
           cartId={cartMock._id}
-          isFetchingCart={false}
         />
       </BrowserRouter>,
       { preloadedState }
