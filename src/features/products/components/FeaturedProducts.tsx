@@ -1,54 +1,62 @@
-import { List } from '@/components/common/List';
+import { Loader } from '@/components/common/Loader';
 import { useGetProductsQuery } from '../api';
-import { FeaturedProductCard } from './FeaturedProductCard';
+import { FeaturedProductsList } from './FeaturedProductsList';
 
 export function FeaturedProducts() {
-  const { data: bestDealsData } = useGetProductsQuery({
+  const {
+    data: bestDealsData,
+    isLoading: isLoadingBestDeals,
+    isError: isBestDealsError,
+  } = useGetProductsQuery({
     page: 1,
     category: 'Discounts',
     sort: 'discountPrice',
     order: 'asc',
   });
 
-  const { data: topRatedData } = useGetProductsQuery({
+  const {
+    data: topRatedData,
+    isLoading: isLoadingTopRated,
+    isError: isTopRatedError,
+  } = useGetProductsQuery({
     page: 1,
     category: null,
     sort: 'rating',
     order: 'desc',
   });
 
-  const { data: mostReviewedData } = useGetProductsQuery({
+  const {
+    data: mostReviewedData,
+    isLoading: isLoadingMostReviewed,
+    isError: isMostReviewedError,
+  } = useGetProductsQuery({
     page: 1,
     category: null,
     sort: 'ratingsCount',
     order: 'desc',
   });
-  return (
+
+  const isLoading = isLoadingBestDeals || isLoadingTopRated || isLoadingMostReviewed;
+
+  return isLoading ? (
+    <Loader />
+  ) : (
     <>
-      <section className="w-full">
-        <h2 className="text-2xl font-semibold tracking-tight">Best deals</h2>
-        <List
-          items={bestDealsData?.products}
-          className="flex gap-4 overflow-x-auto py-4"
-          renderItem={(product) => <FeaturedProductCard product={product} />}
-        />
-      </section>
-      <section className="w-full">
-        <h2 className="text-2xl font-semibold tracking-tight">Top rated</h2>
-        <List
-          items={topRatedData?.products}
-          className="flex gap-4 overflow-x-auto py-4"
-          renderItem={(product) => <FeaturedProductCard product={product} />}
-        />
-      </section>
-      <section className="w-full">
-        <h2 className="text-2xl font-semibold tracking-tight">Most reviewed</h2>
-        <List
-          items={mostReviewedData?.products}
-          className="flex gap-4 overflow-x-auto py-4"
-          renderItem={(product) => <FeaturedProductCard product={product} />}
-        />
-      </section>
+      <FeaturedProductsList
+        title="Best deals"
+        products={bestDealsData?.products}
+        isError={isBestDealsError}
+      />
+      <FeaturedProductsList
+        title="Top rated"
+        products={topRatedData?.products}
+        isError={isTopRatedError}
+      />
+      <FeaturedProductsList
+        title="Most reviewed"
+        products={mostReviewedData?.products}
+        isError={isMostReviewedError}
+      />
     </>
   );
 }
