@@ -4,6 +4,15 @@ import { BrowserRouter } from 'react-router-dom';
 import { ErrorPage } from '../ErrorPage';
 
 describe('ErrorPage', () => {
+  it('should render error image', () => {
+    renderWithProviders(
+      <BrowserRouter>
+        <ErrorPage />
+      </BrowserRouter>
+    );
+    expect(screen.getByRole('img', { name: /error/i })).toBeInTheDocument();
+  });
+
   it('should render correct heading', () => {
     renderWithProviders(
       <BrowserRouter>
