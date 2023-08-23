@@ -33,7 +33,7 @@ it('should render not found page if invalid path', () => {
     initialEntries: ['/bad-route'],
   });
   renderWithProviders(<RouterProvider router={router} />);
-  expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('404');
+  expect(screen.getByRole('img', { name: /page not found/i })).toBeInTheDocument();
 });
 
 it("should render log in page if path is '/login'", () => {
