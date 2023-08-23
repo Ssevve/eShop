@@ -1,6 +1,6 @@
-import { SortOption } from "@/types";
+import { SortOption } from "@/features/filters";
 
-export const sortOptionsMock: SortOption[] = [
+export const productsSortOptionsMock: SortOption[] = [
   {
     id: 1,
     label: 'Test option 1',

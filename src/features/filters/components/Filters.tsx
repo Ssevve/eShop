@@ -1,41 +1,6 @@
-import { SortOption } from '@/types';
+import { Select } from '@/components/Select';
 import { useSearchParams } from 'react-router-dom';
-import { SortSelect } from './SortSelect';
-
-const sortOptions: SortOption[] = [
-  {
-    id: 1,
-    label: 'Name (A-Z)',
-    value: {
-      sort: 'name',
-      order: 'asc',
-    },
-  },
-  {
-    id: 2,
-    label: 'Name (Z-A)',
-    value: {
-      sort: 'name',
-      order: 'desc',
-    },
-  },
-  {
-    id: 3,
-    label: 'Price asc.',
-    value: {
-      sort: 'discountPrice',
-      order: 'asc',
-    },
-  },
-  {
-    id: 4,
-    label: 'Price desc.',
-    value: {
-      sort: 'discountPrice',
-      order: 'desc',
-    },
-  },
-];
+import { SortOption, productsSortOptions } from '../lib/productsSortOptions';
 
 export function Filters() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -47,7 +12,7 @@ export function Filters() {
     setSearchParams(searchParams);
   };
 
-  const initialSortOption = sortOptions.find(
+  const initialSortOption = productsSortOptions.find(
     (option) =>
       option.value.sort === searchParams.get('sort') &&
       option.value.order === searchParams.get('order')
@@ -55,9 +20,9 @@ export function Filters() {
 
   return (
     <>
-      <SortSelect
+      <Select
         initialValue={initialSortOption}
-        options={sortOptions}
+        options={productsSortOptions}
         label="Sort by"
         onChange={handleSortChange}
       />
