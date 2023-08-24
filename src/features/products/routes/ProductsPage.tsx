@@ -24,14 +24,16 @@ export function ProductsPage() {
   const isFetchingData = isFetchingProducts || isUninitializedCart || isLoadingCart;
 
   return (
-    <section className="mx-auto flex h-full w-full flex-col gap-8 py-8">
+    <section className="mx-auto flex w-full grow flex-col gap-8 py-8">
       {isErrorProducts ? (
         <ErrorPage />
       ) : (
         <>
           <Filters />
           {isFetchingData ? (
-            <Loader />
+            <div className="flex grow flex-col justify-center">
+              <Loader />
+            </div>
           ) : (
             <PaginatedProducts
               currentPage={page}

@@ -27,7 +27,9 @@ export function SingleProductPage() {
   const isLoading = isLoadingProduct || isLoadingReviews || isLoadingCart || isUninitializedCart;
 
   return isLoading ? (
-    <Loader />
+    <div className="flex grow flex-col justify-center">
+      <Loader />
+    </div>
   ) : (
     <section className="mx-auto flex w-full max-w-4xl grow flex-col justify-center gap-12 py-4">
       {product ? (

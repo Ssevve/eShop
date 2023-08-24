@@ -48,7 +48,7 @@ export function CartPage() {
               Clear cart
             </LoaderButton>
           </header>
-          <div className="mt-4">
+          <div className="py-12">
             {isLoadingCart ? (
               <Loader />
             ) : (
@@ -68,7 +68,7 @@ export function CartPage() {
                 )}
                 className="divide-y"
                 emptyItemsMessage="Your cart is empty!"
-                emptyItemsMessageClass="w-full py-12 text-center text-5xl font-bold text-gray-200 md:text-6xl"
+                emptyItemsMessageClass="w-full text-center text-5xl font-bold text-gray-200 md:text-6xl"
               />
             )}
           </div>
