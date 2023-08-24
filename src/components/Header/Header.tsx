@@ -3,14 +3,14 @@ import { Backdrop } from '@/components/common/Backdrop';
 import { Logo } from '@/components/common/Logo';
 import { logoutUser } from '@/features/auth';
 import { cartsApi } from '@/features/carts';
-import useBreakpointValue from '@/hooks/useBreakpointValue';
-import useWindowWidth from '@/hooks/useWindowWidth';
 import { useEffect, useState } from 'react';
 import { FiMenu, FiShoppingCart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { DesktopMenu } from './DesktopMenu';
 import { MobileMenu } from './MobileMenu';
 import { UserDropdown } from './UserDropdown';
+import useBreakpointValue from './hooks/useBreakpointValue';
+import useWindowWidth from './hooks/useWindowWidth';
 
 export function Header() {
   const dispatch = useAppDispatch();
@@ -44,7 +44,7 @@ export function Header() {
   return (
     <>
       {shouldShowMenu && <Backdrop />}
-      <header className="sticky top-0 z-10 flex w-full bg-white shadow lg:z-50">
+      <header className="sticky top-0 z-10 flex w-screen bg-white pr-6 shadow lg:z-50">
         <nav className="mx-auto flex h-16 w-full max-w-screen-2xl items-center justify-between gap-3 px-3">
           {isMobile && (
             <button
