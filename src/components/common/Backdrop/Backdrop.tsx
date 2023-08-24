@@ -1,8 +1,8 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { useLockedBody } from 'usehooks-ts';
+import useLockedBody from './useLockedBody';
 
 export function Backdrop() {
-  useLockedBody(true, 'root');
+  useLockedBody(true);
 
   return (
     <AnimatePresence>
