@@ -1,7 +1,8 @@
 import api from '@/app/api';
 import { Category } from '@/features/categories';
+import { Order, Sort } from '@/features/filters';
 import { Product } from '@/features/products';
-import { Order, Sort } from '@/types';
+
 
 interface GetProductsQueryParams {
   page: number;

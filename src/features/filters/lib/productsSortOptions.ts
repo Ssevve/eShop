@@ -1,8 +1,11 @@
 import { SelectOption } from "@/components/Select";
 
+export type Sort = string | null;
+export type Order =  string | null;
+
 interface SortValue {
-  sort: string | null;
-  order: string | null;
+  sort: Sort;
+  order: Order;
 }
 
 export type SortOption = SelectOption<SortValue>;
