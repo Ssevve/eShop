@@ -1,4 +1,4 @@
-# eShop Frontend - under development
+# eShop Frontend
 
 Frontend code for grocery e-commerce react project
 
